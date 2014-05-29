@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE Book SYSTEM "gapdoc.dtd"
+    [ <!ENTITY Congruence "<Package>Congruence</Package>">
+      <#Include Label="PKGVERSIONDATA">
+    ] >
+
+<Book Name="Congruence">
+
+  <TitlePage>
+    <Title>&Congruence;</Title>
+    <Subtitle>Searching through Permutation Groups</Subtitle>
+    <Version>Version &VERSION;</Version>
+
+    <Author>Chris Jefferson
+      <Email>caj21@st-andrews.ac.uk</Email>
+      <Homepage>http://caj.host.cs.st-andrews.ac.uk/</Homepage>
+      <Address>
+        Computer Science, University of St Andrews<Br/>
+        St Andrews, Scotland
+      </Address>
+    </Author>
+
+    <Author>Steve Linton
+      <Email>sl4@st-andrews.ac.uk</Email>
+      <Homepage>http://sal.host.cs.st-andrews.ac.uk</Homepage>
+      <Address>
+        Computer Science, University of St Andrews<Br/>
+        St Andrews, Scotland
+      </Address>
+    </Author>
+
+  <Date>&RELEASEDATE;</Date>
+
+    <Abstract>
+      <Index Key="Ferret package">Ferret package</Index>
+      The &GAP; package Ferret provides a variety of search methods over permutation groups, including (but not limited to) group intersection and finding the stabilizer, minimal image and canonical image of various objects in a group..
+    </Abstract>
+
+    <Copyright>
+      &copyright; 2013-&RELEASEYEAR; by Chris Jefferson and Steve Linton.<P/>
+
+      Ferret is free software; you can redistribute it and/or modify it
+      under the terms of the GNU General Public License as published by
+      the Free Software Foundation; either version 2 of the License, or
+      (at your option) any later version. For details, see the FSF's own site
+      <URL>http://www.gnu.org/licenses/gpl.html</URL>.<P/>
+
+      If you obtained Ferret, we would be grateful for a short notification
+      sent to one of the authors.<P/>
+
+      If you publish a result which was partially obtained with the usage of
+      Ferret, please cite it in the following form:<P/>
+
+      (Please ask for a reference!)
+    </Copyright>
+
+    <Acknowledgements>
+      Lots of people helped.
+    </Acknowledgements>
+
+  </TitlePage>
+
+  <TableOfContents/>
+
+  <Body>
+    Hello!
+    <Chapter Label="Search">
+      <Heading>Search</Heading>
+
+      This chapter is based entirely around of <C>Search</C> method, which provides a way of searching permutation groups, and finding the group (or coset, or single permutation) which occurs in the intersection of a series of groups. <C>Search</C> is a generic method which can be used to replace a number of GAP methods, including <C>Intersection</C>, <C>Stabilizer</C>, and a variety of other methods. See the Examples section at the end of this chapter. 
+      <Section Label="SearchMethods">
+	<Heading>Search Methods</Heading>
+	<#Include Label="ConStabilize">
+      </Section>
+
+      <Section Label="SearchExamples">
+	<Heading>Search Examples</Heading>
+
+	<Example>
+	  <![CDATA[
+gap> G := Group((1,2),(3,4),(1,3)(2,4));;
+gap> H := Group((1,2,3),(1,2));;
+gap> # Find the intersection of G and H
+gap> Solve([ConInGroup(G), ConInGroup(H)]);
+[ (), (1,2) ]
+gap> # Find the set stabilizer of [1,2] in G
+gap> Solve([ConInGroup(G), ConStabilize([1,2], OnSets)]);
+[ (), (1,2), (3,4) ]
+]]>
+	</Example>
+      </Section>
+
+    </Chapter>
+  </Body>
+
+ <Bibliography Databases="manual"/>
+
+  <TheIndex/>
+
+</Book>
+

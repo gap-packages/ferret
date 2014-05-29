@@ -1,0 +1,52 @@
+# sample makefile
+CC=cc
+GAPARCH=@GAPARCH@
+GAC=@GAPPATH@/bin/$(GAPARCH)/gac
+all: library simple_graph
+DEBUGFLAGS=@DEBUGFLAGS@
+
+ifdef TIMING
+timingflag = -DENABLE_TIMING
+else
+timingflag =
+endif
+
+ifdef CHECK
+checkflag = $(DEBUGFLAGS) -DDEBUG_LEVEL=$(CHECK)
+else
+checkflag =
+endif
+
+ifndef OPT
+OPT = -O3
+endif
+
+ifdef PRINT
+printflag = -DENABLE_PRINTING
+else
+printflag =
+endif
+
+MYCFLAGS=-Wall -Wextra -g -IYAPB++/source -std=gnu++0x
+
+BUILDSTUFF=-L "@CPPLIB@" -o bin/$(GAPARCH)/hellod.so -d src/hellod.cc src/cppmapper.cc
+
+library : # Let's always rebuild src/hellod.c src/cppmapper.cc
+	mkdir -p bin/$(GAPARCH)
+	$(GAC)  -p "$(MYCFLAGS) $(timingflag) $(checkflag) $(OPT) $(printflag)"  $(BUILDSTUFF)
+
+simple_graph : .FORCE
+	$(CXX) YAPB++/simple_graph/simple_graph.cc $(MYCFLAGS) $(timingflag) $(checkflag) $(OPT) $(printflag) -I YAPB++/source -o simple_graph
+
+clean:
+	rm -rf bin
+
+distclean: clean
+	rm -rf Makefile
+
+doc:
+	gap -A -q -T < makedocrel.g
+
+.PHONY: all default clean distclean doc
+
+.FORCE:

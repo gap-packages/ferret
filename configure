@@ -1,0 +1,71 @@
+#!/bin/sh
+# usage: configure gappath
+# this script creates a `Makefile' from `Makefile.in'
+if test -z $1; then
+  GAPPATH=$(cd ../..; pwd); echo "Using ../.. as default GAP path";
+else
+  GAPPATH=$1;
+fi
+
+if ! test -e $GAPPATH/sysinfo.gap; then
+  echo "Please give correct GAP path as argument (and make sure that GAP"
+  echo "is already properly installed)."
+  exit
+fi
+
+. $GAPPATH/sysinfo.gap
+
+echo "Architecture is $GAParch (from sysinfo.gap)"
+
+GAPARCH=$GAPPATH/bin/$GAParch
+
+. $GAPARCH/sysinfo.gap
+
+echo "C compiler is $c_compiler (from $GAParch/sysinfo.gap)"
+
+DEBUGFLAGS=
+
+# This debugging is broken on macs
+if [ $(uname -s) = Linux ]; then
+	DEBUGFLAGS=-D_GLIBCXX_DEBUG
+fi
+
+# Let's find a C++ standard library. In practice there are two.
+
+func_get_libname () {
+  for flag in -lstdc++ -llibc++; do
+    if echo "#include <vector>"\n"int main(void) { auto i = std::vector<int>(5); }" | $c_compiler $flag -std=gnu++0x -x c++  -c - -o /dev/null 1>/dev/null 2>/dev/null; then
+        CPPLIB="$flag"
+        return 0
+    fi
+  done
+  echo "Cannot find working C++ standard library (or a working C++11 compiler)".
+  exit 1
+}
+
+func_get_libname
+
+# See if valgrind exists
+
+VALGRIND="valgrind -q"
+$VALGRIND --help 1>/dev/null 2>/dev/null || VALGRIND=
+
+
+. $GAPPATH/sysinfo.gap
+sed -e "s|@GAPARCH@|$GAParch|g" \
+    -e "s|@DEBUGFLAGS@|$DEBUGFLAGS|g" \
+    -e "s|@VALGRIND@|$VALGRIND|g" \
+    -e "s|@GAPPATH@|$GAPPATH|g" \
+    -e "s|@CPPLIB@|$CPPLIB|g" \
+      Makefile.in > Makefile
+echo "Makefile successfully created."
+
+echo '#!/bin/bash' > ferret.vars
+echo GAPARCH=\"$GAParch\" >> ferret.vars
+echo CC=$c_compiler >> ferret.vars
+echo CXX=c++ >> ferret.vars
+echo VALGRIND=\"$VALGRIND\" >> ferret.vars
+echo DEBUGFLAGS=\"$DEBUGFLAGS\" >> ferret.vars
+echo GAPPATH=\"$GAPPATH\" >> ferret.vars
+echo GAPEXEC=\"$GAPPATH/bin/gap.sh -b\" >> ferret.vars
+echo CPPLIB=\"$CPPLIB\" >> ferret.vars
