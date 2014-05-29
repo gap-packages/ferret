@@ -18,7 +18,7 @@ struct Graph
 };
 
 
-Graph read_cnf_graph(FILE* f)
+Graph read_dimacs_graph(FILE* f)
 {
     Graph g;
     int num_edges, num_cells;
@@ -73,6 +73,6 @@ int main(int, char **argv)
     if(!fp)
     { perror("Failed to open file:"); }
 
-    SolveGraph(read_cnf_graph(fp));
+    SolveGraph(read_dimacs_graph(fp));
 	return 0;
 }
