@@ -2,7 +2,7 @@
 CC=cc
 GAPARCH=@GAPARCH@
 GAC=@GAPPATH@/bin/$(GAPARCH)/gac
-all: library simple_graph
+all: @BUILDLIST@
 DEBUGFLAGS=@DEBUGFLAGS@
 
 ifdef TIMING

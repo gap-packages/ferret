@@ -10,18 +10,23 @@ fi
 if ! test -e $GAPPATH/sysinfo.gap; then
   echo "Please give correct GAP path as argument (and make sure that GAP"
   echo "is already properly installed)."
-  exit
+  echo "Building without GAP support"
+  c_compiler=cc
+  buildlist="simple_graph"
+else
+    . $GAPPATH/sysinfo.gap
+
+    echo "Architecture is $GAParch (from sysinfo.gap)"
+
+    GAPARCH=$GAPPATH/bin/$GAParch
+
+    . $GAPARCH/sysinfo.gap
+
+    echo "C compiler is $c_compiler (from $GAParch/sysinfo.gap)"
+
+    buildlist="library simple_graph"
 fi
 
-. $GAPPATH/sysinfo.gap
-
-echo "Architecture is $GAParch (from sysinfo.gap)"
-
-GAPARCH=$GAPPATH/bin/$GAParch
-
-. $GAPARCH/sysinfo.gap
-
-echo "C compiler is $c_compiler (from $GAParch/sysinfo.gap)"
 
 DEBUGFLAGS=
 
@@ -51,8 +56,8 @@ VALGRIND="valgrind -q"
 $VALGRIND --help 1>/dev/null 2>/dev/null || VALGRIND=
 
 
-. $GAPPATH/sysinfo.gap
 sed -e "s|@GAPARCH@|$GAParch|g" \
+    -e "s|@BUILDLIST@|$buildlist|g" \
     -e "s|@DEBUGFLAGS@|$DEBUGFLAGS|g" \
     -e "s|@VALGRIND@|$VALGRIND|g" \
     -e "s|@GAPPATH@|$GAPPATH|g" \
