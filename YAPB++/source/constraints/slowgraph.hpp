@@ -45,6 +45,10 @@ private:
                 {
                     mset[*it] += quick_hash(quick_hash(i_cell));
                 }
+                else
+                {
+                    mset[*it] += quick_hash(i_cell);
+                }
             }
         }
         return filterPartitionStackByFunction(ps, ContainerToFunction(&mset));
