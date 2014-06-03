@@ -41,7 +41,7 @@ private:
             {
                 int it_cell = ps->cellOfVal(*it);
                 mset[i] += quick_hash(it_cell);
-                if(GraphDirected_yes)
+                if(directed == GraphDirected_yes)
                 {
                     mset[*it] += quick_hash(quick_hash(i_cell));
                 }
