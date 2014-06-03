@@ -9,7 +9,7 @@ int main(void)
     vec1<vec1<int> > s(6); // c++11 = {{},{2},{3},{},{},{}};
     s[2].push_back(2);
     s[3].push_back(3);
-    p.addConstraint(new SlowGraph(s, &p.p_stack));
+    p.addConstraint(new SlowGraph<GraphDirected_yes>(s, &p.p_stack));
     SolutionStore ss = doSearch(&p, SearchOptions());
 
     D_ASSERT(ss.sols().size() ==4*3*2*2);

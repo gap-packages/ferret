@@ -8,6 +8,10 @@
 #include "../partition_refinement.hpp"
 #include "library/hash.hpp"
 
+enum GraphDirected
+{ GraphDirected_no = 0, GraphDirected_yes = 1};
+
+template<GraphDirected directed = GraphDirected_yes>
 class SlowGraph : public AbstractConstraint
 {
     vec1<vec1<int> > points;
@@ -16,7 +20,7 @@ public:
     { return "SlowGraph"; }
 
 
-    SlowGraph(const vec1<vec1<int> >& _points, PartitionStack* ps)
+    SlowGraph<GraphDirected_yes>(const vec1<vec1<int> >& _points, PartitionStack* ps)
     : AbstractConstraint(ps), points(_points)
     {
         for(int i = 1; i <= points.size(); ++i)
@@ -37,7 +41,10 @@ private:
             {
                 int it_cell = ps->cellOfVal(*it);
                 mset[i] += quick_hash(it_cell);
-                mset[*it] += quick_hash(-i_cell);
+                if(GraphDirected_yes)
+                {
+                    mset[*it] += quick_hash(quick_hash(i_cell));
+                }
             }
         }
         return filterPartitionStackByFunction(ps, ContainerToFunction(&mset));

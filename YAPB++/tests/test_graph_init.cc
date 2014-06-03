@@ -12,7 +12,7 @@ int main(void)
         for(int j = 0; vals[i][j] != 0; ++j)
             s[i].push_back(vals[i][j]);
     }
-    p.addConstraint(new SlowGraph(s, &p.p_stack));
+    p.addConstraint(new SlowGraph<GraphDirected_yes>(s, &p.p_stack));
     p.p_stack.sanity_check();
     p.init();
     p.p_stack.sanity_check();

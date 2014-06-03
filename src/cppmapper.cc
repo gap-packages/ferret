@@ -45,7 +45,8 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
     }
     else if(strcmp(conname, "DirectedGraph") == 0)
     {
-        return new SlowGraph(GAP_get<vec1<vec1<int> > >(GAP_get_rec(con, RName_arg)), ps);
+        return new SlowGraph<GraphDirected_yes>(
+            GAP_get<vec1<vec1<int> > >(GAP_get_rec(con, RName_arg)), ps);
     }
     else if(strcmp(conname, "Generators_Inefficient") == 0)
     {

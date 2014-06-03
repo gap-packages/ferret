@@ -234,7 +234,7 @@ void SolveGraph(const Graph& g)
     for(const auto& part: g.parts)
         p.addConstraint(new SetStab(part, &p.p_stack));
 
-    p.addConstraint(new SlowGraph(g.edges, &p.p_stack));
+    p.addConstraint(new SlowGraph<GraphDirected_yes>(g.edges, &p.p_stack));
     SearchOptions so;
     so.only_find_generators = true;
     SolutionStore ss = doSearch(&p, so);
