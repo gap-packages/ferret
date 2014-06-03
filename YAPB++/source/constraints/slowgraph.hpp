@@ -24,26 +24,7 @@ public:
         D_ASSERT(points.size() <= ps->domainSize());
     }
 private:
-#if 0
-// This is for exact graph matching -- currently disabled
-    SplitState filterGraph()
-    {
-        vec1<std::multiset<int> > mset(ps->domainSize());
-        for(int i = 1; i <= points.size(); ++i)
-        {
-            int i_cell = ps->cellOfVal(i);
-            for(vec1<int>::const_iterator it = points[i].begin();
-                it != points[i].end();
-                ++it)
-            {
-                int it_cell = ps->cellOfVal(*it);
-                mset[i].insert(it_cell);
-                mset[*it].insert(-i_cell);
-            }
-        }
-        return filterPartitionStackByFunction(ps, ContainerToFunction(&mset));
-    }
-#endif
+
     SplitState filterGraph()
     {
         vec1<u_int64_t> mset(ps->domainSize(), 0);
@@ -72,7 +53,7 @@ public:
     virtual SplitState signal_changed(const vec1<int>& /*v*/)
     {
         debug_out(1, "slowGraph", "signal_changed");
-        return filterGraph(); 
+        return filterGraph();
     }
 
     virtual bool verifySolution(const Permutation& p)
