@@ -9,10 +9,9 @@ for i in "CHECK=1" ""; do
   echo make $i
   make $i > /dev/null
   cd tst
-  echo 'Test("testall.tst");' | ${GAPEXEC}  &
-  echo 'Test("testslow.tst");' | ${GAPEXEC}  &
-  echo 'Test("test_minimage.tst");' | ${GAPEXEC}
-  wait
+  for i in *.tst; do
+      echo 'echo '\''Test("'$i'");'\'' | '${GAPEXEC}
+  done | parallel -j4
   cd ..
 done
 

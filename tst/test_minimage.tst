@@ -17,10 +17,6 @@ gap> Read("test_functions.g");
 gap> CheckMinimalImageTransformations();
 gap> # CheckMinimalImagePartialPerm();
 gap> CheckMinimalImagePerm();
-gap> CheckMinimalImageSet();
-gap> CheckMinimalImageTuple();
-gap> CheckMinimalImageTupleTransformation();
-gap> CheckMinimalImageSetSet();
 gap> STOP_TEST( "test_minimage.tst", 10000 );
 ferret package: test_minimage.tst
 #############################################################################

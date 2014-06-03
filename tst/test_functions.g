@@ -345,7 +345,7 @@ CheckMinimalImageSetSet := function()
     CheckMinimalImageTest(Group(()), [[]], OnSetsSets, Minimum);
     CheckMinimalImageTest(Group((1,2,3)), [[]], OnSetsSets, Minimum);
     CheckMinimalImageTest(Group(()), [[1,2,3]], OnSetsSets, Minimum);
-    for i in [1..5000] do
+    for i in [1..500] do
         CheckMinimalImageTest(randomPrimitiveGroup(Random([2..8])), RandomSetSet(Random([1..10])), OnSetsSets, Minimum);
     od;
 end;;
