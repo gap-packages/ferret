@@ -26,7 +26,10 @@ struct Graph
                 edges[edges[i][j]].push_back(i);
             }
         }
+    }
 
+    void clean()
+    {
         for(int i = 1; i <= graph_size; ++i)
         {
             std::set<int> e(edges[i].begin(), edges[i].end());
@@ -226,7 +229,7 @@ Graph read_dimacs_graph(FILE* fp)
   return g;
 }
 
-
+template<GraphDirected directed>
 void SolveGraph(const Graph& g)
 {
     Problem p(g.graph_size);
@@ -234,7 +237,7 @@ void SolveGraph(const Graph& g)
     for(const auto& part: g.parts)
         p.addConstraint(new SetStab(part, &p.p_stack));
 
-    p.addConstraint(new SlowGraph<GraphDirected_yes>(g.edges, &p.p_stack));
+    p.addConstraint(new SlowGraph<directed>(g.edges, &p.p_stack));
     SearchOptions so;
     so.only_find_generators = true;
     SolutionStore ss = doSearch(&p, so);
@@ -282,16 +285,22 @@ int main(int argc, char **argv)
     }
 
 
-    if(!directed)
-        g.make_symmetric();
+    //if(!directed)
+    //    g.make_symmetric();
 
-    SolveGraph(g);
+    g.clean();
+
+    if(directed)
+        SolveGraph<GraphDirected_yes>(g);
+    else
+        SolveGraph<GraphDirected_no>(g);
+
 
     if(stats) {
         std::cerr << "Nodes: " << Stats::container().node_count
                   << " Bad leaves: " << Stats::container().bad_leaves
                   << " Bad internal: "
-                    << Stats::container(). bad_internal_nodes;
+                    << Stats::container(). bad_internal_nodes << "\n";
         for(auto p : Stats::container().getConstraintCalls())
         {
             std::cerr << p.first << ": " << p.second << "\n";
