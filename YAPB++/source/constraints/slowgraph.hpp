@@ -52,6 +52,7 @@ public:
 
     virtual SplitState signal_changed(const vec1<int>& /*v*/)
     {
+        Stats::ConstraintInvoke(Stats::CON_SlowGraph);
         debug_out(1, "slowGraph", "signal_changed");
         return filterGraph();
     }

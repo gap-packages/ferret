@@ -251,6 +251,7 @@ int main(int argc, char **argv)
 {
     char* filename = 0;
     bool directed = false;
+    bool stats = false;
 
     // formats: 1 - DIMACS, 2 - saucy
     int format = 1;
@@ -258,6 +259,8 @@ int main(int argc, char **argv)
     {
         if(argv[i] == std::string("--directed"))
             directed = true;
+        else if(argv[i] == std::string("--stats"))
+            stats = true;
         else if(argv[i] == std::string("--saucy"))
             format = 2;
         else
@@ -283,5 +286,16 @@ int main(int argc, char **argv)
         g.make_symmetric();
 
     SolveGraph(g);
+
+    if(stats) {
+        std::cerr << "Nodes: " << Stats::container().node_count
+                  << " Bad leaves: " << Stats::container().bad_leaves
+                  << " Bad internal: "
+                    << Stats::container(). bad_internal_nodes;
+        for(auto p : Stats::container().getConstraintCalls())
+        {
+            std::cerr << p.first << ": " << p.second << "\n";
+        }
+    }
     return 0;
 }

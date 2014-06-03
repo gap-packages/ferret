@@ -13,10 +13,10 @@ public:
 
     virtual std::string name() const
     { return "ListStab"; }
-    
+
     ListStab(const vec1<int>& _points, PartitionStack* ps)
     : AbstractConstraint(ps), points(_points), inv_points(ps->domainSize(), 0)
-    { 
+    {
         for(int i = 1; i <= points.size(); ++i)
             inv_points[points[i]] = i;
     }

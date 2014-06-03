@@ -23,7 +23,7 @@ public:
     template<typename Container>
     SetSetStab(const Container& _points, PartitionStack* ps)
     : AbstractConstraint(ps), point_map(ps->domainSize(), 0)
-    { 
+    {
         typedef typename Container::const_iterator in_con;
         for(in_con it = _points.begin(); it != _points.end(); ++it)
         {
@@ -44,23 +44,24 @@ public:
         }
     }
 
-    
+
 public:
 
 
     virtual SplitState signal_changed(const vec1<int>& /*v*/)
     {
+        Stats::ConstraintInvoke(Stats::CON_SetSetStab);
         debug_out(1, "slowGraph", "signal_changed");
-        return filterPartitionStackByUnorderedFunction(ps, ContainerToFunction(&point_map)); 
+        return filterPartitionStackByUnorderedFunction(ps, ContainerToFunction(&point_map));
     }
 
     virtual bool verifySolution(const Permutation& p)
     {
-        // We could make this method much faster, but hopefully it gets called so 
+        // We could make this method much faster, but hopefully it gets called so
         // infrequently it doesn't matter.
 
         vec1<std::set<int> > mapped_points;
-        
+
         typedef std::set<int>::iterator it_type;
         for(int i = 1; i <= points.size(); ++i)
         {

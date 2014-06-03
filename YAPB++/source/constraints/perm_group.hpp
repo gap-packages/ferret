@@ -56,6 +56,7 @@ public:
 
     virtual SplitState signal_fix_buildingRBase(int /*i*/)
     {
+        Stats::ConstraintInvoke(Stats::CON_PermGroup);
         vec1<int> fixed_values;
         const vec1<int>& fixed = ps->fixed_cells();
         for(int i = 1; i <= fixed.size(); ++i)
@@ -68,6 +69,8 @@ public:
 
     virtual SplitState signal_fix(int /*i*/)
     {
+        Stats::ConstraintInvoke(Stats::CON_PermGroup);
+
         const vec1<int>& new_fix_cells = ps->fixed_cells();
 
         vec1<int> old_fixed_values;
@@ -87,7 +90,7 @@ public:
             debug_out(1, "PermGroup", "mapping failed");
             return SplitState(false);
         }
-        vec1<int> perm = GAP_get<vec1<int> >(obj_perm); 
+        vec1<int> perm = GAP_get<vec1<int> >(obj_perm);
         debug_out(0, "PermGroup", "mapping is: " << perm);
         vec1<int> permuted_part(part.size(), 0);
         for(int i = 1; i <= part.size(); ++i)
@@ -98,7 +101,7 @@ public:
                 permuted_part[i] = part[i];
         }
         debug_out(0, "PermGroup", "Permuted partition" << permuted_part);
-        return filterPartitionStackByFunction(ps, ContainerToFunction(&permuted_part)); 
+        return filterPartitionStackByFunction(ps, ContainerToFunction(&permuted_part));
     }
 
     virtual bool verifySolution(const Permutation& p)

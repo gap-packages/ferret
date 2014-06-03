@@ -30,20 +30,49 @@ struct Sort
     }
 };
 
+enum ConstraintType {
+    CON_ListStab,
+    CON_OverlappingSetSetStab,
+    CON_PermGroup,
+    CON_SetSetStab,
+    CON_SlowGraph,
+    CON_StabChain_PermGroup,
+    CON_END
+};
+
 struct Container
 {
     std::map<Sort, int> sortStats;
-
     int node_count;
     int bad_leaves;
     int bad_internal_nodes;
+
+    std::vector<int> constraint_invokes;
 
     vec1<std::pair<int, int> > rBase;
 
     vec1<int> fixed_points;
 
-    Container() : node_count(0), bad_leaves(0), bad_internal_nodes(0)
+    Container() : node_count(0), bad_leaves(0), bad_internal_nodes(0),
+                  constraint_invokes(CON_END, 0)
     { }
+
+    std::map<std::string, int> getConstraintCalls() const
+    {
+        std::vector<std::string> names = {
+            "ListStab", "OverlappingSetSetStab", "PermGroup",
+            "SetSetStab", "SlowGraph", "StabChain_PermGroup"};
+
+        std::map<std::string, int> ret;
+        for(int i = 0; i < CON_END; ++i)
+        {
+            ret[names[i]] = constraint_invokes[i];
+        }
+        return ret;
+    }
+
+    void addConstraintCall(ConstraintType t)
+    { constraint_invokes[t]++; }
 
     void addSortStat(Sort ss)
     { sortStats[ss]++; }
@@ -68,9 +97,14 @@ void reset()
     container() = Container();
 }
 
+inline
+void ConstraintInvoke(Stats::ConstraintType t)
+{ Stats::container().addConstraintCall(t); }
+
 }
 
 //#define STATS
+
 
 #ifdef STATS
 #define RECORD_STATS(x) Stats::container().x
