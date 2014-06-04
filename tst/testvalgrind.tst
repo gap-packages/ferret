@@ -14,7 +14,7 @@
 ##
 ##  The argument of STOP_TEST may be an arbitrary identifier string.
 ##
-gap> START_TEST("ferret package: testall.tst");
+gap> START_TEST("ferret package: testvalgrind.tst");
 
 # Note that you may use comments in the test file
 # and also separate parts of the test by empty lines
@@ -55,8 +55,8 @@ gap> CheckSetStab(makeRowColumnSymmetry(3,4), [1,2]);
 true
 gap> CheckRandomPrimitives();
 true
-gap> STOP_TEST( "testall.tst", 10000 );
-ferret package: testall.tst
+gap> STOP_TEST( "testvalgrind.tst", 10000 );
+ferret package: testvalgrind.tst
 #############################################################################
 ##
 #E

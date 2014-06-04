@@ -1,6 +1,10 @@
 LoadPackage("ferret", false);
 LoadPackage("atlas", false);
 
+if not(IsBound(FERRET_TEST_COUNT)) then
+    FERRET_TEST_COUNT := 50;
+fi;
+
 compare_full_groups := function(g, perms)
     if(Size(perms) <> Size(Group(perms))) then
         Print("Size(p) = ", Size(perms), ", Size(Group(p)) = ", Size(Group(perms)),"\n");
@@ -273,7 +277,7 @@ CheckMinimalImageTransformations := function()
     CheckMinimalImageTest(Group(()), Transformation([]), OnPoints, Minimum);
     CheckMinimalImageTest(Group((1,2,3)), Transformation([]), OnPoints, Minimum);
     CheckMinimalImageTest(Group(()), Transformation([1],[6]), OnPoints, Minimum);
-    for i in [1..1000] do
+    for i in [1..FERRET_TEST_COUNT] do
         CheckMinimalImageTest(randomPrimitiveGroup(Random([2..8])), cajRandomTransformation(Random([1..10])), OnPoints, Minimum);
     od;
 end;;
@@ -297,7 +301,7 @@ CheckMinimalImagePartialPerm := function()
     CheckMinimalImageTest(Group(()), PartialPerm([]), OnPoints, minListPP);
     CheckMinimalImageTest(Group((1,2,3)), PartialPerm([]), OnPoints, minListPP);
     CheckMinimalImageTest(Group(()), PartialPerm([1],[6]), OnPoints, minListPP);
-    for i in [1..1000] do
+    for i in [1..FERRET_TEST_COUNT] do
         CheckMinimalImageTest(randomPrimitiveGroup(Random([2..8])), RandomPartialPerm(Random([1..10])), OnPoints, minListPP);
     od;
 end;;
@@ -307,7 +311,7 @@ CheckMinimalImagePerm := function()
     CheckMinimalImageTest(Group(()), PermList([]), OnPoints, Minimum);
     CheckMinimalImageTest(Group((1,2,3)), PermList([]), OnPoints, Minimum);
     CheckMinimalImageTest(Group(()), PermList([3,2,1]), OnPoints, Minimum);
-    for i in [1..1000] do
+    for i in [1..FERRET_TEST_COUNT] do
         CheckMinimalImageTest(randomPrimitiveGroup(Random([2..8])), Random(SymmetricGroup(Random([1..10]))), OnPoints, Minimum);
     od;
 end;;
@@ -318,7 +322,7 @@ CheckMinimalImageSet := function()
     CheckMinimalImageTest(Group(()), [], OnSets, Minimum);
     CheckMinimalImageTest(Group((1,2,3)), [], OnSets, Minimum);
     CheckMinimalImageTest(Group(()), [1,2,3], OnSets, Minimum);
-    for i in [1..5000] do
+    for i in [1..FERRET_TEST_COUNT] do
         CheckMinimalImageTest(randomPrimitiveGroup(Random([2..8])), RandomSet(Random([1..10])), OnSets, Minimum);
     od;
 end;;
@@ -328,14 +332,14 @@ CheckMinimalImageTuple := function()
     CheckMinimalImageTest(Group(()), [], OnTuples, Minimum);
     CheckMinimalImageTest(Group((1,2,3)), [], OnTuples, Minimum);
     CheckMinimalImageTest(Group(()), [1,2,3], OnTuples, Minimum);
-    for i in [1..5000] do
+    for i in [1..FERRET_TEST_COUNT] do
         CheckMinimalImageTest(randomPrimitiveGroup(Random([2..8])), Shuffle(RandomSet(Random([1..10]))), OnTuples, Minimum);
     od;
 end;;
 
 CheckMinimalImageTupleTransformation := function()
     local i;
-    for i in [1..5000] do
+    for i in [1..FERRET_TEST_COUNT] do
         CheckMinimalImageTest(randomPrimitiveGroup(Random([2..8])), List([1..Random([1..5])], x -> cajRandomTransformation(Random([1..10]))), OnTuples, Minimum);
     od;
 end;;
@@ -345,7 +349,7 @@ CheckMinimalImageSetSet := function()
     CheckMinimalImageTest(Group(()), [[]], OnSetsSets, Minimum);
     CheckMinimalImageTest(Group((1,2,3)), [[]], OnSetsSets, Minimum);
     CheckMinimalImageTest(Group(()), [[1,2,3]], OnSetsSets, Minimum);
-    for i in [1..500] do
+    for i in [1..FERRET_TEST_COUNT] do
         CheckMinimalImageTest(randomPrimitiveGroup(Random([2..8])), RandomSetSet(Random([1..10])), OnSetsSets, Minimum);
     od;
 end;;
