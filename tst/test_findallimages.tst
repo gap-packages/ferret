@@ -4,9 +4,9 @@
 ##
 ##
 gap> START_TEST("ferret package: test_findallimages.tst");
-
-gap> LoadPackage("ferret",false); LoadPackage("semigroups", false);
+gap> LoadPackage("ferret",false);
 true
+gap> LoadPackage("semigroups", false);
 true
 gap> t3 := ReadGenerators("trans-3");;
 gap> t4 := ReadGenerators("trans-4");;
