@@ -36,7 +36,7 @@ library : # Let's always rebuild src/hellod.c src/cppmapper.cc
 	$(GAC)  -p "$(MYCFLAGS) $(timingflag) $(checkflag) $(OPT) $(printflag)"  $(BUILDSTUFF)
 
 simple_graph : .FORCE
-	$(CXX) YAPB++/simple_graph/simple_graph.cc $(MYCFLAGS) $(timingflag) $(checkflag) $(OPT) $(printflag) -I YAPB++/source -o simple_graph
+	$(CXX) YAPB++/simple_graph/simple_graph.cc YAPB++/simple_graph/simple_parser.cc $(MYCFLAGS) $(timingflag) $(checkflag) $(OPT) $(printflag) -I YAPB++/source -o simple_graph
 
 clean:
 	rm -rf bin
