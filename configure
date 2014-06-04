@@ -12,7 +12,7 @@ if ! test -e $GAPPATH/sysinfo.gap; then
   echo "is already properly installed)."
   echo "Building without GAP support"
   c_compiler=cc
-  buildlist="simple_graph"
+  buildlist="simple_graph symmetry_detect"
 else
     . $GAPPATH/sysinfo.gap
 
@@ -24,7 +24,7 @@ else
 
     echo "C compiler is $c_compiler (from $GAParch/sysinfo.gap)"
 
-    buildlist="library simple_graph"
+    buildlist="library simple_graph symmetry_detect"
 fi
 
 

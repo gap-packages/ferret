@@ -1,195 +1,233 @@
 #include "simple_graph.h"
-#include <stdio.h>
-
+#include "gason/gason.h"
+#include<fstream>
+#include<iostream>
+#include <string>
+#include<sstream>
 #include <map>
-#include <set>
+#include <vector>
+#include<set>
+using namespace std;
+//constants
+const string JSON_VARIABLES_TAG = "nodes_to_swap";;
+const string JSON_SYMMETRIC_TAG = "symmetricChildren";
+const string primePrefix = "%";
+const string varPrefix = "#";
 
-Graph read_saucy_graph(FILE* f)
-{
-    int num_edges, num_cells, num_verts;
-    fscanf(f, "%d %d %d", &num_verts, &num_edges, &num_cells);
-    Graph g(num_verts);
-    int prev_cell_start = 0;
-    for(int i = 0; i < num_cells - 1; ++i)
-    {
-        std::set<int> cell;
-        int cell_start;
-        fscanf(f, "%d", &cell_start);
-        for(int pos = prev_cell_start; pos < cell_start; ++pos)
-            cell.insert(pos+1);
-        g.parts.push_back(cell);
-        prev_cell_start = cell_start;
-    }
 
-    for(int i = 0; i < num_edges; ++i)
-    {
-        int x,y;
-        fscanf(f, "%d %d", &x, &y);
-        g.edges[x+1].push_back(y+1);
-        //g.edges[y+1].push_back(x+1);
-    }
+map<string, set<int>>  vars; //mapping from variables to the nodes containing that variable
 
-    return g;
+map<string, set<int>> colours; //mapping from colour name to set of nodes of that colour
+
+
+
+
+
+//function that returns passed in string with added prefix
+string escapeVar(string s) {
+	return varPrefix + s;
+} 
+
+//adds a prefix to distinguish this as prime variable
+string makePrimeVar(string s) {
+	return primePrefix + s;
 }
 
-Graph read_dimacs_graph(FILE* fp)
-{
-    FILE* errstr = 0;
+
+//function that converts a primitive json value to a string representation 
+	string jsonPrimitiveToString(JsonValue& o) {
+switch (o.getTag()) {
+	case JSON_TAG_STRING:
+	return o.toString();
+		case JSON_TAG_NUMBER:
+		return to_string(o.toNumber());
+				case JSON_TAG_BOOL:
+				return (o.toBool())? "true" : "false";
+				default:
+return "not primitive";				
+}
+	}
 
 
-  std::map<int, std::set<int> > colours;
-
-  unsigned int nof_vertices;
-  unsigned int nof_edges;
-  unsigned int line_num = 1;
-
-  const bool verbose = false;
-  FILE* const verbstr = stdout;
-
-  /* Read comments and the problem definition line */
-  while(1)
-    {
-      int c = getc(fp);
-      if(c == 'c')
-        {
-          /* A comment, ignore the rest of the line */
-          while((c = getc(fp)) != '\n')
-            {
-              if(c == EOF) {
-                if(errstr)
-                  fprintf(errstr, "error in line %u: not in DIMACS format\n",
-                          line_num);
-                        abort();
-              }
-            }
-          line_num++;
-          continue;
-        }
-      if(c == 'p')
-        {
-          /* The problem definition line */
-          if(fscanf(fp, " edge %u %u\n", &nof_vertices, &nof_edges) != 2)
-            {
-              if(errstr)
-                fprintf(errstr, "error in line %u: not in DIMACS format\n",
-                        line_num);
-                      abort();
-            }
-          line_num++;
-          break;
-        }
-      if(errstr)
-        fprintf(errstr, "error in line %u: not in DIMACS format\n", line_num);
-              abort();
-    }
-
-  if(nof_vertices <= 0)
-    {
-      if(errstr)
-        fprintf(errstr, "error: no vertices\n");
-              abort();
-    }
-  if(verbose)
-    {
-      fprintf(verbstr, "Instance has %d vertices and %d edges\n",
-              nof_vertices, nof_edges);
-      fflush(verbstr);
-    }
-
-    Graph g(nof_vertices);
 
 
-  //
-  // Read vertex colors
-  //
-  if(verbose)
-    {
-      fprintf(verbstr, "Reading vertex colors...\n");
-      fflush(verbstr);
-    }
-  while(1)
-    {
-      int c = getc(fp);
-      if(c != 'n')
-        {
-          ungetc(c, fp);
-          break;
-        }
-      ungetc(c, fp);
-      unsigned int vertex;
-      unsigned int color;
-      if(fscanf(fp, "n %u %u\n", &vertex, &color) != 2)
-        {
-          if(errstr)
-            fprintf(errstr, "error in line %u: not in DIMACS format\n",
-                    line_num);
-                  abort();
-        }
-      if(!((vertex >= 1) && (vertex <= nof_vertices)))
-        {
-          if(errstr)
-            fprintf(errstr,
-                    "error in line %u: vertex %u not in range [1,...%u]\n",
-                    line_num, vertex, nof_vertices);
-                  abort();
-        }
-      line_num++;
-      colours[color].insert(vertex);
-    }
-  if(verbose)
-    {
-      fprintf(verbstr, "Done\n");
-      fflush(verbstr);
-    }
-
-  //
-  // Read edges
-  //
-  if(verbose)
-    {
-      fprintf(verbstr, "Reading edges...\n");
-      fflush(verbstr);
-    }
-  for(unsigned i = 0; i < nof_edges; i++)
-    {
-      unsigned int from, to;
-      if(fscanf(fp, "e %u %u\n", &from, &to) != 2)
-        {
-          if(errstr)
-            fprintf(errstr, "error in line %u: not in DIMACS format\n",
-                    line_num);
-                  abort();
-        }
-      if(not((1 <= from) and (from <= nof_vertices)))
-        {
-          if(errstr)
-            fprintf(errstr,
-                    "error in line %u: vertex %u not in range [1,...%u]\n",
-                    line_num, from, nof_vertices);
-                  abort();
-        }
-      if(not((1 <= to) and (to <= nof_vertices)))
-        {
-          if(errstr)
-            fprintf(errstr,
-                    "error in line %u: vertex %u not in range [1,...%u]\n",
-                    line_num, to, nof_vertices);
-                  abort();
-        }
-      line_num++;
-      g.edges[from].push_back(to);
-    }
-  if(verbose)
-    {
-      fprintf(verbstr, "Done\n");
-      fflush(verbstr);
-    }
 
 
-    for(auto c : colours)
-    {
-        g.parts.push_back(c.second);
-    }
+//function to parse json array into variables map (at this time values of map left empty - only keys are set)
+map<string, set<int>> parseVariableList(JsonValue& o) {
+	map<string, set<int>> vars;
+	if (!o.toNode())  //empty array 
+		return vars;
+	
+	//otherwise add all array contents to set
+	for (auto i: o) {
+		string value = escapeVar(jsonPrimitiveToString(i->value));  //convert to string and add prefix 
+		
+		vars[value];//adds key to map with empty value
+	}
+	return vars;
+	}
 
-  return g;
+
+	//looks through a json object for the symmetric boolean flag returning its value (true or false)
+	//returns false if flag not present 
+	bool hasSymmetricFlag(JsonValue& o) {
+		for (auto i: o) {
+			if (i->key == JSON_SYMMETRIC_TAG) //checks for symmetric flag 
+				return i->value.toBool();
+		}
+		return false;
+	}
+
+	/*creates a new node, addes the edge between it and the specified parent and stores the mapping from the node value (colour) to its position (vector index) in the graph.
+	any nodes to be added that ar not part of the provided json should call this function with an extra bool set to true to make sure that it is not escaped. */
+	int addNode(vec1<vec1<int>>& graph, int parentNode, string value, bool escapeValue = true) {
+		if (escapeValue)  {
+			value = escapeVar(value);
+		}
+		//make new node
+		graph.push_back(vec1<int>());
+		int newNode = graph.size();
+
+		//make connection
+		graph[parentNode].push_back(newNode);
+		
+		//save colour mapping
+		if (vars.count(value)) { //this is a variable
+			//all variables must be same colour so use name of first variable in var set 
+			
+			string tempColourName = vars.begin()->first;
+			colours[tempColourName].insert(newNode);
+			//also save mapping to indevidual variable 
+			vars[value].insert(newNode);
+			
+		} else { //is not variable so just save mapping 
+		colours[value].insert(newNode);
+	}
+		return newNode;
+	}
+
+void jsonToGraph(JsonValue& o, vec1<vec1<int>>& graph, int currentNode, bool symmetryAllowed = false) {
+switch (o.getTag()) {
+	case JSON_TAG_OBJECT: 
+	//identify whether contained json arrays are symmetric children
+	symmetryAllowed = hasSymmetricFlag(o);
+	for (auto i: o) {
+		if (i->key != JSON_SYMMETRIC_TAG && i->key != JSON_VARIABLES_TAG) {
+		int newNode = addNode(graph, currentNode, i->key);
+		jsonToGraph(i->value, graph, newNode, symmetryAllowed);
+	}
+	}
+	break;
+
+	
+	case JSON_TAG_ARRAY: {
+	int index = 0;
+	for (auto i: o) {
+			if (!symmetryAllowed) {				//connect children via asymmetric nodes  to prevent symmetry in graph
+				
+				string middleNodeName = "child" + to_string(index++);
+						
+						//create middle node then connect original child to graph via middle node
+				int middleNode = addNode(graph, currentNode, middleNodeName , false);
+				jsonToGraph(i->value, graph, middleNode);
+			} else { //symmetry allowed so just connect node to graph
+				jsonToGraph(i->value, graph, currentNode);
+			}
+	}
+	break;
+}
+	default: 
+	 addNode(graph, currentNode, jsonPrimitiveToString(o));
+	break;
+}
+}
+
+
+void addPrimeVariables(vec1<vec1<int>>& graph, map<string,  set<int>>& vars) {
+				string tempColourName = makePrimeVar(vars.begin()->first);
+	for (pair<string, set<int>> var: vars) {
+		graph.push_back(vec1<int>());
+		int newNode = graph.size();
+		for (int nodeValue: var.second) {
+			graph[nodeValue].push_back(newNode);
+ //add a prefix to the variable to distinguish as prime variable 
+			colours[tempColourName].insert(newNode);
+		}
+	}
+}
+//reads in the specified file adding in a \0 character at the end
+//returned buffer must be deleted when no longer used
+	char*  readFile(string fileName) {
+		ifstream file(fileName);
+		file.seekg(0, ios::end);
+		int fileLength = file.tellg();
+		file.seekg(0, ios::beg);
+		char* buffer = new char[fileLength + 1];
+		file.read(buffer, fileLength);
+		buffer[fileLength] = '\0';
+		file.close();
+		return buffer;
+	}
+		
+	
+	
+	
+	JsonValue parseToJson(char* buffer) {
+		char *endptr;
+		JsonValue value;
+		JsonAllocator allocator;
+		JsonParseStatus status = jsonParse(buffer, &endptr, &value, allocator);
+		if (status != JSON_PARSE_OK) {
+			cerr <<  "error at " << endptr;
+			exit(EXIT_FAILURE);
+		} else
+			return value;
+		return value;
+	}
+	
+
+	
+void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
+	//get variable list
+	for (auto i: o) {
+		if (i->key == JSON_VARIABLES_TAG) {
+			vars = parseVariableList(i->value);
+			break;
+		}
+	}
+	
+	jsonToGraph(o, graph, 1, false);
+	addPrimeVariables(graph, vars);
+}	
+	
+	int main(int argc, char** argv) {
+		if (argc < 2) {
+			cout <<  "usage: " << argv[0] << " filePath\n";
+			exit(EXIT_FAILURE);
+		}
+//readfile, parse to json and convert to graph		
+		char* buffer = readFile(argv[1]);
+		JsonValue o = parseToJson(buffer);
+		vec1<vec1<int>> edges;
+		jsonToGraph(o, edges);
+		
+//build graph object for symmetry detection 
+		Graph graph(edges.size());
+		graph.edges = edges;
+		
+		//load colour groups
+		for (pair<string, set<int>> colour: colours) {
+			graph.parts.push_back(colour.second);
+		}
+		
+		vec1<Permutation> solutions = SolveGraph(graph);
+
+	    std::cout << "[";
+	    for(auto const& sol : solutions)
+	    {
+	            std::cout << sol.cycle() << ",\n";
+	    }
+	    std::cout << "()]\n";
+		
 }

@@ -2,7 +2,7 @@
 #define SIMPLE_GRAPH_FDS
 
 #include "library/vec1.hpp"
-
+#include "library/perm.hpp"
 #include <set>
 #include <vector>
 #include <stdio.h>
@@ -39,5 +39,5 @@ struct Graph
 
 Graph read_saucy_graph(FILE* f);
 Graph read_dimacs_graph(FILE* fp);
-
+vec1<Permutation> SolveGraph(const Graph&);
 #endif

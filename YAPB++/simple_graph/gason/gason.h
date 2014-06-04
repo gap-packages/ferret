@@ -120,7 +120,7 @@ public:
 	void deallocate();
 };
 
-JsonParseStatus gason_jsonParse(char *str, char **endptr, JsonValue *value, JsonAllocator &allocator);
+JsonParseStatus jsonParse(char *str, char **endptr, JsonValue *value, JsonAllocator &allocator);
 
 void gason_print_error(const char *filename, JsonParseStatus status, char *endptr, char *source, size_t size);
 
