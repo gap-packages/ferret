@@ -20,7 +20,7 @@ map<string, set<int>>  vars; //mapping from variables to the nodes containing th
 map<string, set<int>> colours; //mapping from colour name to set of nodes of that colour
 
 
-
+map<int, string> originalPrimeColours; //mapping from node value to the original prime colour 
 
 
 //function that returns passed in string with added prefix
@@ -149,6 +149,7 @@ void addPrimeVariables(vec1<vec1<int>>& graph, map<string,  set<int>>& vars) {
 	for (pair<string, set<int>> var: vars) {
 		graph.push_back(vec1<int>());
 		int newNode = graph.size();
+		originalPrimeColours[newNode] = var.first;
 		for (int nodeValue: var.second) {
 			graph[nodeValue].push_back(newNode);
  //add a prefix to the variable to distinguish as prime variable 
@@ -228,6 +229,14 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
 	    {
 	            std::cout << sol.cycle() << ",\n";
 	    }
+		/*
+		set<int> primeNodeValues = colours[makePrimeVar(vars.begin()->first)];
+		
+		for (int i: primeNodeValues) {
+			
+		}
+		*/
+		
 	    std::cout << "()]\n";
 		
 }
