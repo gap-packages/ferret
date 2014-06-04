@@ -27,41 +27,80 @@ struct PartitionSplit
     PartitionSplit() {}
 };
 
-struct MarkStore
+class MarkStore
 {
-
     /// maintain data structures for cellOfVal and cellOfPos
     bool enable_cellOfFunctions;
 
-    vec1<int> marks;
+    vec1<int> marks_m;
 
+public:
 
-    // store mark locations (map pos -> mark)
-    std::map<int, int> marks_start;
+    bool has_cellOf() const
+    { return enable_cellOfFunctions; }
 
     MarkStore(int n)
-    : enable_cellOfFunctions(true), marks(n+1,0)
+    : enable_cellOfFunctions(false), marks_m(n+1,0)
     {
-        marks[1] = 1;
-        marks_start[1] = 1;
-        marks[n+1] = -1;
+        marks_m[1] = 1;
+        marks_m[n+1] = std::numeric_limits<int>::max();
+        enable_cellOf();
     }
 
     // TODO : Make this O(cell) instead of O(n)
     int cellOfPos(int pos)
     {
         D_ASSERT(enable_cellOfFunctions);
-        auto it = marks_start.upper_bound(pos);
-        D_ASSERT(it != marks_start.begin());
-        --it;
-        return it->second;
-/*
-        while(marks[pos] == 0)
-            pos--;
-        return marks[pos];
-        */
+        return std::abs(marks_m[pos]);
     }
 
+    int marks(int pos) const
+    { return marks_m[pos]; }
+
+    void add_cell_marker(int val, int pos, int length)
+    {
+         marks_m[pos] = val;
+         clean_marks_array(pos, pos + length);
+    }
+
+    void remove_cell_marker(int val, int pos, int length)
+    {
+        val = -val;
+        D_ASSERT(marks_m[pos] > 0);
+        for(int i = pos; i < pos + length; ++i)
+        {
+            D_ASSERT(i == pos || marks_m[i] < 0);
+            marks_m[i] = val;
+        }
+    }
+
+    void clean_marks_array(int startpos, int endpos)
+    {
+        if(!enable_cellOfFunctions)
+            return;
+        int cell = -marks_m[startpos];
+        for(int i = startpos + 1; i < endpos; ++i)
+        {
+            D_ASSERT(marks_m[i] <= 0);
+            marks_m[i] = cell;
+        }
+    }
+
+    void enable_cellOf()
+    {
+        if(enable_cellOfFunctions)
+            return;
+
+        enable_cellOfFunctions = true;
+        int cell = 1;
+        for(int i = 1; i <= marks_m.size(); ++i)
+        {
+            if(marks_m[i] > 0)
+                cell = marks_m[i];
+            else
+                marks_m[i] = -cell;
+        }
+    }
 };
 
 class PartitionStack : public BacktrackableType
@@ -147,6 +186,8 @@ public:
         }
         cellstart.push_back(1);
         cellsize.push_back(n);
+
+        D_SLOW_ASSERT(sanity_check());
     }
 
     /// Get number of points in partition
@@ -258,24 +299,49 @@ public:
             assert(cellsize[i] > 0);
             if(cellsize[i] == 1)
                 fixed_count++;
-            assert(markstore.marks[cellstart[i]] == i);
+            assert(markstore.marks(cellstart[i]) == i);
             assert(cellOfPos(cellstart[i]) == i);
             assert(cellOfVal(val(cellstart[i])) == i);
             for(int j = 1; j < cellsize[i]; ++j)
             {
-                assert(markstore.marks[cellstart[i] + j] == 0);
+                int expected_value = markstore.has_cellOf()?-i:0;
+                assert(markstore.marks(cellstart[i] + j) == expected_value);
                 // Re-enable these when cellOfPos gets a non-trivial
                 // implementation
-                assert(cellOfPos(cellstart[i] + j) == i);
-                assert(cellOfVal(val(cellstart[i]+j)) == i);
+                if(markstore.has_cellOf())
+                {
+                    assert(cellOfPos(cellstart[i] + j) == i);
+                    assert(cellOfVal(val(cellstart[i]+j)) == i);
+                }
             }
         }
         assert(fixed.size() == fixed_count);
 
-        for(int i = 1; i <= n; ++i)
+        if(markstore.has_cellOf())
         {
-            if(markstore.marks[i] != 0)
-                assert(cellstart[markstore.marks[i]] == i);
+            int cell = 99999; // random number
+            for(int i = 1; i <= n; ++i)
+            {
+                assert(markstore.marks(i) != 0);
+
+                if(markstore.marks(i) > 0)
+                {
+                    cell = markstore.marks(i);
+                    assert(cellstart[markstore.marks(i)] == i);
+                }
+                else
+                {
+                    assert(markstore.marks(i) == -cell);
+                }
+            }
+        }
+        else
+        {
+            for(int i = 1; i <= n; ++i)
+            {
+                if(markstore.marks(i) != 0)
+                    assert(cellstart[markstore.marks(i)] == i);
+            }
         }
         return true;
     }
@@ -311,8 +377,7 @@ public:
         cellsize[cell] = new_first_cell_length;
         cellstart.push_back(pos);
         cellsize.push_back(new_second_cell_length);
-        markstore.marks[pos]=cellCount();
-        markstore.marks_start[pos]=cellCount();
+        markstore.add_cell_marker(cellCount(), pos, new_second_cell_length);
 
         if(cellsize[cell] == 1)
         {
@@ -359,10 +424,8 @@ public:
                 fixed_vals.pop_back();
             }
 
-            D_ASSERT(markstore.marks[ps.splitpos] == cellCount());
-            D_ASSERT(markstore.marks_start[ps.splitpos] == cellCount());
-            markstore.marks[ps.splitpos] = 0;
-            markstore.marks_start.erase(ps.splitpos);
+            D_ASSERT(markstore.marks(ps.splitpos) == cellCount());
+            markstore.remove_cell_marker(ps.cell, ps.splitpos, cellsize[cellCount()]);
             D_ASSERT(cellStartPos(cellCount()) == ps.splitpos);
             cellsize[ps.cell] += cellsize[cellCount()];
             cellstart.pop_back();
@@ -411,12 +474,12 @@ public:
     {
         vec1<vec1<int> > v = dumpCurrentPartition();
         std::ostringstream oss;
-        oss << "[" << markstore.marks[1] << ": ";
+        oss << "[" << markstore.marks(1) << ": ";
         for(int i = 1; i <= n; ++i)
         {
             oss << vals[i];
-            if(markstore.marks[i+1] > 0)
-                oss << "|" << markstore.marks[i+1] << ": ";
+            if(markstore.marks(i+1) > 0)
+                oss << "|" << markstore.marks(i+1) << ": ";
             else
                 oss << " ";
         }

@@ -49,7 +49,7 @@ public:
 
 };
 
-PermSharedData* makePermSharedData(int len)
+inline PermSharedData* makePermSharedData(int len)
 {
     PermSharedData* psd = (PermSharedData*)calloc(sizeof(PermSharedData) + len*sizeof(int),1);
     new (psd) PermSharedData(len);
@@ -68,7 +68,7 @@ PermSharedData* makePermSharedDataFromContainer(const T& data)
 
 
 
-void decrementPermSharedDataCount(PermSharedData* psm)
+inline void decrementPermSharedDataCount(PermSharedData* psm)
 {
     int count = psm->decrement_counter();
     if(count == 0)
@@ -78,7 +78,7 @@ void decrementPermSharedDataCount(PermSharedData* psm)
     }
 }
 
-void incrementPermSharedDataCount(PermSharedData* psm)
+inline void incrementPermSharedDataCount(PermSharedData* psm)
 { psm->increment_counter(); }
 
 
@@ -249,7 +249,7 @@ public:
 };
 
 
-int& PermSharedData::operator[](int i)
+inline int& PermSharedData::operator[](int i)
 {
     D_ASSERT(i > 0 && i <= size());
 #ifndef EAGER_MERGE
@@ -266,20 +266,20 @@ int& PermSharedData::operator[](int i)
     return data_m[i];
 }
 
-int& PermSharedData::raw(int i)
+inline int& PermSharedData::raw(int i)
 {
     D_ASSERT(i > 0 && i <= size());
     return data_m[i];
 }
 
-Permutation getRawPermutation(int n)
+inline Permutation getRawPermutation(int n)
 {
 	return Permutation(makePermSharedData(n));
 }
 
 #ifdef EAGER_MERGE
 
-Permutation mergePermutations(const vec1<Permutation>& v)
+inline Permutation mergePermutations(const vec1<Permutation>& v)
 {
     if(v.size() == 0)
         return Permutation();
@@ -314,7 +314,7 @@ PermSharedData* makePermSharedDataFromPermList(const vec1<Permutation>& data)
 */
 #else
 
-PermSharedData* makePermSharedDataFromPermList(const vec1<Permutation>& data)
+inline PermSharedData* makePermSharedDataFromPermList(const vec1<Permutation>& data)
 {
     int maxval = 0;
     for(int i = 1; i <= data.size(); ++i)
@@ -325,7 +325,7 @@ PermSharedData* makePermSharedDataFromPermList(const vec1<Permutation>& data)
     return psd;
 }
 
-Permutation mergePermutations(const vec1<Permutation>& v)
+inline Permutation mergePermutations(const vec1<Permutation>& v)
 {
     if(v.size() == 0)
         return Permutation();
