@@ -1,7 +1,7 @@
 syntax: regexp
 
 \.dSYM/
+^simple_graph
 syntax: glob
 ferret.vars
 Makefile
-simple_graph
