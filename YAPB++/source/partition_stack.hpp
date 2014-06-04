@@ -27,12 +27,51 @@ struct PartitionSplit
     PartitionSplit() {}
 };
 
+struct MarkStore
+{
+
+    /// maintain data structures for cellOfVal and cellOfPos
+    bool enable_cellOfFunctions;
+
+    vec1<int> marks;
+
+
+    // store mark locations (map pos -> mark)
+    std::map<int, int> marks_start;
+
+    MarkStore(int n)
+    : enable_cellOfFunctions(true), marks(n+1,0)
+    {
+        marks[1] = 1;
+        marks_start[1] = 1;
+        marks[n+1] = -1;
+    }
+
+    // TODO : Make this O(cell) instead of O(n)
+    int cellOfPos(int pos)
+    {
+        D_ASSERT(enable_cellOfFunctions);
+        auto it = marks_start.upper_bound(pos);
+        D_ASSERT(it != marks_start.begin());
+        --it;
+        return it->second;
+/*
+        while(marks[pos] == 0)
+            pos--;
+        return marks[pos];
+        */
+    }
+
+};
+
 class PartitionStack : public BacktrackableType
 {
     AbstractQueue* aq;
     vec1<PartitionSplit> backtrack_stack;
 
     vec1<int> backtrack_depths;
+
+    MarkStore markstore;
 
     /// Maximum domain value
     int n;
@@ -49,11 +88,6 @@ class PartitionStack : public BacktrackableType
     // Store explicit list of the values in fixed cells
     vec1<int> fixed_vals;
 
-    // Mark end of cells in partition
-    vec1<int> marks;
-
-    // store mark locations (map pos -> mark)
-    std::map<int, int> marks_start;
 
     /// Starts of cells
     vec1<int> cellstart;
@@ -87,8 +121,7 @@ public:
         ps->invvals = invvals;
         ps->fixed = fixed;
         ps->fixed_vals = fixed_vals;
-        ps->marks = marks;
-        ps->marks_start = marks_start;
+        ps->markstore = markstore;
         ps->cellstart = cellstart;
         ps->cellsize = cellsize;
         ps->pushes = pushes;
@@ -102,7 +135,8 @@ public:
     typedef vec1<int>::iterator cellit;
 
     PartitionStack(int _n, AbstractQueue* _aq, MemoryBacktracker* mb) :
-    BacktrackableType(mb), aq(_aq), n(_n), vals(n), invvals(n), marks(n+1,0)
+    BacktrackableType(mb), aq(_aq), markstore(_n),
+      n(_n), vals(n), invvals(n)
     {
         backtrack_depths.push_back(1);
 
@@ -111,9 +145,6 @@ public:
             vals[i] = i;
             invvals[i] = i;
         }
-        marks[1] = 1;
-        marks_start[1] = 1;
-        marks[n+1] = -1;
         cellstart.push_back(1);
         cellsize.push_back(n);
     }
@@ -172,15 +203,7 @@ public:
     // TODO : Make this O(cell) instead of O(n)
     int cellOfPos(int pos)
     {
-        auto it = marks_start.upper_bound(pos);
-        D_ASSERT(it != marks_start.begin());
-        --it;
-        return it->second;
-/*
-        while(marks[pos] == 0)
-            pos--;
-        return marks[pos];
-        */
+        return markstore.cellOfPos(pos);
     }
 
     cellit valPtr(int pos)
@@ -235,12 +258,12 @@ public:
             assert(cellsize[i] > 0);
             if(cellsize[i] == 1)
                 fixed_count++;
-            assert(marks[cellstart[i]] == i);
+            assert(markstore.marks[cellstart[i]] == i);
             assert(cellOfPos(cellstart[i]) == i);
             assert(cellOfVal(val(cellstart[i])) == i);
             for(int j = 1; j < cellsize[i]; ++j)
             {
-                assert(marks[cellstart[i] + j] == 0);
+                assert(markstore.marks[cellstart[i] + j] == 0);
                 // Re-enable these when cellOfPos gets a non-trivial
                 // implementation
                 assert(cellOfPos(cellstart[i] + j) == i);
@@ -251,8 +274,8 @@ public:
 
         for(int i = 1; i <= n; ++i)
         {
-            if(marks[i] != 0)
-                assert(cellstart[marks[i]] == i);
+            if(markstore.marks[i] != 0)
+                assert(cellstart[markstore.marks[i]] == i);
         }
         return true;
     }
@@ -288,8 +311,8 @@ public:
         cellsize[cell] = new_first_cell_length;
         cellstart.push_back(pos);
         cellsize.push_back(new_second_cell_length);
-        marks[pos]=cellCount();
-        marks_start[pos]=cellCount();
+        markstore.marks[pos]=cellCount();
+        markstore.marks_start[pos]=cellCount();
 
         if(cellsize[cell] == 1)
         {
@@ -336,10 +359,10 @@ public:
                 fixed_vals.pop_back();
             }
 
-            D_ASSERT(marks[ps.splitpos] == cellCount());
-            D_ASSERT(marks_start[ps.splitpos] == cellCount());
-            marks[ps.splitpos] = 0;
-            marks_start.erase(ps.splitpos);
+            D_ASSERT(markstore.marks[ps.splitpos] == cellCount());
+            D_ASSERT(markstore.marks_start[ps.splitpos] == cellCount());
+            markstore.marks[ps.splitpos] = 0;
+            markstore.marks_start.erase(ps.splitpos);
             D_ASSERT(cellStartPos(cellCount()) == ps.splitpos);
             cellsize[ps.cell] += cellsize[cellCount()];
             cellstart.pop_back();
@@ -388,12 +411,12 @@ public:
     {
         vec1<vec1<int> > v = dumpCurrentPartition();
         std::ostringstream oss;
-        oss << "[" << marks[1] << ": ";
+        oss << "[" << markstore.marks[1] << ": ";
         for(int i = 1; i <= n; ++i)
         {
             oss << vals[i];
-            if(marks[i+1] > 0)
-                oss << "|" << marks[i+1] << ": ";
+            if(markstore.marks[i+1] > 0)
+                oss << "|" << markstore.marks[i+1] << ": ";
             else
                 oss << " ";
         }
