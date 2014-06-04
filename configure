@@ -28,11 +28,11 @@ else
 fi
 
 
-DEBUGFLAGS=
+DEBUGFLAGS=-DDEBUG_LEVEL=1
 
 # This debugging is broken on macs
 if [ $(uname -s) = Linux ]; then
-	DEBUGFLAGS=-D_GLIBCXX_DEBUG
+	DEBUGFLAGS="${DEBUGFLAGS} -D_GLIBCXX_DEBUG"
 fi
 
 # Let's find a C++ standard library. In practice there are two.
