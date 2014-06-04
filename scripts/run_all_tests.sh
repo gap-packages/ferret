@@ -13,6 +13,7 @@ for i in "CHECK=1" ""; do
   for i in *.tst; do
       echo 'echo '\''Test("'$i'");'\'' | '${GAPEXEC}
   done | parallel -j4
+  wait
   cd ..
 done
 
