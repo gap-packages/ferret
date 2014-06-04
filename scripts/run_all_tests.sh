@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+cd $(dirname $0)
 cd ..
 . ./ferret.vars
 cd YAPB++/tests
