@@ -28,11 +28,13 @@ struct TraceEvent
     TriggerType trigger_type;
     AbstractConstraint* con;
     int con_int;
-    vec1<int> con_vec; 
+    vec1<int> con_vec;
 
     TraceEvent()
     : event(TraceEvent_INVALID), trigger_type(Trigger_INVALID)
     { }
+
+    DEFAULT_MOVE_COPY_CONST_ASSIGN(TraceEvent);
 
     TraceEvent(TriggerType _type, AbstractConstraint* ac, int _num)
     : event(TraceEvent_Constraint), trigger_type(_type), con(ac), con_int(_num)
@@ -80,7 +82,7 @@ struct BranchEvent
     { }
 
     friend bool operator==(const BranchEvent& lhs, const BranchEvent& rhs)
-    { 
+    {
         return lhs.oldcell == rhs.oldcell &&
                lhs.newcell == rhs.newcell &&
                lhs.oldcellsize == rhs.oldcellsize &&

@@ -12,23 +12,31 @@ public:
     typedef typename std::vector<T>::const_iterator const_iterator;
     typedef typename std::vector<T>::value_type value_type;
     vec1() { }
-    
-    vec1(unsigned size) 
+
+    vec1(unsigned size)
     : v(size)
     { }
 
-#if __cplusplus > 199711L
     vec1(std::initializer_list<T> l)
     : v(l)
     { }
-#endif
+
+    vec1(const vec1& vec) : v(vec.v) { }
+
+    vec1(vec1&& vec) : v(std::move(vec.v)) { }
+
+    void operator=(const vec1& vec)
+    { v = vec.v; }
+
+    void operator=(vec1&& vec)
+    { v = std::move(vec.v); }
 
     template<typename It>
     vec1(It begin, It end)
     : v(begin, end)
     { }
 
-    vec1(unsigned size, T val) 
+    vec1(unsigned size, T val)
     : v(size, val)
     { }
 
@@ -45,7 +53,7 @@ public:
 
     void reserve(int i)
     { v.reserve(i); }
-    
+
     void resize(int i)
     { v.resize(i); }
 
@@ -69,6 +77,9 @@ public:
 
     void push_back(const T& t)
     { v.push_back(t); }
+
+    void push_back(T&& t)
+    { v.push_back(std::move(t)); }
 
     void pop_back()
     { v.pop_back(); }

@@ -27,6 +27,9 @@ struct HashCount
 inline bool operator<(const HashCount& lhs, const HashCount& rhs)
 { return std::make_pair(lhs.hashVal, lhs.count) < std::make_pair(rhs.hashVal, rhs.count); }
 
+inline bool compareHash(const HashStart& lhs, const HashStart& rhs)
+{ return lhs.hashVal < rhs.hashVal; }
+
 struct SortEvent
 {
 	int cellBegin, cellEnd;
@@ -45,11 +48,14 @@ public:
 	SortEvent(int _cellBegin, int _cellEnd) : cellBegin(_cellBegin), cellEnd(_cellEnd)
 	{}
 
+    DEFAULT_MOVE_COPY_CONST_ASSIGN(SortEvent);
+public:
+
 	bool noSplits() const
 	{ return hash_starts.size() == 1; }
 
 	void addHashStart(int hash, int pos)
-	{ 
+	{
 		D_ASSERT(hash_counts.empty());
 		D_ASSERT(pos >= cellBegin && pos < cellEnd);
 		hash_starts.push_back(HashStart(hash, pos));
@@ -58,8 +64,10 @@ public:
 	void finalise()
 	{
 		D_ASSERT(hash_counts.empty());
-
 		int hashes = hash_starts.size();
+		hash_counts.reserve(hashes + 1);
+		hash_sort.reserve(hashes);
+
 		// We want to know the order the hashes occur in
 		for(int i = 2; i <= hashes; ++i)
 		{
@@ -85,6 +93,7 @@ public:
 					hash_order[i] = j;
 			}
 		}
+
 
 		int sum = 0;
 		for(int i = 1; i <= hash_counts.size(); ++i)
@@ -128,8 +137,11 @@ struct PartitionEvent
 		{ }
 	};
 
-	typedef MoveToFrontPromotableList<EventOrder> PromotableList;
+	typedef OneMovePromotableList<EventOrder> PromotableList;
 	PromotableList order;
+
+	PartitionEvent() = default;
+	DEFAULT_MOVE_COPY_CONST_ASSIGN(PartitionEvent);
 
 	void finalise()
 	{

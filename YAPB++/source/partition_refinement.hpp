@@ -158,12 +158,12 @@ SplitState filterPartitionStackByFunction_noSortData(PartitionStack* ps, F f)
             }
             else
             {
-                pe.change_cells.push_back(std::make_pair(i, se));
+                pe.change_cells.push_back(std::make_pair(i, std::move(se)));
             }
         }
     }
     pe.finalise();
-    ps->getAbstractQueue()->addPartitionEvent(MOVE(pe));
+    ps->getAbstractQueue()->addPartitionEvent(std::move(pe));
     return SplitState(true);
 }
 

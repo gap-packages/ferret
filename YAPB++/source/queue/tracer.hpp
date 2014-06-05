@@ -13,7 +13,8 @@ struct TraceList
     vec1<BranchEvent> branchEvents;
     vec1<PartitionEvent> partitionEvents;
 
-    TraceList() {}
+    TraceList() = default;
+    DEFAULT_MOVE_COPY_CONST_ASSIGN(TraceList);
 
     TraceList(TraceEvent te) : traceEvent(te)
     { }
@@ -28,7 +29,7 @@ public:
     TracerGenerator(MemoryBacktracker* mb) :
     BacktrackableType(mb),
     trace(mb->makeRevertingStack<TraceList>())
-    { 
+    {
         trace.push_back(TraceList());
     }
 

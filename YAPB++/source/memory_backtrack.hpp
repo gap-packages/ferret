@@ -14,7 +14,7 @@ class BacktrackableType
 public:
     BacktrackableType(MemoryBacktracker* _mb);
     virtual ~BacktrackableType();
-    
+
     virtual void event_pushWorld(){}
     virtual void event_popWorld() {}
 };
@@ -42,6 +42,7 @@ public:
     { return *val; }
 
     void set(const T& val);
+    void set(T&& val);
 };
 
 template<typename T>
@@ -63,6 +64,7 @@ public:
     { }
 
     void push_back(const T& t);
+    void push_back(T&& t);
 
     const T& back()
     { return stack->back(); }
@@ -89,7 +91,7 @@ void resizeBacktrackStack(void* ptr, int val)
 {
     T* stack_ptr = (T*)ptr;
     D_ASSERT(stack_ptr->size() >= val);
-    stack_ptr->resize(val); 
+    stack_ptr->resize(val);
 }
 
 typedef void(*backtrack_function)(void*, int);
@@ -225,12 +227,26 @@ void Reverting<T>::set(const T& t)
     *val = t;
 }
 
+template<typename T>
+void Reverting<T>::set(T&& t)
+{
+    mb->storeCurrentValue(val);
+    *val = std::move(t);
+}
+
 
 template<typename T>
 void RevertingStack<T>::push_back(const T& t)
 {
     mb->storeCurrentSize(stack);
     stack->push_back(t);
+}
+
+template<typename T>
+void RevertingStack<T>::push_back(T&& t)
+{
+    mb->storeCurrentSize(stack);
+    stack->push_back(std::move(t));
 }
 
 
