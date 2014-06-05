@@ -10,6 +10,7 @@ struct HashStart
 {
 	HashType hashVal;
 	int startPos;
+	int count;
 
 	HashStart(int _hv, int _sp) : hashVal(_hv), startPos(_sp)
 	{ }
@@ -18,14 +19,14 @@ struct HashStart
 struct HashCount
 {
 	HashType hashVal;
-	int count;
+	int pos;
 
-	HashCount(int _hv, int _c) : hashVal(_hv), count(_c)
-	{ D_ASSERT(count > 0); }
+	HashCount(int _hv, int _pos) : hashVal(_hv), pos(_pos)
+	{  }
 };
 
 inline bool operator<(const HashCount& lhs, const HashCount& rhs)
-{ return std::make_pair(lhs.hashVal, lhs.count) < std::make_pair(rhs.hashVal, rhs.count); }
+{ return std::make_pair(lhs.hashVal, lhs.pos) < std::make_pair(rhs.hashVal, rhs.pos); }
 
 inline bool compareHash(const HashCount& lhs, int rhs)
 { return lhs.hashVal < rhs; }
@@ -37,10 +38,9 @@ struct SortEvent
 	// note these are generated in reverse order, as this is how we split
 	vec1<HashStart> hash_starts;
 
+	// This is hash_starts ordered by hash value, with size of each block
 	vec1<HashCount> hash_counts;
 
-	// the order of the hashes
-	vec1<int> hash_order;
 public:
 	SortEvent(int _cellBegin, int _cellEnd) : cellBegin(_cellBegin), cellEnd(_cellEnd)
 	{}
@@ -67,34 +67,14 @@ public:
 		// We want to know the order the hashes occur in
 		for(int i = 2; i <= hashes; ++i)
 		{
-			HashCount hc(hash_starts[i].hashVal, hash_starts[i-1].startPos - hash_starts[i].startPos);
+			HashCount hc(hash_starts[i].hashVal, i);
 			hash_counts.push_back(hc);
+			hash_starts[i].count = hash_starts[i-1].startPos - hash_starts[i].startPos;
 		}
-		hash_counts.push_back(HashCount(hash_starts[1].hashVal, cellEnd - hash_starts[1].startPos));
+		hash_counts.push_back(HashCount(hash_starts[1].hashVal, 1));
+		hash_starts[1].count = cellEnd - hash_starts[1].startPos;
 
 		std::sort(hash_counts.begin(), hash_counts.end());
-
-		// We want to know how to unpack the hashes into the right order. This is a horrible O(n^2)
-		// bit of code, but shouldn't get called very often.
-
-		hash_order.resize(hash_counts.size());
-		for(int i = 1; i <= hash_counts.size(); ++i)
-		{
-			for(int j = 1; j <= hash_counts.size(); ++j)
-			{
-				if(hash_counts[i].hashVal == hash_starts[j].hashVal)
-					hash_order[i] = j;
-			}
-		}
-
-		int sum = 0;
-		for(int i = 1; i <= hash_counts.size(); ++i)
-		{
-			sum += hash_counts[i].count;
-		}
-
-		D_ASSERT(sum == (cellEnd-cellBegin));
-
 	}
 };
 

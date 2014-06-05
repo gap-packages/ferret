@@ -64,8 +64,9 @@ bool indirect_data_sorter_impl(int cell, PartitionStack* ps, SortFun f, const So
 				v[i].clear();
 			return false;
 		}
+//        int location = pos->pos;
 		int location = pos - sd.hash_counts.begin() + 1;
-		if(v[location].size() == sd.hash_counts[location].count)
+		if(v[location].size() == sd.hash_starts[sd.hash_counts[location].pos].count)
 		{
 			for(int i = 1; i <= v.size(); ++i)
 				v[i].clear();
@@ -78,10 +79,11 @@ bool indirect_data_sorter_impl(int cell, PartitionStack* ps, SortFun f, const So
 
 	for(int i = sd.hash_starts.size(); i >= 1; --i)
 	{
-		D_ASSERT(sd.hash_counts[i].hashVal == sd.hash_starts[sd.hash_order[i]].hashVal);
-		D_ASSERT(v[i].size() == sd.hash_counts[i].count);
+        int pos = sd.hash_counts[i].pos;
+    	D_ASSERT(sd.hash_counts[i].hashVal == sd.hash_starts[pos].hashVal);
+		D_ASSERT(v[i].size() == sd.hash_starts[pos].count);
 
-		std::copy(v[i].begin(), v[i].end(), ps->valPtr(sd.hash_starts[sd.hash_order[i]].startPos));
+		std::copy(v[i].begin(), v[i].end(), ps->valPtr(sd.hash_starts[pos].startPos));
 
 		debug_out(0, "sort", "clear: " << i);
 		v[i].clear();
