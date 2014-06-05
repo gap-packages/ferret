@@ -14,7 +14,7 @@ endif
 ifdef CHECK
 checkflag = $(DEBUGFLAGS) -DDEBUG_LEVEL=$(CHECK)
 else
-checkflag =
+checkflag = -DDEBUG_LEVEL=0
 endif
 
 ifndef OPT

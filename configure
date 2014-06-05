@@ -28,7 +28,7 @@ else
 fi
 
 
-DEBUGFLAGS=-DDEBUG_LEVEL=1
+DEBUGFLAGS=
 
 # This debugging is broken on macs
 if [ $(uname -s) = Linux ]; then
