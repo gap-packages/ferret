@@ -7,7 +7,7 @@ cd ..
 cd YAPB++/tests
 ./run_tests.sh
 cd ../..
-for j in "CHECK=0" "CHECK=1" "CHECK=2"; do
+for j in "CHECK=0" "CHECK=1"; do
   make $j > /dev/null
   cd tst
   for i in *.tst; do
