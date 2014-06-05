@@ -16,19 +16,19 @@ struct HashStart
 	{ }
 };
 
-struct HashCount
+struct HashInvPosition
 {
 	HashType hashVal;
 	int pos;
 
-	HashCount(int _hv, int _pos) : hashVal(_hv), pos(_pos)
+	HashInvPosition(int _hv, int _pos) : hashVal(_hv), pos(_pos)
 	{  }
 };
 
-inline bool operator<(const HashCount& lhs, const HashCount& rhs)
+inline bool operator<(const HashInvPosition& lhs, const HashInvPosition& rhs)
 { return std::make_pair(lhs.hashVal, lhs.pos) < std::make_pair(rhs.hashVal, rhs.pos); }
 
-inline bool compareHash(const HashCount& lhs, int rhs)
+inline bool compareHash(const HashInvPosition& lhs, int rhs)
 { return lhs.hashVal < rhs; }
 
 struct SortEvent
@@ -39,7 +39,7 @@ struct SortEvent
 	vec1<HashStart> hash_starts;
 
 	// This is hash_starts ordered by hash value, with size of each block
-	vec1<HashCount> hash_counts;
+	vec1<HashInvPosition> Hash_inv_pos;
 
 public:
 	SortEvent(int _cellBegin, int _cellEnd) : cellBegin(_cellBegin), cellEnd(_cellEnd)
@@ -53,28 +53,27 @@ public:
 
 	void addHashStart(int hash, int pos)
 	{
-		D_ASSERT(hash_counts.empty());
+		D_ASSERT(Hash_inv_pos.empty());
 		D_ASSERT(pos >= cellBegin && pos < cellEnd);
 		hash_starts.push_back(HashStart(hash, pos));
 	}
 
 	void finalise()
 	{
-		D_ASSERT(hash_counts.empty());
+		D_ASSERT(Hash_inv_pos.empty());
 		int hashes = hash_starts.size();
-		hash_counts.reserve(hashes + 1);
+		Hash_inv_pos.reserve(hashes);
 
 		// We want to know the order the hashes occur in
 		for(int i = 2; i <= hashes; ++i)
 		{
-			HashCount hc(hash_starts[i].hashVal, i);
-			hash_counts.push_back(hc);
+			Hash_inv_pos.push_back(HashInvPosition(hash_starts[i].hashVal, i));
 			hash_starts[i].count = hash_starts[i-1].startPos - hash_starts[i].startPos;
 		}
-		hash_counts.push_back(HashCount(hash_starts[1].hashVal, 1));
+		Hash_inv_pos.push_back(HashInvPosition(hash_starts[1].hashVal, 1));
 		hash_starts[1].count = cellEnd - hash_starts[1].startPos;
 
-		std::sort(hash_counts.begin(), hash_counts.end());
+		std::sort(Hash_inv_pos.begin(), Hash_inv_pos.end());
 	}
 };
 
