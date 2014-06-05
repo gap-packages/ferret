@@ -57,14 +57,14 @@ bool indirect_data_sorter_impl(int cell, PartitionStack* ps, SortFun f, const So
 	for(it_type ptr = cellStart; ptr < cellEnd; ++ptr)
 	{
 		int hash = f(*ptr);
-		vec1<int>::const_iterator pos = std::lower_bound(sd.hash_sort.begin(), sd.hash_sort.end(), hash);
-		if(pos == sd.hash_sort.end() || *pos != hash)
+		auto pos = std::lower_bound(sd.hash_counts.begin(), sd.hash_counts.end(), hash, compareHash);
+		if(pos == sd.hash_counts.end() || pos->hashVal != hash)
 		{
 			for(int i = 1; i <= v.size(); ++i)
 				v[i].clear();
 			return false;
 		}
-		int location = pos - sd.hash_sort.begin() + 1;
+		int location = pos - sd.hash_counts.begin() + 1;
 		if(v[location].size() == sd.hash_counts[location].count)
 		{
 			for(int i = 1; i <= v.size(); ++i)
@@ -97,6 +97,6 @@ bool indirect_data_sorter(int cell, PartitionStack* ps, SortFun f, const SortEve
 	bool b = indirect_data_sorter_impl(cell, ps, f, sd);
 
 	RECORD_STATS(addSortStat(Stats::Sort(ps->cellSize(cell), sd.hash_counts.size(), b)));
-	
+
 	return b;
 }

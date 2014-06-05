@@ -27,8 +27,8 @@ struct HashCount
 inline bool operator<(const HashCount& lhs, const HashCount& rhs)
 { return std::make_pair(lhs.hashVal, lhs.count) < std::make_pair(rhs.hashVal, rhs.count); }
 
-inline bool compareHash(const HashStart& lhs, const HashStart& rhs)
-{ return lhs.hashVal < rhs.hashVal; }
+inline bool compareHash(const HashCount& lhs, int rhs)
+{ return lhs.hashVal < rhs; }
 
 struct SortEvent
 {
@@ -38,9 +38,6 @@ struct SortEvent
 	vec1<HashStart> hash_starts;
 
 	vec1<HashCount> hash_counts;
-
-	// this is just the hash element of hash_count, for easy access and searching
-	vec1<int> hash_sort;
 
 	// the order of the hashes
 	vec1<int> hash_order;
@@ -66,7 +63,6 @@ public:
 		D_ASSERT(hash_counts.empty());
 		int hashes = hash_starts.size();
 		hash_counts.reserve(hashes + 1);
-		hash_sort.reserve(hashes);
 
 		// We want to know the order the hashes occur in
 		for(int i = 2; i <= hashes; ++i)
@@ -77,9 +73,6 @@ public:
 		hash_counts.push_back(HashCount(hash_starts[1].hashVal, cellEnd - hash_starts[1].startPos));
 
 		std::sort(hash_counts.begin(), hash_counts.end());
-
-		for(int i = 1; i <= hash_counts.size(); ++i)
-			hash_sort.push_back(hash_counts[i].hashVal);
 
 		// We want to know how to unpack the hashes into the right order. This is a horrible O(n^2)
 		// bit of code, but shouldn't get called very often.
@@ -93,7 +86,6 @@ public:
 					hash_order[i] = j;
 			}
 		}
-
 
 		int sum = 0;
 		for(int i = 1; i <= hash_counts.size(); ++i)
