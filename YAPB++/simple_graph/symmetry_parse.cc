@@ -160,7 +160,7 @@ void addPrimeVariables(vec1<vec1<int>>& graph, map<string,  set<int>>& vars) {
 
 
 //reads in the specified file adding in a \0 character at the end
-//returned buffer must be deleted when no longer used
+//returned buffer must be returned when no longer used
 	char*  readFile(string fileName) {
 		ifstream file(fileName);
 		file.seekg(0, ios::end);
@@ -214,7 +214,6 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
 		JsonAllocator allocator;
 		
 		parseToJson(buffer, o, allocator);
-		delete[] buffer;
 		cout << "converting to graph...\n";
 		vec1<vec1<int>> edges;
 		jsonToGraph(o, edges);
@@ -254,5 +253,6 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
 			cout << "\n";
 	    cout << "]\n";
 
+		delete[] buffer;
 
 }
