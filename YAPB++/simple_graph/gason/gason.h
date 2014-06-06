@@ -1,5 +1,5 @@
 #pragma once
-
+#include<iostream> 
 #include <stdint.h>
 #include <assert.h>
 #include <string>
@@ -41,7 +41,10 @@ union JsonValue {
 		return (int64_t)ival <= (int64_t)JSON_VALUE_NAN_MASK;
 	}
 	JsonTag getTag() const {
-		return isDouble() ? JSON_TAG_NUMBER : JsonTag((ival >> JSON_VALUE_TAG_SHIFT) & JSON_VALUE_TAG_MASK);
+		std::cout << "get tag called\n";
+printf("%d\n", isDouble());
+std::cout << "is double printed\n";
+					return isDouble() ? JSON_TAG_NUMBER : JsonTag((ival >> JSON_VALUE_TAG_SHIFT) & JSON_VALUE_TAG_MASK);
 	}
 	uint64_t getPayload() const {
 		assert(!isDouble());
