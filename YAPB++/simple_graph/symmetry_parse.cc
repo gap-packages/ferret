@@ -214,7 +214,7 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
 		JsonAllocator allocator;
 		
 		parseToJson(buffer, o, allocator);
-		
+		delete[] buffer;
 		cout << "converting to graph...\n";
 		vec1<vec1<int>> edges;
 		jsonToGraph(o, edges);
@@ -253,4 +253,6 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
 		if (symmetryPrinted)
 			cout << "\n";
 	    cout << "]\n";
+
+
 }
