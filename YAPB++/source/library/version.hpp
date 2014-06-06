@@ -4,7 +4,7 @@
 #ifndef _VERSION_HPP
 #define _VERSION_HPP
 
-const static char* version = 
+const static char* version =
 "YAPB v0.1 :"
 
 #ifdef NO_DEBUG
@@ -19,10 +19,6 @@ const static char* version =
 
 #ifdef DEBUG_PRINT
 "Debug output : "
-#endif
-
-#ifdef CAJ_CPP11
-" C++11: "
 #endif
 
 ;
