@@ -1,0 +1,7389 @@
+{
+"symmetricChildren":true,
+"nodes_to_swap":["$field_00000_00000","$field_00000_00001","$field_00000_00002","$field_00000_00003","$field_00000_00004","$field_00000_00005","$field_00000_00006","$field_00000_00007","$field_00000_00008","$field_00001_00000","$field_00001_00001","$field_00001_00002","$field_00001_00003","$field_00001_00004","$field_00001_00005","$field_00001_00006","$field_00001_00007","$field_00001_00008","$field_00002_00000","$field_00002_00001","$field_00002_00002","$field_00002_00003","$field_00002_00004","$field_00002_00005","$field_00002_00006","$field_00002_00007","$field_00002_00008","$field_00003_00000","$field_00003_00001","$field_00003_00002","$field_00003_00003","$field_00003_00004","$field_00003_00005","$field_00003_00006","$field_00003_00007","$field_00003_00008","$field_00004_00000","$field_00004_00001","$field_00004_00002","$field_00004_00003","$field_00004_00004","$field_00004_00005","$field_00004_00006","$field_00004_00007","$field_00004_00008","$field_00005_00000","$field_00005_00001","$field_00005_00002","$field_00005_00003","$field_00005_00004","$field_00005_00005","$field_00005_00006","$field_00005_00007","$field_00005_00008","$field_00006_00000","$field_00006_00001","$field_00006_00002","$field_00006_00003","$field_00006_00004","$field_00006_00005","$field_00006_00006","$field_00006_00007","$field_00006_00008","$field_00007_00000","$field_00007_00001","$field_00007_00002","$field_00007_00003","$field_00007_00004","$field_00007_00005","$field_00007_00006","$field_00007_00007","$field_00007_00008","$field_00008_00000","$field_00008_00001","$field_00008_00002","$field_00008_00003","$field_00008_00004","$field_00008_00005","$field_00008_00006","$field_00008_00007","$field_00008_00008"],
+"variableDomains":[
+{
+"name": "$field_00000_00000",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00000_00001",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00000_00002",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00000_00003",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00000_00004",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00000_00005",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00000_00006",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00000_00007",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00000_00008",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00001_00000",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00001_00001",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00001_00002",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00001_00003",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00001_00004",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00001_00005",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00001_00006",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00001_00007",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00001_00008",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00002_00000",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00002_00001",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00002_00002",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00002_00003",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00002_00004",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00002_00005",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00002_00006",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00002_00007",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00002_00008",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00003_00000",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00003_00001",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00003_00002",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00003_00003",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00003_00004",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00003_00005",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00003_00006",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00003_00007",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00003_00008",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00004_00000",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00004_00001",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00004_00002",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00004_00003",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00004_00004",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00004_00005",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00004_00006",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00004_00007",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00004_00008",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00005_00000",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00005_00001",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00005_00002",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00005_00003",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00005_00004",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00005_00005",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00005_00006",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00005_00007",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00005_00008",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00006_00000",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00006_00001",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00006_00002",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00006_00003",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00006_00004",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00006_00005",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00006_00006",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00006_00007",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00006_00008",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00007_00000",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00007_00001",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00007_00002",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00007_00003",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00007_00004",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00007_00005",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00007_00006",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00007_00007",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00007_00008",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00008_00000",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00008_00001",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00008_00002",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00008_00003",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00008_00004",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00008_00005",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00008_00006",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00008_00007",
+"domain": [[1, 9]]
+},
+{
+"name": "$field_00008_00008",
+"domain": [[1, 9]]
+}],
+"constraints": {
+"type": "Top",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "And",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00001_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00000_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00002_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00004_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00003_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00005_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00000"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00005"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00003"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00002"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00007"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00004"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00001"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00008"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00006"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00007"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00008"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00006"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00000"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00005"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00007_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00003"
+},
+{
+"type": "Identifier",
+"name": "$field_00006_00004"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00001"
+}]
+}]
+},
+{
+"type": "AllDifferent",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00002"
+},
+{
+"type": "Identifier",
+"name": "$field_00008_00000"
+}]
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00000"
+},
+{
+"type": "NumberConstant",
+"value": 5
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00001"
+},
+{
+"type": "NumberConstant",
+"value": 3
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00000_00004"
+},
+{
+"type": "NumberConstant",
+"value": 7
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00000"
+},
+{
+"type": "NumberConstant",
+"value": 6
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00003"
+},
+{
+"type": "NumberConstant",
+"value": 1
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00004"
+},
+{
+"type": "NumberConstant",
+"value": 9
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00001_00005"
+},
+{
+"type": "NumberConstant",
+"value": 5
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00001"
+},
+{
+"type": "NumberConstant",
+"value": 9
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00002"
+},
+{
+"type": "NumberConstant",
+"value": 8
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00002_00007"
+},
+{
+"type": "NumberConstant",
+"value": 6
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00000"
+},
+{
+"type": "NumberConstant",
+"value": 8
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00004"
+},
+{
+"type": "NumberConstant",
+"value": 6
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00003_00008"
+},
+{
+"type": "NumberConstant",
+"value": 3
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00000"
+},
+{
+"type": "NumberConstant",
+"value": 4
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00003"
+},
+{
+"type": "NumberConstant",
+"value": 8
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00005"
+},
+{
+"type": "NumberConstant",
+"value": 3
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00004_00008"
+},
+{
+"type": "NumberConstant",
+"value": 1
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00000"
+},
+{
+"type": "NumberConstant",
+"value": 7
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00004"
+},
+{
+"type": "NumberConstant",
+"value": 2
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00005_00008"
+},
+{
+"type": "NumberConstant",
+"value": 6
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00001"
+},
+{
+"type": "NumberConstant",
+"value": 6
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00006"
+},
+{
+"type": "NumberConstant",
+"value": 2
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00006_00007"
+},
+{
+"type": "NumberConstant",
+"value": 8
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00003"
+},
+{
+"type": "NumberConstant",
+"value": 4
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00004"
+},
+{
+"type": "NumberConstant",
+"value": 1
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00005"
+},
+{
+"type": "NumberConstant",
+"value": 9
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00007_00008"
+},
+{
+"type": "NumberConstant",
+"value": 5
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00004"
+},
+{
+"type": "NumberConstant",
+"value": 8
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00007"
+},
+{
+"type": "NumberConstant",
+"value": 7
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$field_00008_00008"
+},
+{
+"type": "NumberConstant",
+"value": 9
+}]
+}]
+}]
+}
+}
