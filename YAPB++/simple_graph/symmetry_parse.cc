@@ -82,8 +82,6 @@ map<string, set<int>> parseVariableList(JsonValue& o) {
 	/*creates a new node, addes the edge between it and the specified parent and stores the mapping from the node value (colour) to its position (vector index) in the graph.
 	any nodes to be added that ar not part of the provided json should call this function with an extra bool set to true to make sure that it is not escaped. */
 	int addNode(vec1<vec1<int>>& graph, int parentNode, string value, bool escapeValue = true) {
-		cout << "Adding node of value " << value << " to parent number " << parentNode << " and the graph size is currently " << graph.size() << "\n";
-		
 		if (escapeValue)  {
 			value = escapeVar(value);
 		}
@@ -106,20 +104,15 @@ map<string, set<int>> parseVariableList(JsonValue& o) {
 		} else { //is not variable so just save mapping 
 		colours[value].insert(newNode);
 	}
-	
-	cout << "Node has been added with vertex number " << newNode << " and graph size is " << graph.size() << "\n";
 		return newNode;
 	}
 
 void jsonToGraph(JsonValue& o, vec1<vec1<int>>& graph, int currentNode, bool symmetryAllowed = false) {
-	cout << "parent: " << currentNode << "\n";
 switch (o.getTag()) {
 	case JSON_TAG_OBJECT: 
-	cout << "object :\n";
 	//identify whether contained json arrays are symmetric children
 	symmetryAllowed = hasSymmetricFlag(o);
 	for (auto i: o) {
-		cout << "key: " << i->key << "\n";
 		if (i->key != JSON_SYMMETRIC_TAG && i->key != JSON_VARIABLES_TAG) {
 		int newNode = addNode(graph, currentNode, i->key);
 		jsonToGraph(i->value, graph, newNode, symmetryAllowed);
@@ -129,7 +122,6 @@ switch (o.getTag()) {
 
 	
 	case JSON_TAG_ARRAY: {
-		cout << "array: \n"; 
 	int index = 0;
 	for (auto i: o) {
 			if (!symmetryAllowed) {				//connect children via asymmetric nodes  to prevent symmetry in graph
@@ -146,7 +138,6 @@ switch (o.getTag()) {
 	break;
 }
 	default: 
-	cout << "default: \n";
 	 addNode(graph, currentNode, jsonPrimitiveToString(o));
 	break;
 }
@@ -185,24 +176,18 @@ void addPrimeVariables(vec1<vec1<int>>& graph, map<string,  set<int>>& vars) {
 	
 	
 	
-	JsonValue parseToJson(char* buffer) {
+	void parseToJson(char* buffer, JsonValue& value, JsonAllocator& allocator) {
 		char *endptr;
-		JsonValue value;
-		JsonAllocator allocator;
 		JsonParseStatus status = jsonParse(buffer, &endptr, &value, allocator);
 		if (status != JSON_PARSE_OK) {
 			cerr <<  "error at " << endptr;
 			exit(EXIT_FAILURE);
-		} else
-			return value;
-		return value;
+		}	
 	}
 	
 
 	
 void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
-	cout << "for debugging\n";
-	cout << "Parsing variable list...\n";
 	//get variable list
 	for (auto i: o) {
 		if (i->key == JSON_VARIABLES_TAG) {
@@ -211,10 +196,8 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
 		}
 	}
 	
-	cout << "Building edges\n";
 	jsonToGraph(o, graph, 1, false);
 	
-	cout << "adding prime variables\n";
 	addPrimeVariables(graph, vars);
 }	
 	
@@ -223,14 +206,19 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
 			cout <<  "usage: " << argv[0] << " filePath\n";
 			exit(EXIT_FAILURE);
 		}
-			cout << "Parsing json\n";
+			cout << "Parsing JSON\n";
+			
 //readfile, parse to json and convert to graph		
 		char* buffer = readFile(argv[1]);
-		JsonValue o = parseToJson(buffer);
+		JsonValue o;
+		JsonAllocator allocator;
+		
+		parseToJson(buffer, o, allocator);
+		
 		cout << "converting to graph...\n";
 		vec1<vec1<int>> edges;
 		jsonToGraph(o, edges);
-		cout << "Graph parsed ok\n";
+		cout << "graph build.\nLooking for symmetries...\n";
 		
 //build graph object for symmetry detection 
 		Graph graph(edges.size());
@@ -243,18 +231,26 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
 		
 		vec1<Permutation> solutions = SolveGraph(graph);
 		set<int> primeNodeValues = colours[makePrimeVar(vars.begin()->first)];
-
-	    std::cout << "[";
+		bool symmetryPrinted = false;
+		
+		cout << "[";
+		
 	    for(auto const& sol : solutions)
 	    {
 		for (int i: primeNodeValues) {
 			int newValue = sol[i];
 			if (newValue != i) {
-			cout << "\n(" << originalPrimeColours[i] << "," << originalPrimeColours[newValue] << ")";
+				//print comma if nec
+				if (symmetryPrinted) 
+					cout << ",\n";
+					else
+						symmetryPrinted = true;
+				
+			cout << "(" << originalPrimeColours[i] << "," << originalPrimeColours[newValue] << ")";
 		}
 	}
-	cout << "\n-------";
 		}
-	    std::cout << "()]\n";
-		
+		if (symmetryPrinted)
+			cout << "\n";
+	    cout << "]\n";
 }
