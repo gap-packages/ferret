@@ -8,6 +8,9 @@
 #include <vector>
 #include<set>
 using namespace std;
+
+//gason method printerror at bottom of file
+void printJSONParseError(JsonParseStatus status, char *endptr, char *source, size_t size);
 //constants
 const string JSON_VARIABLES_TAG = "nodes_to_swap";;
 const string JSON_SYMMETRIC_TAG = "symmetricChildren";
@@ -28,6 +31,9 @@ string escapeVar(string s) {
 	return varPrefix + s;
 } 
 
+string unescapeVar(string s) {
+	return s.substr(1, s.size());
+}
 //adds a prefix to distinguish this as prime variable
 string makePrimeVar(string s) {
 	return primePrefix + s;
@@ -161,7 +167,7 @@ void addPrimeVariables(vec1<vec1<int>>& graph, map<string,  set<int>>& vars) {
 
 //reads in the specified file adding in a \0 character at the end
 //returned buffer must be returned when no longer used
-	char*  readFile(string fileName) {
+	char*  readFile(string fileName, int* length) {
 		ifstream file(fileName);
 		file.seekg(0, ios::end);
 		int fileLength = file.tellg();
@@ -170,19 +176,21 @@ void addPrimeVariables(vec1<vec1<int>>& graph, map<string,  set<int>>& vars) {
 		file.read(buffer, fileLength);
 		buffer[fileLength] = '\0';
 		file.close();
+		*length = fileLength + 1;
 		return buffer;
 	}
 		
 	
 	
 	
-	void parseToJson(char* buffer, JsonValue& value, JsonAllocator& allocator) {
+	bool parseToJson(char* buffer, int bufferLength, JsonValue& value, JsonAllocator& allocator) {
 		char *endptr;
 		JsonParseStatus status = jsonParse(buffer, &endptr, &value, allocator);
 		if (status != JSON_PARSE_OK) {
-			cerr <<  "error at " << endptr;
-			exit(EXIT_FAILURE);
-		}	
+			printJSONParseError(status, endptr, buffer, bufferLength);
+			return false;
+		}	 else
+			return true;
 	}
 	
 
@@ -209,11 +217,13 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
 			cout << "Parsing JSON\n";
 			
 //readfile, parse to json and convert to graph		
-		char* buffer = readFile(argv[1]);
+			int bufferLength;
+		char* buffer = readFile(argv[1], &bufferLength);
 		JsonValue o;
 		JsonAllocator allocator;
 		
-		parseToJson(buffer, o, allocator);
+		if (!parseToJson(buffer, bufferLength, o, allocator))
+			exit(EXIT_FAILURE);
 		cout << "converting to graph...\n";
 		vec1<vec1<int>> edges;
 		jsonToGraph(o, edges);
@@ -247,10 +257,75 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
 					permutationPrinted = true;
 				
 				lineBeginning = false;
-			cout << "(" << originalPrimeColours[i] << "," << originalPrimeColours[newValue] << ")";
+			cout << "(\"" << unescapeVar(originalPrimeColours[i]) << "\",\"" << unescapeVar(originalPrimeColours[newValue]) << "\")";
 		}
 	}
 		}
 	    cout << "]\n";
 		delete[] buffer;
 	}
+	
+
+	//gason code to print error 
+	void printJSONParseError(JsonParseStatus status, char *endptr, char *source, size_t size) {
+		static const char *status2string[] = {
+			"JSON_PARSE_OK",
+			"JSON_PARSE_BAD_NUMBER",
+			"JSON_PARSE_BAD_STRING",
+			"JSON_PARSE_BAD_IDENTIFIER",
+			"JSON_PARSE_STACK_OVERFLOW",
+			"JSON_PARSE_STACK_UNDERFLOW",
+			"JSON_PARSE_MISMATCH_BRACKET",
+			"JSON_PARSE_UNEXPECTED_CHARACTER",
+			"JSON_PARSE_UNQUOTED_KEY",
+			"JSON_PARSE_BREAKING_BAD"};
+
+		char *s = endptr;
+		while (s != source && *s != '\n')
+			--s;
+		if (s != endptr && s != source)
+			++s;
+
+		int lineno = 0;
+		for (char *it = s; it != source; --it) {
+			if (*it == '\n') {
+				++lineno;
+			}
+		}
+
+		int column = (int)(endptr - s);
+
+		fprintf(stderr, "%d:%d: error %s\n", lineno + 1, column + 1, status2string[status]);
+
+		while (s != source + size && *s != '\n') {
+			int c = *s++;
+			switch (c) {
+			case '\b':
+				fprintf(stderr, "\\b");
+				column += 1;
+				break;
+			case '\f':
+				fprintf(stderr, "\\f");
+				column += 1;
+				break;
+			case '\n':
+				fprintf(stderr, "\\n");
+				column += 1;
+				break;
+			case '\r':
+				fprintf(stderr, "\\r");
+				column += 1;
+				break;
+			case '\0':
+				fprintf(stderr, "\"");
+				break;
+			default:
+				fputc(c, stderr);
+			}
+		}
+
+		fprintf(stderr, "\n%*s\n", column + 1, "^");
+		
+	}
+
+	
