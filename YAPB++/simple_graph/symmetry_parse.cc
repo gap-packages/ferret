@@ -240,27 +240,35 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
 		
 		vec1<Permutation> solutions = SolveGraph(graph);
 		set<int> primeNodeValues = colours[makePrimeVar(vars.begin()->first)];
-		bool permutationPrinted  = false;
 		
-		
+		bool firstObject = true;
 		cout << "[";
 	    for(auto const& sol : solutions)
 	    {
-			bool lineBeginning = true;
+			bool startOfObject = true;
 		for (int i: primeNodeValues) {
 			int newValue = sol[i];
 			if (newValue != i) {
-				//print comma if necessary 
-				if (permutationPrinted && lineBeginning)
-					cout << ",\n";
+				//print start of object if necessary
+				if (startOfObject) {
+					if (!firstObject) 
+						cout << ",";
 				else
-					permutationPrinted = true;
+					firstObject = false;
 				
-				lineBeginning = false;
-			cout << "(\"" << unescapeVar(originalPrimeColours[i]) << "\",\"" << unescapeVar(originalPrimeColours[newValue]) << "\")";
+					cout << "\n{\n";
+				} else {
+					cout << ",\n";
+				}
+				startOfObject = false;
+			cout << "\"" << unescapeVar(originalPrimeColours[i]) << "\":\"" << unescapeVar(originalPrimeColours[newValue]) << "\"";
 		}
 	}
+	if (!startOfObject)
+		cout << "\n}";
 		}
+		if (!firstObject)
+			cout << "\n";
 	    cout << "]\n";
 		delete[] buffer;
 	}
