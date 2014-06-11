@@ -21,6 +21,8 @@ while i < len(syms):
         del syms[i]
     else:
         sym = syms[i]
+        i += 1
+    
 
 
 #enumerate all key and values 
@@ -70,11 +72,13 @@ def toListNotation(perm):
         outList[a] = b
     return outList
 
-
-
-p = toPermutation(syms[0])
-l = toListNotation(p)
-print p
-print l
-
-print 
+firstPerm = False;
+for sym in syms:
+    p = toPermutation(sym)
+    l = toListNotation(p)
+    l = l[1:len(l)]
+    if firstPerm:
+        print l
+        firstPerm = false
+    else:
+        print str(l) + ","
