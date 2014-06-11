@@ -211,10 +211,21 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
 	
 	int main(int argc, char** argv) {
 		if (argc < 2) {
-			cout <<  "usage: " << argv[0] << " filePath\n";
+			cout <<  "usage: " << argv[0] << " filePath [-q]\n-q = quiet mode\n";
 			exit(EXIT_FAILURE);
 		}
-			cout << "Parsing JSON\n";
+		string quietFlag("-q");
+		ostream* out = &cout;
+		bool quietMode = false;
+		for (int i = 2; i < argc; i++) {
+			if (argv[i] == quietFlag) {
+				out = new ofstream("");
+				quietFlag = true;
+			}
+		}
+		
+		
+			*out << "Parsing JSON\n";
 			
 //readfile, parse to json and convert to graph		
 			int bufferLength;
@@ -224,10 +235,10 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
 		
 		if (!parseToJson(buffer, bufferLength, o, allocator))
 			exit(EXIT_FAILURE);
-		cout << "converting to graph...\n";
+		*out << "converting to graph...\n";
 		vec1<vec1<int>> edges;
 		jsonToGraph(o, edges);
-		cout << "graph build.\nLooking for symmetries...\n";
+		*out << "graph build.\nLooking for symmetries...\n";
 		
 //build graph object for symmetry detection 
 		Graph graph(edges.size());
@@ -271,6 +282,8 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
 			cout << "\n";
 	    cout << "]\n";
 		delete[] buffer;
+		if (quietMode)
+		delete out;
 	}
 	
 
