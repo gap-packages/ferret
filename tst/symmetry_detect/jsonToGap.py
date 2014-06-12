@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import sys
 import json
-#validate arguments
 
 def parseFile(fileName):
     syms = json.load(open(sys.argv[1], "r"))
