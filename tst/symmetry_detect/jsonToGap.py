@@ -108,16 +108,17 @@ var2 =  convert(sys.argv[2])
 
 #build gap string
 buffer = []
-buffer.append("a: = ")
+buffer.append("a := ")
 buffer.append(var1)
 buffer.append(";;\n")
-buffer.append("b: = ")
+buffer.append("b := ")
 buffer.append(var2)
 buffer.append(";;\n")
 buffer.append("""ga := Group(List(a, PermList));;
+
 gb := Group(List(b, PermList));;
 
-Print(ga = gb);;""")
+Print(ga = gb, "\\n");;""")
 
 
 print "".join(buffer)
