@@ -75,18 +75,20 @@ def toListNotation(perm):
 
 
 def jsonToListNotation(syms):
-    firstPerm = False;
-    print "["
+    buffer = [];
+    firstPerm = True;
+    buffer.append("[")
     for sym in syms:
         p = toPermutation(sym)
         l = toListNotation(p)
         l = l[1:len(l)]
-        if firstPerm:
-            print l
-            firstPerm = false
+        if not firstPerm:
+            buffer.append(",\n")
         else:
-            print str(l) + ","
-    print "]"
+            firstPerm = False;
+        buffer.append(str(l))
+    buffer.append("]")
+    return "".join(buffer)
 
 
 
@@ -94,13 +96,14 @@ def convert(fileName):
     syms = parseFile(fileName)
     removeDuplicates(syms)
     enumerateValues(syms)
-    jsonToListNotation(syms)
+    return jsonToListNotation(syms)
 
 
 if len(sys.argv) < 3:
     print "usage: ", sys.argv[0], "json_file_1 json_file_2"
     sys.exit(1)
 
-convert(sys.argv[1])
+print convert(sys.argv[1])
 print ""
-convert(sys.argv[2])
+print convert(sys.argv[2])
+
