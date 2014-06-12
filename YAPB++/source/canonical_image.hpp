@@ -82,7 +82,7 @@ bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
 
         orderCell(firstbranch ? cell.begin() + 1 : cell.begin(), 
                   cell.end(),
-                  firstbranch ? so.search_first_branch_value_heuristic : so.search_value_heuristic,
+                  firstbranch ? so.heuristic.search_first_branch_value : so.heuristic.search_value,
                   rbase);
 
         for(int i = 1; i <= cell.size(); ++i)
@@ -144,7 +144,7 @@ SolutionStore findCanonicalImage(Problem* p, Obj groupconst SearchOptions& so)
 
     timing_start();
     p->init();
-    RBase* rb = buildRBase(p, so.rbase_cell_heuristic, so.rbase_value_heuristic);
+    RBase* rb = buildRBase(p, so.heuristic.rbase_cell, so.heuristic.rbase_value);
     timing_event("Finish RBase");
     SolutionStore solutions(rb);
     TraceFollowingQueue tfq(rb->trace, &p->memory_backtracker);
