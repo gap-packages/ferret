@@ -81,10 +81,10 @@ Obj solver(Obj conlist, Obj options)
         so.only_find_generators = !(GAP_get_maybe_bool_rec(options, RName_allperms));
         so.find_canonical_perm = GAP_get_maybe_bool_rec(options, RName_canonical);
         so.just_rbase = GAP_get_maybe_bool_rec(options, RName_justrbase);
-        so.rbase_value_heuristic = getRBaseHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_rbaseValueHeuristic)));
-        so.rbase_cell_heuristic = getRBaseHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_rbaseCellHeuristic)));
-        so.search_value_heuristic = getSearchHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_searchValueHeuristic)));
-        so.search_first_branch_value_heuristic = getSearchHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_searchFirstBranchValueHeuristic)));
+        so.heuristic.rbase_value = getRBaseHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_rbaseValueHeuristic)));
+        so.heuristic.rbase_cell = getRBaseHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_rbaseCellHeuristic)));
+        so.heuristic.search_value = getSearchHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_searchValueHeuristic)));
+        so.heuristic.search_first_branch_value = getSearchHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_searchFirstBranchValueHeuristic)));
 
 
 

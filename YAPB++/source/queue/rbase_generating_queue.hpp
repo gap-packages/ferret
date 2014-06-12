@@ -72,7 +72,7 @@ public:
     { abort(); }
 
     virtual void addPartitionEvent(PartitionEvent se)
-    { 
+    {
         tracer->addPartitionEvent(MOVE(se));
     }
 
@@ -127,7 +127,7 @@ public:
                         return SplitState(false);
                     tracer->endConstraint();
                 }
-            } 
+            }
         }
         return SplitState(true);
     }

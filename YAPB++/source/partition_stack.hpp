@@ -5,6 +5,7 @@
 #include <sstream>
 #include <set>
 #include <map>
+#include <limits>
 
 #include "library/optional.hpp"
 #include "library/algorithms.hpp"

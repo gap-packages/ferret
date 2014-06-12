@@ -63,6 +63,20 @@ SearchHeuristic getSearchHeuristic(std::string sh)
 }
 
 
+struct Heuristic
+{
+  RBaseSearchHeuristic rbase_value;
+  RBaseSearchHeuristic rbase_cell;
+
+  SearchHeuristic search_value;
+  SearchHeuristic search_first_branch_value;
+
+  Heuristic() :
+  rbase_value(RBaseBranch_First), rbase_cell(RBaseBranch_First),
+  search_value(SearchBranch_Nosort), search_first_branch_value(SearchBranch_Nosort)
+  { }
+};
+
 
 struct SearchOptions
 {
@@ -71,16 +85,10 @@ struct SearchOptions
 
     bool just_rbase;
 
-    RBaseSearchHeuristic rbase_value_heuristic;
-    RBaseSearchHeuristic rbase_cell_heuristic;
-
-    SearchHeuristic search_value_heuristic;
-    SearchHeuristic search_first_branch_value_heuristic;
+    Heuristic heuristic;
 
     SearchOptions() :
-    only_find_generators(false), find_canonical_perm(false), just_rbase(false),
-    rbase_value_heuristic(RBaseBranch_First), rbase_cell_heuristic(RBaseBranch_First),
-    search_value_heuristic(SearchBranch_Nosort), search_first_branch_value_heuristic(SearchBranch_Nosort)
+    only_find_generators(false), find_canonical_perm(false), just_rbase(false)
     { }
 
 };
