@@ -3,7 +3,7 @@ import sys
 import json
 
 def parseFile(fileName):
-    syms = json.load(open(sys.argv[1], "r"))
+    syms = json.load(open(fileName, "r"))
     if  not isinstance(syms, list):
         print "expected JSON list at top level of file:", fileName
         sys.exit(2);
