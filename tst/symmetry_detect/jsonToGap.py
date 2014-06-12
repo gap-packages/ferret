@@ -83,7 +83,7 @@ def jsonToListNotation(syms):
         l = toListNotation(p)
         l = l[1:len(l)]
         if not firstPerm:
-            buffer.append(",\n")
+            buffer.append(",")
         else:
             firstPerm = False;
         buffer.append(str(l))
@@ -103,7 +103,21 @@ if len(sys.argv) < 3:
     print "usage: ", sys.argv[0], "json_file_1 json_file_2"
     sys.exit(1)
 
-print convert(sys.argv[1])
-print ""
-print convert(sys.argv[2])
+var1 =  convert(sys.argv[1])
+var2 =  convert(sys.argv[2])
 
+#build gap string
+buffer = []
+buffer.append("a: = ")
+buffer.append(var1)
+buffer.append(";;\n")
+buffer.append("b: = ")
+buffer.append(var2)
+buffer.append(";;\n")
+buffer.append("""ga := Group(List(a, PermList));;
+gb := Group(List(b, PermList));;
+
+Print(ga = gb);;""")
+
+
+print "".join(buffer)
