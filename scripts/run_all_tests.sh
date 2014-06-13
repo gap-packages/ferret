@@ -22,6 +22,7 @@ if [ "X$VALGRIND" != "X" ]; then
   make "CHECK=1" > /dev/null
   cd tst
   echo 'Test("testvalgrind.tst");' | $VALGRIND -q --trace-children=yes --suppressions=../gap-suppressions.valgrind ${GAPEXEC} -b
+  cd ..
 else
   echo Skipping valgrind tests
 fi;
