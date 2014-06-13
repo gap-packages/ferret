@@ -1,6 +1,6 @@
 #!/bin/bash
-set -e
-set -u
+set -eux
+set -o pipefail
 cd $(dirname $0)
 cd ..
 . ./ferret.vars
