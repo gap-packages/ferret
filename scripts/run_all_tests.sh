@@ -25,3 +25,9 @@ if [ "X$VALGRIND" != "X" ]; then
 else
   echo Skipping valgrind tests
 fi;
+
+make clean
+make > /dev/null
+
+cd tst/graphs
+./test_all_graphs.sh

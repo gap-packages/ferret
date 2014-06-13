@@ -2,6 +2,8 @@ syntax: regexp
 
 \.dSYM/
 ^simple_graph
+^tst/graphs/graph-dist*
+
 syntax: glob
 ferret.vars
 Makefile
