@@ -7,6 +7,7 @@
 #include <map>
 #include <vector>
 #include<set>
+#include<regex>
 using namespace std;
 
 //gason method printerror at bottom of file
@@ -32,12 +33,15 @@ string escapeVar(string s) {
 } 
 
 string unescapeVar(string s) {
-	return s.substr(1, s.size());
+	regex ex("^" + varPrefix + "(.*)$");
+	return regex_replace(s, ex, "$1");
 }
 //adds a prefix to distinguish this as prime variable
 string makePrimeVar(string s) {
 	return primePrefix + s;
 }
+
+
 
 
 //function that converts a primitive json value to a string representation 
