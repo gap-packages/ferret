@@ -7,4 +7,4 @@
  echo 'Print("true");'
  echo 'else'
  echo 'Print("false (sizes:", Size(g1), ",", Size(g2),")");'
- echo 'fi;') | gap.sh -q | grep '^true$' > /dev/null
+ echo 'fi;') | ${GAPEXEC} -q | grep '^true$' > /dev/null
