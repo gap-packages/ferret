@@ -11,11 +11,11 @@ for j in "CHECK=0" "CHECK=1"; do
   make $j > /dev/null
 (
   for i in $(cd tst; ls *.tst); do
-      echo "(cd tst; echo 'Test(\"$i\");' | ${GAPEXEC})"
+      echo "(cd tst; echo 'Test(\"$i\");' | ${GAPEXEC}) -q"
   done
 
   if [ "X$VALGRIND" != "X" ]; then
-    echo "(cd tst; echo 'Test(\"testvalgrind.tst\");' | $VALGRIND -q --trace-children=yes --suppressions=../gap-suppressions.valgrind ${GAPEXEC} -b)"
+    echo "(cd tst; echo 'Test(\"testvalgrind.tst\");' | $VALGRIND -q --trace-children=yes --suppressions=../gap-suppressions.valgrind ${GAPEXEC} -q)"
   else
     echo "echo Skipping valgrind tests"
   fi;
