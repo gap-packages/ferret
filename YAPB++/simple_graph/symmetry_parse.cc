@@ -34,7 +34,7 @@ string escapeVar(string s) {
 
 string unescapeVar(string s) {
 	regex ex("^" + varPrefix + "(.*)$");
-	return regex_replace(s, ex, "$1");
+	return regex_replace(s, ex, string("$1"));
 }
 //adds a prefix to distinguish this as prime variable
 string makePrimeVar(string s) {
