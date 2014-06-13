@@ -66,11 +66,11 @@ sed -e "s|@GAPARCH@|$GAParch|g" \
 echo "Makefile successfully created."
 
 echo '#!/bin/bash' > ferret.vars
-echo GAPARCH=\"$GAParch\" >> ferret.vars
-echo CC=$c_compiler >> ferret.vars
-echo CXX=c++ >> ferret.vars
-echo VALGRIND=\"$VALGRIND\" >> ferret.vars
-echo DEBUGFLAGS=\"$DEBUGFLAGS\" >> ferret.vars
-echo GAPPATH=\"$GAPPATH\" >> ferret.vars
-echo GAPEXEC=\"$GAPPATH/bin/gap.sh -b\" >> ferret.vars
-echo CPPLIB=\"$CPPLIB\" >> ferret.vars
+echo export GAPARCH=\"$GAParch\" >> ferret.vars
+echo export CC=$c_compiler >> ferret.vars
+echo export CXX=c++ >> ferret.vars
+echo export VALGRIND=\"$VALGRIND\" >> ferret.vars
+echo export DEBUGFLAGS=\"$DEBUGFLAGS\" >> ferret.vars
+echo export GAPPATH=\"$GAPPATH\" >> ferret.vars
+echo export GAPEXEC=\"$GAPPATH/bin/gap.sh -b\" >> ferret.vars
+echo export CPPLIB=\"$CPPLIB\" >> ferret.vars
