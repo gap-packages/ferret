@@ -7,14 +7,14 @@
 Graph read_saucy_graph(FILE* f)
 {
     int num_edges, num_cells, num_verts;
-    fscanf(f, "%d %d %d", &num_verts, &num_edges, &num_cells);
+    assert(fscanf(f, "%d %d %d", &num_verts, &num_edges, &num_cells) == 3);
     Graph g(num_verts);
     int prev_cell_start = 0;
     for(int i = 0; i < num_cells - 1; ++i)
     {
         std::set<int> cell;
         int cell_start;
-        fscanf(f, "%d", &cell_start);
+        assert(fscanf(f, "%d", &cell_start) == 1);
         for(int pos = prev_cell_start; pos < cell_start; ++pos)
             cell.insert(pos+1);
         g.parts.push_back(cell);
@@ -24,7 +24,7 @@ Graph read_saucy_graph(FILE* f)
     for(int i = 0; i < num_edges; ++i)
     {
         int x,y;
-        fscanf(f, "%d %d", &x, &y);
+        assert(fscanf(f, "%d %d", &x, &y) == 2);
         g.edges[x+1].push_back(y+1);
         //g.edges[y+1].push_back(x+1);
     }
