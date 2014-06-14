@@ -72,8 +72,8 @@ struct Heuristic
   SearchHeuristic search_first_branch_value;
 
   Heuristic() :
-  rbase_value(RBaseBranch_First), rbase_cell(RBaseBranch_First),
-  search_value(SearchBranch_Nosort), search_first_branch_value(SearchBranch_Nosort)
+  rbase_value(RBaseBranch_Smallest), rbase_cell(RBaseBranch_Smallest),
+  search_value(SearchBranch_Sorted), search_first_branch_value(SearchBranch_Sorted)
   { }
 };
 
