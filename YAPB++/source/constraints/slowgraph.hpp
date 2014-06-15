@@ -20,7 +20,7 @@ public:
     { return "SlowGraph"; }
 
 
-    SlowGraph(const vec1<vec1<int> > _points, PartitionStack* ps)
+    SlowGraph(const vec1<vec1<int> >& _points, PartitionStack* ps)
     : AbstractConstraint(ps), points(_points)
     {
         for(int i = 1; i <= points.size(); ++i)
