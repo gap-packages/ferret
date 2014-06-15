@@ -20,11 +20,22 @@ public:
     { return "SlowGraph"; }
 
 
-    SlowGraph(const vec1<vec1<int> >& _points, PartitionStack* ps)
+    SlowGraph(const vec1<vec1<int> > _points, PartitionStack* ps)
     : AbstractConstraint(ps), points(_points)
     {
         for(int i = 1; i <= points.size(); ++i)
-            std::sort(points[i].begin(), points[i].end());
+        {
+          auto i_size = points[i].size();
+          for(int j = 1; j <= i_size; ++j)
+          {
+            points[points[i][j]].push_back( directed?-i:i );
+          }
+        }
+        for(int i = 1; i <= points.size(); ++i)
+        {
+          std::set<int> pntset(points[i].begin(), points[i].end());
+          points[i] = vec1<int>(pntset.begin(), pntset.end());
+        }
         D_ASSERT(points.size() <= ps->domainSize());
     }
 private:
@@ -35,20 +46,14 @@ private:
         for(int i = 1; i <= points.size(); ++i)
         {
             int i_cell = ps->cellOfVal(i);
-            for(vec1<int>::const_iterator it = points[i].begin();
-                it != points[i].end();
-                ++it)
+            for(auto pnt : points[i])
             {
-                int it_cell = ps->cellOfVal(*it);
-                mset[i] += quick_hash(it_cell);
-                if(directed == GraphDirected_yes)
-                {
-                    mset[*it] += quick_hash(quick_hash(i_cell));
-                }
-                else
-                {
-                    mset[*it] += quick_hash(i_cell);
-                }
+                int pnt_abs = std::abs(pnt);
+                int sign = (pnt > 0) ? 1 : -1;
+
+                int it_cell = ps->cellOfVal(pnt_abs);
+
+                mset[i] += quick_hash(it_cell * sign);
             }
         }
         return filterPartitionStackByFunction(ps, ContainerToFunction(&mset));
