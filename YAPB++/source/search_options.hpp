@@ -73,7 +73,7 @@ struct Heuristic
 
   Heuristic() :
   rbase_value(RBaseBranch_Smallest), rbase_cell(RBaseBranch_Smallest),
-  search_value(SearchBranch_Sorted), search_first_branch_value(SearchBranch_Sorted)
+  search_value(SearchBranch_RBase), search_first_branch_value(SearchBranch_RBase)
   { }
 };
 

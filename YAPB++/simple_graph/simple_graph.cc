@@ -21,6 +21,7 @@ void SolveGraph(const Graph& g)
 
     p.addConstraint(new SlowGraph<directed>(g.edges, &p.p_stack));
     SearchOptions so;
+    so.heuristic.rbase_cell = RBaseBranch_Largest;
     so.only_find_generators = true;
     SolutionStore ss = doSearch(&p, so);
 

@@ -89,6 +89,13 @@ public:
     {
         Stats::ConstraintInvoke(Stats::CON_SlowGraph);
         debug_out(1, "slowGraph", "signal_changed");
+        /*vec1<int> cells;
+        for(int i = 1; i <= ps->cellCount(); ++i)
+            cells.push_back(i);
+        SplitState ss = filterGraph(cells);
+        if(ss.hasFailed())
+            return ss;
+        return filterGraph(cells);*/
         return filterGraph(v);
     }
 
