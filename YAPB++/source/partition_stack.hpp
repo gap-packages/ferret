@@ -220,6 +220,9 @@ public:
     cellit cellEndPtr(int i)
     { return valPtr(cellEndPos(i)); }
 
+    Range<cellit> cellRange(int i)
+    { return make_range(cellStartPtr(i), cellEndPtr(i)); }
+
     int val(int pos)
     { return *valPtr(pos); }
 

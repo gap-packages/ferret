@@ -9,4 +9,20 @@
   C& operator=(const C&) & = default; \
   C& operator=(C&&) & = default;
 
+
+template<typename Iterator>
+class Range
+{
+  Iterator b, e;
+public:
+  Range(Iterator _b, Iterator _e) : b(_b), e(_e)
+  { }
+
+  Iterator begin() const { return b; }
+  Iterator end() const { return e; }
+};
+
+template<typename Iterator>
+Range<Iterator> make_range(Iterator b, Iterator e)
+{ return Range<Iterator>(b,e); }
 #endif

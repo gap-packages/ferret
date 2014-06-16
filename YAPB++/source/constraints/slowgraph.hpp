@@ -42,21 +42,24 @@ public:
     }
 private:
 
-    SplitState filterGraph()
+    SplitState filterGraph(const vec1<int>& cells)
     {
         vec1<u_int64_t> mset(ps->domainSize(), 0);
-        for(int i = 1; i <= points.size(); ++i)
+        for(auto c : cells)
         {
-            //int i_cell = ps->cellOfVal(i);
-            for(auto pnt : points[i])
+          for(auto val : ps->cellRange(c))
+          {
+            int val_cell = ps->cellOfVal(val);
+            auto pos_hash = quick_hash(val_cell);
+            auto neg_hash = quick_hash(-val_cell);
+            for(auto pnt : points[val])
             {
                 int pnt_abs = std::abs(pnt);
                 int sign = (pnt > 0) ? 1 : -1;
 
-                int it_cell = ps->cellOfVal(pnt_abs);
-
-                mset[i] += quick_hash(it_cell * sign);
+                mset[pnt_abs] += sign ? pos_hash : neg_hash;
             }
+          }
         }
         return filterPartitionStackByFunction(ps, ContainerToFunction(&mset));
     }
@@ -65,14 +68,17 @@ public:
     SplitState init()
     {
         ps->addTrigger(this, Trigger_Change);
-        return filterGraph();
+        vec1<int> cells;
+        for(int i = 1; i <= ps->cellCount(); ++i)
+          cells.push_back(i);
+        return filterGraph(cells);
     }
 
-    virtual SplitState signal_changed(const vec1<int>& /*v*/)
+    virtual SplitState signal_changed(const vec1<int>& v)
     {
         Stats::ConstraintInvoke(Stats::CON_SlowGraph);
         debug_out(1, "slowGraph", "signal_changed");
-        return filterGraph();
+        return filterGraph(v);
     }
 
     virtual bool verifySolution(const Permutation& p)
