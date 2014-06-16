@@ -25,18 +25,17 @@ public:
     {
         for(int i = 1; i <= points.size(); ++i)
         {
-          auto i_size = points[i].size();
-          for(int j = 1; j <= i_size; ++j)
-          {
-            D_ASSERT(points[i][j] <= points.size());
-            if(points[i][j] > 0)
-              points[points[i][j]].push_back( directed?-i:i );
-          }
+            int i_size = points[i].size();
+            for(int j = 1; j <= i_size; ++j)
+            {
+                if(points[i][j] > 0)
+                    points[points[i][j]].push_back(directed?-i:i);
+            }
         }
         for(int i = 1; i <= points.size(); ++i)
         {
-          std::set<int> pntset(points[i].begin(), points[i].end());
-          points[i] = vec1<int>(pntset.begin(), pntset.end());
+            std::set<int> pntset(points[i].begin(), points[i].end());
+            points[i] = vec1<int>(pntset.begin(), pntset.end());
         }
         D_ASSERT(points.size() <= ps->domainSize());
     }
@@ -47,19 +46,24 @@ private:
         vec1<u_int64_t> mset(ps->domainSize(), 0);
         for(auto c : cells)
         {
-          for(auto val : ps->cellRange(c))
-          {
-            int val_cell = ps->cellOfVal(val);
-            auto pos_hash = quick_hash(val_cell);
-            auto neg_hash = quick_hash(-val_cell);
-            for(auto pnt : points[val])
+            for(auto i : ps->cellRange(c))
             {
-                int pnt_abs = std::abs(pnt);
-                int sign = (pnt > 0) ? 1 : -1;
+                int i_cell = ps->cellOfVal(i);
+                int poshash = quick_hash(i_cell);
+                int neghash = quick_hash(-i_cell);
+                for(vec1<int>::const_iterator it = points[i].begin();
+                    it != points[i].end();
+                    ++it)
+                {
+                    int val = std::abs(*it);
+                    bool valpos = (*it > 0);
 
-                mset[pnt_abs] += sign ? pos_hash : neg_hash;
+                    if(valpos)
+                        mset[val] += poshash;
+                    else
+                        mset[val] += neghash;
+                }
             }
-          }
         }
         return filterPartitionStackByFunction(ps, ContainerToFunction(&mset));
     }
@@ -70,7 +74,7 @@ public:
         ps->addTrigger(this, Trigger_Change);
         vec1<int> cells;
         for(int i = 1; i <= ps->cellCount(); ++i)
-          cells.push_back(i);
+            cells.push_back(i);
         return filterGraph(cells);
     }
 
@@ -81,7 +85,7 @@ public:
         return filterGraph(v);
     }
 
-    virtual bool verifySolution(const Permutation& p)
+  virtual bool verifySolution(const Permutation& p)
     {
         for(int i = 1; i <= points.size(); ++i)
         {
