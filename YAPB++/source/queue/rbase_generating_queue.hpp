@@ -32,18 +32,27 @@ public:
         {
             case Trigger_Fix:
             {
+                D_ASSERT(std::find(constraint_fix_list.begin(),
+                                   constraint_fix_list.end(), ac)
+                           == constraint_fix_list.end());
                 constraint_fix_list.push_back(ac);
                 to_invoke_fix.push_back(-1);
             }
             break;
             case Trigger_Change:
             {
+                D_ASSERT(std::find(constraint_change_list.begin(),
+                                   constraint_change_list.end(), ac)
+                            == constraint_change_list.end());
                 constraint_change_list.push_back(ac);
                 to_invoke_change.push_back(std::set<int>());
             }
             break;
             case Trigger_RBaseFinished:
             {
+                D_ASSERT(std::find(constraint_rbase_finished_list.begin(),
+                                   constraint_rbase_finished_list.end(), ac)
+                            == constraint_rbase_finished_list.end());
                 constraint_rbase_finished_list.push_back(ac);
             }
             break;
