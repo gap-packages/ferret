@@ -2,6 +2,7 @@
 #define _SLOWGRAPH_HPP_AGH
 
 #include <set>
+#include <unordered_set>
 
 #include "abstract_constraint.hpp"
 #include "../partition_stack.hpp"
@@ -42,8 +43,9 @@ public:
     }
 private:
 
-    SplitState filterGraph(const vec1<int>& cells)
+    SplitState filterGraph(const vec1<int>& _cells)
     {
+        std::unordered_set<int> cells(_cells.begin(), _cells.end());
         vec1<u_int64_t> mset(ps->domainSize(), 0);
         MonoSet monoset(ps->cellCount());
         for(auto c : cells)
@@ -53,18 +55,16 @@ private:
                 int i_cell = ps->cellOfVal(i);
                 int poshash = quick_hash(i_cell);
                 int neghash = quick_hash(-i_cell);
-                for(vec1<int>::const_iterator it = points[i].begin();
-                    it != points[i].end();
-                    ++it)
+                for(auto val : points[i])
                 {
-                    int val = std::abs(*it);
-                    bool valpos = (*it > 0);
+                    int valabs = std::abs(val);
+                    bool valsign = (val > 0);
 
-                    if(valpos)
-                        mset[val] += poshash;
+                    if(valsign)
+                        mset[valabs] += poshash;
                     else
-                        mset[val] += neghash;
-                    monoset.add(ps->cellOfVal(val));
+                        mset[valabs] += neghash;
+                    monoset.add(ps->cellOfVal(valabs));
                 }
             }
         }
