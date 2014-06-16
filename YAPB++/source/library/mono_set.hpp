@@ -8,7 +8,8 @@ class MonoSet
 	std::vector<bool> hit;
 	std::vector<int> members;
 public:
-	MonoSet(int size) : hit(size, false)
+	//+1 to handle 0-based and 1-based containers
+	MonoSet(int size) : hit(size+1, false)
 	{ }
 
 	DEFAULT_MOVE_COPY_CONST_ASSIGN(MonoSet);
