@@ -43,20 +43,23 @@ public:
     }
 private:
 
-    SplitState filterGraph(const vec1<int>& _cells)
+    SplitState filterGraph(const vec1<int>& cells)
     {
-        std::unordered_set<int> cells(_cells.begin(), _cells.end());
         vec1<u_int64_t> mset(ps->domainSize(), 0);
         MonoSet monoset(ps->cellCount());
+        debug_out(0, "SlowGraph", "filtering: " << cells.size() << " cells out of " << ps->cellCount());
+        int nodes = 0, edges = 0;
         for(auto c : cells)
         {
             for(auto i : ps->cellRange(c))
             {
+                nodes++;
                 int i_cell = ps->cellOfVal(i);
                 int poshash = quick_hash(i_cell);
                 int neghash = quick_hash(-i_cell);
                 for(auto val : points[i])
                 {
+                    edges++;
                     int valabs = std::abs(val);
                     bool valsign = (val > 0);
 
@@ -68,6 +71,7 @@ private:
                 }
             }
         }
+        debug_out(0, "SlowGraph", "considered " << nodes << " nodes and " << edges << " edges.");
         return filterPartitionStackByFunctionWithCells(ps, ContainerToFunction(&mset), monoset);
     }
 

@@ -24,12 +24,7 @@
   #endif
 #endif
 
-#ifdef DEBUG_PRINT
-
-#ifndef DEBUG_PRINT_LEVEL
-#define DEBUG_PRINT_LEVEL 1
-#endif
-
+#ifdef DEBUG_PRINT_LEVEL
 
 #ifdef  GAP_COMPILED_H
 #define debug_out(level, type, message) \

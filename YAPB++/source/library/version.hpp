@@ -17,7 +17,7 @@ const static char* version =
 "Timing : "
 #endif
 
-#ifdef DEBUG_PRINT
+#ifdef DEBUG_PRINT_LEVEL
 "Debug output : "
 #endif
 
