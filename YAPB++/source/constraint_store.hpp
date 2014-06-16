@@ -19,7 +19,7 @@ public:
     void addConstraint(AbstractConstraint* con)
     {
         D_ASSERT(!constraints_initalized);
-        constraints.push_back(con); 
+        constraints.push_back(con);
     }
 
     void initConstraints(ConstraintQueue* cq)
