@@ -7,6 +7,7 @@
 #include "../partition_stack.hpp"
 #include "../partition_refinement.hpp"
 #include "library/hash.hpp"
+#include "library/mono_set.hpp"
 
 enum GraphDirected
 { GraphDirected_no = 0, GraphDirected_yes = 1};
@@ -44,6 +45,7 @@ private:
     SplitState filterGraph(const vec1<int>& cells)
     {
         vec1<u_int64_t> mset(ps->domainSize(), 0);
+        MonoSet monoset(ps->cellCount());
         for(auto c : cells)
         {
             for(auto i : ps->cellRange(c))
@@ -62,10 +64,11 @@ private:
                         mset[val] += poshash;
                     else
                         mset[val] += neghash;
+                    monoset.add(ps->cellOfVal(val));
                 }
             }
         }
-        return filterPartitionStackByFunction(ps, ContainerToFunction(&mset));
+        return filterPartitionStackByFunctionWithCells(ps, ContainerToFunction(&mset), monoset);
     }
 
 public:

@@ -143,25 +143,41 @@ SplitState filterPartitionStackByFunction_withSortData(PartitionStack* ps, F f)
 }
 
 template<typename F>
+void filterCell(PartitionStack* ps, F f, int i, PartitionEvent* pe)
+{
+    if(ps->cellSize(i) > 1 || TUNABLE_FILTER_SINGLE_CELLS)
+    {
+        SortEvent se = filterCellByFunction_noSortData(ps, i, f);
+        if(se.noSplits())
+        {
+            pe->no_change_cells.push_back(std::make_pair(i, se.hash_starts[1].hashVal));
+        }
+        else
+        {
+            pe->change_cells.push_back(std::make_pair(i, std::move(se)));
+        }
+    }
+}
+template<typename F>
 SplitState filterPartitionStackByFunction_noSortData(PartitionStack* ps, F f)
 {
     PartitionEvent pe;
     int cellCount = ps->cellCount();
     for(int i = 1; i <= cellCount; ++i)
     {
-        if(ps->cellSize(i) > 1 || TUNABLE_FILTER_SINGLE_CELLS)
-        {
-            SortEvent se = filterCellByFunction_noSortData(ps, i, f);
-            if(se.noSplits())
-            {
-                pe.no_change_cells.push_back(std::make_pair(i, se.hash_starts[1].hashVal));
-            }
-            else
-            {
-                pe.change_cells.push_back(std::make_pair(i, std::move(se)));
-            }
-        }
+        filterCell(ps, f, i, &pe);
     }
+    pe.finalise();
+    ps->getAbstractQueue()->addPartitionEvent(std::move(pe));
+    return SplitState(true);
+}
+
+template<typename F, typename Cells>
+SplitState filterPartitionStackByFunctionWithCells_noSortData(PartitionStack* ps, F f, const Cells& cells)
+{
+    PartitionEvent pe;
+    for(auto i : cells)
+        filterCell(ps, f, i, &pe);
     pe.finalise();
     ps->getAbstractQueue()->addPartitionEvent(std::move(pe));
     return SplitState(true);
@@ -176,6 +192,22 @@ SplitState filterPartitionStackByFunction(PartitionStack* ps, F f)
       ret = filterPartitionStackByFunction_withSortData(ps, f);
     else
       ret = filterPartitionStackByFunction_noSortData(ps, f);
+    debug_out(0, "filterByFunction", "poststate " << ps->printCurrentPartition());
+    return ret;
+}
+
+template<typename F, typename Cells>
+SplitState filterPartitionStackByFunctionWithCells(PartitionStack* ps, F f, const Cells& cells)
+{
+    debug_out(0, "filterByFunction", "prestate " << ps->printCurrentPartition());
+    SplitState ret(false);
+    if(ps->getAbstractQueue()->hasSortData())
+    {
+      // TODO : Use cells
+      ret = filterPartitionStackByFunction_withSortData(ps, f);
+    }
+    else
+      ret = filterPartitionStackByFunctionWithCells_noSortData(ps, f, cells);
     debug_out(0, "filterByFunction", "poststate " << ps->printCurrentPartition());
     return ret;
 }
