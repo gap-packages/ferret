@@ -20,6 +20,9 @@ public:
 
   Iterator begin() const { return b; }
   Iterator end() const { return e; }
+
+  friend std::ostream& operator<<(std::ostream& os, const Range& r)
+  { return os << "[" << &*(r.b) << "," << &*(r.e) << ")"; }
 };
 
 template<typename Iterator>
