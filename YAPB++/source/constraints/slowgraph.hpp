@@ -23,7 +23,8 @@ public:
 
 
     SlowGraph(const vec1<vec1<int> >& _points, PartitionStack* ps)
-    : AbstractConstraint(ps), points(_points)
+    : AbstractConstraint(ps), points(_points),
+    advise_branch_monoset(ps->domainSize())
     {
         for(int i = 1; i <= points.size(); ++i)
         {
@@ -97,6 +98,53 @@ public:
             return ss;
         return filterGraph(cells);*/
         return filterGraph(v);
+    }
+
+    virtual void debug_check_propagation()
+    {
+        int cellcount = ps->cellCount();
+        vec1<int> cells;
+        for(int i = 1; i <= cellcount; ++i)
+            cells.push_back(i);
+        SplitState ss = filterGraph(cells);
+        (void)ss;
+        D_ASSERT(!ss.isFailed());
+        D_ASSERT(cellcount == ps->cellCount());
+    }
+
+    // We cache this monoset to save allocations.
+    MonoSet advise_branch_monoset;
+    virtual int advise_branch()
+    {
+        D_ASSERT(advise_branch_monoset.size() == 0);
+        int best_cell = -1;
+        int best_neighbours = 0;
+        int best_size = std::numeric_limits<int>::max();
+        for(int i = 1; i <= ps->cellCount(); ++i)
+        {
+            if(ps->cellSize(i) > 1)
+            {
+                int cellfirstmem = *(ps->cellStartPtr(i));
+                for(auto edge : points[cellfirstmem])
+                {
+                    if(ps->cellSize(edge) > 1)
+                        advise_branch_monoset.add(ps->cellOfVal(edge));
+                }
+
+                if(advise_branch_monoset.size() > best_neighbours ||
+                   (advise_branch_monoset.size() == best_neighbours &&
+                    ps->cellSize(i) < best_size)
+                  )
+                {
+                    best_cell = i;
+                    best_neighbours = advise_branch_monoset.size();
+                    best_size = ps->cellSize(i);
+                }
+                advise_branch_monoset.clear();
+            }
+        }
+
+        return best_cell;
     }
 
   virtual bool verifySolution(const Permutation& p)

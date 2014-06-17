@@ -37,6 +37,16 @@ public:
 	std::vector<int>::const_iterator end() const
 	{ return members.end(); }
 
+	int size() const
+	{ return members.size(); }
+
+	void clear()
+	{
+		for(auto m : members)
+			hit[m] = false;
+		members.clear();
+	}
+
 };
 
 #endif
