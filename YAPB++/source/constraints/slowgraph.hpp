@@ -108,7 +108,7 @@ public:
             cells.push_back(i);
         SplitState ss = filterGraph(cells);
         (void)ss;
-        D_ASSERT(!ss.isFailed());
+        D_ASSERT(!ss.hasFailed());
         D_ASSERT(cellcount == ps->cellCount());
     }
 
