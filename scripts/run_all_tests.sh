@@ -5,7 +5,7 @@ cd $(dirname $0)
 cd ..
 . ./ferret.vars
 cd YAPB++/tests
-#./run_tests.sh
+./run_tests.sh
 cd ../..
 for j in "CHECK=0" "CHECK=1"; do
   make $j > /dev/null
@@ -22,4 +22,9 @@ for j in "CHECK=0" "CHECK=1"; do
 
   echo "(cd tst/graphs; ./test_all_graphs.sh)"
 ) | parallel -j4
+
+if savilerow > /dev/null; then
+	(cd tst/symmetry_detect; ./run_savilerow_symmetry_tests.sh )
+else
+	echo "No savilerow -- skipping tests"
 done
