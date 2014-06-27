@@ -12,7 +12,7 @@ class BacktrackingRBase
 {
     RevertingStack<int> branchcell;
     RevertingStack<int> branchvalue;
-   
+
 
     BacktrackingRBase(const BacktrackingRBase&);
 public:
@@ -23,14 +23,14 @@ public:
 
 
     void addBranch(int cell, int value)
-    { 
+    {
         branchcell.push_back(cell);
         branchvalue.push_back(value);
     }
 
     int size() const
     { return branchcell.size(); }
-    
+
 
 
     RBase* fixRBase(PartitionStack* ps, const vec1<TraceList>& trace)
@@ -50,14 +50,15 @@ public:
     }
 };
 
-int choose_branch_cell(PartitionStack* ps, RBaseSearchHeuristic sh)
+int choose_branch_cell(PartitionStack* ps, ConstraintStore* cstore,
+                       RBaseSearchHeuristic sh)
 {
     int branch_cell = 1;
     switch(sh)
     {
         case RBaseBranch_First:
         {
-            while(branch_cell <= ps->cellCount() && 
+            while(branch_cell <= ps->cellCount() &&
                   ps->cellSize(branch_cell) == 1)
                     branch_cell++;
             if(branch_cell <= ps->cellCount())
@@ -71,15 +72,15 @@ int choose_branch_cell(PartitionStack* ps, RBaseSearchHeuristic sh)
             // and search from there.
             int branch_start = 1 + (random() % ps->cellCount());
             branch_cell = branch_start;
-            while(branch_cell <= ps->cellCount() && 
+            while(branch_cell <= ps->cellCount() &&
                   ps->cellSize(branch_cell) == 1)
                     branch_cell++;
-            
+
             if(branch_cell <= ps->cellCount())
                 return branch_cell;
-            
+
             branch_cell = 1;
-            while(branch_cell < branch_start && 
+            while(branch_cell < branch_start &&
                   ps->cellSize(branch_cell) == 1)
                     branch_cell++;
 
@@ -222,7 +223,8 @@ RBase* buildRBase(Problem* p, RBaseSearchHeuristic cellHeuristic, RBaseSearchHeu
     {
         p->con_queue.invokeQueue();
         p->memory_backtracker.pushWorld();
-        branch_cell = choose_branch_cell(&p->p_stack, cellHeuristic);
+        branch_cell = choose_branch_cell(&p->p_stack,
+                                         &p->con_store, cellHeuristic);
         if(branch_cell != -1)
         {
             // put a well-defined value at the start of the partition, for ease of duplication
@@ -241,7 +243,7 @@ RBase* buildRBase(Problem* p, RBaseSearchHeuristic cellHeuristic, RBaseSearchHeu
     debug_out(1, "Build RBase", "Finished RBase building");
 
     D_ASSERT(p->p_stack.cellCount() == p->p_stack.domainSize());
-    
+
     RBase* rb = revrbase.fixRBase(&p->p_stack, p->tracer_generator.getTrace());
     p->con_queue.RBaseFinished(rb);
     p->memory_backtracker.popWorldToDepth(depth);
