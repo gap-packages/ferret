@@ -122,6 +122,11 @@ if var1 == "[]":
     temp = (var2 == "[]").__str__().lower()
     print "Print (" + temp + ");"
     sys.exit(0)
+elif var2 == "[]":
+    print "Print (false);"
+    sys.exit(0)
+
+        
     
 
 #build gap string
