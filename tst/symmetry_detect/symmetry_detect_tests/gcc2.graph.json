@@ -1,0 +1,193 @@
+{
+"symmetricChildren":true,
+"nodes_to_swap":["$a","$b","$c","$d","$e","$f","$a2","$b2","$c2","$d2","$e2","$f2"],
+"variableDomains":[
+{
+"name": "$a",
+"domain": [[0, 10]]
+},
+{
+"name": "$b",
+"domain": [[0, 10]]
+},
+{
+"name": "$c",
+"domain": [[0, 10]]
+},
+{
+"name": "$d",
+"domain": [[0, 10]]
+},
+{
+"name": "$e",
+"domain": [[0, 10]]
+},
+{
+"name": "$f",
+"domain": [[0, 10]]
+},
+{
+"name": "$a2",
+"domain": [[0, 10]]
+},
+{
+"name": "$b2",
+"domain": [[0, 10]]
+},
+{
+"name": "$c2",
+"domain": [[0, 10]]
+},
+{
+"name": "$d2",
+"domain": [[0, 10]]
+},
+{
+"name": "$e2",
+"domain": [[0, 10]]
+},
+{
+"name": "$f2",
+"domain": [[0, 10]]
+}],
+"constraints": {
+"type": "Top",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "And",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "GlobalCard",
+"symmetricChildren": false,
+"children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$a"
+},
+{
+"type": "Identifier",
+"name": "$b"
+},
+{
+"type": "Identifier",
+"name": "$c"
+}]
+},
+{
+"type": "pairList",
+"symmetricChildren": true,
+"children": [
+{
+"type": "pair",
+"symmetricChildren": false,
+"children": [
+{
+"type": "NumberConstant",
+"value": 1
+},
+{
+"type": "Identifier",
+"name": "$d"
+}]
+},
+{
+"type": "pair",
+"symmetricChildren": false,
+"children": [
+{
+"type": "NumberConstant",
+"value": 2
+},
+{
+"type": "Identifier",
+"name": "$e"
+}]
+},
+{
+"type": "pair",
+"symmetricChildren": false,
+"children": [
+{
+"type": "NumberConstant",
+"value": 3
+},
+{
+"type": "Identifier",
+"name": "$f"
+}]
+}]
+}]},
+{
+"type": "GlobalCard",
+"symmetricChildren": false,
+"children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Identifier",
+"name": "$a2"
+},
+{
+"type": "Identifier",
+"name": "$b2"
+},
+{
+"type": "Identifier",
+"name": "$c2"
+}]
+},
+{
+"type": "pairList",
+"symmetricChildren": true,
+"children": [
+{
+"type": "pair",
+"symmetricChildren": false,
+"children": [
+{
+"type": "NumberConstant",
+"value": 3
+},
+{
+"type": "Identifier",
+"name": "$f2"
+}]
+},
+{
+"type": "pair",
+"symmetricChildren": false,
+"children": [
+{
+"type": "NumberConstant",
+"value": 2
+},
+{
+"type": "Identifier",
+"name": "$e2"
+}]
+},
+{
+"type": "pair",
+"symmetricChildren": false,
+"children": [
+{
+"type": "NumberConstant",
+"value": 1
+},
+{
+"type": "Identifier",
+"name": "$d2"
+}]
+}]
+}]}]
+}]
+}
+}

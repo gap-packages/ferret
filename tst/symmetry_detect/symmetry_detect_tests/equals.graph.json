@@ -1,0 +1,102 @@
+{
+"symmetricChildren":true,
+"nodes_to_swap":["$a","$b","$c","$d"],
+"variableDomains":[
+{
+"name": "$a",
+"domain": [[0, 10]]
+},
+{
+"name": "$b",
+"domain": [[0, 10]]
+},
+{
+"name": "$c",
+"domain": [[0, 10]]
+},
+{
+"name": "$d",
+"domain": [[0, 10]]
+}],
+"constraints": {
+"type": "Top",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Difference",
+"symmetricChildren": true,
+"children": [
+{
+"type": "WeightedSum",
+"symmetricChildren": true,
+"children": [
+{
+"type": "Times",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "NumberConstant",
+"value": 1
+},
+{
+"type": "Identifier",
+"name": "$a"
+}]
+},
+{
+"type": "Times",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "NumberConstant",
+"value": 1
+},
+{
+"type": "Identifier",
+"name": "$b"
+}]
+},]
+},
+{
+"type": "WeightedSum",
+"symmetricChildren": true,
+"children": [
+{
+"type": "Times",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "NumberConstant",
+"value": 1
+},
+{
+"type": "Identifier",
+"name": "$c"
+}]
+},
+{
+"type": "Times",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "NumberConstant",
+"value": 1
+},
+{
+"type": "Identifier",
+"name": "$d"
+}]
+},]
+}]
+},
+{
+"type": "NumberConstant",
+"value": 0
+}]
+}]
+}
+}

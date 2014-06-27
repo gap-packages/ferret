@@ -1,0 +1,259 @@
+{
+"symmetricChildren":true,
+"nodes_to_swap":["$a","$b","$c","$d","$e","$f","$g","$h"],
+"variableDomains":[
+{
+"name": "$a",
+"domain": [[0, 20]]
+},
+{
+"name": "$b",
+"domain": [[0, 20]]
+},
+{
+"name": "$c",
+"domain": [[0, 20]]
+},
+{
+"name": "$d",
+"domain": [[0, 20]]
+},
+{
+"name": "$e",
+"domain": [[0, 20]]
+},
+{
+"name": "$f",
+"domain": [[0, 20]]
+},
+{
+"name": "$g",
+"domain": [[0, 20]]
+},
+{
+"name": "$h",
+"domain": [[0, 20]]
+}],
+"constraints": {
+"type": "Top",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "And",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Absolute",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "Difference",
+"symmetricChildren": true,
+"children": [
+{
+"type": "WeightedSum",
+"symmetricChildren": true,
+"children": [
+{
+"type": "Times",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "NumberConstant",
+"value": 1
+},
+{
+"type": "Identifier",
+"name": "$a"
+}]
+},]
+},
+{
+"type": "WeightedSum",
+"symmetricChildren": true,
+"children": [
+{
+"type": "Times",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "NumberConstant",
+"value": 1
+},
+{
+"type": "Identifier",
+"name": "$b"
+}]
+},]
+}]
+}]
+},
+{
+"type": "NumberConstant",
+"value": 10
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Absolute",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "Difference",
+"symmetricChildren": true,
+"children": [
+{
+"type": "WeightedSum",
+"symmetricChildren": true,
+"children": [
+{
+"type": "Times",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "NumberConstant",
+"value": 1
+},
+{
+"type": "Identifier",
+"name": "$b"
+}]
+},]
+},
+{
+"type": "WeightedSum",
+"symmetricChildren": true,
+"children": [
+{
+"type": "Times",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "NumberConstant",
+"value": 1
+},
+{
+"type": "Identifier",
+"name": "$c"
+}]
+},]
+}]
+}]
+},
+{
+"type": "NumberConstant",
+"value": 10
+}]
+},
+{
+"type": "Equals",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "Absolute",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "Difference",
+"symmetricChildren": true,
+"children": [
+{
+"type": "WeightedSum",
+"symmetricChildren": true,
+"children": [
+{
+"type": "Times",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "NumberConstant",
+"value": 1
+},
+{
+"type": "Identifier",
+"name": "$c"
+}]
+},]
+},
+{
+"type": "WeightedSum",
+"symmetricChildren": true,
+"children": [
+{
+"type": "Times",
+"symmetricChildren": true,
+"Children": [
+{
+"type": "NumberConstant",
+"value": 1
+},
+{
+"type": "Identifier",
+"name": "$d"
+}]
+},]
+}]
+}]
+},
+{
+"type": "NumberConstant",
+"value": 10
+}]
+},
+{
+"type": "LexLessEqual",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "CompoundMatrix",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "Identifier",
+"name": "$a"
+},
+{
+"type": "Identifier",
+"name": "$b"
+},
+{
+"type": "Identifier",
+"name": "$c"
+},
+{
+"type": "Identifier",
+"name": "$d"
+}]
+},
+{
+"type": "CompoundMatrix",
+"symmetricChildren": false,
+"Children": [
+{
+"type": "Identifier",
+"name": "$e"
+},
+{
+"type": "Identifier",
+"name": "$f"
+},
+{
+"type": "Identifier",
+"name": "$g"
+},
+{
+"type": "Identifier",
+"name": "$h"
+}]
+}]
+}]
+}]
+}
+}
