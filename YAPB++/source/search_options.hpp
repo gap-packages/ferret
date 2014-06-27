@@ -10,7 +10,8 @@ enum RBaseSearchHeuristic
     RBaseBranch_Smallest,
     RBaseBranch_Smallest2,
     RBaseBranch_Random,
-    RBaseBranch_RandomSmallest
+    RBaseBranch_RandomSmallest,
+    RBaseBranch_ConstraintAdvise,
 };
 
 enum SearchHeuristic
