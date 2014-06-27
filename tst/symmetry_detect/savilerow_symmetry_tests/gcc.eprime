@@ -1,0 +1,9 @@
+language ESSENCE' 1.0
+find a: int(0..10)
+find b: int(0..10)
+find c: int(0..10)
+find d: int(0..10)
+find e: int(0..10)
+find f: int(0..10)
+such that
+gcc([a,b,c],[1,2,3],[d,e,f])
