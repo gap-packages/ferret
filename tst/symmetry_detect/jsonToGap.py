@@ -3,14 +3,26 @@ import sys
 import json
 
 def parseFile(fileName):
-    syms = json.load(open(fileName, "r"))
+    syms = None
+    json_str = None
+    try:
+        with open(fileName) as f:
+            json_str = f.read()
+        syms = json.loads(json_str)
+    except:
+        sys.stderr.write(sys.exc_info().__str__() + "\n")
+        if json_str != None:
+            sys.stderr.write("Input file " + fileName + ":\n" + json_str)
+            
     if  not isinstance(syms, list):
-        print "expected JSON list at top level of file:", fileName
+        sys.stderr.write("expected JSON list at top level of file:" + fileName + "\n")
         sys.exit(2);
     return syms
 
 
 def removeDuplicates(syms):
+    if len(syms) == 0:
+        return
     syms.sort()
     sym = syms[0]
     i = 1
@@ -93,6 +105,8 @@ def jsonToListNotation(syms):
 
 def convert(fileName):
     syms = parseFile(fileName)
+    if len(syms) == 0:
+        return "[]"
     removeDuplicates(syms)
     enumerateValues(syms)
     return jsonToListNotation(syms)
@@ -104,6 +118,11 @@ if len(sys.argv) < 3:
 
 var1 =  convert(sys.argv[1])
 var2 =  convert(sys.argv[2])
+if var1 == "[]":
+    temp = (var2 == "[]").__str__().lower()
+    print "Print (" + temp + ");"
+    sys.exit(0)
+    
 
 #build gap string
 buffer = []

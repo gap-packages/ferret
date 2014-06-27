@@ -1,0 +1,15 @@
+language ESSENCE' 1.0
+$although variables are within an absolute constraint, they should not be symmetric due to compound matrix 
+find a: int(0..20)
+find b: int(0..20)
+find c: int(0..20)
+find d: int(0..20)
+find e: int(0..20)
+find f: int(0..20)
+find g: int(0..20)
+find h: int(0..20)
+such that
+|a-b| = 10,
+|b-c| = 10,
+|c-d| = 10,
+[a,b,c,d] <=lex [e,f,g,h]

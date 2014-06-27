@@ -1,0 +1,12 @@
+language ESSENCE' 1.0
+find a: int(0..20)
+find b: int(0..20)
+find c: int(0..20)
+find d: int(0..20)
+find e: int(0..19)
+find f: int(0..18)
+find g: int(0..17)
+find h: int(0..16)
+such that
+allDiff([a,b,c,d]),
+allDiff([e,f,g,h])

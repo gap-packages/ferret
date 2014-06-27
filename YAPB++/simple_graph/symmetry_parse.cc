@@ -12,12 +12,12 @@ using namespace std;
 
 //gason method printerror at bottom of file
 void printJSONParseError(JsonParseStatus status, char *endptr, char *source, size_t size);
+	void printSymmetries(set<vector<pair<string, string>>>& permutations);
 //constants
 const string JSON_VARIABLES_TAG = "nodes_to_swap";;
 const string JSON_SYMMETRIC_TAG = "symmetricChildren";
 const string primePrefix = "%";
 const string varPrefix = "#";
-
 
 map<string, set<int>>  vars; //mapping from variables to the nodes containing that variable
 
@@ -25,6 +25,9 @@ map<string, set<int>> colours; //mapping from colour name to set of nodes of tha
 
 
 map<int, string> originalPrimeColours; //mapping from node value to the original prime colour 
+
+set<map<string, string>> permutations;
+
 
 
 //function that returns passed in string with added prefix
@@ -119,19 +122,24 @@ map<string, set<int>> parseVariableList(JsonValue& o) {
 
 void jsonToGraph(JsonValue& o, vec1<vec1<int>>& graph, int currentNode, bool symmetryAllowed = false) {
 switch (o.getTag()) {
-	case JSON_TAG_OBJECT: 
+	case JSON_TAG_OBJECT: {
 	//identify whether contained json arrays are symmetric children
 	symmetryAllowed = hasSymmetricFlag(o);
+	//make node representing object
+	int objectNode = addNode(graph, currentNode, "object", false);
 	for (auto i: o) {
 		if (i->key != JSON_SYMMETRIC_TAG && i->key != JSON_VARIABLES_TAG) {
-		int newNode = addNode(graph, currentNode, i->key);
+		int newNode = addNode(graph, objectNode, i->key);
 		jsonToGraph(i->value, graph, newNode, symmetryAllowed);
 	}
 	}
 	break;
 
-	
+}
 	case JSON_TAG_ARRAY: {
+		//make node representing array
+		int arrayNode = addNode(graph, currentNode, "array", false);
+		
 	int index = 0;
 	for (auto i: o) {
 			if (!symmetryAllowed) {				//connect children via asymmetric nodes  to prevent symmetry in graph
@@ -139,10 +147,10 @@ switch (o.getTag()) {
 				string middleNodeName = "child" + to_string(index++);
 						
 						//create middle node then connect original child to graph via middle node
-				int middleNode = addNode(graph, currentNode, middleNodeName , false);
+				int middleNode = addNode(graph, arrayNode, middleNodeName , false);
 				jsonToGraph(i->value, graph, middleNode);
 			} else { //symmetry allowed so just connect node to graph
-				jsonToGraph(i->value, graph, currentNode);
+				jsonToGraph(i->value, graph, arrayNode);
 			}
 	}
 	break;
@@ -242,6 +250,7 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
 		*out << "converting to graph...\n";
 		vec1<vec1<int>> edges;
 		jsonToGraph(o, edges);
+		
 		*out << "graph build.\nLooking for symmetries...\n";
 		
 //build graph object for symmetry detection 
@@ -256,41 +265,55 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
 		vec1<Permutation> solutions = SolveGraph(graph);
 		set<int> primeNodeValues = colours[makePrimeVar(vars.begin()->first)];
 		
-		bool firstObject = true;
-		cout << "[";
+		//build set of permutations to insure no duplicates
+		set<vector<pair<string, string>>> permutations;
 	    for(auto const& sol : solutions)
 	    {
-			bool startOfObject = true;
+			vector<pair<string, string>>  permutation;
 		for (int i: primeNodeValues) {
 			int newValue = sol[i];
 			if (newValue != i) {
-				//print start of object if necessary
-				if (startOfObject) {
-					if (!firstObject) 
-						cout << ",";
-				else
-					firstObject = false;
-				
-					cout << "\n{\n";
-				} else {
-					cout << ",\n";
-				}
-				startOfObject = false;
-			cout << "\"" << unescapeVar(originalPrimeColours[i]) << "\":\"" << unescapeVar(originalPrimeColours[newValue]) << "\"";
+			permutation.push_back(pair<string, string>(unescapeVar(originalPrimeColours[i]), unescapeVar(originalPrimeColours[newValue])));
 		}
 	}
-	if (!startOfObject)
-		cout << "\n}";
-		}
-		if (!firstObject)
-			cout << "\n";
-	    cout << "]\n";
+	if (permutation.size() > 0)
+		permutations.insert(move(permutation));
+	}
+		printSymmetries(permutations);
 		delete[] buffer;
 		if (quietMode)
 		delete out;
 	}
 	
 
+	//prints symmetries out
+	void printSymmetries(set<vector<pair<string, string>>>& permutations) {
+		cout << "[";
+bool firstJSONObject = true;
+for (vector<pair<string, string>>  permutation: permutations) {
+	if (!firstJSONObject)
+		cout << ",\n";
+	else {
+		firstJSONObject = false;
+		cout << "\n";
+	}
+	bool firstJSONMember = true;
+	cout << "{\n";
+	for (pair<string, string> mapping: permutation) {
+		if (!firstJSONMember)
+			cout << ",\n";
+				else
+					firstJSONMember = false;
+		cout << "\"" << mapping.first << "\":\"" << mapping.second << "\"";
+	}
+	cout << "\n}";
+}
+if (!firstJSONObject)
+	cout << "\n";
+cout << "]\n";
+}
+	
+	
 	//gason code to print error 
 	void printJSONParseError(JsonParseStatus status, char *endptr, char *source, size_t size) {
 		static const char *status2string[] = {
