@@ -16,6 +16,6 @@ such that
 
 
 leqlexmat1 <=lex leqlexmat2,
-lesslexmat1 <=lex lesslexmat2,
-geqlexmat1 >=lex geqlexmat1
+lesslexmat1 <lex lesslexmat2,
+geqlexmat1 >=lex geqlexmat2,
 greaterlexmat1 >lex greaterlexmat2
