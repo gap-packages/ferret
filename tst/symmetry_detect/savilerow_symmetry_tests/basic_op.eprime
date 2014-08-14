@@ -1,0 +1,74 @@
+language ESSENCE' 1.0
+find plus1: int(-10..10)
+find plus2: int(-10..10)
+find minus1: int(-10..10)
+find minus2: int(-10..10)
+find minus3: int(-10..10)
+find minus4: int(-10..10)
+find minus5: int(-10..10)
+find minus6: int(-10..10)
+find minusresult: int(-1..1)
+find pow1: int(-10..10)
+find pow2: int(-10..10)
+find div1: int(-10..10)
+find div2: int(-10..10)
+find mod1: int(-10..10)
+find mod2: int(-10..10)
+find abs1: int(-10..10)
+find abs2: int(-10..10)
+find min1: int(-10..10)
+find min2: int(-10..10)
+find max1: int(-10..10)
+find max2: int(-10..10)
+find or1: bool
+find or2: bool
+find and1: bool
+find and2: bool
+find implies1: bool
+find implies2: bool
+find negate1: bool
+find negate2: bool
+
+find neq1: int(-10..10)
+find neq2: int(-10..10)
+
+find greater1: int(-10..10)
+find greater2: int(-10..10)
+
+find less1: int(-10..10)
+find less2: int(-10..10)
+
+find greatereq1: int(-10..10)
+find greatereq2: int(-10..10)
+
+find lesseq1: int(-10..10)
+find lesseq2: int(-10..10)
+
+such that
+
+plus1 + plus2 = 5,
+minus1 - minus2 = 0, $ this is symmetric
+minus3 - minus4 = 1, $ this is not
+minus5 - minus6 = minusresult, $ neither is this
+pow1 ** pow2 = 9,
+div1 / div2 = 2,
+mod1 % mod2 = 3,
+|abs1| + abs2 = 5,
+min(min1, min2) = 3,
+max(max1, max2) = 3,
+
+or1 \/ or2,
+and1 /\ and2,
+implies1 -> implies2,
+!(negate1) /\ !(negate2),
+
+$ We would test equal and iff here, but variable
+$ elimination remove them, so we have to test them
+$ specially
+$   equal1 = equal2,
+$   iff1 <-> iff2,
+neq1 != neq2,
+greater1 > greater2,
+less1 < less2,
+greatereq1 >= greatereq2,
+lesseq1 <= lesseq2

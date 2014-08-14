@@ -1,0 +1,16 @@
+language ESSENCE' 1.0
+find table1 : int(1..5)
+find table2 : int(1..5)
+find table3 : int(1..5)
+find table4 : int(1..5)
+find table5 : int(1..5)
+find table6 : int(1..5)
+find table7 : int(1..5)
+find table8 : int(1..5)
+
+such that
+
+table([table1, table2], [[1,2],[2,1],[2,3],[3,2]]),
+table([table3, table4], [[1,2],[2,1],[2,3],[3,2]]),
+table([table5, table6], [[1,2],[2,1]]),
+table([table7, table8], [[1,2],[2,3],[3,1]])

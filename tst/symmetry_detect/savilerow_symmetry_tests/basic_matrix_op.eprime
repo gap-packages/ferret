@@ -1,0 +1,21 @@
+language ESSENCE' 1.0
+
+find leqlexmat1: matrix indexed by [int(1..3)] of int(-10..10)
+find leqlexmat2: matrix indexed by [int(1..3)] of int(-10..10)
+
+find lesslexmat1: matrix indexed by [int(1..3)] of int(-10..10)
+find lesslexmat2: matrix indexed by [int(1..3)] of int(-10..10)
+
+find geqlexmat1: matrix indexed by [int(1..3)] of int(-10..10)
+find geqlexmat2: matrix indexed by [int(1..3)] of int(-10..10)
+
+find greaterlexmat1: matrix indexed by [int(1..3)] of int(-10..10)
+find greaterlexmat2: matrix indexed by [int(1..3)] of int(-10..10)
+
+such that
+
+
+leqlexmat1 <=lex leqlexmat2,
+lesslexmat1 <=lex lesslexmat2,
+geqlexmat1 >=lex geqlexmat1
+greaterlexmat1 >lex greaterlexmat2

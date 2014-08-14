@@ -1,0 +1,12 @@
+language ESSENCE' 1.0
+find a1: int(0..10)
+find b1: int(0..10)
+find c1: int(0..10)
+find d1: int(0..10)
+find a2: int(0..10)
+find b2: int(0..10)
+find c2: int(0..10)
+find d2: int(0..10)
+such that
+[a1,b1][c1] = d1,
+[a2,b2][c2] = d2
