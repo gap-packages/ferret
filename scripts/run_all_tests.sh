@@ -22,9 +22,10 @@ for j in "CHECK=0" "CHECK=1"; do
 
   echo "(cd tst/graphs; ./test_all_graphs.sh)"
 ) | parallel -j4
+done
 
 if savilerow > /dev/null; then
 	(cd tst/symmetry_detect; ./run_savilerow_symmetry_tests.sh )
 else
 	echo "No savilerow -- skipping tests"
-done
+fi
