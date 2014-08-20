@@ -8,23 +8,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+vec1<Permutation> SolveGraph(const Graph &g, GraphDirected graphDir) {
+  Problem p(g.graph_size);
 
+  for (const auto &part : g.parts)
+    p.addConstraint(new SetStab(part, &p.p_stack));
 
+  if (graphDir == GraphDirected_yes)
+    p.addConstraint(new SlowGraph<GraphDirected_yes>(g.edges, &p.p_stack));
+  else
+    p.addConstraint(new SlowGraph<GraphDirected_no>(g.edges, &p.p_stack));
 
-vec1<Permutation> SolveGraph(const Graph& g, GraphDirected graphDir)
-{
-    Problem p(g.graph_size);
-
-    for(const auto& part: g.parts)
-        p.addConstraint(new SetStab(part, &p.p_stack));
-
-    if(graphDir == GraphDirected_yes)
-        p.addConstraint(new SlowGraph<GraphDirected_yes>(g.edges, &p.p_stack));
-    else
-        p.addConstraint(new SlowGraph<GraphDirected_no>(g.edges, &p.p_stack));
-
-    SearchOptions so;
-    so.only_find_generators = true;
-    SolutionStore ss = doSearch(&p, so);
-	return ss.sols();
+  SearchOptions so;
+  so.only_find_generators = true;
+  SolutionStore ss = doSearch(&p, so);
+  return ss.sols();
 }

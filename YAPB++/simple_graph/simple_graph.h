@@ -8,9 +8,7 @@
 #include <vector>
 #include <stdio.h>
 
-
-
-Graph read_saucy_graph(FILE* f);
-Graph read_dimacs_graph(FILE* fp);
-vec1<Permutation> SolveGraph(const Graph&, GraphDirected graphDir);
+Graph read_saucy_graph(FILE *f);
+Graph read_dimacs_graph(FILE *fp);
+vec1<Permutation> SolveGraph(const Graph &, GraphDirected graphDir);
 #endif
