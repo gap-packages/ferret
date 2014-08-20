@@ -92,7 +92,7 @@ inline Container& container()
     return c;
 }
 
-void reset()
+inline void reset()
 {
     container() = Container();
 }
