@@ -27,7 +27,7 @@ bool contains_no_repeats(Container con)
 enum MissingPoints
 { MissingPoints_Free, MissingPoints_Fixed };
 
-vec1<int> partitionToList(const vec1<vec1<int> >& part, int size, MissingPoints mp)
+inline vec1<int> partitionToList(const vec1<vec1<int> >& part, int size, MissingPoints mp)
 {
     vec1<int> vec(size, 0);
     int covered = 1;
@@ -86,7 +86,7 @@ public:
 };
 
 
-std::map<int, int> partitionToMap(const vec1<vec1<int> >& part)
+inline std::map<int, int> partitionToMap(const vec1<vec1<int> >& part)
 {
     std::map<int, int> m;
     int covered = 1;
@@ -104,7 +104,7 @@ std::map<int, int> partitionToMap(const vec1<vec1<int> >& part)
 }
 
 
-vec1<int> invertVecAsPermutation(const vec1<int>& v)
+inline vec1<int> invertVecAsPermutation(const vec1<int>& v)
 {
     vec1<int> ret(v.size());
     for(int i = 1; i <= v.size(); ++i)
