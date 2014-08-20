@@ -214,7 +214,8 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>> &graph) {
   addPrimeVariables(graph, vars);
 }
 
-int main(int argc, char **argv) {
+void solveJsonGraph(const std::string& filename) {
+  /*
   if (argc < 2) {
     cout << "usage: " << argv[0] << " filePath [-q]\n-q = quiet mode\n";
     exit(EXIT_FAILURE);
@@ -228,22 +229,23 @@ int main(int argc, char **argv) {
       quietFlag = true;
     }
   }
-
-  *out << "Parsing JSON\n";
+  */
+  
+  //*out << "Parsing JSON\n";
 
   // readfile, parse to json and convert to graph
   int bufferLength;
-  char *buffer = readFile(argv[1], &bufferLength);
+  char *buffer = readFile(filename, &bufferLength);
   JsonValue o;
   JsonAllocator allocator;
 
   if (!parseToJson(buffer, bufferLength, o, allocator))
     exit(EXIT_FAILURE);
-  *out << "converting to graph...\n";
+  //*out << "converting to graph...\n";
   vec1<vec1<int>> edges;
   jsonToGraph(o, edges);
 
-  *out << "graph build.\nLooking for symmetries...\n";
+  //*out << "graph build.\nLooking for symmetries...\n";
 
   // build graph object for symmetry detection
   Graph graph(edges.size());
@@ -274,8 +276,7 @@ int main(int argc, char **argv) {
   }
   printSymmetries(permutations);
   delete[] buffer;
-  if (quietMode)
-    delete out;
+  //if (quietMode) delete out;
 }
 
 // prints symmetries out

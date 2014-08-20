@@ -35,11 +35,8 @@ library : # Let's always rebuild src/hellod.c src/cppmapper.cc
 	mkdir -p bin/$(GAPARCH)
 	$(GAC)  -p "$(MYCFLAGS) $(timingflag) $(checkflag) $(OPT) $(printflag)"  $(BUILDSTUFF)
 
-simple_graph : .FORCE
-	$(CXX) YAPB++/simple_graph/symmetry_detect.cc YAPB++/simple_graph/simple_graph.cc YAPB++/simple_graph/simple_parser.cc $(MYCFLAGS) $(timingflag) $(checkflag) $(OPT) $(printflag) -I YAPB++/source -o simple_graph
-
 symmetry_detect : .FORCE
-	$(CXX) YAPB++/simple_graph/symmetry_detect.cc YAPB++/simple_graph/symmetry_parse.cc YAPB++/simple_graph/gason/gason.cpp $(MYCFLAGS) $(timingflag) $(checkflag) $(OPT) $(printflag) -I YAPB++/source -o symmetry_detect
+	$(CXX) YAPB++/simple_graph/symmetry_detect.cc YAPB++/simple_graph/symmetry_parse.cc YAPB++/simple_graph/gason/gason.cpp $(MYCFLAGS) YAPB++/simple_graph/simple_graph.cc YAPB++/simple_graph/simple_parser.cc $(timingflag) $(checkflag) $(OPT) $(printflag) -I YAPB++/source -o symmetry_detect
 
 clean:
 	rm -rf bin

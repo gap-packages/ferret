@@ -11,4 +11,6 @@
 Graph read_saucy_graph(FILE *f);
 Graph read_dimacs_graph(FILE *fp);
 vec1<Permutation> SolveGraph(const Graph &, GraphDirected graphDir);
+void solveJsonGraph(const std::string& filename);
+
 #endif
