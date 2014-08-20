@@ -1,32 +1,17 @@
 #include "simple_graph.h"
 
-#include "problem.hpp"
-#include "constraints/slowgraph.hpp"
-#include "constraints/setstab.hpp"
-#include "search.hpp"
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "library/stats.hpp"
 
-
-
-template<GraphDirected directed>
-void SolveGraph(const Graph& g)
+void outputGraph(const Graph& g, GraphDirected directed)
 {
-    Problem p(g.graph_size);
-
-    for(const auto& part: g.parts)
-        p.addConstraint(new SetStab(part, &p.p_stack));
-
-    p.addConstraint(new SlowGraph<directed>(g.edges, &p.p_stack));
-    SearchOptions so;
-    so.heuristic.rbase_cell = RBaseBranch_Largest;
-    so.only_find_generators = true;
-    SolutionStore ss = doSearch(&p, so);
+    auto sols = SolveGraph(g, directed);
 
     std::cout << "[";
-    for(auto const& sol : ss.sols())
+    for(auto const& sol : sols)
     {
             std::cout << sol.cycle() << ",\n";
     }
@@ -36,7 +21,7 @@ void SolveGraph(const Graph& g)
 int main(int argc, char **argv)
 {
     char* filename = 0;
-    bool directed = false;
+    GraphDirected directed = GraphDirected_no;
     bool stats = false;
 
     // formats: 1 - DIMACS, 2 - saucy
@@ -44,7 +29,7 @@ int main(int argc, char **argv)
     for(int i = 1; i < argc; ++i)
     {
         if(argv[i] == std::string("--directed"))
-            directed = true;
+            directed = GraphDirected_yes;
         else if(argv[i] == std::string("--stats"))
             stats = true;
         else if(argv[i] == std::string("--saucy"))
@@ -67,16 +52,9 @@ int main(int argc, char **argv)
 
     }
 
-
-    //if(!directed)
-    //    g.make_symmetric();
-
     g.clean();
 
-    if(directed)
-        SolveGraph<GraphDirected_yes>(g);
-    else
-        SolveGraph<GraphDirected_no>(g);
+    outputGraph(g, directed);
 
 
     if(stats) {

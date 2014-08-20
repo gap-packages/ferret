@@ -9,9 +9,7 @@
 #include "../partition_refinement.hpp"
 #include "library/hash.hpp"
 #include "library/mono_set.hpp"
-
-enum GraphDirected
-{ GraphDirected_no = 0, GraphDirected_yes = 1};
+#include "library/graph.hpp"
 
 template<GraphDirected directed = GraphDirected_yes>
 class SlowGraph : public AbstractConstraint

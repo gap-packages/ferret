@@ -262,7 +262,7 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>>& graph) {
 			graph.parts.push_back(colour.second);
 		}
 		
-		vec1<Permutation> solutions = SolveGraph(graph);
+		vec1<Permutation> solutions = SolveGraph(graph, GraphDirected_yes);
 		set<int> primeNodeValues = colours[makePrimeVar(vars.begin()->first)];
 		
 		//build set of permutations to insure no duplicates
