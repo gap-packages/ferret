@@ -11,16 +11,16 @@ tempfile=".symmetry_tester_temp_file"
 #run savilerow if eprime symmetry detect if json, exit if invalid args
 if [ "$1" = "-json" ] ; then
 	json=${2}
-	 $(dirname $0)/jsonToGap.py <(symmetry_detect "$json" -q)  "$3" | gap.sh -q | grep 'true' > /dev/null
+	 $(dirname $0)/jsonToGap.py <(symmetry_detect --json "$json")  "$3" | gap.sh -q | grep 'true' > /dev/null
 	status=$?
 elif [ "$1" = "-eprime" ]  ; then
-	savilerow "$2" -json > /dev/null
+	savilerow "$2" -var-sym-breaking > /dev/null
 	if [ $? -ne 0 ] ; then
 		echo "error in running savilerow on input file $2"
 		exit 2
 	fi
 	json=${2}.json
-	$(dirname $0)/jsonToGap.py <(symmetry_detect "$json" -q) "$3" | gap.sh -q | grep 'true' > /dev/null
+	$(dirname $0)/jsonToGap.py <(symmetry_detect --json "$json") "$3" | gap.sh -q | grep 'true' > /dev/null
 	status=$?
 	else
 		echo $usage
