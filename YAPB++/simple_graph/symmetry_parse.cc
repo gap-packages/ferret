@@ -36,8 +36,11 @@ set<map<string, string>> permutations;
 string escapeVar(string s) { return varPrefix + s; }
 
 string unescapeVar(string s) {
-  regex ex("^" + varPrefix + "(.*)$");
-  return regex_replace(s, ex, string("$1"));
+  while(s.find(varPrefix) == 0)
+  {
+      s.erase(0, varPrefix.size());
+  }
+  return s;
 }
 // adds a prefix to distinguish this as prime variable
 string makePrimeVar(string s) { return primePrefix + s; }
