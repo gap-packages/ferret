@@ -3,7 +3,7 @@
 
 mytmpdir=`mktemp -d 2>/dev/null || mktemp -d -t 'mytmpdir'`
 
-(ulimit -t 30; $(dirname -- "$0")/../simple_graph $1 ) > $mytmpdir/ferret 2>&1
+(ulimit -t 30; $(dirname -- "$0")/../symmetry_detect --dimacs $1 ) > $mytmpdir/ferret 2>&1
 
 ret=$?
 
