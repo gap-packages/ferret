@@ -217,7 +217,7 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>> &graph) {
   addPrimeVariables(graph, vars);
 }
 
-void solveJsonGraph(const std::string& filename) {
+void solveJsonGraph(const std::string& filename, SearchOptions so) {
   /*
   if (argc < 2) {
     cout << "usage: " << argv[0] << " filePath [-q]\n-q = quiet mode\n";
@@ -259,7 +259,7 @@ void solveJsonGraph(const std::string& filename) {
     graph.parts.push_back(colour.second);
   }
 
-  vec1<Permutation> solutions = SolveGraph(graph, GraphDirected_yes);
+  vec1<Permutation> solutions = SolveGraph(graph, so, GraphDirected_yes);
   set<int> primeNodeValues = colours[makePrimeVar(vars.begin()->first)];
 
   // build set of permutations to insure no duplicates

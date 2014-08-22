@@ -7,9 +7,9 @@
 #include "library/stats.hpp"
 #include "search_options.hpp"
 
-void outputGraph(const Graph& g, GraphDirected directed)
+void outputGraph(const Graph& g, SearchOptions so, GraphDirected directed)
 {
-    auto sols = SolveGraph(g, directed);
+    auto sols = SolveGraph(g, so, directed);
 
     std::cout << "[";
     for(auto const& sol : sols)
@@ -31,7 +31,8 @@ void print_usage_instructions()
     " --directed : Graph is directed (ignored with --json)\n"
     " --order    : The order in which search should be performed:\n"
     "       random  : Choose search order randomly\n"
-    "       scf     : Choose smallest cell to branch on (default)\n"
+    "       scf     : Choose smallest cell to branch on\n"
+    "       directed: Choose cell which is most connected in the graph(defaut)\n"
     "       ordered : Choose cells in order of input\n"
     " --find     : Which set of permutations should be produced:\n"
     "       generators : Generators of the symmetry group (default)\n"
@@ -50,6 +51,7 @@ int main(int argc, char **argv)
     GraphDirected directed = GraphDirected_no;
     bool stats = false;
     SearchOptions so;
+    so.heuristic = Heuristic::adviseHeuristic();
     // formats: 1 - DIMACS, 2 - saucy
     int format = 1;
     for(int i = 1; i < argc; ++i)
@@ -76,11 +78,15 @@ int main(int argc, char **argv)
                 }
             else if(argv[i] == std::string("scf"))
             {
-                so.heuristic = Heuristic::bestHeuristic();
+                so.heuristic = Heuristic::scfHeuristic();
             }
             else if(argv[i] == std::string("ordered"))
             {
                 so.heuristic = Heuristic::orderHeuristic();
+            }
+            else if(argv[i] == std::string("directed"))
+            {
+                so.heuristic = Heuristic::adviseHeuristic();
             }
             else
                 {
@@ -126,7 +132,7 @@ int main(int argc, char **argv)
     }
     if(format == 3)
     {
-        solveJsonGraph(filename);
+        solveJsonGraph(filename, so);
     }
     else
     {
@@ -149,7 +155,7 @@ int main(int argc, char **argv)
 
     g.clean();
 
-    outputGraph(g, directed);
+    outputGraph(g, so, directed);
 }
 
     if(stats) {

@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-vec1<Permutation> SolveGraph(const Graph &g, GraphDirected graphDir) {
+vec1<Permutation> SolveGraph(const Graph &g, SearchOptions so, GraphDirected graphDir) {
   Problem p(g.graph_size);
 
   for (const auto &part : g.parts)
@@ -19,8 +19,6 @@ vec1<Permutation> SolveGraph(const Graph &g, GraphDirected graphDir) {
   else
     p.addConstraint(new SlowGraph<GraphDirected_no>(g.edges, &p.p_stack));
 
-  SearchOptions so;
-  so.only_find_generators = true;
   SolutionStore ss = doSearch(&p, so);
   return ss.sols();
 }
