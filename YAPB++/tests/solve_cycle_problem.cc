@@ -12,6 +12,7 @@ int main(void)
     	s[i].push_back(vals[i]);
     p.addConstraint(new SlowGraph<GraphDirected_yes>(s, &p.p_stack));
     SearchOptions so;
+    so.only_find_generators = false;
     SolutionStore ss = doSearch(&p, so);
 
     D_ASSERT(ss.sols().size() ==3*3*2);

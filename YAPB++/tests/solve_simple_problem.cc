@@ -11,7 +11,9 @@ int main(void)
     s.insert(4);
 
     p.addConstraint(new SetStab(s, &p.p_stack));
-    SolutionStore ss = doSearch(&p, SearchOptions());
+    SearchOptions so;
+    so.only_find_generators = false;
+    SolutionStore ss = doSearch(&p, so);
 
     D_ASSERT(ss.sols().size() == 4*3*2*2);
     for(int i = 1; i <= ss.sols().size(); ++i)
