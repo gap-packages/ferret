@@ -23,7 +23,7 @@ enum SearchHeuristic
     SearchBranch_Nosort,
 };
 
-RBaseSearchHeuristic getRBaseHeuristic(std::string sh)
+inline RBaseSearchHeuristic getRBaseHeuristic(std::string sh)
 {
     if(sh == "first")
         return RBaseBranch_First;
@@ -44,7 +44,7 @@ RBaseSearchHeuristic getRBaseHeuristic(std::string sh)
 }
 
 
-SearchHeuristic getSearchHeuristic(std::string sh)
+inline SearchHeuristic getSearchHeuristic(std::string sh)
 {
 
     if(sh == "RBase")
@@ -76,6 +76,36 @@ struct Heuristic
   rbase_value(RBaseBranch_Smallest), rbase_cell(RBaseBranch_Smallest),
   search_value(SearchBranch_RBase), search_first_branch_value(SearchBranch_RBase)
   { }
+  
+  static Heuristic randomHeuristic()
+  {
+      Heuristic h;
+      h.rbase_value = RBaseBranch_Random;
+      h.rbase_cell = RBaseBranch_Random;
+      h.search_value = SearchBranch_Random;
+      h.search_first_branch_value = SearchBranch_Random;
+      return h;
+  }
+
+  static Heuristic bestHeuristic()
+  {
+      Heuristic h;
+      h.rbase_value = RBaseBranch_Smallest;
+      h.rbase_cell = RBaseBranch_Smallest;
+      h.search_value = SearchBranch_RBase;
+      h.search_first_branch_value = SearchBranch_RBase;
+      return h;
+  }
+
+  static Heuristic orderHeuristic()
+  {
+      Heuristic h;
+      h.rbase_value = RBaseBranch_First;
+      h.rbase_cell = RBaseBranch_First;
+      h.search_value = SearchBranch_Sorted;
+      h.search_first_branch_value = SearchBranch_Sorted;
+      return h;
+  }
 };
 
 
