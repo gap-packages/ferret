@@ -15,6 +15,7 @@ template<GraphDirected directed = GraphDirected_yes>
 class SlowGraph : public AbstractConstraint
 {
     vec1<vec1<int> > points;
+    
 public:
     virtual std::string name() const
     { return "SlowGraph"; }
@@ -42,9 +43,14 @@ public:
     }
 private:
 
+    // Construct this once, for use in filterGraph, as the cost is fairly big
+    vec1<u_int64_t> mset;
+    
     SplitState filterGraph(const vec1<int>& cells)
     {
-        vec1<u_int64_t> mset(ps->domainSize(), 0);
+        // Would not normally go this low level, but it is important this is fast
+        memset(&(mset.front()), 0, mset.size() * sizeof(mset[0]));
+        
         MonoSet monoset(ps->cellCount());
         debug_out(0, "SlowGraph", "filtering: " << cells.size() << " cells out of " << ps->cellCount());
         int nodes = 0, edges = 0;
@@ -77,6 +83,7 @@ private:
 public:
     SplitState init()
     {
+        mset.resize(ps->domainSize(), 0);
         ps->addTrigger(this, Trigger_Change);
         vec1<int> cells;
         for(int i = 1; i <= ps->cellCount(); ++i)
@@ -88,7 +95,8 @@ public:
     {
         Stats::ConstraintInvoke(Stats::CON_SlowGraph);
         debug_out(1, "slowGraph", "signal_changed");
-        /*vec1<int> cells;
+        /*
+        vec1<int> cells;
         for(int i = 1; i <= ps->cellCount(); ++i)
             cells.push_back(i);
         SplitState ss = filterGraph(cells);
@@ -114,7 +122,6 @@ public:
     MonoSet advise_branch_monoset;
     virtual int advise_branch()
     {
-        D_ASSERT(advise_branch_monoset.size() == 0);
         int best_cell = -1;
         int best_neighbours = 0;
         int best_size = std::numeric_limits<int>::max();
@@ -122,11 +129,13 @@ public:
         {
             if(ps->cellSize(i) > 1)
             {
+                advise_branch_monoset.clear();
                 int cellfirstmem = *(ps->cellStartPtr(i));
                 for(auto edge : points[cellfirstmem])
                 {
-                    if(ps->cellSize(edge) > 1)
-                        advise_branch_monoset.add(ps->cellOfVal(edge));
+                    auto cell = ps->cellOfVal(std::abs(edge));
+                    if(ps->cellSize(cell) > 1)
+                        advise_branch_monoset.add(cell);
                 }
 
                 if(advise_branch_monoset.size() > best_neighbours ||
@@ -138,7 +147,6 @@ public:
                     best_neighbours = advise_branch_monoset.size();
                     best_size = ps->cellSize(i);
                 }
-                advise_branch_monoset.clear();
             }
         }
 

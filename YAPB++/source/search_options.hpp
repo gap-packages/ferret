@@ -87,12 +87,22 @@ struct Heuristic
       return h;
   }
 
-  static Heuristic bestHeuristic()
+  static Heuristic scfHeuristic()
   {
       Heuristic h;
       h.rbase_value = RBaseBranch_Smallest;
       h.rbase_cell = RBaseBranch_Smallest;
-      h.search_value = SearchBranch_RBase;
+      h.search_value = SearchBranch_Nosort;
+      h.search_first_branch_value = SearchBranch_RBase;
+      return h;
+  }
+
+  static Heuristic adviseHeuristic()
+  {
+      Heuristic h;
+      h.rbase_value = RBaseBranch_Smallest;
+      h.rbase_cell = RBaseBranch_ConstraintAdvise;
+      h.search_value = SearchBranch_Nosort;
       h.search_first_branch_value = SearchBranch_RBase;
       return h;
   }
@@ -119,7 +129,7 @@ struct SearchOptions
     Heuristic heuristic;
 
     SearchOptions() :
-    only_find_generators(false), find_canonical_perm(false), just_rbase(false)
+    only_find_generators(true), find_canonical_perm(false), just_rbase(false)
     { }
 
 };

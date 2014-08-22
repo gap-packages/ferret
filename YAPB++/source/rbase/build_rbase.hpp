@@ -89,6 +89,16 @@ int choose_branch_cell(PartitionStack* ps, ConstraintStore* cstore,
             else
                 return -1;
         }
+        // Super note: We do 'fall through' on this case into RBaseBranch_Smallest!
+        case RBaseBranch_ConstraintAdvise:
+        {
+            for(auto&& con : cstore->get())
+            {
+                int val = con->advise_branch();
+                if(val != -1)
+                    return val;  
+            }
+        } // NOTE: There is no 'break' or 'return' here on purpose
         case RBaseBranch_Smallest:
         {
             int best_cell = -1;
@@ -184,6 +194,7 @@ int choose_branch_cell(PartitionStack* ps, ConstraintStore* cstore,
             else
                 return best_cell;
         }
+        
         default:
         abort();
     }
