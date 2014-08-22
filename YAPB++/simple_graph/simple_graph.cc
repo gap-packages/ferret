@@ -18,6 +18,20 @@ void outputGraph(const Graph& g, GraphDirected directed)
     std::cout << "()]\n";
 }
 
+void print_usage_instructions()
+{
+    std::cout <<
+    " A simple graph symmetry detector\n"
+    " Usage:\n"
+    "  ./symmetry_detect [--stats] [--directed] --saucy|--dimacs|--json <filename>\n"
+    " --stats    : Print extra stats\n"
+    " --directed : Graph is directed (ignored with --json)\n"
+    " --saucy    : Accept graph in saucy format\n"
+    " --dimacs   : Accept graph in dimacs format\n"
+    " --json     : Accept an AST in json format (see in-depth docs)\n"
+    " <filename> : Filename of graph\n";
+}
+
 int main(int argc, char **argv)
 {
     
@@ -40,10 +54,21 @@ int main(int argc, char **argv)
             format = 3;
             directed = GraphDirected_yes;
         }
+        else if(argv[i] == std::string("-h") || argv[i] == std::string("-help") || argv[i] == std::string("--help"))
+        {
+            print_usage_instructions();
+            exit(0);
+        }
         else
             filename = argv[i];
     }
 
+    if(filename == 0)
+    {
+        std::cerr << "Error: No filename" << std::endl;
+        print_usage_instructions();
+        exit(1);
+    }
     if(format == 3)
     {
         solveJsonGraph(filename);
@@ -53,7 +78,10 @@ int main(int argc, char **argv)
     FILE* fp = fopen(filename, "r");
 
     if(!fp)
-    { perror("Failed to open file:"); }
+    { 
+        std::cerr << "Could not open file '" << filename << "'\n";
+        perror("Error: "); 
+    }
 
     Graph g;
     switch(format)
