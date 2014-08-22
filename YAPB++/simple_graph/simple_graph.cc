@@ -5,6 +5,7 @@
 #include <stdio.h>
 
 #include "library/stats.hpp"
+#include "search_options.hpp"
 
 void outputGraph(const Graph& g, GraphDirected directed)
 {
@@ -23,14 +24,24 @@ void print_usage_instructions()
     std::cout <<
     " A simple graph symmetry detector\n"
     " Usage:\n"
-    "  ./symmetry_detect [--stats] [--directed] --saucy|--dimacs|--json <filename>\n"
+    "  ./symmetry_detect [--stats] [--directed] [--order [random|scf|ordered]]\n"
+    "                     [--find [generators|all]]\n"
+    "                     --saucy|--dimacs|--json <filename>\n"
     " --stats    : Print extra stats\n"
     " --directed : Graph is directed (ignored with --json)\n"
+    " --order    : The order in which search should be performed:\n"
+    "       random  : Choose search order randomly\n"
+    "       scf     : Choose smallest cell to branch on (default)\n"
+    "       ordered : Choose cells in order of input\n"
+    " --find     : Which set of permutations should be produced:\n"
+    "       generators : Generators of the symmetry group (default)\n"
+    "       all        : All members of the symmetry group (can be VERY large)\n"
     " --saucy    : Accept graph in saucy format\n"
     " --dimacs   : Accept graph in dimacs format\n"
     " --json     : Accept an AST in json format (see in-depth docs)\n"
     " <filename> : Filename of graph\n";
 }
+
 
 int main(int argc, char **argv)
 {
@@ -38,7 +49,7 @@ int main(int argc, char **argv)
     char* filename = 0;
     GraphDirected directed = GraphDirected_no;
     bool stats = false;
-
+    SearchOptions so;
     // formats: 1 - DIMACS, 2 - saucy
     int format = 1;
     for(int i = 1; i < argc; ++i)
@@ -47,6 +58,8 @@ int main(int argc, char **argv)
             directed = GraphDirected_yes;
         else if(argv[i] == std::string("--stats"))
             stats = true;
+        else if(argv[i] == std::string("--dimacs"))
+            format = 1;
         else if(argv[i] == std::string("--saucy"))
             format = 2;
         else if(argv[i] == std::string("--json"))
@@ -54,13 +67,55 @@ int main(int argc, char **argv)
             format = 3;
             directed = GraphDirected_yes;
         }
+        else if(argv[i] == std::string("--order"))
+        {
+            i++;
+            if(argv[i] == std::string("random"))
+                {
+                    so.heuristic = Heuristic::randomHeuristic();
+                }
+            else if(argv[i] == std::string("scf"))
+            {
+                so.heuristic = Heuristic::bestHeuristic();
+            }
+            else if(argv[i] == std::string("ordered"))
+            {
+                so.heuristic = Heuristic::orderHeuristic();
+            }
+            else
+                {
+                    std::cerr << "Do not understand order '" << argv[i] << "'\n";
+                    exit(1);
+                }
+        }
+        else if(argv[i] == std::string("--find"))
+        {
+            i++;
+            if(argv[i] == std::string("generators"))
+                so.only_find_generators = true;
+            else if(argv[i] == std::string("all"))
+                so.only_find_generators = false;
+            else
+                {
+                    std::cerr << "Do not understand --find argument '" << argv[i] << "'\n";
+                    exit(1);
+                }
+        }
         else if(argv[i] == std::string("-h") || argv[i] == std::string("-help") || argv[i] == std::string("--help"))
         {
             print_usage_instructions();
             exit(0);
         }
         else
-            filename = argv[i];
+        {
+            if(filename == 0)
+                filename = argv[i];
+            else
+            {
+                std::cerr << "Only one filename allowed\n";
+                exit(1);
+            }
+        }
     }
 
     if(filename == 0)
