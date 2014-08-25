@@ -7,8 +7,18 @@
 #include <map>
 #include <vector>
 #include <set>
-#include <regex>
+
 using namespace std;
+
+// Add own implementation for ease of use
+template<typename T>
+std::string
+tostring(const T& t)
+{
+  std::ostringstream streamOut;
+  streamOut << t;
+  return streamOut.str();
+}
 
 // gason method printerror at bottom of file
 void printJSONParseError(JsonParseStatus status, char *endptr, char *source,
@@ -51,7 +61,7 @@ string jsonPrimitiveToString(JsonValue &o) {
   case JSON_TAG_STRING:
     return o.toString();
   case JSON_TAG_NUMBER:
-    return to_string(o.toNumber());
+    return tostring(o.toNumber());
   case JSON_TAG_BOOL:
     return (o.toBool()) ? "true" : "false";
   default:
@@ -145,7 +155,7 @@ void jsonToGraph(JsonValue &o, vec1<vec1<int>> &graph, int currentNode,
       if (!symmetryAllowed) { // connect children via asymmetric nodes  to
                               // prevent symmetry in graph
 
-        string middleNodeName = "child" + to_string(index++);
+        string middleNodeName = "child" + tostring(index++);
 
         // create middle node then connect original child to graph via middle
         // node
