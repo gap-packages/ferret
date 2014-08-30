@@ -23,13 +23,13 @@ public:
 #endif
     vec1(const vec1& vec) : v(vec.v) { }
 #ifdef USE_CPP11
-    vec1(vec1&& vec) : v(std::move(vec.v)) { }
+    vec1(vec1&& vec) : v(MOVE(vec.v)) { }
 #endif
     void operator=(const vec1& vec)
     { v = vec.v; }
 #ifdef USE_CPP11
     void operator=(vec1&& vec)
-    { v = std::move(vec.v); }
+    { v = MOVE(vec.v); }
 #endif
     template<typename It>
     vec1(It begin, It end)
@@ -79,7 +79,7 @@ public:
     { v.push_back(t); }
 #ifdef USE_CPP11
     void push_back(T&& t)
-    { v.push_back(std::move(t)); }
+    { v.push_back(MOVE(t)); }
 #endif
     void pop_back()
     { v.pop_back(); }

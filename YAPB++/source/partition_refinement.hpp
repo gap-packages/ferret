@@ -154,7 +154,7 @@ void filterCell(PartitionStack* ps, F f, int i, PartitionEvent* pe)
         }
         else
         {
-            pe->change_cells.push_back(std::make_pair(i, std::move(se)));
+            pe->change_cells.push_back(std::make_pair(i, MOVE(se)));
         }
     }
 }
@@ -168,7 +168,7 @@ SplitState filterPartitionStackByFunction_noSortData(PartitionStack* ps, F f)
         filterCell(ps, f, i, &pe);
     }
     pe.finalise();
-    ps->getAbstractQueue()->addPartitionEvent(std::move(pe));
+    ps->getAbstractQueue()->addPartitionEvent(MOVE(pe));
     return SplitState(true);
 }
 
@@ -179,7 +179,7 @@ SplitState filterPartitionStackByFunctionWithCells_noSortData(PartitionStack* ps
     for(typename Cells::iterator it = cells.begin(); it != cells.end(); ++it)
         filterCell(ps, f, *it, &pe);
     pe.finalise();
-    ps->getAbstractQueue()->addPartitionEvent(std::move(pe));
+    ps->getAbstractQueue()->addPartitionEvent(MOVE(pe));
     return SplitState(true);
 }
 
