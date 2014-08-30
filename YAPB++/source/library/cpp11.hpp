@@ -1,6 +1,8 @@
 #ifndef CPP11_CAJ_HEADER
 #define CPP11_CAJ_HEADER
 
+#ifdef USE_CPP11
+
 #define MOVE(x) std::move(x)
 
 #define DEFAULT_MOVE_COPY_CONST_ASSIGN(C) \
@@ -9,7 +11,13 @@
   C& operator=(const C&) = default; \
   C& operator=(C&&) = default;
 
+#else
+  
+#define MOVE(x) x
+#define DEFAULT_MOVE_COPY_CONST_ASSIGN(C) 
 
+#endif
+  
 template<typename Iterator>
 class Range
 {

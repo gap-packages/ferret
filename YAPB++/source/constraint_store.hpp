@@ -12,8 +12,9 @@ class ConstraintStore
     bool constraints_initalized;
 public:
 
-    const vec1<AbstractConstraint*>& get() const
-    { return constraints; }
+    typedef const vec1<AbstractConstraint*>* get_type;
+    const vec1<AbstractConstraint*>* get() const
+    { return &constraints; }
 
     ConstraintStore()
     : constraints_initalized(false)

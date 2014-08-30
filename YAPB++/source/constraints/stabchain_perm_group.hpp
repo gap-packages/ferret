@@ -394,8 +394,7 @@ public:
         SplitState ss(true);
         if(UseOrbits)
         {
-            const auto& f = ContainerToFunction(&part);
-            ss = filterPartitionStackByFunction(ps, FunctionByPerm(f, perm));
+            ss = filterPartitionStackByFunction(ps, FunctionByPerm(ContainerToFunction(&part), perm));
             if(ss.hasFailed())
                 return ss;
         }

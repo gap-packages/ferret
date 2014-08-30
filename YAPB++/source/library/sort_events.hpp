@@ -111,7 +111,7 @@ struct PartitionEvent
 	typedef OneMovePromotableList<EventOrder> PromotableList;
 	PromotableList order;
 
-	PartitionEvent() = default;
+	PartitionEvent() {};
 	DEFAULT_MOVE_COPY_CONST_ASSIGN(PartitionEvent);
 
 	void finalise()

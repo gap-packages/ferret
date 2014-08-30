@@ -59,7 +59,7 @@ struct Container
 
     std::map<std::string, int> getConstraintCalls() const
     {
-        std::vector<std::string> names = {
+        std::string names[] = {
             "ListStab", "OverlappingSetSetStab", "PermGroup",
             "SetSetStab", "SlowGraph", "StabChain_PermGroup"};
 

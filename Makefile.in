@@ -27,7 +27,7 @@ else
 printflag =
 endif
 
-MYCFLAGS=-Wall -Wextra -g -IYAPB++/source -std=gnu++0x
+MYCFLAGS=-Wall -Wextra -g -IYAPB++/source
 
 BUILDSTUFF=-L "@CPPLIB@" -o bin/$(GAPARCH)/hellod.so -d src/hellod.cc src/cppmapper.cc
 
@@ -36,7 +36,7 @@ library : # Let's always rebuild src/hellod.c src/cppmapper.cc
 	$(GAC)  -p "$(MYCFLAGS) $(timingflag) $(checkflag) $(OPT) $(printflag)"  $(BUILDSTUFF)
 
 symmetry_detect : .FORCE
-	$(CXX) YAPB++/simple_graph/symmetry_detect.cc YAPB++/simple_graph/symmetry_parse.cc YAPB++/simple_graph/gason/gason.cpp $(MYCFLAGS) YAPB++/simple_graph/simple_graph.cc YAPB++/simple_graph/simple_parser.cc $(timingflag) $(checkflag) $(OPT) $(printflag) -I YAPB++/source -o symmetry_detect
+	$(CXX) $(MYCFLAGS) -std=c++0x YAPB++/simple_graph/symmetry_detect.cc YAPB++/simple_graph/symmetry_parse.cc  YAPB++/simple_graph/gason/gason.cpp  YAPB++/simple_graph/simple_graph.cc YAPB++/simple_graph/simple_parser.cc $(timingflag) $(checkflag) $(OPT) $(printflag) -I YAPB++/source -o symmetry_detect
 
 clean:
 	rm -rf bin

@@ -92,9 +92,10 @@ int choose_branch_cell(PartitionStack* ps, ConstraintStore* cstore,
         // Super note: We do 'fall through' on this case into RBaseBranch_Smallest!
         case RBaseBranch_ConstraintAdvise:
         {
-            for(auto&& con : cstore->get())
+            ConstraintStore::get_type container = cstore->get();
+            for(int i = 1; i <= container->size(); ++i)
             {
-                int val = con->advise_branch();
+                int val = ((*container)[i])->advise_branch();
                 if(val != -1)
                     return val;  
             }

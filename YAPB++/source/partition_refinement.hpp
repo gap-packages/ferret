@@ -176,8 +176,8 @@ template<typename F, typename Cells>
 SplitState filterPartitionStackByFunctionWithCells_noSortData(PartitionStack* ps, F f, const Cells& cells)
 {
     PartitionEvent pe;
-    for(auto i : cells)
-        filterCell(ps, f, i, &pe);
+    for(typename Cells::iterator it = cells.begin(); it != cells.end(); ++it)
+        filterCell(ps, f, *it, &pe);
     pe.finalise();
     ps->getAbstractQueue()->addPartitionEvent(std::move(pe));
     return SplitState(true);

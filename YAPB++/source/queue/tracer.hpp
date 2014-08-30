@@ -13,7 +13,7 @@ struct TraceList
     vec1<BranchEvent> branchEvents;
     vec1<PartitionEvent> partitionEvents;
 
-    TraceList() = default;
+    TraceList() {};
     DEFAULT_MOVE_COPY_CONST_ASSIGN(TraceList);
 
     TraceList(TraceEvent te) : traceEvent(te)

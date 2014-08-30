@@ -2,7 +2,7 @@
 #define _SLOWGRAPH_HPP_AGH
 
 #include <set>
-#include <unordered_set>
+//#include <unordered_set>
 
 #include "abstract_constraint.hpp"
 #include "../partition_stack.hpp"
@@ -54,19 +54,21 @@ private:
         MonoSet monoset(ps->cellCount());
         debug_out(0, "SlowGraph", "filtering: " << cells.size() << " cells out of " << ps->cellCount());
         int nodes = 0, edges = 0;
-        for(auto c : cells)
+        for(int c = 1; c <= cells.size(); ++c)
         {
-            for(auto i : ps->cellRange(c))
+            Range<PartitionStack::cellit> r = ps->cellRange(cells[c]);
+            for(PartitionStack::cellit it = r.begin(); it != r.end(); ++it)
             {
+                int i = *it;
                 nodes++;
                 int i_cell = ps->cellOfVal(i);
                 int poshash = quick_hash(i_cell);
                 int neghash = quick_hash(-i_cell);
-                for(auto val : points[i])
+                for(vec1<int>::iterator it = points[i].begin(); it != points[i].end(); ++it)
                 {
                     edges++;
-                    int valabs = std::abs(val);
-                    bool valsign = (val > 0);
+                    int valabs = std::abs(*it);
+                    bool valsign = (*it) > 0;
 
                     if(valsign)
                         mset[valabs] += poshash;
@@ -131,9 +133,10 @@ public:
             {
                 advise_branch_monoset.clear();
                 int cellfirstmem = *(ps->cellStartPtr(i));
-                for(auto edge : points[cellfirstmem])
+                for(vec1<int>::iterator edge = points[cellfirstmem].begin();
+                                        edge != points[cellfirstmem].end(); ++edge)
                 {
-                    auto cell = ps->cellOfVal(std::abs(edge));
+                    int cell = ps->cellOfVal(std::abs(*edge));
                     if(ps->cellSize(cell) > 1)
                         advise_branch_monoset.add(cell);
                 }

@@ -37,13 +37,16 @@ public:
 	std::vector<int>::const_iterator end() const
 	{ return members.end(); }
 
+    typedef std::vector<int>::const_iterator iterator;
+    typedef std::vector<int>::const_iterator const_iterator;
+    
 	int size() const
 	{ return members.size(); }
 
 	void clear()
 	{
-		for(auto m : members)
-			hit[m] = false;
+		for(unsigned i = 0; i < members.size(); ++i)
+			hit[members[i]] = false;
 		members.clear();
 	}
 
