@@ -16,32 +16,13 @@ DeclareRepresentation( "IsSimpleConstraint", IsConstraint, []);
 
 ###########################################################################
 ##
-##  <#GAPDoc Label="ConStabilize">
-##
-##  <ManSection>
-##  <Func Name="ConStabilize" Arg="s"/>
-##  <Returns>
-##    nothing
-##  </Returns>
-##  <Description>
-##  Closes scscp connection <A>s</A>, which must be an object in the
-##  category  on the underlying
-##  input/output TCP stream of <A>s</A>.
-##  <Example>
-##  <![CDATA[
-##  gap> SetInfoLevel( InfoSCSCP, 0 );
-##  gap> s:=NewSCSCPconnection("localhost",26133);
-##  < connection to localhost:26133 session_id=localhost:26133:52918 >
-##  gap> CloseSCSCPconnection(s);
-##  ]]>
-##  </Example>
-##  </Description>
-##  </ManSection>
-##  <#/GAPDoc>
 ##
 
+#! @Description
+#!   Insert documentation for you function here
 DeclareOperation("ConStabilize", [IsObject]);
 DeclareOperation("ConStabilize", [IsObject, IsObject]);
+
 #DeclareOperation("ConStabilize", [IsTransformation, IsPosInt]);
 #DeclareOperation("ConStabilize", [IsPartialPerm, IsPosInt]);
 #DeclareOperation("ConStabilize", [IsList, IsFunction]);
