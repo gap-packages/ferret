@@ -1,0 +1,93 @@
+<!-- %W  example.xml         Ferret documentation        Christopher Jefferson -->
+<!-- %H                                                                        -->
+<!-- %Y  Copyright (C) 2014, School of Comp. Sci., St Andrews, Scotland        -->
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Chapter Label="The Ferret Package">
+<Heading>The Ferret Package</Heading>
+
+<Index>Ferret package</Index>
+This chapter describes the &GAP; package Ferret. Ferret implements highly efficient
+implementations of a range of search algorithms on permutation groups. These
+algorithms fall into two broad categories:
+
+<List>
+    <Item>
+        <Emph>Algorithms which find groups and cosets with particular properties</Emph>. This include graph automorphisms, stabilizers and group intersection.
+    </Item>
+    <Item>
+        <Emph>Canonical Images</Emph>. This involves finding the canonical image of an object (graph, set, list, transformation and others) in a given group of coset.
+    </Item>
+</List>
+
+
+If you are interested in if Ferret can be applied to another problem, please contact the authors, who will be happy to look into if your problem can be solved with Ferret.
+
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="Replacing Built-in functionality">
+<Heading>Replacing Built-in functionality</Heading>
+
+Ferret automatically installs methods which replace GAP's a number of GAP's built-in functionality:
+
+<List>
+    <Item>
+        <Emph>Intersection</Emph> for a list of permutation groups.
+    </Item>
+    <Item>
+        <Emph>Stabilizer(G,S,Action)</Emph> for a permutation group G, and the actions:
+        <List>
+            <Item>OnSets</Item>
+            <Item>OnOnSets</Item>
+            <Item>OnSetsDisjointSets</Item>
+            <Item>OnSetsSets</Item>
+            <Item>OnTuples</Item>
+            <Item>OnPairs</Item>
+            <Item>OnDirectedGraph</Item>
+        </List>
+    </Item>
+    <Item>
+        <Emph>Stabilizer(G, S)</Emph> for a permutation group G and a:
+        <List>
+            <Item>permutation</Item>
+            <Item>transformation</Item>
+            <Item>partial permutation</Item>
+        </List>
+    </Item>
+</List>
+
+If you would like to disable this functionality, you can use <Ref Label="EnableFerretOverloads"/>.
+
+<#Include Label="EnableFerretOverloads">
+
+<!--
+The following functions are available:
+
+<Include Label="ListDirectory">
+
+<Include Label="FindFile">
+
+<Include Label="LoadedPackages">
+
+You might like to check out some of the other information in the <C>GAPInfo</C>
+record (see <Ref Sect="GAPInfo" BookName="ref"/>).
+
+<Include Label="Which">
+
+<Include Label="WhereIsPkgProgram">
+
+<Include Label="HelloWorld">
+
+<Include Label="FruitCake">
+
+<Include Label="Recipe">
+-->
+</Section>
+</Chapter>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<!-- %% -->
+<!-- %E -->
+

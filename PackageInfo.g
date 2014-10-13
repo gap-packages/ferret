@@ -10,8 +10,13 @@ SetPackageInfo( rec(
 
 PackageName := "ferret",
 Subtitle := "Search in finite permutation groups",
-Version := "0.1",
-Date := "29/08/2014", # dd/mm/yyyy format
+Version := "0.3.1",
+Date := "09/10/2014", # dd/mm/yyyy format
+
+##  <#GAPDoc Label="PKGVERSIONDATA">
+##  <!ENTITY VERSION "0.3.1">
+##  <!ENTITY RELEASEDATE "9 October 2014">
+##  <#/GAPDoc>
 
 Persons := [
   rec(
@@ -51,7 +56,7 @@ Status := "dev",
 AbstractHTML   :=  "",
 
 PackageDoc := rec(
-  BookName  := "ferret",
+  BookName  := "Ferret",
   ArchiveURLSubset := ["doc"],
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
