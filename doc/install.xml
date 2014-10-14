@@ -5,18 +5,18 @@
 
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
-<Chapter Label="Installing and Loading the Example Package">
-<Heading>Installing and Loading the Example Package</Heading>
+<Chapter Label="Installing and Loading the Ferret Package">
+<Heading>Installing and Loading the Ferret Package</Heading>
 
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
-<Section Label="Unpacking the Example Package">
-<Heading>Unpacking the Example Package</Heading>
+<Section Label="Unpacking the Ferret Package">
+<Heading>Unpacking the Ferret Package</Heading>
 
-If the &Example; package was obtained as a part of the &GAP; distribution
+If the Ferret package was obtained as a part of the &GAP; distribution
 from the <Q>Download</Q> section of the &GAP; website, you may proceed
-to Section <Ref Sect="Compiling Binaries of the Example Package"/>.
-Alternatively, the &Example; package may be installed using a separate archive,
+to Section <Ref Sect="Compiling Binaries of the Ferret Package"/>.
+Alternatively, the Ferret package may be installed using a separate archive,
 for example, for an update or an installation in a non-default location 
 (see <Ref Sect="GAP Root Directories" BookName="ref"/>).
 <P/>
@@ -24,13 +24,6 @@ for example, for an update or an installation in a non-default location
 Below we describe the installation procedure for the <File>.tar.gz</File> 
 archive format. Installation using other archive formats is performed in a 
 similar way.
-<P/>
-
-To install the &Example; package, unpack the archive file, which  should
-have a name of form <C>example-<A>XXX</A>.tar.gz</C> for some version number 
-<A>XXX</A>, by typing
-<P/>
-&nbsp;&nbsp;<C>gzip -dc example-<A>XXX</A>.tar.gz | tar xpv</C>
 <P/>
 
 It may be unpacked in one of the following locations:
@@ -64,8 +57,8 @@ directory).
 </Section>
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
-<Section Label="Compiling Binaries of the Example Package">
-<Heading>Compiling Binaries of the Example Package</Heading>
+<Section Label="Compiling Binaries of the Ferret Package">
+<Heading>Compiling Binaries of the Ferret Package</Heading>
 
 After unpacking the archive, go to the newly created <F>example</F>  directory
 and call <C>./configure</C> to use the default <C>../..</C> path to the
@@ -92,29 +85,19 @@ to compile the binary and to install it in the appropriate place.
 
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
-<Section Label="Loading the Example Package">
-<Heading>Loading the Example Package</Heading>
+<Section Label="Loading the Ferret Package">
+<Heading>Loading the Ferret Package</Heading>
 
-To use the &Example; Package you have to request it explicitly. This  is
+To use the Ferret Package you have to request it explicitly. This  is
 done by calling <Ref Func="LoadPackage" BookName="ref"/>:
 <P/>
 <Example><![CDATA[
 gap> LoadPackage("example");
-----------------------------------------------------------------
-Loading  Example 3.3 (Example/Template of a GAP Package)
-by Werner Nickel (http://www.mathematik.tu-darmstadt.de/~nickel),
-   Greg Gamble (http://www.math.rwth-aachen.de/~Greg.Gamble), and
-   Alexander Konovalov (http://www.cs.st-andrews.ac.uk/~alexk/).
-----------------------------------------------------------------
 true
 ]]></Example>
 <P/>
 
-If &GAP; cannot find a working binary, the call  to  <C>LoadPackage</C>  will
-still succeed but a warning is issued informing that  the  <C>HelloWorld()</C>
-function will be unavailable.
-<P/>
-If you want to load the &Example; package by default, you  can  put  the
+If you want to load the Ferret package by default, you  can  put  the
 <C>LoadPackage</C> command  into  your  <F>gaprc</F>  file  
 (see  Section&nbsp;<Ref Sect="The gap.ini and gaprc files" BookName="ref"/>).
 

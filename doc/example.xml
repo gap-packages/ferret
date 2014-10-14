@@ -62,28 +62,6 @@ If you would like to disable this functionality, you can use <Ref Label="EnableF
 
 <#Include Label="EnableFerretOverloads">
 
-<!--
-The following functions are available:
-
-<Include Label="ListDirectory">
-
-<Include Label="FindFile">
-
-<Include Label="LoadedPackages">
-
-You might like to check out some of the other information in the <C>GAPInfo</C>
-record (see <Ref Sect="GAPInfo" BookName="ref"/>).
-
-<Include Label="Which">
-
-<Include Label="WhereIsPkgProgram">
-
-<Include Label="HelloWorld">
-
-<Include Label="FruitCake">
-
-<Include Label="Recipe">
--->
 </Section>
 </Chapter>
 

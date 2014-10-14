@@ -18,8 +18,6 @@ DeclareRepresentation( "IsSimpleConstraint", IsConstraint, []);
 ##
 ##
 
-#! @Description
-#!   Insert documentation for you function here
 DeclareOperation("ConStabilize", [IsObject]);
 DeclareOperation("ConStabilize", [IsObject, IsObject]);
 

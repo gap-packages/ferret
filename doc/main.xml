@@ -13,7 +13,7 @@
 
 <TitlePage>
   <Title>&Example;</Title>
-  <Subtitle>Example/Template of a &GAP; Package and Guidelines for Package Authors</Subtitle>
+  <Subtitle>Backtrack Search in Permutation Groups</Subtitle>
   <Version>Version &VERSION;</Version>
   <Date>&RELEASEDATE;</Date>
   <Author> Christopher Jefferson
@@ -37,11 +37,11 @@
 
 <#Include SYSTEM "example.xml">
 
+<#Include SYSTEM "solve.xml">
+
 <#Include SYSTEM "install.xml">
 
 </Body>
-
-<#Include SYSTEM "hints.xml">
 
 <TheIndex/>
 
