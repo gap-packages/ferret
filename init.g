@@ -20,6 +20,6 @@
 #R  Read the declaration files.
 ##
 ReadPackage( "ferret", "lib/yapb.gd" );
-ReadPackage( "ferret", "lib/smallestImage.gd" );
+
 #E  init.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here
 
