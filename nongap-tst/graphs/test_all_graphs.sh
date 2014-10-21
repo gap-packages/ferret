@@ -2,6 +2,11 @@
 
 set -e
 
+if ! which bliss; then
+  echo No bliss, skipping symmetry tests
+  exit
+fi;
+
 if ! [ -d graph-dist ]; then
   ./download_graphs.sh
 fi

@@ -11,16 +11,16 @@ for j in "CHECK=0" "CHECK=1"; do
   make $j > /dev/null
 (
   for i in $(cd tst; ls *.tst); do
-      echo "(cd tst; echo 'Test(\"$i\");' | ${GAPEXEC} -q)"
+      echo "(cd tst; echo 'LoadPackage(\"io\"); if Test(\"$i\") = true then IO_exit(0); else IO_exit(1); fi;' | ${GAPEXEC} -q)"
   done
 
   if [ "X$VALGRIND" != "X" ]; then
-    echo "(cd tst; echo 'Test(\"testvalgrind.tst\");' | $VALGRIND -q --trace-children=yes --suppressions=../gap-suppressions.valgrind ${GAPEXEC} -q)"
+    echo "(cd tst; echo 'LoadPackage(\"io\"); if Test(\"valgrind.tst\") = true then IO_exit(0); else IO_exit(1); fi;' | $VALGRIND -q --trace-children=yes --suppressions=../gap-suppressions.valgrind ${GAPEXEC} -q)"
   else
     echo "echo Skipping valgrind tests"
   fi;
 
-  echo "(cd tst/graphs; ./test_all_graphs.sh)"
+  echo "(cd nongap-tst/graphs; ./test_all_graphs.sh)"
 ) | parallel -j4
 done
 

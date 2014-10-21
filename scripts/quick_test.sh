@@ -11,7 +11,7 @@ for j in "CHECK=1"; do
   make $j > /dev/null
   cd tst
   for i in *.tst; do
-      echo 'echo '\''Test("'$i'");'\'' | '${GAPEXEC} -q
+      echo "(cd tst; echo 'LoadPackage(\"io\"); if Test(\"$i\") = true then IO_exit(0); else IO_exit(1); fi;' | ${GAPEXEC} -q)"
   done | parallel -j4
   wait
   cd ..
