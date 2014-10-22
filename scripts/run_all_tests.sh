@@ -15,7 +15,7 @@ for j in "CHECK=0" "CHECK=1"; do
   done
 
   if [ "X$VALGRIND" != "X" ]; then
-    echo "(cd tst; echo 'LoadPackage(\"io\"); if Test(\"valgrind.tst\") = true then IO_exit(0); else IO_exit(1); fi;' | $VALGRIND -q --trace-children=yes --suppressions=../gap-suppressions.valgrind ${GAPEXEC} -q)"
+    echo "(cd tst; echo 'LoadPackage(\"io\"); if Test(\"testvalgrind.tst\") = true then IO_exit(0); else IO_exit(1); fi;' | $VALGRIND -q --trace-children=yes --suppressions=../gap-suppressions.valgrind ${GAPEXEC} -q)"
   else
     echo "echo Skipping valgrind tests"
   fi;
