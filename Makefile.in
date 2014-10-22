@@ -22,7 +22,7 @@ OPT = -O3
 endif
 
 ifdef PRINT
-printflag = -DDEBUG_PRINT_LEVEL=0
+printflag = -DDEBUG_PRINT_LEVEL=$(PRINT)
 else
 printflag =
 endif
