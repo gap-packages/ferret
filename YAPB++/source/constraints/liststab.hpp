@@ -30,7 +30,7 @@ public:
     {
         for(int i = 1; i <= points.size(); ++i)
         {
-            if(p[i] != i)
+            if(p[points[i]] != points[i])
                 return false;
         }
         return true;
