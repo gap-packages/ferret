@@ -9,6 +9,6 @@
 #R  Read the install files.
 ##
 ReadPackage( "ferret", "lib/yapb.gi" );
-
+ReadPackage( "ferret", "lib/overloadmethods.gi" );
 
 #E  read.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here

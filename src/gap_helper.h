@@ -30,6 +30,9 @@ struct GAP_getter
 template<>
 struct GAP_getter<Obj>
 {
+    bool isa(Obj) const
+    { return true; }
+    
     Obj operator()(Obj recval) const
     { return recval; }
 };
@@ -37,9 +40,12 @@ struct GAP_getter<Obj>
 template<>
 struct GAP_getter<char*>
 {
+    bool isa(Obj recval) const
+    { return IS_STRING(recval) && IS_STRING_REP(recval); }
+    
     char* operator()(Obj recval) const
     {
-        if(!IS_STRING(recval) || !IS_STRING_REP(recval))
+        if(!isa(recval))
             throw GAPException("Invalid attempt to read string");
         return (char*)CHARS_STRING(recval);
     }
@@ -48,9 +54,12 @@ struct GAP_getter<char*>
 template<>
 struct GAP_getter<std::string>
 {
+    bool isa(Obj recval) const
+    { return IS_STRING(recval) && IS_STRING_REP(recval); }
+
     std::string operator()(Obj recval) const
     {
-        if(!IS_STRING(recval) || !IS_STRING_REP(recval))
+        if(!isa(recval))
             throw GAPException("Invalid attempt to read string");
         return std::string((char*)CHARS_STRING(recval));
     }
@@ -60,6 +69,9 @@ struct GAP_getter<std::string>
 template<>
 struct GAP_getter<bool>
 {
+    bool isa(Obj recval) const
+    { return (recval == True) || (recval == False); }
+    
     bool operator()(Obj recval) const
     {
         if(recval == True)
@@ -76,9 +88,12 @@ struct GAP_getter<bool>
 template<>
 struct GAP_getter<int>
 {
+    bool isa(Obj recval) const
+    { return IS_INTOBJ(recval); }
+    
     int operator()(Obj recval) const
     {
-        if(!IS_INTOBJ(recval))
+        if(!isa(recval))
             throw GAPException("Invalid attempt to read int");
         return INT_INTOBJ(recval);
     }
@@ -88,9 +103,12 @@ struct GAP_getter<int>
 template<typename T>
 struct GAP_getter<vec1<T> >
 {
+    bool isa(Obj recval) const
+    { return IS_SMALL_LIST(recval); }
+    
     vec1<T> operator()(Obj rec) const
     {
-        if(!IS_SMALL_LIST(rec))
+        if(!isa(rec))
             throw GAPException("Invalid attempt to read list");
         int len = LEN_LIST(rec);
 
@@ -108,9 +126,12 @@ struct GAP_getter<vec1<T> >
 template<typename T>
 struct GAP_getter<vec1<optional<T> > >
 {
+    bool isa(Obj recval) const
+    { return IS_SMALL_LIST(recval); }
+    
     vec1<optional<T> > operator()(Obj rec) const
     {
-        if(!IS_SMALL_LIST(rec))
+        if(!isa(rec))
             throw GAPException("Invalid attempt to read list");
         int len = LEN_LIST(rec);
 
@@ -165,6 +186,13 @@ T GAP_get(Obj rec)
 {
     GAPdetail::GAP_getter<T> getter;
     return getter(rec);
+}
+
+template<typename T>
+bool GAP_isa(Obj rec)
+{
+  GAPdetail::GAP_getter<T> getter;
+  return getter.isa(rec);
 }
 
 Obj GAP_get_rec(Obj rec, UInt n)

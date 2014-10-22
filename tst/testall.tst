@@ -14,6 +14,8 @@ gap> START_TEST("ferret package: testall.tst");
 gap> LoadPackage("ferret",false);
 true
 gap> Read("test_functions.g");
+gap> SetInfoLevel(InfoFerretOverloads, 9);
+gap> EnableFerretOverloads(false);
 gap> CheckGroup(Group((1,2)));
 true
 gap> CheckGroup(Group((1,2),(3,4)));
@@ -27,23 +29,23 @@ gap> CheckGroup(makeRowColumnSymmetry(3,4));
 true
 gap> CheckGroup(makeRowColumnSymmetry(4,4));
 true
-gap> CheckSetStab(SymmetricGroup(5), []);
+gap> CheckStab(SymmetricGroup(5), [], OnSets);
 true
-gap> CheckSetStab(SymmetricGroup(5), [2,3]);
+gap> CheckStab(SymmetricGroup(5), [2,3], OnSets);
 true
-gap> CheckSetStab(g1, []);
+gap> CheckStab(g1, [], OnSets);
 true
-gap> CheckSetStab(g1, [1,2,3]);
+gap> CheckStab(g1, [1,2,3], OnSets);
 true
-gap> CheckSetStab(g1, [1,6]);
+gap> CheckStab(g1, [1,6], OnSets);
 true
-gap> CheckSetStab(makeRowColumnSymmetry(3,4), [1]);
+gap> CheckStab(makeRowColumnSymmetry(3,4), [1], OnSets);
 true
-gap> CheckSetStab(makeRowColumnSymmetry(3,4), [1,2]);
+gap> CheckStab(makeRowColumnSymmetry(3,4), [1,2], OnSets);
 true
-gap> CheckSetStab(makeRowColumnSymmetry(3,4), [4,7]);
+gap> CheckStab(makeRowColumnSymmetry(3,4), [4,7], OnSets);
 true
-gap> CheckSetStab(makeRowColumnSymmetry(7,7), [ 15, 19, 22, 25, 32, 33, 34 ]);
+gap> CheckStab(makeRowColumnSymmetry(7,7), [ 15, 19, 22, 25, 32, 33, 34 ], OnSets);
 true
 gap> CheckRandomPrimitives();
 true

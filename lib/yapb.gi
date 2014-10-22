@@ -1,13 +1,13 @@
 #############################################################################
 ##
-#W  files.gi                   Example Package                  Werner Nickel
 ##
-##  Installation file for functions of the Example package.
+#W  yapb.gi                Ferret Package                Chris Jefferson
+##
+##  Installation file for functions of the Ferret package.
 ##
 #Y  Copyright (C) 1999,2001 University of St. Andrews, North Haugh,
 #Y                          St. Andrews, Fife KY16 9SS, Scotland
 ##
-
 
 ####
 # Functions and variables beginning '_YAPB' are only called
@@ -138,6 +138,12 @@ function(list, op)
                arg := list,
                max := MaximumList(list, 1));
   fi;
+  
+  if op = OnTuplesTuples then
+      return rec(constraint := "ListStab",
+                 arg := Concatenation(list),
+                 max := MaximumList(Concatenation(list), 1));
+  fi;
 
   if op = OnDirectedGraph then
     return rec(constraint := "DirectedGraph",
@@ -241,13 +247,14 @@ end);
 ##  </ManSection>
 ##  <#/GAPDoc>
 InstallGlobalFunction( Solve, function( arg )
-  local maxpoint, perms, l, options, useroptions,x;
+  local maxpoint, perms, l, options, useroptions, constraints;
   l := Length(arg);
   if l = 0 or l > 2 then
     Error( "usage: Solve(<C>[, <options>])");
   fi;
 
-  maxpoint := Maximum(List(arg[1], x -> x.max));
+  constraints := Flat(arg[1]);
+  maxpoint := Maximum(List(constraints, x -> x.max));
 
   options := rec(searchValueHeuristic := "RBase",
                  searchFirstBranchValueHeuristic := "RBase",
@@ -302,7 +309,7 @@ InstallGlobalFunction( Solve, function( arg )
     Error("Unknown options: ", useroptions);
   fi;
 
-  perms := YAPB_SOLVE(arg[1], options);
+  perms := YAPB_SOLVE(constraints, options);
   _YAPB_clearRefs();
 
   _SOLVE_STATS := perms.stats;

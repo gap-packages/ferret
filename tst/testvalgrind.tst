@@ -1,19 +1,10 @@
 #############################################################################
 ##
-#A  testall.tst            Example package                Alexander Konovalov
+#A  testvalgrind.tst        Ferret package             Chris Jefferson
 ##
-##  To create a test file, place GAP prompts, input and output exactly as
-##  they must appear in the GAP session. Do not remove lines containing
-##  START_TEST and STOP_TEST statements.
-##
-##  The first line starts the test. START_TEST reinitializes the caches and
-##  the global random number generator, in order to be independent of the
-##  reading order of several test files. Furthermore, the assertion level
-##  is set to 2 by START_TEST and set back to the previous value in the
-##  subsequent STOP_TEST call.
-##
-##  The argument of STOP_TEST may be an arbitrary identifier string.
-##
+## This is a purposefully small test, so we can run it through valgrind
+## on a frequent basis and see if anything obvious falls out.
+
 gap> START_TEST("ferret package: testvalgrind.tst");
 
 # Note that you may use comments in the test file

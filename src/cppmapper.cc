@@ -73,6 +73,18 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
         throw GAPException("Unknown constraint type: " + std::string(conname));
 }
 
+void readNestedConstraints(Problem& p, Obj conlist)
+{
+    vec1<Obj> cons = GAP_get<vec1<Obj> >(conlist);
+    for(int i = 1; i <= cons.size(); ++i)
+    {
+        if(GAP_isa<vec1<Obj> >(cons[i]))
+            readNestedConstraints(p, cons[i]);
+        else
+            p.addConstraint(buildConstraint(cons[i], &p.p_stack, &p.memory_backtracker));
+    }
+}
+
 Obj solver(Obj conlist, Obj options)
 {
     try{
@@ -93,12 +105,8 @@ Obj solver(Obj conlist, Obj options)
         int size = GAP_get<int>(GAP_get_rec(options, RName_size));
         Problem p(size);
 
-        vec1<Obj> cons = GAP_get<vec1<Obj> >(conlist);
+        readNestedConstraints(p, conlist);
 
-        for(int i = 1; i <= cons.size(); ++i)
-        {
-            p.addConstraint(buildConstraint(cons[i], &p.p_stack, &p.memory_backtracker));
-        }
         SolutionStore ss = doSearch(&p, so);
         Obj gap_sols = GAP_make(ss.sols());
 

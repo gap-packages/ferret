@@ -24,7 +24,17 @@
 ##  <#/GAPDoc>
 DeclareGlobalFunction( "EnableFerretOverloads" );
 
-
-
-
-#E  files.gd  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here
+#############################################################################
+##  <#GAPDoc Label="InfoFerretOverloads">
+##  <ManSection>
+##  <InfoClass Name="InfoFerretOverloads"/>
+##
+##  <Description>
+##  is the info class for showing if Ferret is being called when GAP methods
+##  such as Intersection or Stabilizer are called. 
+##  (see&nbsp;<Ref Sect="Info Functions"/>).
+##  </Description>
+##  </ManSection>
+##  <#/GAPDoc>
+##
+DeclareInfoClass( "InfoFerretOverloads" );
