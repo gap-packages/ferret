@@ -57,7 +57,7 @@ RandomTupleTuple := function(rgen, maxint)
   fi;
 end;
 
-RandomObj := function(rgen, action, maxint)
+RandomObj := function(rgen, maxint, action)
   
   if action = OnPoints then
     return Random(rgen, [1..maxint]);
@@ -99,12 +99,12 @@ RandomObj := function(rgen, action, maxint)
   
 end;
 
-randomGroupOfSize := function(size)
+RandomGroupOfSize := function(size)
     return PrimitiveGroup(size, Random([1..NrPrimitiveGroups(size)]));
 end;;
 
-randomGroupUpToSize := function(size)
-    return randomGroupOfSize(Random([1..size]));
+RandomGroupUpToSize := function(size)
+    return RandomGroupOfSize(Random([1..size]));
 end;;
 
 

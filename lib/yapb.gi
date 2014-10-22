@@ -124,13 +124,13 @@ function(list, op)
   if op = OnSetsDisjointSets then
     return rec(constraint := "SetSetStab",
                arg := list,
-               max := MaximumList(List(list, x -> MaximumList(x, 1))));
+               max := MaximumList(List(list, x -> MaximumList(x, 1)),1));
   fi;
 
   if op = OnSetsSets then
     return rec(constraint := "OverlappingSetSetStab",
                arg := list,
-               max := MaximumList(List(list, x -> MaximumList(x, 1))));
+               max := MaximumList(List(list, x -> MaximumList(x, 1)),1));
   fi;
 
   if op = OnTuples or op = OnPairs then
@@ -144,6 +144,10 @@ function(list, op)
                  arg := Concatenation(list),
                  max := MaximumList(Concatenation(list), 1));
   fi;
+  
+  if op = OnTuplesSets then
+     return List(list, x -> ConStabilize(x, OnSets));
+  fi;
 
   if op = OnDirectedGraph then
     return rec(constraint := "DirectedGraph",
@@ -154,6 +158,16 @@ function(list, op)
   Error("Do not understand:", op);
 end);
 
+InstallMethod(ConStabilize, [IsPosInt, IsFunction],
+function(i, op)
+  if op = OnPoints then
+    return rec(constraint := "SetStab",
+               arg := [i],
+               max := i);
+  fi;
+
+  Error("Do not understand:", op);
+end);
 
 InstallMethod(ConStabilize, [IsTransformation, IsPosInt],
 function(t, i)

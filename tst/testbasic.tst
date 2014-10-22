@@ -1,9 +1,9 @@
 #############################################################################
 ##
-#A  testall.tst            YAPB package                Chris Jefferson
+#A  testbasic.tst            YAPB package                Chris Jefferson
 ##
 ##
-gap> START_TEST("ferret package: testall.tst");
+gap> START_TEST("ferret package: testbasic.tst");
 
 # Note that you may use comments in the test file
 # and also separate parts of the test by empty lines
@@ -49,8 +49,8 @@ gap> CheckStab(makeRowColumnSymmetry(7,7), [ 15, 19, 22, 25, 32, 33, 34 ], OnSet
 true
 gap> CheckRandomPrimitives();
 true
-gap> STOP_TEST( "testall.tst", 10000 );
-ferret package: testall.tst
+gap> STOP_TEST( "testbasic.tst", 10000 );
+ferret package: testbasic.tst
 #############################################################################
 ##
 #E

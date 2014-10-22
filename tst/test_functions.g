@@ -102,20 +102,20 @@ ConstraintBuilders :=
 [ 
     function(x)
         local g;
-        g := randomGroupUpToSize(x);
+        g := RandomGroupUpToSize(x);
         return [ConInGroup(g), g];
     end,
     function(x)
         local s;
-        s := RandomObj(x, OnSets);
+        s := RandomObj(GlobalMersenneTwister, x, OnSets);
         return [ConStabilize(s), Stabilizer(SymmetricGroup(x), s)];
     end
 ];
 
 CheckRandomPrimitives := function()
-    return ForAll([10..20], x -> CheckStab(randomGroupOfSize(x), [2,4,6,8,9],OnSets))
+    return ForAll([10..20], x -> CheckStab(RandomGroupOfSize(x), [2,4,6,8,9],OnSets))
      and
-           ForAll([7..10], x -> CheckStab(randomGroupOfSize(x), [[1,6],[2,4],[3,5]],OnSetsSets));
+           ForAll([7..10], x -> CheckStab(RandomGroupOfSize(x), [[1,6],[2,4],[3,5]],OnSetsSets));
 
 end;;
 
