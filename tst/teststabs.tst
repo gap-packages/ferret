@@ -9,7 +9,7 @@ true
 gap> Read("test_functions.g");
 gap> SetInfoLevel(InfoFerretOverloads, 9);
 gap> EnableFerretOverloads(false);
-# Functions which GAP implements efficently
+gap> # Functions which GAP implements efficently
 gap> for i in [2..20] do
 >      for j in [1..50] do
 >        g := RandomGroupOfSize(i);
@@ -18,6 +18,7 @@ gap> for i in [2..20] do
 >        od;
 >     od;
 >   od;
+gap> # Functions which GAP implements inefficently
 gap> for i in [2..7] do
 >      for j in [1..20] do
 >        g := RandomGroupOfSize(i);
