@@ -30,19 +30,19 @@ gap> CheckGroup(makeRowColumnSymmetry(3,4));
 true
 gap> CheckGroup(makeRowColumnSymmetry(4,4));
 true
-gap> CheckSetStab(SymmetricGroup(5), []);
+gap> CheckStab(SymmetricGroup(5), [], OnSets);
 true
-gap> CheckSetStab(SymmetricGroup(5), [2,3]);
+gap> CheckStab(SymmetricGroup(5), [2,3], OnSets);
 true
-gap> CheckSetStab(g1, []);
+gap> CheckStab(g1, [], OnSets);
 true
-gap> CheckSetStab(g1, [1,2,3]);
+gap> CheckStab(g1, [1,2,3], OnSets);
 true
-gap> CheckSetStab(g1, [1,6]);
+gap> CheckStab(g1, [1,6], OnSets);
 true
-gap> CheckSetStab(makeRowColumnSymmetry(3,4), [1]);
+gap> CheckStab(makeRowColumnSymmetry(3,4), [1], OnSets);
 true
-gap> CheckSetStab(makeRowColumnSymmetry(3,4), [1,2]);
+gap> CheckStab(makeRowColumnSymmetry(3,4), [1,2], OnSets);
 true
 gap> CheckRandomPrimitives();
 true
