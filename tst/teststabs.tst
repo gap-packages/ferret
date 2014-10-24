@@ -6,7 +6,8 @@
 gap> START_TEST("ferret package: teststabs.tst");
 gap> LoadPackage("ferret",false);
 true
-gap> Read("test_functions.g");
+gap> ReadPackage("ferret", "tst/test_functions.g");
+true
 gap> SetInfoLevel(InfoFerretOverloads, 9);
 gap> EnableFerretOverloads(false);
 gap> # Functions which GAP implements efficently

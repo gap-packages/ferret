@@ -15,7 +15,8 @@ gap> START_TEST("ferret package: testvalgrind.tst");
 # loaded)
 gap> LoadPackage("ferret",false);
 true
-gap> Read("test_functions.g");
+gap> ReadPackage("ferret", "tst/test_functions.g");
+true
 gap> CheckGroup(Group((1,2)));
 true
 gap> CheckGroup(Group((1,2),(3,4)));
