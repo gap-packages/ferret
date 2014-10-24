@@ -1,7 +1,7 @@
 LoadPackage("ferret", false);
 LoadPackage("atlas", false);
 
-Read("random_obj.g");
+ReadPackage("ferret", "tst/random_obj.g");
 
 if not(IsBound(FERRET_TEST_COUNT)) then
     FERRET_TEST_COUNT := 50;
