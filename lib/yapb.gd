@@ -37,8 +37,6 @@ DeclareGlobalFunction("OnDirectedGraph");
 ##
 DeclareGlobalFunction( "Solve" );
 
-## Get stats from most recent call to SolveStats
-DeclareGlobalFunction( "SolveStats" );
 
 
 #E  files.gd  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here

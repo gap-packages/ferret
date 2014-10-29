@@ -221,26 +221,6 @@ end );
 
 LoadDynamicModule(Filename(DirectoriesPackagePrograms("ferret"), "hellod.so"));
 
-
-_SOLVE_STATS := rec();
-
-#############################################################################
-##
-##
-##  <#GAPDoc Label="SolveStats">
-##  <ManSection>
-##  <Func Name="SolveStats" Arg=""/>
-##
-##  <Description>
-##  Returns performance stats for the most recent call to
-##  <Ref Func="Solve" />.
-##  </Description>
-##  </ManSection>
-##  <#/GAPDoc>
-InstallGlobalFunction(SolveStats, function()
-  return _SOLVE_STATS;
-end);
-
 #############################################################################
 ##
 ##

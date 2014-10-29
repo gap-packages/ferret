@@ -27,10 +27,6 @@ These methods are both used with Solve:
     
 <#Include Label="Solve">
 
-It is possible to get some stats about the behaviour of Solve:
-    
-<#Include Label="SolveStats">
-    
 </Section>
 </Chapter>
 
