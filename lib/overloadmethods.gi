@@ -79,7 +79,7 @@ PermGroupStabilizerFerretOp := function(arg)
     # action on tuples of tuples
     elif act = OnTuplesTuples
       and IsList(d) and ForAll(d,i->ForAll(i,IsInt)) then
-        K := Stabilizer(K, Flat(d), OnTuples);
+        return Stabilizer(K, Flat(d), OnTuples);
     # other action
     else
         TryNextMethod();
