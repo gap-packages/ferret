@@ -7,7 +7,9 @@ if not(IsBound(FERRET_TEST_COUNT)) then
     FERRET_TEST_COUNT := 50;
 fi;
 
-compare_full_groups := function(g, perms)
+compare_full_groups := function(g, record)
+    local perms;
+    perms := record.generators;
     if(Size(perms) <> Size(Group(perms))) then
         Print("Size(p) = ", Size(perms), ", Size(Group(p)) = ", Size(Group(perms)),"\n");
         Print("p:", perms,"\n");
@@ -34,7 +36,9 @@ compare_full_groups := function(g, perms)
 end;;
 
 
-compare_gen_groups := function(g, perms)
+compare_gen_groups := function(g, record)
+    local perms;
+    perms := record.generators;
     if(Group(perms) <> g) then
         Print("Wrong group!","\n");
         Print("Expected: ",g,"\n");
@@ -55,17 +59,16 @@ heuristics := ["largest", "first", "smallest2", "randomsmallest", "random", "ran
 CheckGroup := function(g)
     local permsfull, permsgen, permsfullStabChain, permsgenStabChain, permsfullBlock, permsgenBlock, h;
     for h in heuristics do
-        permsfull := Solve([ConInGroup(g, "Inefficient")], rec( allperms := true, rbaseCellHeuristic := h));
-        permsgen := Solve([ConInGroup(g, "Inefficient")], rec( rbaseCellHeuristic := h));
-        permsfullStabChain := Solve([ConInGroup(g)], rec( allperms := true, rbaseCellHeuristic := h));
-        permsgenStabChain := Solve([ConInGroup(g)], rec( rbaseCellHeuristic := h));
+        permsfull := Solve([ConInGroup(g, "Inefficient")],
+                           rec( only_find_generators := false, rbaseCellHeuristic := h, recreturn := true));
+        permsgen := Solve([ConInGroup(g, "Inefficient")], rec( rbaseCellHeuristic := h, recreturn := true));
+        permsfullStabChain := Solve([ConInGroup(g)],
+                              rec( only_find_generators := false, rbaseCellHeuristic := h, recreturn := true));
+        permsgenStabChain := Solve([ConInGroup(g)], rec( rbaseCellHeuristic := h, recreturn := true));
 
-        permsfullBlock := Solve([ConInGroup(g, "BlockStabChain")], rec( allperms := true, rbaseCellHeuristic := h));
-        permsgenBlock := Solve([ConInGroup(g, "BlockStabChain")], rec( rbaseCellHeuristic := h));
-
-        Sort(permsfull);
-        Sort(permsfullStabChain);
-        Sort(permsfullBlock);
+        permsfullBlock := Solve([ConInGroup(g, "BlockStabChain")],
+                                rec( only_find_generators := false, rbaseCellHeuristic := h, recreturn := true));
+        permsgenBlock := Solve([ConInGroup(g, "BlockStabChain")], rec( rbaseCellHeuristic := h, recreturn := true));
 
         if not(
                compare_full_groups(g, permsfullStabChain) and compare_gen_groups(g, permsgenStabChain) and
@@ -81,8 +84,8 @@ end;;
 
 CheckStab := function(g, s, act)
     local permsStabChain, permsBlock, stab, comp1, comp2;
-    permsStabChain := Solve([ConInGroup(g), ConStabilize(s, act)]);
-    permsBlock := Solve([ConInGroup(g, "BlockStabChain"), ConStabilize(s, act)]);
+    permsStabChain := Solve([ConInGroup(g), ConStabilize(s, act)], rec(recreturn := true));
+    permsBlock := Solve([ConInGroup(g, "BlockStabChain"), ConStabilize(s, act)], rec(recreturn := true));
     stab := Stabilizer(g, s, act);
 
     comp1 := compare_gen_groups(stab, permsStabChain);

@@ -241,7 +241,7 @@ LoadDynamicModule(Filename(DirectoriesPackagePrograms("ferret"), "hellod.so"));
 ##  </ManSection>
 ##  <#/GAPDoc>
 InstallGlobalFunction( Solve, function( arg )
-  local maxpoint, perms, l, options, useroptions, constraints;
+  local maxpoint, record, l, options, useroptions, constraints, name;
   l := Length(arg);
   if l = 0 or l > 2 then
     Error( "usage: Solve(<C>[, <options>])");
@@ -255,7 +255,10 @@ InstallGlobalFunction( Solve, function( arg )
                  rbaseCellHeuristic := "smallest",
                  rbaseValueHeuristic := "smallest",
                  size := maxpoint,
-                 stats := true
+                 stats := false,
+                 recreturn := false,
+                 only_find_generators := true,
+                 just_rbase := false
                  );
 
   if l = 2 then
@@ -264,50 +267,30 @@ InstallGlobalFunction( Solve, function( arg )
     useroptions := rec();
   fi;
 
-  if IsBound(useroptions.rbaseValueHeuristic) then
-    options.rbaseValueHeuristic := useroptions.rbaseValueHeuristic;
-    Unbind(useroptions.rbaseValueHeuristic);
-  fi;
-
-  if IsBound(useroptions.rbaseCellHeuristic) then
-    options.rbaseCellHeuristic := useroptions.rbaseCellHeuristic;
-    Unbind(useroptions.rbaseCellHeuristic);
-  fi;
-
-  if IsBound(useroptions.searchValueHeuristic) then
-    options.searchValueHeuristic := useroptions.searchValueHeuristic;
-    Unbind(useroptions.searchValueHeuristic);
-  fi;
-
-  if IsBound(useroptions.searchFirstBranchValueHeuristic) then
-    options.searchFirstBranchValueHeuristic := useroptions.searchFirstBranchValueHeuristic;
-    Unbind(useroptions.searchFirstBranchValueHeuristic);
-  fi;
-
-  if IsBound(useroptions.allperms) then
-    options.allperms := useroptions.allperms;
-    Unbind(useroptions.allperms);
-  fi;
-
-  if IsBound(useroptions.stats) then
-    options.stats := useroptions.stats;
-    Unbind(useroptions.stats);
-  fi;
-
-  if IsBound(useroptions.justrbase) then
-    options.justrbase := useroptions.justrbase;
-    Unbind(useroptions.justrbase);
-  fi;
-
+  for name in RecNames(options) do
+    if IsBound(useroptions.(name)) then
+      options.(name) := useroptions.(name);
+      Unbind(useroptions.(name));
+    fi;
+  od;
+  
   if useroptions <> rec() then
     Error("Unknown options: ", useroptions);
   fi;
 
-  perms := YAPB_SOLVE(constraints, options);
+  if options.stats or options.just_rbase then
+    options.recreturn := true;
+  fi;
+  
+  record := YAPB_SOLVE(constraints, options);
   _YAPB_clearRefs();
 
-  _SOLVE_STATS := perms.stats;
-  return perms.generators;
+  if options.recreturn then
+    return record;
+  else
+    return Group(record.generators);
+  fi;
+  
 end );
 
 

@@ -90,9 +90,9 @@ Obj solver(Obj conlist, Obj options)
     try{
         SearchOptions so;
 
-        so.only_find_generators = !(GAP_get_maybe_bool_rec(options, RName_allperms));
-        so.find_canonical_perm = GAP_get_maybe_bool_rec(options, RName_canonical);
-        so.just_rbase = GAP_get_maybe_bool_rec(options, RName_justrbase);
+        so.only_find_generators = GAP_get<bool>(GAP_get_rec(options, RName_only_find_generators));
+        //so.find_canonical_perm = GAP_get<bool>(GAP_get_rec(options, RName_canonical));
+        so.just_rbase = GAP_get<bool>(GAP_get_rec(options, RName_just_rbase));
         so.heuristic.rbase_value = getRBaseHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_rbaseValueHeuristic)));
         so.heuristic.rbase_cell = getRBaseHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_rbaseCellHeuristic)));
         so.heuristic.search_value = getSearchHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_searchValueHeuristic)));
@@ -100,7 +100,7 @@ Obj solver(Obj conlist, Obj options)
 
 
 
-        bool get_stats = GAP_get_maybe_bool_rec(options, RName_stats);
+        bool get_stats = GAP_get<bool>(GAP_get_rec(options, RName_stats));
 
         int size = GAP_get<int>(GAP_get_rec(options, RName_size));
         Problem p(size);
@@ -114,13 +114,14 @@ Obj solver(Obj conlist, Obj options)
         AssPRec(rec, RNamName("generators"), gap_sols);
         CHANGED_BAG(rec);
 
+        AssPRec(rec, RNamName("rbase"), GAP_make(Stats::container().rBase));
+        CHANGED_BAG(rec);
+        
         if(get_stats)
         {
             Obj stats = NEW_PREC(0);
 
             AssPRec(stats, RNamName("nodes"), GAP_make(Stats::container().node_count));
-            CHANGED_BAG(stats);
-            AssPRec(stats, RNamName("rbase"), GAP_make(Stats::container().rBase));
             CHANGED_BAG(stats);
             AssPRec(stats, RNamName("fixedpoints"), GAP_make(Stats::container().fixed_points));
             CHANGED_BAG(stats);
