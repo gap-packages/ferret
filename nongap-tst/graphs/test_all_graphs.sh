@@ -20,4 +20,4 @@ echo $(grep 'Graphs equal' graph-results.txt | wc -l) passes
 echo $(grep 'Ferret timeout' graph-results.txt | wc -l) timeouts
 echo $(grep 'Graph comparison failed' graph-results.txt | wc -l) failures
 
-return $(grep 'Graph comparison failed' graph-results.txt | wc -l)
+exit $(grep 'Graph comparison failed' graph-results.txt | wc -l)
