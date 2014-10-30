@@ -8,7 +8,7 @@ cd YAPB++/tests
 ./run_tests.sh
 cd ../..
 for j in "CHECK=0" "CHECK=1"; do
-  make $j > /dev/null
+  make all $j > /dev/null
 (
   for i in $(cd tst; ls *.tst); do
       echo "(cd tst; echo 'LoadPackage(\"io\"); if Test(\"$i\") = true then IO_exit(0); else IO_exit(1); fi;' | ${GAPEXEC} -q)"

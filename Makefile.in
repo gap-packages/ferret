@@ -2,7 +2,7 @@
 CC=cc
 GAPARCH=@GAPARCH@
 GAC=@GAPPATH@/bin/$(GAPARCH)/gac
-all: @BUILDLIST@
+
 DEBUGFLAGS=@DEBUGFLAGS@
 
 ifdef TIMING
@@ -34,6 +34,9 @@ BUILDSTUFF=-L "@CPPLIB@" -o bin/$(GAPARCH)/hellod.so -d src/hellod.cc src/cppmap
 library : # Let's always rebuild src/hellod.c src/cppmapper.cc
 	mkdir -p bin/$(GAPARCH)
 	$(GAC)  -p "$(MYCFLAGS) $(timingflag) $(checkflag) $(OPT) $(printflag)"  $(BUILDSTUFF)
+
+# By default, only build library, as symmetry_detect requires C++11
+all: @BUILDLIST@
 
 symmetry_detect : .FORCE
 	$(CXX) $(MYCFLAGS) -std=c++0x YAPB++/simple_graph/symmetry_detect.cc YAPB++/simple_graph/symmetry_parse.cc  YAPB++/simple_graph/gason/gason.cpp  YAPB++/simple_graph/simple_graph.cc YAPB++/simple_graph/simple_parser.cc $(timingflag) $(checkflag) $(OPT) $(printflag) -I YAPB++/source -o symmetry_detect
