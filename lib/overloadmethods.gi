@@ -85,12 +85,6 @@ PermGroupStabilizerFerretOp := function(arg)
         TryNextMethod();
     fi;
 
-    # enforce size computation (unless the stabilizer did not cause a
-    # StabChain to be computed.
-    if HasStabChainMutable(K) then
-      Size(K);
-    fi;
-
     # return the stabilizer
     return K;
 end;

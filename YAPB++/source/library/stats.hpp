@@ -49,9 +49,9 @@ struct Container
 
     std::vector<int> constraint_invokes;
 
-    vec1<std::pair<int, int> > rBase;
+    vec1<std::pair<int, int> > rBase_fixed_points;
 
-    vec1<int> fixed_points;
+    vec1<int> rBase_value_ordering;
 
     Container() : node_count(0), bad_leaves(0), bad_internal_nodes(0),
                   constraint_invokes(CON_END, 0)

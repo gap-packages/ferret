@@ -241,7 +241,8 @@ LoadDynamicModule(Filename(DirectoriesPackagePrograms("ferret"), "hellod.so"));
 ##  </ManSection>
 ##  <#/GAPDoc>
 InstallGlobalFunction( Solve, function( arg )
-  local maxpoint, record, l, options, useroptions, constraints, name;
+  local maxpoint, record, l, options, useroptions,
+        constraints, name, buildStabChain, retgrp;
   l := Length(arg);
   if l = 0 or l > 2 then
     Error( "usage: Solve(<C>[, <options>])");
@@ -285,10 +286,38 @@ InstallGlobalFunction( Solve, function( arg )
   record := YAPB_SOLVE(constraints, options);
   _YAPB_clearRefs();
 
+  # We now stitch together a stabilizer chain from the return values of YAPB++
+  buildStabChain := function(gens, gen_map)
+    local sc, current_val, start_of_range, i;
+    current_val := gen_map[1][1];
+    start_of_range := 1;
+    sc := EmptyStabChain(gens, ());
+    for i in [2..Length(gen_map)] do
+      if gen_map[i][1] <> current_val then
+        InsertTrivialStabilizer(sc, current_val);
+        AddGeneratorsExtendSchreierTree(sc, gens{[start_of_range..i-1]});
+        current_val := gen_map[i][1];
+        start_of_range := i;
+      fi;
+    od;
+    InsertTrivialStabilizer(sc, current_val);
+    AddGeneratorsExtendSchreierTree(sc, gens{[start_of_range..Length(gens)]});
+    return sc;
+  end;
+  
   if options.recreturn then
     return record;
   else
-    return Group(record.generators);
+    if record.generators = [()] then # just to avoid having to make code work in this case
+      retgrp := Group(());
+      StabChainMutable(retgrp);
+    else
+      retgrp := Group(record.generators);
+      SetStabChainMutable(retgrp, buildStabChain(record.generators, record.generators_map));
+    fi;
+    
+    Size(retgrp);
+    return retgrp;
   fi;
   
 end );

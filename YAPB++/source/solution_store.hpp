@@ -10,7 +10,12 @@
 class SolutionStore
 {
     RBase* rb;
+    // List of solutions
     vec1<Permutation> permutations;
+    // List which tells us that solution i was generated when trying to map .first to .second
+    // this is useful for building a stabilizer chain later.
+    vec1<std::pair<int, int> > permutations_from;
+    
     vec1<int> orbit_mins;
 
     // This is here to allow different functions
@@ -86,8 +91,20 @@ public:
         debug_out(0, "SS", "New orbit_mins:" << orbit_mins);
     }
 
+    void markLastSolutionFrom(int from, int to)
+    {
+        D_ASSERT(permutations.size() == permutations_from.size() + 1);
+        permutations_from.push_back(std::make_pair(from, to));
+    }
+    
     const vec1<Permutation>& sols() const
     { return permutations; }
+    
+    const vec1<std::pair<int,int> >& solsmap() const
+    { return permutations_from; }
+    
+    const RBase* getRBase() const
+    { return rb; }
 
     friend std::ostream& operator<<(std::ostream& os, const SolutionStore& ss)
     { return os << ss.permutations; }

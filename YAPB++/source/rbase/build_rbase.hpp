@@ -246,7 +246,7 @@ RBase* buildRBase(Problem* p, RBaseSearchHeuristic cellHeuristic, RBaseSearchHeu
 
             int cell_start = p->p_stack.cellStartPos(branch_cell);
             debug_out(1, "RBase", "Level " <<  revrbase.size()+1 << " : " <<  p->p_stack.val(cell_start) << ", location " << cell_start << ", in cell " << branch_cell << ", size " << p->p_stack.cellSize(branch_cell));
-            Stats::container().rBase.push_back(std::make_pair(branch_cell, p->p_stack.cellSize(branch_cell)));
+            Stats::container().rBase_fixed_points.push_back(std::make_pair(branch_cell, p->p_stack.cellSize(branch_cell)));
             debug_out(1, "RBase", "Cell starts: " << p->p_stack.cellStarts() << ", lengths: " << p->p_stack.cellSizes());
             revrbase.addBranch(branch_cell, p->p_stack.val(cell_start));
             p->p_stack.split(branch_cell, cell_start + 1);

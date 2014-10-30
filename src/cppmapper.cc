@@ -108,13 +108,18 @@ Obj solver(Obj conlist, Obj options)
         readNestedConstraints(p, conlist);
 
         SolutionStore ss = doSearch(&p, so);
-        Obj gap_sols = GAP_make(ss.sols());
 
         Obj rec = NEW_PREC(0);
-        AssPRec(rec, RNamName("generators"), gap_sols);
+        Obj sols = GAP_make(ss.sols());
+        AssPRec(rec, RNamName("generators"),sols);
         CHANGED_BAG(rec);
-
-        AssPRec(rec, RNamName("rbase"), GAP_make(Stats::container().rBase));
+        
+        Obj rbasevalorder = GAP_make(Stats::container().rBase_value_ordering);
+        AssPRec(rec, RNamName("rbase"), rbasevalorder);
+        CHANGED_BAG(rec);
+        
+        Obj solsmap = GAP_make(ss.solsmap());
+        AssPRec(rec, RNamName("generators_map"), solsmap);
         CHANGED_BAG(rec);
         
         if(get_stats)
@@ -123,7 +128,7 @@ Obj solver(Obj conlist, Obj options)
 
             AssPRec(stats, RNamName("nodes"), GAP_make(Stats::container().node_count));
             CHANGED_BAG(stats);
-            AssPRec(stats, RNamName("fixedpoints"), GAP_make(Stats::container().fixed_points));
+            AssPRec(stats, RNamName("fixedpoints"), GAP_make(Stats::container().rBase_fixed_points));
             CHANGED_BAG(stats);
             AssPRec(stats, RNamName("bad_leaves"), GAP_make(Stats::container().bad_leaves));
             CHANGED_BAG(stats);

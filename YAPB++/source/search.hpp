@@ -119,10 +119,17 @@ bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
                         ret = doSearchBranch<true>(so, p, ss, rbase, tfq, depth + 1);
                     else
                         ret = doSearchBranch<false>(so, p, ss, rbase, tfq, depth + 1);
-                    if(!firstbranch && so.only_find_generators && ret)
+                    if(so.only_find_generators && ret)
                     {
-                        p->memory_backtracker.popWorld();
-                        return true;
+                        if(!firstbranch)
+                        {
+                            p->memory_backtracker.popWorld();
+                            return true;
+                        }
+                        else
+                        {
+                            ss->markLastSolutionFrom(cell[1], cell[i]);
+                        }
                     }
                 }
                 p->memory_backtracker.popWorld();
@@ -145,7 +152,7 @@ SolutionStore doSearch(Problem* p, const SearchOptions& so)
     timing_start();
     p->init();
     RBase* rb = buildRBase(p, so.heuristic.rbase_cell, so.heuristic.rbase_value);
-    Stats::container().fixed_points = rb->value_ordering;
+    Stats::container().rBase_value_ordering = rb->value_ordering;
     timing_event("Finish RBase");
     SolutionStore solutions(rb);
     if(!so.just_rbase)
