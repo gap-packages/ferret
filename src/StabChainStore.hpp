@@ -53,7 +53,8 @@ public:
     { return GAP_get<vec1<Permutation> >(ELM_REC(sc, RName_labels)); }
 
     vec1<int> getOrbit() const
-    { return GAP_get<vec1<int> >(ELM_REC(sc, RName_orbit)); }
+    { //printf("GetOrbit."); ELM_REC(sc, RName_orbit); printf("!\n"); 
+    return GAP_get<vec1<int> >(ELM_REC(sc, RName_orbit)); }
 
     vec1<vec1<int> > getOrbitsPartition(int dom) const
     { 
@@ -80,7 +81,9 @@ public:
 
     int getOrbitStart() const
     { 
+       // printf("getOrbitStart.");
         Obj o = ELM_REC(sc, RName_orbit);
+    //    ELM_REC(sc, RName_orbit); printf("!\n"); 
         return GAP_get<int>(ELM_LIST(o, 1));
     }
 

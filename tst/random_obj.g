@@ -104,7 +104,13 @@ RandomGroupOfSize := function(size)
 end;;
 
 RandomGroupUpToSize := function(size)
-    return RandomGroupOfSize(Random([2..size]));
+    local s;
+    s := Random([1..size]);
+    if s = 1 then
+      return Group(());
+    else
+      return RandomGroupOfSize(s);
+    fi;
 end;;
 
 

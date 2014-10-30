@@ -118,31 +118,31 @@ function(list, op)
   if op = OnSets then
     return rec(constraint := "SetStab",
                arg := list,
-               max := MaximumList(list, 1));
+               max := MaximumList(list, 0));
   fi;
 
   if op = OnSetsDisjointSets then
     return rec(constraint := "SetSetStab",
                arg := list,
-               max := MaximumList(List(list, x -> MaximumList(x, 1)),1));
+               max := MaximumList(List(list, x -> MaximumList(x, 0)),0));
   fi;
 
   if op = OnSetsSets then
     return rec(constraint := "OverlappingSetSetStab",
                arg := list,
-               max := MaximumList(List(list, x -> MaximumList(x, 1)),1));
+               max := MaximumList(List(list, x -> MaximumList(x, 0)),0));
   fi;
 
   if op = OnTuples or op = OnPairs then
     return rec(constraint := "ListStab",
                arg := list,
-               max := MaximumList(list, 1));
+               max := MaximumList(list, 0));
   fi;
   
   if op = OnTuplesTuples then
       return rec(constraint := "ListStab",
                  arg := Concatenation(list),
-                 max := MaximumList(Concatenation(list), 1));
+                 max := MaximumList(Concatenation(list), 0));
   fi;
   
   if op = OnTuplesSets then
@@ -208,9 +208,14 @@ end);
 
 InstallMethod(ConInGroup, [IsPermGroup, IsString],
 function(G, s)
-  return rec(constraint:=Concatenation("Generators_", s),
-             arg := G,
-             max := LargestMovedPoint(G));
+  # We special case the identity group, because it is a pain
+  if IsTrivial(G) then
+    return rec(constraint:="FixAllPoints", max := 1);
+  else
+    return rec(constraint:=Concatenation("Generators_", s),
+               arg := G,
+               max := LargestMovedPoint(G));
+  fi;
 end);
 
 
@@ -248,7 +253,12 @@ InstallGlobalFunction( Solve, function( arg )
     Error( "usage: Solve(<C>[, <options>])");
   fi;
 
-  constraints := Flat(arg[1]);
+  constraints := Filtered(Flat(arg[1]), x -> x.max > 0);
+  
+  if Length(constraints) = 0 then
+    Error("Cannot create infinite group in Solve");
+  fi;
+  
   maxpoint := Maximum(List(constraints, x -> x.max));
 
   options := rec(searchValueHeuristic := "RBase",
@@ -304,7 +314,7 @@ InstallGlobalFunction( Solve, function( arg )
     AddGeneratorsExtendSchreierTree(sc, gens{[start_of_range..Length(gens)]});
     return sc;
   end;
-  
+
   if options.recreturn then
     return record;
   else
@@ -313,7 +323,8 @@ InstallGlobalFunction( Solve, function( arg )
       StabChainMutable(retgrp);
     else
       retgrp := Group(record.generators);
-      SetStabChainMutable(retgrp, buildStabChain(record.generators, record.generators_map));
+      StabChainMutable(retgrp);
+#      SetStabChainMutable(retgrp, buildStabChain(record.generators, record.generators_map));
     fi;
     
     Size(retgrp);

@@ -22,6 +22,7 @@
 #include "constraints/slowgraph.hpp"
 #include "constraints/perm_group.hpp"
 #include "constraints/stabchain_perm_group.hpp"
+#include "constraints/fixallpoints.hpp"
 
 AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktracker* mb)
 {
@@ -30,6 +31,10 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
     if(strcmp(conname, "SetStab") == 0)
     {
         return new SetStab(GAP_get<vec1<int> >(GAP_get_rec(con, RName_arg)), ps);
+    }
+    if(strcmp(conname, "FixAllPoints") == 0)
+    {
+        return new FixAllPoints(ps);
     }
     else if(strcmp(conname, "SetSetStab") == 0)
     {
