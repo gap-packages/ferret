@@ -40,7 +40,7 @@ PermGroupStabilizerFerretOp := function(arg)
     if not(_FERRET_ENABLE_OVERLOADS) then
       return CallFuncList(PermGroupStabilizerOp, arg);
     fi;
-    Info(InfoFerretOverloads, 2, "Considering ferret");
+    Info(InfoFerretOverloads, 2, "Considering ferret for Stabilizer");
     if gens <> acts  then
         #TODO: Check whether  acts is permutations and one could work in the
         #permutation image (even if G is not permgroups)
@@ -57,14 +57,14 @@ PermGroupStabilizerFerretOp := function(arg)
       if Length(d)=1 then
         K:=Stabilizer(G,d[1]);
       else
-        Info(InfoFerretOverloads, 1, "Using ferret");
+        Info(InfoFerretOverloads, 1, "Using ferret for Stabilizer(.., OnSets)");
         K:=Solve([ConInGroup(G), ConStabilize(d, OnSets)]);
       fi;
 
     # action on sets of pairwise disjoint sets
     elif act = OnSetsDisjointSets
       and IsList(d) and ForAll(d,i->ForAll(i,IsInt)) then
-        Info(InfoFerretOverloads, 1, "Using ferret");
+        Info(InfoFerretOverloads, 1, "Using ferret for Stabilizer(.., OnSetsDisjointSets)");
         K := Solve([ConInGroup(G), ConStabilize(d, OnSetsDisjointSets)]);
     # action on sets of sets
     elif act = OnSetsSets
@@ -74,7 +74,7 @@ PermGroupStabilizerFerretOp := function(arg)
     # action on tuples of sets
     elif act = OnTuplesSets
       and IsList(d) and ForAll(d,i->ForAll(i,IsInt)) then
-        Info(InfoFerretOverloads, 1, "Using ferret");
+        Info(InfoFerretOverloads, 1, "Using ferret for Stabilizer(.., OnTuplesSets)");
         K := Solve([ConInGroup(G), List(d, x -> ConStabilize(x, OnSets))]);
     # action on tuples of tuples
     elif act = OnTuplesTuples
@@ -121,3 +121,42 @@ InstallOtherMethod( StabilizerOp, "permutation group with domain",true,
   # and we are better even if the group is solvable
   +RankFilter(IsSolvableGroup) + 1,
   PermGroupStabilizerFerretOp);
+  
+  
+  
+# This function replaces Intersection2 for perm groups
+  InstallMethod( Intersection2, "perm groups (from Ferret Package)", IsIdenticalObj,
+    [ IsPermGroup, IsPermGroup ], 1,
+  function( G, H )
+  local   Omega,  P,  rbase,  L,mg,mh,i;
+    
+      if not(_FERRET_ENABLE_OVERLOADS) then
+        TryNextMethod();
+      fi;
+      Info(InfoFerretOverloads, 2, "Using ferret for Intersection2");
+      
+      if IsIdenticalObj( G, H )  then
+        return G;
+      fi;
+    
+      # Tighten bounds if possible
+      mg := LargestMovedPoint(G);
+      mh := LargestMovedPoint(H);
+      
+      if mg <> mh then
+        if mg < mh then
+          H := Stabilizer(H, [mg+1..mh], OnTuples);
+        else
+          G := Stabilizer(G, [mh+1..mg], OnTuples);
+        fi;
+      fi;
+
+      # Handle some trivial cases
+      if IsSubset(G,H) then
+        return H;
+      elif IsSubset(H,G) then
+        return G;
+      fi;
+
+      return Solve([ConInGroup(G), ConInGroup(H)]);
+  end );
