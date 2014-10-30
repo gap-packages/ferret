@@ -13,7 +13,7 @@ gap> EnableFerretOverloads(false);
 gap> # Functions which GAP implements efficently
 gap> for i in [2..20] do
 >      for j in [1..50] do
->        g := RandomGroupOfSize(i);
+>        g := RandomGroupUpToSize(i);
 >        for act in [OnPoints, OnSets, OnSetsDisjointSets, OnTuplesSets, OnTuplesTuples] do
 >          CheckStab(g, RandomObj(GlobalMersenneTwister, i, act), act);
 >        od;
@@ -22,7 +22,7 @@ gap> for i in [2..20] do
 gap> # Functions which GAP implements inefficently
 gap> for i in [2..7] do
 >      for j in [1..20] do
->        g := RandomGroupOfSize(i);
+>        g := RandomGroupUpToSize(i);
 >        for act in [OnSetsSets] do
 >          CheckStab(g, RandomObj(GlobalMersenneTwister, i, act), act);
 >        od;

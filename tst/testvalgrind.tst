@@ -15,6 +15,8 @@ gap> START_TEST("ferret package: testvalgrind.tst");
 # loaded)
 gap> LoadPackage("ferret",false);
 true
+gap> SetInfoLevel(InfoFerretOverloads, 9);
+gap> EnableFerretOverloads(false);
 gap> ReadPackage("ferret", "tst/test_functions.g");
 true
 gap> CheckGroup(Group((1,2)));

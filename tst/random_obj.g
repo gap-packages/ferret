@@ -104,7 +104,7 @@ RandomGroupOfSize := function(size)
 end;;
 
 RandomGroupUpToSize := function(size)
-    return RandomGroupOfSize(Random([1..size]));
+    return RandomGroupOfSize(Random([2..size]));
 end;;
 
 
