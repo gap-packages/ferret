@@ -260,6 +260,14 @@ InstallGlobalFunction( Solve, function( arg )
   fi;
   
   maxpoint := Maximum(List(constraints, x -> x.max));
+  
+  # YAPB++ requires at least 2 points. We solve this in this way
+  # because it makes sure we return all the various things
+  # users might want (an rbase, etc).
+  if maxpoint < 2 then
+    Add(constraints, rec(constraint:="FixAllPoints", max := 2));
+    maxpoint := 2;
+  fi;
 
   options := rec(searchValueHeuristic := "RBase",
                  searchFirstBranchValueHeuristic := "RBase",

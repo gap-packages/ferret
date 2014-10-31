@@ -18,7 +18,14 @@ struct Problem
     tracer_generator(&memory_backtracker),
     con_queue(&tracer_generator),
     p_stack(n, &con_queue, &memory_backtracker)
-    { }
+    { 
+        if(n < 2)
+        {
+            std::cerr << "YAPB++ requires problems on at least 2 points. Sorry" << std::endl;
+            std::cerr << "Super fatal error!" << std::endl;
+            abort();
+        }
+    }
 
     void addConstraint(AbstractConstraint* ac)
     { con_store.addConstraint(ac); }
