@@ -331,8 +331,7 @@ InstallGlobalFunction( Solve, function( arg )
       StabChainMutable(retgrp);
     else
       retgrp := Group(record.generators);
-      StabChainMutable(retgrp);
-#      SetStabChainMutable(retgrp, buildStabChain(record.generators, record.generators_map));
+      SetStabChainMutable(retgrp, buildStabChain(record.generators, record.generators_map));
     fi;
     
     Size(retgrp);

@@ -129,8 +129,6 @@ InstallOtherMethod( StabilizerOp, "permutation group with domain",true,
       fi;
       Info(InfoFerretOverloads, 2, "Using ferret for Intersection2");
       
-      return Solve([ConInGroup(G), ConInGroup(H)]);
-      
       if IsIdenticalObj( G, H )  then
         return G;
       fi;
