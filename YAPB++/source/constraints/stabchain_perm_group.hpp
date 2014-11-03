@@ -116,7 +116,7 @@ struct StabChainCache
 
     StabChainCache(Obj _group) : group(_group), fixed_base(false)
     {
-        stabChain = GAP_callFunction(FunObj_StabChainMutable, group);
+        stabChain = GAP_callFunction(FunObj_CopyStabChain,GAP_callFunction(FunObj_StabChainMutable, group));
         GAP_addRef(group);
         GAP_addRef(stabChain);
     }

@@ -18,6 +18,7 @@ FUNOBJ(YAPB_FixedOrbits, "_YAPB_FixedOrbits");
 FUNOBJ(YAPB_RepresentElement, "_YAPB_RepresentElement");
 FUNOBJ(YAPB_getPermTo, "_YAPB_getPermTo");
 FUNOBJ(StabChainMutable, "StabChainMutable");
+FUNOBJ(CopyStabChain, "CopyStabChain");
 FUNOBJ(ChangeStabChain, "ChangeStabChain");
 FUNOBJ(getOrbitPart, "_YAPB_getOrbitPart");
 FUNOBJ(inGroup, "_YAPB_inGroup");
