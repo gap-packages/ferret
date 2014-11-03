@@ -8,7 +8,7 @@ MakeGAPDocDoc( "doc",     # path to the directory containing the main file
                           # list of (probably source code) files relative 
                           # to path which contain pieces of documentation 
                           # which must be included in the document
-               [ "../PackageInfo.g", "../lib/yapb.gd", "../lib/yapb.gi", "../lib/smallestImage.gd", "../lib/overloadmethods.gd" ], 
+               [ "../PackageInfo.g", "../lib/yapb.gd", "../lib/yapb.gi", "../lib/overloadmethods.gd" ], 
                "Ferret", # the name of the book used by GAP's online help
                "../../..",# optional: relative path to the main GAP root 
                           # directory to produce HTML files with relative 

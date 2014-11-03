@@ -4,7 +4,7 @@
 
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
-<Chapter Label="Solve">
+<Chapter Label="SolveChapter">
 <Heading>The Solve Method</Heading>
 
 The central functionality of the Ferret package is based around the Solve method. This function performs a backtrack search, using the permutation backtracking algorithm, over a set of groups or cosets. Often users will want to use a higher level function which wraps this functionality, such as Stabilizer or Intersection.
