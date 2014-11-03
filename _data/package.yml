@@ -1,6 +1,6 @@
 name: ferret
-version: 0.3.1
-date: 09/10/2014
+version: 0.4.0
+date: 03/11/2014
 description: Search in finite permutation groups
 
 authors:
@@ -18,13 +18,13 @@ needed-pkgs:
       version: ">= 1.5"
       url: "http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc"
 
-www: https://bitbucket.org/ChrisJefferson/ferret/
-readme: https://bitbucket.org/ChrisJefferson/ferret/README
-packageinfo: https://bitbucket.org/ChrisJefferson/ferret/PackageInfo.g
+www: http://gap-system.github.io/ferret/
+readme: http://gap-system.github.io/ferret/README
+packageinfo: http://gap-system.github.io/ferret/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://bitbucket.org/ChrisJefferson/ferret/ferret-0.3.1.tar.gz
+      url: https://github.com/gap-system/ferret/releases/download/v0.4.0/ferret-0.4.0.tar.gz
 
 abstract: 
 
