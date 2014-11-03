@@ -1,0 +1,24 @@
+\begin{theindex}
+
+  \item \texttt  {ConInGroup}, \hyperpage{6}
+  \item \texttt  {ConStabilize}
+    \subitem for a transformation or partial perm, \hyperpage{6}
+    \subitem for an object and an action, \hyperpage{6}
+
+  \indexspace
+
+  \item \texttt  {EnableFerretOverloads}, \hyperpage{5}
+
+  \indexspace
+
+  \item Ferret package, \hyperpage{4}
+
+  \indexspace
+
+  \item License, \hyperpage{2}
+
+  \indexspace
+
+  \item \texttt  {Solve}, \hyperpage{7}
+
+\end{theindex}

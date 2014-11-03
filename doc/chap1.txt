@@ -1,0 +1,59 @@
+  
+  [1X1 [33X[0;0YThe Ferret Package[133X[101X
+  
+  [33X[0;0YThis  chapter  describes  the  [5XGAP[105X  package Ferret. Ferret implements highly
+  efficient  implementations  of  a  range of search algorithms on permutation
+  groups. These algorithms fall into two broad categories:[133X
+  
+  [30X    [33X[0;6Y[13XAlgorithms  which  find  groups and cosets with particular properties[113X.
+        This include graph automorphisms, stabilizers and group intersection.[133X
+  
+  [30X    [33X[0;6Y[13XCanonical  Images[113X.  This  involves  finding  the canonical image of an
+        object  (graph, set, list, transformation and others) in a given group
+        of coset.[133X
+  
+  [33X[0;0YIf you are interested in if Ferret can be applied to another problem, please
+  contact  the  authors, who will be happy to look into if your problem can be
+  solved with Ferret.[133X
+  
+  
+  [1X1.1 [33X[0;0YReplacing Built-in functionality[133X[101X
+  
+  [33X[0;0YFerret  automatically installs methods which replace GAP's a number of GAP's
+  built-in functionality:[133X
+  
+  [30X    [33X[0;6Y[13XIntersection[113X for a list of permutation groups.[133X
+  
+  [30X    [33X[0;6Y[13XStabilizer(G,S,Action)[113X for a permutation group G, and the actions:[133X
+  
+        [30X    [33X[0;12YOnSets[133X
+  
+        [30X    [33X[0;12YOnOnSets[133X
+  
+        [30X    [33X[0;12YOnSetsDisjointSets[133X
+  
+        [30X    [33X[0;12YOnSetsSets[133X
+  
+        [30X    [33X[0;12YOnTuples[133X
+  
+        [30X    [33X[0;12YOnPairs[133X
+  
+        [30X    [33X[0;12YOnDirectedGraph[133X
+  
+  [30X    [33X[0;6Y[13XStabilizer(G, S)[113X for a permutation group G and a:[133X
+  
+        [30X    [33X[0;12Ypermutation[133X
+  
+        [30X    [33X[0;12Ytransformation[133X
+  
+        [30X    [33X[0;12Ypartial permutation[133X
+  
+  [33X[0;0YIf you would like to disable this functionality, you can use [14X1.1-1[114X.[133X
+  
+  [1X1.1-1 EnableFerretOverloads[101X
+  
+  [29X[2XEnableFerretOverloads[102X( [[3Xactive[103X] ) [32X function
+  
+  [33X[0;0Yif   [3Xactive[103X  (a  bool)  is  true,  then  enable  Ferret  specialisations  of
+  Intersection and Stabilizer. Call with [3Xactive[103X false to disable.[133X
+  
