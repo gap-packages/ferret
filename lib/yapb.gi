@@ -223,9 +223,6 @@ InstallGlobalFunction( OnDirectedGraph, function()
   Error("This is not a true function, just a place holder");
 end );
 
-
-LoadDynamicModule(Filename(DirectoriesPackagePrograms("ferret"), "hellod.so"));
-
 #############################################################################
 ##
 ##
