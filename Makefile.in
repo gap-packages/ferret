@@ -48,7 +48,7 @@ distclean: clean
 	rm -rf Makefile
 
 doc:
-	gap -A -q -T < makedocrel.g
+	gap -A -q -T < makedoc.g
 
 .PHONY: all default clean distclean doc
 
