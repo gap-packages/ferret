@@ -10,12 +10,12 @@ SetPackageInfo( rec(
 
 PackageName := "ferret",
 Subtitle := "Search in finite permutation groups",
-Version := "0.3.1",
-Date := "09/10/2014", # dd/mm/yyyy format
+Version := "0.4.0",
+Date := "03/11/2014", # dd/mm/yyyy format
 
 ##  <#GAPDoc Label="PKGVERSIONDATA">
-##  <!ENTITY VERSION "0.3.1">
-##  <!ENTITY RELEASEDATE "9 October 2014">
+##  <!ENTITY VERSION "0.4.0">
+##  <!ENTITY RELEASEDATE "3 November 2014">
 ##  <#/GAPDoc>
 
 Persons := [
@@ -35,9 +35,11 @@ Persons := [
   ),
 ],
 
-PackageWWWHome := "https://bitbucket.org/ChrisJefferson/ferret/",
+PackageWWWHome := "http://gap-system.github.io/ferret/",
 
-ArchiveURL     := Concatenation( ~.PackageWWWHome, "ferret-", ~.Version ),
+ArchiveURL     := Concatenation("https://github.com/gap-system/ferret/",
+                                "releases/download/v", ~.Version,
+                                "/ferret-", ~.Version),
 README_URL     := Concatenation( ~.PackageWWWHome, "README" ),
 PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 
