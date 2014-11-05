@@ -4,6 +4,7 @@ before_install:
   - sudo add-apt-repository ppa:mhorn/gap -y
   - sudo apt-get update -y
   - sudo apt-get install gap-for-opt -y
+  - sudo apt-get install libgmp3-dev -y
 
 install:
   - ./configure /opt/gap && make
