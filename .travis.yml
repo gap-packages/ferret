@@ -1,2 +1,10 @@
 language: cpp
 
+before_install:
+  - sudo add-apt-repository ppa:mhorn/gap -y
+  - sudo apt-get update -y
+  - sudo apt-get install gap-for-opt -y
+
+install:
+  - ./configure /opt/gap && make
+
