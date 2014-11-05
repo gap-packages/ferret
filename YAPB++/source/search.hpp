@@ -1,55 +1,9 @@
 #ifndef _SEARCH_HPP_CAW
 #define _SEARCH_HPP_CAW
 
-#include "problem.hpp"
-#include "rbase/build_rbase.hpp"
-#include "queue/trace_following_queue.hpp"
-#include "solution_store.hpp"
-#include "search_options.hpp"
-#include "library/stats.hpp"
-#include "library/perm.hpp"
 
-bool handleSolution(Problem* p, SolutionStore* ss, RBase* rbase)
-{
-    D_ASSERT(p->p_stack.cellCount() == p->p_stack.domainSize());
-    Permutation perm = getRawPermutation(p->p_stack.domainSize());
+#include "search_common.hpp"
 
-    for(int i = 1 ; i <= perm.size(); ++i)
-    {
-        perm.raw(rbase->initial_permstack->val(i)) = p->p_stack.val(i);
-    }
-    D_ASSERT(perm.validate());
-    if(!p->con_store.verifySolution(perm))
-        return false;
-    ss->addSolution(perm);
-    return true;
-}
-
-template<typename It>
-void orderCell(It begin, It end, SearchHeuristic sh, RBase* rbase)
-{
-    switch(sh)
-    {
-        case SearchBranch_RBase:
-             std::sort(begin, end,
-                IndirectSorter(ContainerToFunction(&rbase->inv_value_ordering)));
-            return;
-        case SearchBranch_InvRBase:
-             std::sort(begin, end,
-                ReverseSorter(IndirectSorter(ContainerToFunction(&rbase->inv_value_ordering))));
-            return;
-        case SearchBranch_Random:
-            std::random_shuffle(begin, end);
-            return;
-        case SearchBranch_Sorted:
-            std::sort(begin, end);
-            return;
-        case SearchBranch_Nosort:
-            return;
-        default:
-            abort();
-    }
-}
 
 template<bool firstbranch>
 bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
@@ -59,7 +13,7 @@ bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
     if(depth > rbase->depth())
     {
         debug_out(1, "Search", "found solution");
-        return handleSolution(p,ss,rbase);
+        return handlePossibleSolution(p,ss,rbase);
     }
     else
     {
