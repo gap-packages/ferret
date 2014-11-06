@@ -39,7 +39,7 @@ library : # Let's always rebuild src/hellod.c src/cppmapper.cc
 all: @BUILDLIST@
 
 symmetry_detect : .FORCE
-	$(CXX) $(MYCFLAGS) -std=c++0x YAPB++/simple_graph/symmetry_detect.cc YAPB++/simple_graph/symmetry_parse.cc  YAPB++/simple_graph/gason/gason.cpp  YAPB++/simple_graph/simple_graph.cc YAPB++/simple_graph/simple_parser.cc $(timingflag) $(checkflag) $(OPT) $(printflag) -I YAPB++/source -o symmetry_detect
+	$(CXX) $(MYCFLAGS) -std=gnu++0x YAPB++/simple_graph/symmetry_detect.cc YAPB++/simple_graph/symmetry_parse.cc  YAPB++/simple_graph/gason/gason.cpp  YAPB++/simple_graph/simple_graph.cc YAPB++/simple_graph/simple_parser.cc $(timingflag) $(checkflag) $(OPT) $(printflag) -I YAPB++/source -o symmetry_detect
 
 clean:
 	rm -rf bin
