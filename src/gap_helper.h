@@ -323,7 +323,7 @@ Obj GAP_callFunction(GAPFunction fun)
 {
     timing_start_GAP_call(fun.name);
     typedef Obj(*F)(Obj);
-    Obj ret = reinterpret_cast<F>(HDLR_FUNC(fun.obj,0))(fun.obj);
+    Obj ret = reinterpret_cast<F>(HDLR_FUNC(fun.getObj(),0))(fun.getObj());
     timing_end_GAP_call();
     return ret;
 }
@@ -332,7 +332,7 @@ Obj GAP_callFunction(GAPFunction fun, Obj arg1)
 {
     timing_start_GAP_call(fun.name);
     typedef Obj(*F)(Obj,Obj);
-    Obj ret = reinterpret_cast<F>(HDLR_FUNC(fun.obj,1))(fun.obj, arg1);
+    Obj ret = reinterpret_cast<F>(HDLR_FUNC(fun.getObj(),1))(fun.getObj(), arg1);
     timing_end_GAP_call();
     return ret;
 }
@@ -341,7 +341,7 @@ Obj GAP_callFunction(GAPFunction fun, Obj arg1, Obj arg2)
 {
     timing_start_GAP_call(fun.name);
     typedef Obj(*F)(Obj,Obj, Obj);
-    Obj ret = reinterpret_cast<F>(HDLR_FUNC(fun.obj,2))(fun.obj, arg1, arg2);
+    Obj ret = reinterpret_cast<F>(HDLR_FUNC(fun.getObj(),2))(fun.getObj(), arg1, arg2);
     timing_end_GAP_call();
     return ret;
 }
@@ -350,7 +350,7 @@ Obj GAP_callFunction(GAPFunction fun, Obj arg1, Obj arg2, Obj arg3)
 {
     timing_start_GAP_call(fun.name);
     typedef Obj(*F)(Obj,Obj, Obj, Obj);
-    Obj ret = reinterpret_cast<F>(HDLR_FUNC(fun.obj,3))(fun.obj, arg1, arg2, arg3);
+    Obj ret = reinterpret_cast<F>(HDLR_FUNC(fun.getObj(),3))(fun.getObj(), arg1, arg2, arg3);
     timing_end_GAP_call();
     return ret;
 }

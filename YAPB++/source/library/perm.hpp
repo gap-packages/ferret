@@ -4,7 +4,6 @@
 #include "vec1.hpp"
 #include "library.hpp"
 #include "shared_ptr.hpp"
-#include <string.h>
 
 
 

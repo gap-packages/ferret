@@ -4,12 +4,6 @@
 #W
 ##
 
-
-# Load C code
-if Filename(DirectoriesPackagePrograms("ferret"), "hellod.so") <> fail then
-  LoadDynamicModule(Filename(DirectoriesPackagePrograms("ferret"), "hellod.so"));
-fi;
-
 #############################################################################
 ##
 #R  Read the declaration files.

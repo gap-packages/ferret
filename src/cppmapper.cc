@@ -8,7 +8,6 @@
 
 #include <ostream>
 #include <iostream>
-#include <string.h>
 
 #include "problem.hpp"
 #include "solution_store.hpp"

@@ -2,11 +2,29 @@
 #ifndef FUNOBJ
 #define FUNOBJ(x,y) extern GAPFunction FunObj_ ## x;
 
-typedef struct
+#include <string>
+
+class GAPFunction
 {
     Obj obj;
-    const char* name;
-}  GAPFunction;
+    std::string name;
+
+public:
+    GAPFunction() : obj(0), name()
+    { }
+
+    void setName(std::string s)
+    { name = s; }
+    
+    Obj getObj()
+    {
+        if(obj == 0)
+        {
+            obj = VAL_GVAR(GVarName(name.c_str()));
+        }
+        return obj;
+    }
+};
 
 #endif
 
