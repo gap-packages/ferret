@@ -9,3 +9,6 @@ before_install:
 install:
   - ./configure /opt/gap && make
 
+build:
+  - scripts/quick_test.sh
+
