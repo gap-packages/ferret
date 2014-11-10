@@ -5,6 +5,14 @@
 #
 LoadPackage( "io" );
 LoadPackage( "ferret" );
+
+# Sanity check that we loaded ferret correctly
+g := Solve([ConInGroup(AlternatingGroup(3))]);
+if g <> AlternatingGroup(3) then
+  Print("Failed to correctly load ferret");
+  GAP_EXIT(1);
+fi;
+
 dirs := DirectoriesPackageLibrary( "ferret", "tst" );
 
 HasSuffix := function(list, suffix)
