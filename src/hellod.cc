@@ -23,7 +23,10 @@ However, this will require documenting more rules of kernel programming.
 
 #include <stdio.h>
 #include "include_gap_headers.h"
+#include "generated_headers/function_objs.h"
 
+#define FUNOBJ(x,y) GAPFunction FunObj_##x;
+#include "generated_headers/function_objs.h"
 /*
 Obj FuncHELLO_WORLD( Obj self ) {
   Pr("Hello World!\n",0L, 0L);
@@ -166,14 +169,9 @@ static Int InitKernel (
 */
 
 #include "generated_headers/RNamNames_list.h"
-#include "generated_headers/function_objs.h"
 
 #define RNAM(x) UInt RName_ ## x;
 #include "generated_headers/RNamNames_list.h"
-
-
-#define FUNOBJ(x,y) GAPFunction FunObj_##x;
-#include "generated_headers/function_objs.h"
 
 
 static Int InitLibrary (
@@ -183,7 +181,7 @@ static Int InitLibrary (
 
     InitGVarFuncsFromTable( GVarFuncs );
 
-#define FUNOBJ(x,y) FunObj_##x .obj = VAL_GVAR(GVarName(y)); FunObj_##x .name = y;
+#define FUNOBJ(x,y) FunObj_##x .setName(y);
 #include "generated_headers/function_objs.h"
 
 

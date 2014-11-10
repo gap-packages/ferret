@@ -2,7 +2,7 @@
 #define _SLOWGRAPH_HPP_AGH
 
 #include <set>
-//#include <unordered_set>
+#include <string.h>
 
 #include "abstract_constraint.hpp"
 #include "../partition_stack.hpp"

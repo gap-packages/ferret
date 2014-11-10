@@ -39,12 +39,12 @@ fi
 
 func_get_libname () {
   for flag in -lstdc++ -llibc++; do
-    if echo "#include <vector>\n int main(void) { auto i = std::vector<int>(5); }" | $c_compiler $flag -std=gnu++0x -x c++  -c - -o /dev/null 1>/dev/null 2>/dev/null; then
+    if echo "#include <vector>\n#include<string.h>\n#include<string>\n int main(void) { std::vector<int> v(5); }" | $c_compiler $flag -x c++  -c - -o /dev/null 1>/dev/null 2>/dev/null; then
         CPPLIB="$flag"
         return 0
     fi
   done
-  echo "Cannot find working C++ standard library (or a working C++11 compiler)".
+  echo "Cannot find working C++ standard library".
   exit 1
 }
 
