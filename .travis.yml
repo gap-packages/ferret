@@ -8,7 +8,7 @@ before_install:
 install:
   - ./configure /opt/gap && make
   - mkdir gap-root && mkdir gap-root/pkg && ln -s $(pwd) gap-root/pkg/ferret
-  - echo 'export GAPEXEC="$GAPEXEC -l '\"$(pwd)'/gap-root'\""' >> ferret.vars
+  - echo 'export GAPEXEC="$GAPEXEC -l \"'$(pwd)'/gap-root;\""' >> ferret.vars
   - cat ferret.vars
 
 script:
