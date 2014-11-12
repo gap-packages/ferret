@@ -4,9 +4,9 @@ branches:
   except:
     - gh-pages
     
-debugmode:
+env:
   - MAKEFLAG="CHECK=1"
-  - MAKEFLAG=""
+  - MAKEFLAG="CHECK=0"
 
 before_install:
   - sudo add-apt-repository ppa:azumanga/gap -y
