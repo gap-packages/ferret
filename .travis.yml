@@ -1,0 +1,16 @@
+language: cpp
+
+before_install:
+  - sudo add-apt-repository ppa:azumanga/gap -y
+  - sudo apt-get update -y
+  - sudo apt-get install gap-snapshot libgmp3-dev parallel -y
+
+install:
+  - ./configure /opt/gap && make
+  - mkdir gap-root && mkdir gap-root/pkg && ln -s $(pwd) gap-root/pkg/ferret
+  - echo 'export GAPEXEC="$GAPEXEC -l '$(pwd)'/gap-root;"' >> ferret.vars
+  - cat ferret.vars
+
+script:
+  - scripts/quick_test.sh
+
