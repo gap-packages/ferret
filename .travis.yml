@@ -1,9 +1,18 @@
 language: cpp
 
+branches:
+  except:
+    - gh-pages
+    
+debugmode:
+  - MAKEFLAG="CHECK=1"
+  - MAKEFLAG=""
+
 before_install:
   - sudo add-apt-repository ppa:azumanga/gap -y
   - sudo apt-get update -y
-  - sudo apt-get install gap-snapshot libgmp3-dev parallel -y
+  - sudo apt-get install gap-snapshot libgmp3-dev parallel valgrind -y
+
 
 install:
   - ./configure /opt/gap && make
@@ -12,5 +21,5 @@ install:
   - cat ferret.vars
 
 script:
-  - scripts/quick_test.sh
+  - scripts/quick_test.sh ${MAKEFLAG}
 

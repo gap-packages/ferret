@@ -2,6 +2,7 @@
 CC=cc
 GAPARCH=@GAPARCH@
 GAC=@GAPPATH@/bin/$(GAPARCH)/gac
+CHECK=0
 
 DEBUGFLAGS=@DEBUGFLAGS@
 
@@ -11,8 +12,8 @@ else
 timingflag =
 endif
 
-ifdef CHECK
-checkflag = $(DEBUGFLAGS) -DDEBUG_LEVEL=$(CHECK)
+ifneq ($(CHECK),0)
+checkflag = $(DEBUGFLAGS) -DDEBUG_LEVEL=x$(CHECK)x
 else
 checkflag = -DDEBUG_LEVEL=0
 endif
