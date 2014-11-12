@@ -115,6 +115,13 @@ ConstraintBuilders :=
     end
 ];
 
+CheckSmallRandomPrimitives := function()
+    return ForAll([5..10], x -> CheckStab(RandomGroupOfSize(x), [1,2,4],OnSets))
+     and
+           ForAll([3..6], x -> CheckStab(RandomGroupOfSize(x), [[1,2],[3,4]],OnSetsSets));
+
+end;;
+
 CheckRandomPrimitives := function()
     return ForAll([10..20], x -> CheckStab(RandomGroupOfSize(x), [2,4,6,8,9],OnSets))
      and

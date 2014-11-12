@@ -29,9 +29,7 @@ gap> g1 := Group((1,4)(2,5)(3,6), (1,2)(4,5), (2,3)(5,6));;
 gap> CheckGroup(g1);
 true
 gap> heuristics := ["first", "smallest"];;
-gap> CheckGroup(makeRowColumnSymmetry(3,4));
-true
-gap> CheckGroup(makeRowColumnSymmetry(4,4));
+gap> CheckGroup(makeRowColumnSymmetry(2,3));
 true
 gap> CheckStab(SymmetricGroup(5), [], OnSets);
 true
@@ -43,11 +41,11 @@ gap> CheckStab(g1, [1,2,3], OnSets);
 true
 gap> CheckStab(g1, [1,6], OnSets);
 true
-gap> CheckStab(makeRowColumnSymmetry(3,4), [1], OnSets);
+gap> CheckStab(makeRowColumnSymmetry(2,3), [1], OnSets);
 true
-gap> CheckStab(makeRowColumnSymmetry(3,4), [1,2], OnSets);
+gap> CheckStab(makeRowColumnSymmetry(2,3), [1,2], OnSets);
 true
-gap> CheckRandomPrimitives();
+gap> CheckSmallRandomPrimitives();
 true
 gap> STOP_TEST( "testvalgrind.tst", 10000 );
 ferret package: testvalgrind.tst
