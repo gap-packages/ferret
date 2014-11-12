@@ -1,9 +1,9 @@
 language: cpp
 
 before_install:
-  - sudo add-apt-repository ppa:mhorn/gap -y
+  - sudo add-apt-repository ppa:azumanga/gap -y
   - sudo apt-get update -y
-  - sudo apt-get install gap-for-opt libgmp3-dev parallel -y
+  - sudo apt-get install gap-snapshot libgmp3-dev parallel -y
 
 install:
   - ./configure /opt/gap && make
