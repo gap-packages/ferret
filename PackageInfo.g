@@ -10,12 +10,12 @@ SetPackageInfo( rec(
 
 PackageName := "ferret",
 Subtitle := "Search in finite permutation groups",
-Version := "0.4.1",
-Date := "11/11/2014", # dd/mm/yyyy format
+Version := "0.5.0",
+Date := "21/11/2014", # dd/mm/yyyy format
 
 ##  <#GAPDoc Label="PKGVERSIONDATA">
-##  <!ENTITY VERSION "0.4.1">
-##  <!ENTITY RELEASEDATE "11 November 2014">
+##  <!ENTITY VERSION "0.5.0">
+##  <!ENTITY RELEASEDATE "21 November 2014">
 ##  <#/GAPDoc>
 
 Persons := [

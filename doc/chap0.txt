@@ -6,10 +6,10 @@
                      [1XBacktrack Search in Permutation Groups[101X
   
   
-                                 Version 0.4.1
+                                 Version 0.5.0
   
   
-                                11 November 2014
+                                21 November 2014
   
   
                              Christopher Jefferson
@@ -22,7 +22,7 @@
   
   -------------------------------------------------------
   [1XCopyright[101X
-  [33X[0;0Y© 2013-2014 by Christopher Jefferson and Steve Linton[133X
+  [33X[0;0Y© 2013-2014 by Christopher Jefferson[133X
   
   [33X[0;0Y[5XFerret[105X  package  is  free software; you can redistribute it and/or modify it
   under     the     terms     of    the    GNU    General    Public    License
