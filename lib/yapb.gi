@@ -5,7 +5,7 @@
 ##
 ##  Installation file for functions of the Ferret package.
 ##
-#Y  Copyright (C) 1999,2001 University of St. Andrews, North Haugh,
+#Y  Copyright (C) 2013-2014 University of St. Andrews, North Haugh,
 #Y                          St. Andrews, Fife KY16 9SS, Scotland
 ##
 
