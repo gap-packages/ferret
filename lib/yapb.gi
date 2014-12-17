@@ -283,16 +283,7 @@ InstallGlobalFunction( Solve, function( arg )
     useroptions := rec();
   fi;
 
-  for name in RecNames(options) do
-    if IsBound(useroptions.(name)) then
-      options.(name) := useroptions.(name);
-      Unbind(useroptions.(name));
-    fi;
-  od;
-  
-  if useroptions <> rec() then
-    Error("Unknown options: ", useroptions);
-  fi;
+  _FerretHelperFuncs.fillUserValues(options, useroptions);
 
   if options.stats or options.just_rbase then
     options.recreturn := true;

@@ -13,7 +13,7 @@
 if Filename(DirectoriesPackagePrograms("ferret"), "hellod.so") <> fail then
   LoadDynamicModule(Filename(DirectoriesPackagePrograms("ferret"), "hellod.so"));
 fi;
-
+ReadPackage( "ferret", "lib/helper_functions.g" );
 ReadPackage( "ferret", "lib/yapb.gi" );
 ReadPackage( "ferret", "lib/overloadmethods.gi" );
 
