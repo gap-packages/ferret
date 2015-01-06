@@ -251,8 +251,16 @@ struct GAP_maker<vec1<T> >
     Obj operator()(const vec1<T>& v) const
     {
         size_t s = v.size();
+        if(s == 0)
+        {
+          Obj l = NEW_PLIST(T_PLIST_EMPTY, 0);
+          SET_LEN_PLIST(l, 0);
+          CHANGED_BAG(l);
+          return l;
+        }
         Obj list = NEW_PLIST(T_PLIST_DENSE, s);
         SET_LEN_PLIST(list, s);
+        CHANGED_BAG(list);
         GAP_maker<T> m;
         for(int i = 1; i <= v.size(); ++i)
         {
@@ -323,7 +331,9 @@ Obj GAP_callFunction(GAPFunction fun)
 {
     timing_start_GAP_call(fun.name);
     typedef Obj(*F)(Obj);
-    Obj ret = reinterpret_cast<F>(HDLR_FUNC(fun.getObj(),0))(fun.getObj());
+    Obj funobj = fun.getObj();
+    ObjFunc hdlrfunc = HDLR_FUNC(funobj,0);
+    Obj ret = reinterpret_cast<F>(hdlrfunc)(funobj);
     timing_end_GAP_call();
     return ret;
 }
@@ -332,7 +342,9 @@ Obj GAP_callFunction(GAPFunction fun, Obj arg1)
 {
     timing_start_GAP_call(fun.name);
     typedef Obj(*F)(Obj,Obj);
-    Obj ret = reinterpret_cast<F>(HDLR_FUNC(fun.getObj(),1))(fun.getObj(), arg1);
+    Obj funobj = fun.getObj();
+    ObjFunc hdlrfunc = HDLR_FUNC(funobj,1);
+    Obj ret = reinterpret_cast<F>(hdlrfunc)(funobj, arg1);
     timing_end_GAP_call();
     return ret;
 }
@@ -341,7 +353,9 @@ Obj GAP_callFunction(GAPFunction fun, Obj arg1, Obj arg2)
 {
     timing_start_GAP_call(fun.name);
     typedef Obj(*F)(Obj,Obj, Obj);
-    Obj ret = reinterpret_cast<F>(HDLR_FUNC(fun.getObj(),2))(fun.getObj(), arg1, arg2);
+    Obj funobj = fun.getObj();
+    ObjFunc hdlrfunc = HDLR_FUNC(funobj,2);
+    Obj ret = reinterpret_cast<F>(hdlrfunc)(funobj, arg1, arg2);
     timing_end_GAP_call();
     return ret;
 }
@@ -350,7 +364,9 @@ Obj GAP_callFunction(GAPFunction fun, Obj arg1, Obj arg2, Obj arg3)
 {
     timing_start_GAP_call(fun.name);
     typedef Obj(*F)(Obj,Obj, Obj, Obj);
-    Obj ret = reinterpret_cast<F>(HDLR_FUNC(fun.getObj(),3))(fun.getObj(), arg1, arg2, arg3);
+    Obj funobj = fun.getObj();
+    ObjFunc hdlrfunc = HDLR_FUNC(funobj,3);
+    Obj ret = reinterpret_cast<F>(hdlrfunc)(funobj, arg1, arg2, arg3);
     timing_end_GAP_call();
     return ret;
 }
