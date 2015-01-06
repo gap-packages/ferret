@@ -22,4 +22,5 @@ install:
 
 script:
   - scripts/quick_test.sh ${MAKEFLAG}
+  - ( . ./ferret.vars; $GAPEXEC tst/testlong.g )
 
