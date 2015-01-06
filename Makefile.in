@@ -13,7 +13,7 @@ timingflag =
 endif
 
 ifneq ($(CHECK),0)
-checkflag = $(DEBUGFLAGS) -DDEBUG_LEVEL=x$(CHECK)x
+checkflag = $(DEBUGFLAGS) -DDEBUG_LEVEL=$(CHECK)
 else
 checkflag = -DDEBUG_LEVEL=0
 endif
