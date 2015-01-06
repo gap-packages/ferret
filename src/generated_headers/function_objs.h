@@ -20,7 +20,8 @@ public:
     {
         if(obj == 0)
         {
-            obj = VAL_GVAR(GVarName(name.c_str()));
+            UInt varname = GVarName(name.c_str());
+            obj = VAL_GVAR(varname);
         }
         return obj;
     }
