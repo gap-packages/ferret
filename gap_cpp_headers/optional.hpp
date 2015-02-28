@@ -1,7 +1,7 @@
 #ifndef OPTIONAL_HPP
 #define OPTIONAL_HPP
 
-#include "library.hpp"
+#include <assert.h>
 
 template<typename T>
 class optional
@@ -25,13 +25,13 @@ public:
 
     T& operator*()
     {
-        D_ASSERT(present);
+        assert(present);
         return t;
     }
 
     const T& operator*() const
     {
-        D_ASSERT(present);
+        assert(present);
         return t;
     }
 

@@ -28,7 +28,7 @@ else
 printflag =
 endif
 
-MYCFLAGS=-Wall -Wextra -g -IYAPB++/source
+MYCFLAGS=-Wall -Wextra -g -IYAPB++/source -Igap_cpp_headers
 
 BUILDSTUFF=-L "@CPPLIB@" -o bin/$(GAPARCH)/hellod.so -d src/hellod.cc src/cppmapper.cc
 

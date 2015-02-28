@@ -1,17 +1,23 @@
 #ifndef GAP_HELPER_PNFRE
 #define GAP_HELPER_PNFRE
 
+#include <stdexcept>
+#include <string>
+#include <exception>
+
 // We have to include this to get around problems with the 'extern C' wrapping of src/compiled.h,
 // which includes gmp, which in C++ mode has some C++ templates.
 #include "include_gap_headers.h"
+#include "gap_exception.h"
 
 #include "gap_function.h"
 
-#include <stdexcept>
-#include <string>
-#include "library/vec1.hpp"
-#include "library/perm.hpp"
-#include "library/optional.hpp"
+
+#include "vec1.hpp"
+
+#include "optional.hpp"
+
+
 
 
 namespace GAPdetail
@@ -145,35 +151,7 @@ struct GAP_getter<vec1<optional<T> > >
     }
 };
 
-template<>
-struct GAP_getter<Permutation>
-{
-    Permutation operator()(Obj rec) const
-    {
-        if(TNUM_OBJ(rec) == T_PERM2)
-        {
-            UInt deg = DEG_PERM2(rec);
-            Permutation p = getRawPermutation(deg);
-            vec1<int> v(deg);
-            UInt2* ptr = ADDR_PERM2(rec);
-            for(UInt i = 0; i < deg; ++i)
-                p.raw(i+1) = ptr[i] + 1;
-            D_ASSERT(p.validate());
-            return p;
-        }
-        else if(TNUM_OBJ(rec) == T_PERM4)
-        {
-            UInt deg = DEG_PERM4(rec);
-            Permutation p = getRawPermutation(deg);
-            UInt4* ptr = ADDR_PERM4(rec);
-            for(UInt i = 0; i < deg; ++i)
-                p.raw(i+1) = ptr[i] + 1;
-            return p;
-        }
-        else
-            throw GAPException("Invalid attempt to read perm");
-    }
-};
+
 
 }
 
@@ -288,20 +266,7 @@ struct GAP_maker<std::pair<T,U> >
     }
 };
 
-template<>
-struct GAP_maker<Permutation>
-{
-    Obj operator()(const Permutation& p) const
-    {
-        UInt4 deg = p.size();
-        // ignore tperm2 for now.
-        Obj prod = NEW_PERM4(deg);
-        UInt4* pt = ADDR_PERM4(prod);
-        for(UInt i = 0; i < deg; ++i)
-            pt[i] = p[i+1] - 1;
-        return prod;
-    }
-};
+
 
 }
 
@@ -325,45 +290,37 @@ Obj GAP_getGlobal(const char* name)
 // we have to be more explicit with the types of our functions.
 Obj GAP_callFunction(GAPFunction fun)
 {
-    timing_start_GAP_call(fun.name);
     typedef Obj(*F)(Obj);
     Obj funobj = fun.getObj();
     ObjFunc hdlrfunc = HDLR_FUNC(funobj,0);
     Obj ret = reinterpret_cast<F>(hdlrfunc)(funobj);
-    timing_end_GAP_call();
     return ret;
 }
 
 Obj GAP_callFunction(GAPFunction fun, Obj arg1)
 {
-    timing_start_GAP_call(fun.name);
     typedef Obj(*F)(Obj,Obj);
     Obj funobj = fun.getObj();
     ObjFunc hdlrfunc = HDLR_FUNC(funobj,1);
     Obj ret = reinterpret_cast<F>(hdlrfunc)(funobj, arg1);
-    timing_end_GAP_call();
     return ret;
 }
 
 Obj GAP_callFunction(GAPFunction fun, Obj arg1, Obj arg2)
 {
-    timing_start_GAP_call(fun.name);
     typedef Obj(*F)(Obj,Obj, Obj);
     Obj funobj = fun.getObj();
     ObjFunc hdlrfunc = HDLR_FUNC(funobj,2);
     Obj ret = reinterpret_cast<F>(hdlrfunc)(funobj, arg1, arg2);
-    timing_end_GAP_call();
     return ret;
 }
 
 Obj GAP_callFunction(GAPFunction fun, Obj arg1, Obj arg2, Obj arg3)
 {
-    timing_start_GAP_call(fun.name);
     typedef Obj(*F)(Obj,Obj, Obj, Obj);
     Obj funobj = fun.getObj();
     ObjFunc hdlrfunc = HDLR_FUNC(funobj,3);
     Obj ret = reinterpret_cast<F>(hdlrfunc)(funobj, arg1, arg2, arg3);
-    timing_end_GAP_call();
     return ret;
 }
 

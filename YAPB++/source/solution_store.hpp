@@ -1,7 +1,7 @@
 #ifndef _SOL_STORE_QPCHEK
 #define _SOL_STORE_QPCHEK
 
-#include "library/vec1.hpp"
+#include "vec1.hpp"
 #include "library/library.hpp"
 #include "rbase/rbase.hpp"
 #include "library/perm.hpp"

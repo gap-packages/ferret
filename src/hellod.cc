@@ -22,7 +22,7 @@ However, this will require documenting more rules of kernel programming.
 ****************************************************************************/
 
 #include <stdio.h>
-#include "gap_cpp_headers/include_gap_headers.h"
+#include "../gap_cpp_headers/include_gap_headers.h"
 #include "c_to_cpp.h"
 #include "generated_headers/function_objs.h"
 

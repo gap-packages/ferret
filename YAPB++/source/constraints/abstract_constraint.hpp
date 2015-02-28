@@ -1,7 +1,7 @@
 #ifndef _ABSTRACT_CONSTRAINT_HPP_VFJIOVDS
 #define _ABSTRACT_CONSTRAINT_HPP_VFJIOVDS
 #include <assert.h>
-#include "library/vec1.hpp"
+#include "vec1.hpp"
 #include "split_state.hpp"
 
 class PartitionStack;

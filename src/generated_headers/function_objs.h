@@ -4,7 +4,7 @@
 
 #endif
 
-#include "../gap_cpp_headers/gap_function.h"
+#include "../../gap_cpp_headers/gap_function.h"
 
 FUNOBJ(addRef, "_YAPB_addRef");
 FUNOBJ(checkRef, "_YAPB_checkRef");

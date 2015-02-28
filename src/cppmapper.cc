@@ -1,6 +1,6 @@
 
 
-#include "gap_cpp_headers/gap_helper.h"
+#include "gap_helper.h"
 
 #include "c_to_cpp.h"
 

@@ -1,4 +1,4 @@
-#include "library/vec1.hpp"
+#include "vec1.hpp"
 #include "assert.h"
 
 int main(void)

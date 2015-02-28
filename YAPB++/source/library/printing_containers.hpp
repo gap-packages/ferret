@@ -6,12 +6,12 @@
 #define TOSTRING_H
 
 
-#include "optional.hpp"
 #include <ostream>
 #include <vector>
 #include <set>
 #include <list>
 #include <map>
+#include "../../../gap_cpp_headers/optional.hpp"
 
 template<typename T>
 void output_container(std::ostream& o, const T& t);

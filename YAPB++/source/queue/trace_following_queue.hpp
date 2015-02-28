@@ -2,7 +2,7 @@
 #define TRACE_FOLLOW_CIUF
 #include "triggering_events.hpp"
 #include "abstract_queue.hpp"
-#include "library/vec1.hpp"
+#include "vec1.hpp"
 #include "tracer.hpp"
 
 class TraceFollowingQueue : public AbstractQueue

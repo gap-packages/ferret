@@ -2,7 +2,7 @@
 #define _RBASE_HPP_YPLSW
 
 #include "library/library.hpp"
-#include "library/vec1.hpp"
+#include "vec1.hpp"
 #include "memory_backtrack.hpp"
 #include "partition_stack.hpp"
 #include "queue/tracer.hpp"

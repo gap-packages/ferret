@@ -6,7 +6,6 @@
 #include "shared_ptr.hpp"
 
 
-
 //#define EAGER_MERGE
 
 
@@ -366,8 +365,59 @@ public:
 };
 
 
+// Mapping GAP <-> C++ 
 
+#ifndef YAPB_NO_GAP
 
+namespace GAPdetail {
+    
+template<>
+struct GAP_getter<Permutation>
+{
+    Permutation operator()(Obj rec) const
+    {
+        if(TNUM_OBJ(rec) == T_PERM2)
+        {
+            UInt deg = DEG_PERM2(rec);
+            Permutation p = getRawPermutation(deg);
+            vec1<int> v(deg);
+            UInt2* ptr = ADDR_PERM2(rec);
+            for(UInt i = 0; i < deg; ++i)
+                p.raw(i+1) = ptr[i] + 1;
+            D_ASSERT(p.validate());
+            return p;
+        }
+        else if(TNUM_OBJ(rec) == T_PERM4)
+        {
+            UInt deg = DEG_PERM4(rec);
+            Permutation p = getRawPermutation(deg);
+            UInt4* ptr = ADDR_PERM4(rec);
+            for(UInt i = 0; i < deg; ++i)
+                p.raw(i+1) = ptr[i] + 1;
+            return p;
+        }
+        else
+            throw GAPException("Invalid attempt to read perm");
+    }
+};
 
+template<>
+struct GAP_maker<Permutation>
+{
+    Obj operator()(const Permutation& p) const
+    {
+        UInt4 deg = p.size();
+        // ignore tperm2 for now.
+        Obj prod = NEW_PERM4(deg);
+        UInt4* pt = ADDR_PERM4(prod);
+        for(UInt i = 0; i < deg; ++i)
+            pt[i] = p[i+1] - 1;
+        return prod;
+    }
+};
+
+}
+
+#endif
 
 #endif
