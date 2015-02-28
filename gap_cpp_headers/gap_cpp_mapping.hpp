@@ -10,17 +10,12 @@
 
 // We have to include this to get around problems with the 'extern C' wrapping of src/compiled.h,
 // which includes gmp, which in C++ mode has some C++ templates.
-#include "include_gap_headers.h"
-#include "gap_exception.h"
-
-#include "gap_function.h"
-
+#include "include_gap_headers.hpp"
+#include "gap_exception.hpp"
+#include "gap_function.hpp"
 
 #include "vec1.hpp"
-
 #include "optional.hpp"
-
-
 
 
 namespace GAPdetail

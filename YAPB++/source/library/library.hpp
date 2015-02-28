@@ -14,6 +14,6 @@
 
 #include "printing_containers.hpp"
 
-#include "gap_exception.h"
+#include "gap_exception.hpp"
 
 #endif

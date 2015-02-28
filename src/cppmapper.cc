@@ -1,6 +1,6 @@
 
 
-#include "gap_helper.h"
+#include "gap_cpp_mapping.hpp"
 
 #include "c_to_cpp.h"
 

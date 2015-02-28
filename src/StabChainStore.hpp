@@ -1,6 +1,5 @@
-#include "include_gap_headers.h"
+#include "gap_cpp_mapping.hpp"
 #include "generated_headers/RNamNames_list.h"
-#include "gap_helper.h"
 
 #include "library/perm.hpp"
 #include "optional.hpp"

@@ -7,7 +7,7 @@
 #include "../partition_stack.hpp"
 #include "../partition_refinement.hpp"
 #include "../library/algorithms.hpp"
-#include "gap_helper.h"
+#include "gap_cpp_mapping.hpp"
 #include "../rbase/rbase.hpp"
 
 class PermGroup : public AbstractConstraint
