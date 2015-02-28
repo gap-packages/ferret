@@ -4,6 +4,9 @@
 #include <stdexcept>
 #include <string>
 #include <exception>
+#include <vector>
+#include <deque>
+#include <list>
 
 // We have to include this to get around problems with the 'extern C' wrapping of src/compiled.h,
 // which includes gmp, which in C++ mode has some C++ templates.
@@ -101,6 +104,24 @@ struct GAP_getter<int>
     }
 };
 
+
+template<typename Con>
+Con fill_container(Obj rec)
+{
+    if(!(IS_SMALL_LIST(rec)))
+        throw GAPException("Invalid attempt to read list");
+    int len = LEN_LIST(rec);
+
+    Con v;
+    typedef typename Con::value_type T;
+    GAP_getter<T> getter;
+    for(int i = 1; i <= len; ++i)
+    {
+        v.push_back(getter(ELM_LIST(rec, i)));
+    }
+    return v;
+}
+
 // This case, and next one, handle arrays with and without holes
 template<typename T>
 struct GAP_getter<vec1<T> >
@@ -109,21 +130,58 @@ struct GAP_getter<vec1<T> >
     { return IS_SMALL_LIST(recval); }
     
     vec1<T> operator()(Obj rec) const
-    {
-        if(!isa(rec))
-            throw GAPException("Invalid attempt to read list");
-        int len = LEN_LIST(rec);
-
-        vec1<T> v;
-        v.reserve(len);
-        GAP_getter<T> getter;
-        for(int i = 1; i <= len; ++i)
-        {
-            v.push_back(getter(ELM_LIST(rec, i)));
-        }
-        return v;
-    }
+    { return fill_container<vec1<T> >(rec); }
 };
+
+template<typename T>
+struct GAP_getter<std::vector<T> >
+{
+    bool isa(Obj recval) const
+    { return IS_SMALL_LIST(recval); }
+    
+    std::vector<T> operator()(Obj rec) const
+    { return fill_container<std::vector<T> >(rec); }
+};
+
+template<typename T>
+struct GAP_getter<std::deque<T> >
+{
+    bool isa(Obj recval) const
+    { return IS_SMALL_LIST(recval); }
+    
+    std::deque<T> operator()(Obj rec) const
+    { return fill_container<std::deque<T> >(rec); }
+};
+
+template<typename T>
+struct GAP_getter<std::list<T> >
+{
+    bool isa(Obj recval) const
+    { return IS_SMALL_LIST(recval); }
+    
+    std::list<T> operator()(Obj rec) const
+    { return fill_container<std::list<T> >(rec); }
+};
+
+
+template<typename Con, typename T>
+Con fill_optional_container(Obj rec)
+{
+  if(!(IS_SMALL_LIST(rec)))
+      throw GAPException("Invalid attempt to read list");
+  int len = LEN_LIST(rec);
+
+  Con v;
+  GAP_getter<T> getter;
+  for(int i = 1; i <= len; ++i)
+  {
+      if(ISB_LIST(rec, i))
+      { v.push_back(getter(ELM_LIST(rec, i))); }
+      else
+      { v.push_back(optional<T>()); }
+  }
+  return v;
+}
 
 template<typename T>
 struct GAP_getter<vec1<optional<T> > >
@@ -132,25 +190,38 @@ struct GAP_getter<vec1<optional<T> > >
     { return IS_SMALL_LIST(recval); }
     
     vec1<optional<T> > operator()(Obj rec) const
-    {
-        if(!isa(rec))
-            throw GAPException("Invalid attempt to read list");
-        int len = LEN_LIST(rec);
-
-        vec1<optional<T> > v;
-        v.reserve(len);
-        GAP_getter<T> getter;
-        for(int i = 1; i <= len; ++i)
-        {
-            if(ISB_LIST(rec, i))
-            { v.push_back(getter(ELM_LIST(rec, i))); }
-            else
-            { v.push_back(optional<T>()); }
-        }
-        return v;
-    }
+    { return fill_optional_container<vec1<optional<T> >, T>(rec); }
 };
 
+template<typename T>
+struct GAP_getter<std::vector<optional<T> > >
+{
+    bool isa(Obj recval) const
+    { return IS_SMALL_LIST(recval); }
+    
+    std::vector<optional<T> > operator()(Obj rec) const
+    { return fill_optional_container<std::vector<optional<T> >, T>(rec); }
+};
+
+template<typename T>
+struct GAP_getter<std::deque<optional<T> > >
+{
+    bool isa(Obj recval) const
+    { return IS_SMALL_LIST(recval); }
+    
+    std::deque<optional<T> > operator()(Obj rec) const
+    { return fill_optional_container<std::deque<optional<T> >, T>(rec); }
+};
+
+template<typename T>
+struct GAP_getter<std::list<optional<T> > >
+{
+    bool isa(Obj recval) const
+    { return IS_SMALL_LIST(recval); }
+    
+    std::list<optional<T> > operator()(Obj rec) const
+    { return fill_optional_container<std::list<optional<T> >, T>(rec); }
+};
 
 
 }
