@@ -8,7 +8,7 @@
 #include "../partition_refinement.hpp"
 #include "../library/algorithms.hpp"
 #include "../library/perm.hpp"
-#include "../../../src/gap_helper.h"
+#include "../../../src/gap_cpp_headers/gap_helper.h"
 #include "../../../src/StabChainStore.hpp"
 #include "../rbase/rbase.hpp"
 #include "../tunables.hpp"

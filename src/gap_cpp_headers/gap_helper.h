@@ -5,10 +5,7 @@
 // which includes gmp, which in C++ mode has some C++ templates.
 #include "include_gap_headers.h"
 
-#include "c_to_cpp.h"
-
-#include "generated_headers/function_objs.h"
-#include "generated_headers/RNamNames_list.h"
+#include "gap_function.h"
 
 #include <stdexcept>
 #include <string>
@@ -378,17 +375,20 @@ Obj GAP_callFunction(GAPFunction fun, Obj arg1, Obj arg2, Obj arg3)
 
 void GAP_addRef(Obj o)
 {
-    GAP_callFunction(FunObj_addRef, o);
+    static GAPFunction addRef("_YAPB_addRef");
+    GAP_callFunction(addRef, o);
 }
 
 bool GAP_checkRef(Obj o)
 {
-    return GAP_get<bool>(GAP_callFunction(FunObj_checkRef, o));
+    static GAPFunction checkRef("_YAPB_checkRef");
+    return GAP_get<bool>(GAP_callFunction(checkRef, o));
 }
 
 void GAP_clearRefs()
 {
-    GAP_callFunction(FunObj_clearRefs);
+    static GAPFunction clearRefs("_YAPB_clearRefs");
+    GAP_callFunction(clearRefs);
 }
 
 void GAP_print(const std::string& s)

@@ -1,9 +1,10 @@
 
 
-#include "gap_helper.h"
+#include "gap_cpp_headers/gap_helper.h"
 
 #include "c_to_cpp.h"
 
+#include "generated_headers/function_objs.h"
 #include "generated_headers/RNamNames_list.h"
 
 #include <ostream>

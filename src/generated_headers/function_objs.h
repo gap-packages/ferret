@@ -2,33 +2,9 @@
 #ifndef FUNOBJ
 #define FUNOBJ(x,y) extern GAPFunction FunObj_ ## x;
 
-#include <string>
-
-class GAPFunction
-{
-    Obj obj;
-    std::string name;
-
-public:
-    GAPFunction() : obj(0), name()
-    { }
-
-    void setName(std::string s)
-    { name = s; }
-    
-    Obj getObj()
-    {
-        if(obj == 0)
-        {
-            UInt varname = GVarName(name.c_str());
-            obj = VAL_GVAR(varname);
-        }
-        return obj;
-    }
-};
-
 #endif
 
+#include "../gap_cpp_headers/gap_function.h"
 
 FUNOBJ(addRef, "_YAPB_addRef");
 FUNOBJ(checkRef, "_YAPB_checkRef");

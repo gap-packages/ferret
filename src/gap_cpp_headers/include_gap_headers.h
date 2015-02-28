@@ -4,7 +4,6 @@
 #include <gmp.h>
 extern "C" {
 #include "src/compiled.h"
-#include "c_to_cpp.h"
 }
 
 #endif
