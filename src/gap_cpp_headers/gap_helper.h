@@ -10,7 +10,6 @@
 #include <stdexcept>
 #include <string>
 #include "library/vec1.hpp"
-#include "library/algorithms.hpp"
 #include "library/perm.hpp"
 #include "library/optional.hpp"
 
