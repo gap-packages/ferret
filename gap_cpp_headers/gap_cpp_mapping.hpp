@@ -390,7 +390,20 @@ Obj GAP_callFunction(GAPFunction fun, Obj arg1, Obj arg2, Obj arg3)
     return ret;
 }
 
-
+struct GAP_convertor
+{
+    Obj o;
+    
+    GAP_convertor(Obj _o) : o(_o) { }
+    
+    template<typename T>
+    operator T()
+    {
+        if(!GAP_isa<T>(o))
+            throw GAPException("Failed to map GAP object to C++");
+        return GAP_get<T>(o);
+    }
+};
 
 // Register and deregister objects so they do not get garbage collected
 
