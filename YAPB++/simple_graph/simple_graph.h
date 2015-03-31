@@ -1,7 +1,7 @@
 #ifndef SIMPLE_GRAPH_FDS
 #define SIMPLE_GRAPH_FDS
 
-#include "library/vec1.hpp"
+#include "vec1.hpp"
 #include "library/perm.hpp"
 #include "library/graph.hpp"
 #include "search_options.hpp"

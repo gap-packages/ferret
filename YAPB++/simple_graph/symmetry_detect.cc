@@ -1,3 +1,4 @@
+#define YAPB_NO_GAP
 #include "simple_graph.h"
 
 #include "problem.hpp"
