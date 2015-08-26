@@ -77,7 +77,14 @@ void output_container(std::ostream& o, const T& t)
   o << "]";
 }
 
+template<typename T>
+std::string toString(const T& t)
+{
+  std::ostringstream oss;
+  oss << t;
+  return oss.str();
+}
+
 #endif
 /** @}
  */
-
