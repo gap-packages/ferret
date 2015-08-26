@@ -10,7 +10,7 @@
 #include "library/perm.hpp"
 
 // Checks a solution satisfies all the constraints, and
-// adds to the solutionStore if it is. Returns true if 
+// adds to the solutionStore if it is. Returns true if
 // the solution is real
 bool handlePossibleSolution(Problem* p, SolutionStore* ss, RBase* rbase)
 {
@@ -24,6 +24,7 @@ bool handlePossibleSolution(Problem* p, SolutionStore* ss, RBase* rbase)
     D_ASSERT(perm.validate());
     if(!p->con_store.verifySolution(perm))
         return false;
+    info_out(1, "Solution: " << perm);
     ss->addSolution(perm);
     return true;
 }

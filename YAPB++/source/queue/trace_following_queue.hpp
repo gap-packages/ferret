@@ -42,6 +42,7 @@ public:
     {
         debug_out(1, "TraceFollowingQueue", "starting trace");
         int depth = trace_depth.get();
+
         while(trace[depth].traceEvent.event == TraceEvent_Constraint)
         {
             local_trace_depth = depth;
@@ -49,14 +50,18 @@ public:
             local_trace_sort_count = 1;
             if(trace[depth].traceEvent.invoke().hasFailed())
             {
-                debug_out(1, "TraceFollowingQueue", "trace deviation - invoke failed");
+                info_out(1,  "trace deviation - invoke failed");
                 return SplitState(false);
             }
+
             if(local_trace_split_count - 1 != trace[depth].branchEvents.size())
             {
-                debug_out(1, "TraceFollowingQueue", "trace deviation - wrong length");
+                info_out(1, "trace deviation - wrong length");
                 return SplitState(false);
             }
+            info_out(2, "After splitting: " <<
+                        trace[depth].traceEvent.getPartitionStack()->dumpCurrentPartition());
+
             depth++;
         }
         trace_depth.set(depth);

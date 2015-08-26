@@ -9,10 +9,11 @@ template<bool firstbranch>
 bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
                     RBase* rbase, TraceFollowingQueue* tfq, int depth)
 {
-    debug_out(1, "Search", "starting depth: " << depth);
+    info_out(1, "Search depth: " << depth);
+    info_out(2, "Current partition: " <<  p->p_stack.dumpCurrentPartition());
     if(depth > rbase->depth())
     {
-        debug_out(1, "Search", "found solution");
+        info_out(1, "Reached bottom of search");
         return handlePossibleSolution(p,ss,rbase);
     }
     else
@@ -31,6 +32,7 @@ bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
         // with iterating through the cell in a sensible method.
         vec1<int> cell = p->p_stack.cellAsVec(branchcell);
 
+        info_out(1, "branching on cell: " << cell);
         // if we are on the first branch, doing a group search, the first value we branch on must be the rbase
         // value, so we don't pass it to the sorter
 
@@ -43,7 +45,7 @@ bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
         {
             D_ASSERT(!(firstbranch && i == 1 && !ss->isMinimum(cell[i])));
             D_ASSERT(!(firstbranch && i == 1 && cell[i] != rbase->branchvalue[depth]));
-            debug_out(1, "search", "consider branching on: " << cell[i]);
+            info_out(1, "consider branching on: " << cell[i]);
             if(!firstbranch || !so.only_find_generators || ss->isMinimum(cell[i]))
             {
                 // Find value we are branching on
@@ -54,7 +56,7 @@ bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
 
                 // Push state of the world
                 p->memory_backtracker.pushWorld();
-                debug_out(1, "search", "branch on: " << cell[i]);
+                info_out(1, "branch on: " << cell[i]);
                 Stats::container().node_count++;
                 tfq->beginBranch();
                 SplitState branch_split = p->p_stack.split(branchcell, cell_start + 1);
@@ -91,7 +93,7 @@ bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
             else
             { debug_out(1, "search", "skipping " << i); }
         }
-        debug_out(1, "Search", "backtrack");
+        info_out(1, "backtracking");
         if(!firstbranch)
             Stats::container().bad_internal_nodes++;
         return false;

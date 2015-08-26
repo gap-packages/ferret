@@ -51,6 +51,7 @@ struct TraceEvent
     SplitState invoke()
     {
         D_ASSERT(event == TraceEvent_Constraint);
+        info_out(2, "Executing: " << con->full_name());
         switch(trigger_type)
         {
             case Trigger_Fix:
@@ -61,6 +62,9 @@ struct TraceEvent
                 abort();
         }
     }
+
+    PartitionStack* getPartitionStack() const
+    { return con->getPartitionStack(); }
 };
 
 TraceEvent constraint_Fix(AbstractConstraint* ac, int pos)

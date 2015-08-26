@@ -18,7 +18,7 @@ struct Problem
     tracer_generator(&memory_backtracker),
     con_queue(&tracer_generator),
     p_stack(n, &con_queue, &memory_backtracker)
-    { 
+    {
         if(n < 2)
         {
             std::cerr << "YAPB++ requires problems on at least 2 points. Sorry" << std::endl;
@@ -32,7 +32,7 @@ struct Problem
 
     void init()
     {
-        con_store.initConstraints(&con_queue); 
+        con_store.initConstraints(&con_queue);
         // We do not care about the initalization, we do not want it filling
         // up our trace (at least for groups, let's cover co-sets later...)
         tracer_generator.clearTrace();

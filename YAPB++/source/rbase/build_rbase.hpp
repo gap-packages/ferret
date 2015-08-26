@@ -97,7 +97,7 @@ int choose_branch_cell(PartitionStack* ps, ConstraintStore* cstore,
             {
                 int val = ((*container)[i])->advise_branch();
                 if(val != -1)
-                    return val;  
+                    return val;
             }
         } // NOTE: There is no 'break' or 'return' here on purpose
         case RBaseBranch_Smallest:
@@ -195,7 +195,7 @@ int choose_branch_cell(PartitionStack* ps, ConstraintStore* cstore,
             else
                 return best_cell;
         }
-        
+
         default:
         abort();
     }
@@ -245,14 +245,14 @@ RBase* buildRBase(Problem* p, RBaseSearchHeuristic cellHeuristic, RBaseSearchHeu
             p->p_stack.swapPositions(p->p_stack.cellStartPos(branch_cell), min_pos - p->p_stack.valStart()+1);
 
             int cell_start = p->p_stack.cellStartPos(branch_cell);
-            debug_out(1, "RBase", "Level " <<  revrbase.size()+1 << " : " <<  p->p_stack.val(cell_start) << ", location " << cell_start << ", in cell " << branch_cell << ", size " << p->p_stack.cellSize(branch_cell));
+            info_out(1, "RBase Level " <<  revrbase.size()+1 << " : " <<  p->p_stack.val(cell_start) << ", location " << cell_start << ", in cell " << branch_cell << ", size " << p->p_stack.cellSize(branch_cell));
             Stats::container().rBase_fixed_points.push_back(std::make_pair(branch_cell, p->p_stack.cellSize(branch_cell)));
-            debug_out(1, "RBase", "Cell starts: " << p->p_stack.cellStarts() << ", lengths: " << p->p_stack.cellSizes());
+            info_out(1, "RBase Cell starts: " << p->p_stack.cellStarts() << ", lengths: " << p->p_stack.cellSizes());
             revrbase.addBranch(branch_cell, p->p_stack.val(cell_start));
             p->p_stack.split(branch_cell, cell_start + 1);
         }
     }
-    debug_out(1, "Build RBase", "Finished RBase building");
+    info_out(1, "Finished RBase building");
 
     D_ASSERT(p->p_stack.cellCount() == p->p_stack.domainSize());
 

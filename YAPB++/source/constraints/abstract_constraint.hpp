@@ -12,7 +12,16 @@ class AbstractConstraint
 {
 protected:
     PartitionStack* ps;
+
+    std::string id;
 public:
+
+    PartitionStack* getPartitionStack() const
+    { return ps; }
+
+    void setId(std::string _id)
+    { id = _id; }
+
     AbstractConstraint(PartitionStack* _ps)
     : ps(_ps)
     { (void)ps; /* warning supression */ }
@@ -45,6 +54,10 @@ public:
 
     // Called with solution permutations, to check they are valid.
     virtual bool verifySolution(const Permutation& p) = 0;
+
+    std::string full_name() const {
+      return name() + ":" + id;
+    }
 
     // A descriptive name for the constraint
     virtual std::string name() const = 0;

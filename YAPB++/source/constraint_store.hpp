@@ -23,6 +23,7 @@ public:
     void addConstraint(AbstractConstraint* con)
     {
         D_ASSERT(!constraints_initalized);
+        con->setId(toString(constraints.size()));
         constraints.push_back(con);
     }
 

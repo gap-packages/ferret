@@ -121,15 +121,15 @@ Obj solver(Obj conlist, Obj options)
         Obj sols = GAP_make(ss.sols());
         AssPRec(rec, RNamName("generators"),sols);
         CHANGED_BAG(rec);
-        
+
         Obj rbasevalorder = GAP_make(Stats::container().rBase_value_ordering);
         AssPRec(rec, RNamName("rbase"), rbasevalorder);
         CHANGED_BAG(rec);
-        
+
         Obj solsmap = GAP_make(ss.solsmap());
         AssPRec(rec, RNamName("generators_map"), solsmap);
         CHANGED_BAG(rec);
-        
+
         if(get_stats)
         {
             Obj stats = NEW_PREC(0);

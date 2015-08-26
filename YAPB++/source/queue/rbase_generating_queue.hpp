@@ -118,8 +118,11 @@ public:
                     buffer.clear();
                     buffer.assign(to_invoke_change[i].begin(), to_invoke_change[i].end());
                     to_invoke_change[i].clear();
+                    info_out(2, "Executing: " << constraint_change_list[i]->full_name());
                     if(constraint_change_list[i]->signal_changed_buildingRBase(buffer).hasFailed())
                         return SplitState(false);
+                    info_out(2, "After splitting: " <<
+                                constraint_change_list[i]->getPartitionStack()->dumpCurrentPartition());
                     tracer->endConstraint();
                 }
             }
@@ -132,8 +135,11 @@ public:
                     triggered = true;
                     int first_fixed = to_invoke_fix[i];
                     to_invoke_fix[i] = -1;
+                    info_out(2, "Executing: " << constraint_fix_list[i]->full_name());
                     if(constraint_fix_list[i]->signal_fix_buildingRBase(first_fixed).hasFailed())
                         return SplitState(false);
+                    info_out(2, "After splitting: " <<
+                                constraint_fix_list[i]->getPartitionStack()->dumpCurrentPartition());
                     tracer->endConstraint();
                 }
             }
