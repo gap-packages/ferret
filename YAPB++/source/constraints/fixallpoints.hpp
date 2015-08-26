@@ -21,12 +21,12 @@ public:
 
     FixAllPoints(PartitionStack* ps)
     : AbstractConstraint(ps)
-    { 
+    {
     }
 
     SplitState init()
     {
-        debug_out(1, "FixAllPoints");
+        debug_out(1, "FixAllPoints", "init");
         vec1<int> points;
         for(int i = 1; i <= ps->domainSize(); ++i)
             points.push_back(i);
