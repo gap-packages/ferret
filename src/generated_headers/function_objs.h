@@ -19,4 +19,7 @@ FUNOBJ(getOrbitPart, "_YAPB_getOrbitPart");
 FUNOBJ(inGroup, "_YAPB_inGroup");
 FUNOBJ(isGroupConj, "_YAPB_isGroupConj");
 FUNOBJ(getBlockList, "_YAPB_getBlockList");
+FUNOBJ(getInfoFerret, "_YAPB_getInfoFerret");
+FUNOBJ(getInfoFerretDebug, "_YAPB_getInfoFerretDebug");
+
 #undef FUNOBJ

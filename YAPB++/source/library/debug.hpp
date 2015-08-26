@@ -2,6 +2,7 @@
 #define DEBUG_HPP_CVCV
 
 #include <sstream>
+#include "info.hpp"
 
 #ifndef DEBUG_LEVEL
 #define DEBUG_LEVEL 1
@@ -29,7 +30,7 @@
 #ifdef  GAP_COMPILED_H
 #define debug_out(level, type, message) \
 { \
-  if(level >= DEBUG_PRINT_LEVEL) \
+  if(level < DebugInfoLevel()) \
   { \
     std::ostringstream oss; \
     oss << "#I " << type << ":" << message << "\n"; \
@@ -39,7 +40,7 @@
 #else
 #define debug_out(level, type, message) \
 { \
-  if(level >= DEBUG_PRINT_LEVEL) \
+  if(level < DebugInfoLevel()) \
   { \
     std::cerr << "#I " << type << ":" << message << "\n"; \
   } \

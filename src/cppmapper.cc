@@ -93,6 +93,9 @@ void readNestedConstraints(Problem& p, Obj conlist)
 Obj solver(Obj conlist, Obj options)
 {
     try{
+        InfoLevel() = GAP_get<int>(GAP_callFunction(FunObj_getInfoFerret));
+        DebugInfoLevel() = GAP_get<int>(GAP_callFunction(FunObj_getInfoFerretDebug));
+
         SearchOptions so;
 
         so.only_find_generators = GAP_get<bool>(GAP_get_rec(options, RName_only_find_generators));

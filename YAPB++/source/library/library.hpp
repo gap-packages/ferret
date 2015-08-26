@@ -11,6 +11,7 @@
 #include "timing.hpp"
 
 #include "debug.hpp"
+#include "info.hpp"
 
 #include "printing_containers.hpp"
 
