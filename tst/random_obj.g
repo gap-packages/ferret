@@ -32,7 +32,7 @@ RandomDisjointTupleTuple := function(rgen, maxint)
     od;
     return l;
   fi;
-  
+
   l := [];
   remaining := [1..maxint];
   for i in [1..Random(rgen, [0..maxint])] do
@@ -46,7 +46,7 @@ RandomDisjointTupleTuple := function(rgen, maxint)
   od;
   return l;
 end;
-  
+
 # In some algorithms it is interesting when the inner lists are the same size
 # so we make sure we create these
 RandomTupleTuple := function(rgen, maxint)
@@ -58,31 +58,31 @@ RandomTupleTuple := function(rgen, maxint)
 end;
 
 RandomObj := function(rgen, maxint, action)
-  
+
   if action = OnPoints then
     return Random(rgen, [1..maxint]);
   fi;
-  
+
   if action = OnPairs then
     return List([1,2],x->Random(rgen, [1..maxint]));
   fi;
-  
+
   if action = OnTuples then
     return RandomTuple(rgen, maxint);
   fi;
-  
+
   if action = OnSets then
     return Set(RandomTuple(rgen, maxint));
   fi;
-  
+
   if action = OnTuplesTuples then
     return RandomTupleTuple(rgen, maxint);
   fi;
-  
+
   if action = OnTuplesSets then
     return List(RandomTupleTuple(rgen, maxint), Set);
   fi;
-  
+
   if action = OnSetsTuples then
     return Set(RandomTupleTuple(rgen, maxint));
   fi;
@@ -90,13 +90,13 @@ RandomObj := function(rgen, maxint, action)
   if action = OnSetsSets then
     return Set(RandomTupleTuple(rgen, maxint), Set);
   fi;
-  
+
   if action = OnSetsDisjointSets then
     return Set(RandomDisjointTupleTuple(rgen, maxint), Set);
   fi;
-  
+
   Error("Invalid Action");
-  
+
 end;
 
 RandomGroupOfSize := function(size)
@@ -120,26 +120,45 @@ end;;
 ## Non-random, but still useful
 
 makeRowColumnSymmetry := function(x,y)
-    local perms,i,j,l;
+    local perms,i,j,j2,l;
     perms := [];
 
-    for i in [1..(x-1)] do
-        l := [1..x*y];
-        for j in [1..y] do
-            l[i    +(j-1)*x] := (i+1) + (j-1)*x;
-            l[(i+1)+(j-1)*x] := i     + (j-1)*x;
-        od;
-        Append(perms, [PermList(l)]);
+    l := [1..x*y];
+    for j in [1..y] do
+        l[1 + (j-1)*x] := 2 + (j-1)*x;
+        l[2 + (j-1)*x] := 1 + (j-1)*x;
     od;
+    Append(perms, [PermList(l)]);
 
-    for j in [1..(y-1)] do
-        l := [1..x*y];
-        for i in [1..x] do
-            l[i+ j*x]    := i + (j-1)*x;
-            l[i+(j-1)*x] := i + j*x;
+    l := [1..x*y];
+    for i in [1..x] do
+        for j in [1..y] do
+            l[(i mod x)+1+(j-1)*x] := i + (j-1)*x;
         od;
-        Append(perms, [PermList(l)]);
     od;
+    Append(perms, [PermList(l)]);
+
+    l := [1..x*y];
+    for i in [1..x] do
+        l[i+x] := i;
+        l[i  ] := i + x;
+    od;
+    Append(perms, [PermList(l)]);
+
+
+    l := [];
+    for j in [0..y-1] do
+        for i in [1..x] do
+            if j = 0 then
+              j2 := y - 1;
+            else
+              j2 := j - 1;
+            fi;
+            l[i+ j*x] := i + j2*x;
+        od;
+    od;
+    Append(perms, [PermList(l)]);
+
     return Group(perms);
 end;;
 
