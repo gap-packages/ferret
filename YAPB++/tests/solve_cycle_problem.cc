@@ -10,10 +10,11 @@ int main(void)
     int vals[] = {0,2,3,1,5,6,4};
     for(int i = 1; i <= 6; ++i)
     	s[i].push_back(vals[i]);
-    p.addConstraint(new SlowGraph<GraphDirected_yes>(s, &p.p_stack));
+    std::vector<AbstractConstraint*> v;
+    v.push_back(new SlowGraph<GraphDirected_yes>(s, &p.p_stack));
     SearchOptions so;
     so.only_find_generators = false;
-    SolutionStore ss = doSearch(&p, so);
+    SolutionStore ss = doSearch(&p, v, so);
 
     D_ASSERT(ss.sols().size() ==3*3*2);
 }

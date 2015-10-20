@@ -10,10 +10,11 @@ int main(void)
     s.insert(2);
     s.insert(4);
 
-    p.addConstraint(new SetStab(s, &p.p_stack));
+    std::vector<AbstractConstraint*> v;
+    v.push_back(new SetStab(s, &p.p_stack));
     SearchOptions so;
     so.only_find_generators = false;
-    SolutionStore ss = doSearch(&p, so);
+    SolutionStore ss = doSearch(&p, v, so);
 
     D_ASSERT(ss.sols().size() == 4*3*2*2);
     for(int i = 1; i <= ss.sols().size(); ++i)

@@ -136,7 +136,7 @@ SolutionStore doCosetSearch(Problem* p, const std::vector<AbstractConstraint*>& 
                                         const SearchOptions& so)
 {
     Stats::reset();
-
+(void)consR;
     timing_start();
     for(unsigned i = 0; i < consL.size(); ++i) p->addConstraint(consL[i]);
     p->init();
