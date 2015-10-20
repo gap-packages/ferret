@@ -16,6 +16,7 @@ struct Problem
     PartitionStack p_stack;
     Problem(int n) :
     tracer_generator(&memory_backtracker),
+    con_store(this),
     con_queue(&tracer_generator),
     p_stack(n, &con_queue, &memory_backtracker)
     {
@@ -32,7 +33,7 @@ struct Problem
 
     void init()
     {
-        con_store.initConstraints(this);
+        con_store.initConstraints();
         // We do not care about the initalization, we do not want it filling
         // up our trace (at least for groups, let's cover co-sets later...)
         tracer_generator.clearTrace();

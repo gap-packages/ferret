@@ -1,7 +1,7 @@
 #include "constraint_store.hpp"
 
-ConstraintStore::ConstraintStore()
-    : constraints_initalized(false)
+ConstraintStore::ConstraintStore(Problem* _p)
+    : p(_p), constraints_initalized(false)
     { }
 
 void ConstraintStore::addConstraint(AbstractConstraint* con)
@@ -11,7 +11,7 @@ void ConstraintStore::addConstraint(AbstractConstraint* con)
         constraints.push_back(con);
     }
 
-void ConstraintStore::initConstraints(Problem* p)
+void ConstraintStore::initConstraints()
     {
         D_ASSERT(!constraints_initalized);
         constraints_initalized = true;

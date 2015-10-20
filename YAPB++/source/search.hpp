@@ -131,14 +131,16 @@ SolutionStore doSearch(Problem* p, const std::vector<AbstractConstraint*>& cons,
     return solutions;
 }
 
-SolutionStore doCosetSearch(Problem* p, const std::vector<AbstractConstraint*>& consL,
+SolutionStore doCosetSearch(Problem* p, const std::vector<AbstractConstraint*>& consCommon,
+                                        const std::vector<AbstractConstraint*>& consL,
                                         const std::vector<AbstractConstraint*>& consR,
                                         const SearchOptions& so)
 {
     Stats::reset();
+(void)consL;
 (void)consR;
     timing_start();
-    for(unsigned i = 0; i < consL.size(); ++i) p->addConstraint(consL[i]);
+    for(unsigned i = 0; i < consCommon.size(); ++i) p->addConstraint(consCommon[i]);
     p->init();
     RBase* rb = buildRBase(p, so.heuristic.rbase_cell, so.heuristic.rbase_value);
     Stats::container().rBase_value_ordering = rb->value_ordering;

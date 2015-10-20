@@ -10,6 +10,7 @@ struct Problem;
 
 class ConstraintStore
 {
+    Problem* p;
     vec1<AbstractConstraint*> constraints;
     bool constraints_initalized;
 public:
@@ -18,11 +19,11 @@ public:
     const vec1<AbstractConstraint*>* get() const
     { return &constraints; }
 
-    ConstraintStore();
+    ConstraintStore(Problem* _p);
 
     void addConstraint(AbstractConstraint* con);
 
-    void initConstraints(Problem* p);
+    void initConstraints();
 
     ~ConstraintStore();
 
