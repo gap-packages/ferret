@@ -6,6 +6,7 @@ extern "C" {
 #endif
 
 Obj solver(Obj conlist, Obj options);
+Obj cosetSolver(Obj conlist1, Obj conlist2, Obj options);
 
 #ifdef __cplusplus
 }

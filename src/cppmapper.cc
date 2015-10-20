@@ -73,21 +73,86 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
     {
         return new StabChain_PermGroup<false, true>(GAP_get_rec(con, RName_arg), ps, mb);
     }
+    else if(strcmp(conname, "NULL") == 0)
+        return nullptr;
 
     else
         throw GAPException("Unknown constraint type: " + std::string(conname));
 }
 
-void readNestedConstraints(Problem& p, Obj conlist)
+void readNestedConstraints_inner(Problem& p, Obj conlist, std::vector<AbstractConstraint*>& vec)
 {
     vec1<Obj> cons = GAP_get<vec1<Obj> >(conlist);
     for(int i = 1; i <= cons.size(); ++i)
     {
         if(GAP_isa<vec1<Obj> >(cons[i]))
-            readNestedConstraints(p, cons[i]);
+            readNestedConstraints_inner(p, cons[i], vec);
         else
-            p.addConstraint(buildConstraint(cons[i], &p.p_stack, &p.memory_backtracker));
+            vec.push_back(buildConstraint(cons[i], &p.p_stack, &p.memory_backtracker));
+            //p.addConstraint(buildConstraint(cons[i], &p.p_stack, &p.memory_backtracker));
     }
+}
+
+std::vector<AbstractConstraint*> readNestedConstraints(Problem& p, Obj conlist)
+{
+    std::vector<AbstractConstraint*> vec;
+    readNestedConstraints_inner(p, conlist, vec);
+    return vec;
+}
+
+SearchOptions fillSearchOptions(Obj options)
+{
+  SearchOptions so;
+
+  so.only_find_generators = GAP_get<bool>(GAP_get_rec(options, RName_only_find_generators));
+  //so.find_canonical_perm = GAP_get<bool>(GAP_get_rec(options, RName_canonical));
+  so.just_rbase = GAP_get<bool>(GAP_get_rec(options, RName_just_rbase));
+  so.heuristic.rbase_value = getRBaseHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_rbaseValueHeuristic)));
+  so.heuristic.rbase_cell = getRBaseHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_rbaseCellHeuristic)));
+  so.heuristic.search_value = getSearchHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_searchValueHeuristic)));
+  so.heuristic.search_first_branch_value = getSearchHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_searchFirstBranchValueHeuristic)));
+
+  return so;
+}
+
+Obj getStatsRecord()
+{
+  Obj stats = NEW_PREC(0);
+
+  AssPRec(stats, RNamName("nodes"), GAP_make(Stats::container().node_count));
+  CHANGED_BAG(stats);
+  AssPRec(stats, RNamName("fixedpoints"), GAP_make(Stats::container().rBase_fixed_points));
+  CHANGED_BAG(stats);
+  AssPRec(stats, RNamName("bad_leaves"), GAP_make(Stats::container().bad_leaves));
+  CHANGED_BAG(stats);
+  AssPRec(stats, RNamName("bad_internal_nodes"), GAP_make(Stats::container().bad_internal_nodes));
+  CHANGED_BAG(stats);
+  return stats;
+}
+
+Obj build_return_value(const SolutionStore& ss, bool get_stats)
+{
+  Obj rec = NEW_PREC(0);
+  Obj sols = GAP_make(ss.sols());
+  AssPRec(rec, RNamName("generators"),sols);
+  CHANGED_BAG(rec);
+
+  Obj rbasevalorder = GAP_make(Stats::container().rBase_value_ordering);
+  AssPRec(rec, RNamName("rbase"), rbasevalorder);
+  CHANGED_BAG(rec);
+
+  Obj solsmap = GAP_make(ss.solsmap());
+  AssPRec(rec, RNamName("generators_map"), solsmap);
+  CHANGED_BAG(rec);
+
+  if(get_stats)
+  {
+      Obj stats = getStatsRecord();
+      AssPRec(rec, RNamName("stats"), stats);
+      CHANGED_BAG(rec);
+  }
+  
+  return rec;
 }
 
 Obj solver(Obj conlist, Obj options)
@@ -96,56 +161,51 @@ Obj solver(Obj conlist, Obj options)
         InfoLevel() = GAP_get<int>(GAP_callFunction(FunObj_getInfoFerret));
         DebugInfoLevel() = GAP_get<int>(GAP_callFunction(FunObj_getInfoFerretDebug));
 
-        SearchOptions so;
-
-        so.only_find_generators = GAP_get<bool>(GAP_get_rec(options, RName_only_find_generators));
-        //so.find_canonical_perm = GAP_get<bool>(GAP_get_rec(options, RName_canonical));
-        so.just_rbase = GAP_get<bool>(GAP_get_rec(options, RName_just_rbase));
-        so.heuristic.rbase_value = getRBaseHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_rbaseValueHeuristic)));
-        so.heuristic.rbase_cell = getRBaseHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_rbaseCellHeuristic)));
-        so.heuristic.search_value = getSearchHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_searchValueHeuristic)));
-        so.heuristic.search_first_branch_value = getSearchHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_searchFirstBranchValueHeuristic)));
-
-
+        SearchOptions so = fillSearchOptions(options);
 
         bool get_stats = GAP_get<bool>(GAP_get_rec(options, RName_stats));
-
         int size = GAP_get<int>(GAP_get_rec(options, RName_size));
+
         Problem p(size);
 
-        readNestedConstraints(p, conlist);
+        std::vector<AbstractConstraint*> cons = readNestedConstraints(p, conlist);
+        for(unsigned i = 0; i < cons.size(); ++i) p.addConstraint(cons[i]);
 
         SolutionStore ss = doSearch(&p, so);
 
-        Obj rec = NEW_PREC(0);
-        Obj sols = GAP_make(ss.sols());
-        AssPRec(rec, RNamName("generators"),sols);
-        CHANGED_BAG(rec);
+        Obj ret =  build_return_value(ss, get_stats);
+        return ret;
+    }
+    catch(const GAPException& ge)
+    {
+        SyClearErrorNo();
+        std::cerr << ge.what() << "\n";
+        return Fail;
+    }
+}
 
-        Obj rbasevalorder = GAP_make(Stats::container().rBase_value_ordering);
-        AssPRec(rec, RNamName("rbase"), rbasevalorder);
-        CHANGED_BAG(rec);
+Obj cosetSolver(Obj conlistL, Obj conlistR, Obj options)
+{
+    try{
+        InfoLevel() = GAP_get<int>(GAP_callFunction(FunObj_getInfoFerret));
+        DebugInfoLevel() = GAP_get<int>(GAP_callFunction(FunObj_getInfoFerretDebug));
 
-        Obj solsmap = GAP_make(ss.solsmap());
-        AssPRec(rec, RNamName("generators_map"), solsmap);
-        CHANGED_BAG(rec);
+        SearchOptions so = fillSearchOptions(options);
 
-        if(get_stats)
-        {
-            Obj stats = NEW_PREC(0);
+        bool get_stats = GAP_get<bool>(GAP_get_rec(options, RName_stats));
+        int size = GAP_get<int>(GAP_get_rec(options, RName_size));
 
-            AssPRec(stats, RNamName("nodes"), GAP_make(Stats::container().node_count));
-            CHANGED_BAG(stats);
-            AssPRec(stats, RNamName("fixedpoints"), GAP_make(Stats::container().rBase_fixed_points));
-            CHANGED_BAG(stats);
-            AssPRec(stats, RNamName("bad_leaves"), GAP_make(Stats::container().bad_leaves));
-            CHANGED_BAG(stats);
-            AssPRec(stats, RNamName("bad_internal_nodes"), GAP_make(Stats::container().bad_internal_nodes));
-            CHANGED_BAG(stats);
-            AssPRec(rec, RNamName("stats"), stats);
-            CHANGED_BAG(rec);
-        }
-        return rec;
+        Problem p(size);
+
+        std::vector<AbstractConstraint*> consL = readNestedConstraints(p, conlistL);
+        for(unsigned i = 0; i < consL.size(); ++i) p.addConstraint(consL[i]);
+
+        std::vector<AbstractConstraint*> consR = readNestedConstraints(p, conlistR);
+
+        SolutionStore ss = doSearch(&p, so);
+
+        Obj ret =  build_return_value(ss, get_stats);
+        return ret;
     }
     catch(const GAPException& ge)
     {
