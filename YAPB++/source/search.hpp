@@ -101,11 +101,44 @@ bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
 
 }
 
-SolutionStore doSearch(Problem* p, const SearchOptions& so)
+SolutionStore doSearch(Problem* p, const std::vector<AbstractConstraint*>& cons, const SearchOptions& so)
 {
     Stats::reset();
 
     timing_start();
+    for(unsigned i = 0; i < cons.size(); ++i) p->addConstraint(cons[i]);
+    p->init();
+    RBase* rb = buildRBase(p, so.heuristic.rbase_cell, so.heuristic.rbase_value);
+    Stats::container().rBase_value_ordering = rb->value_ordering;
+    timing_event("Finish RBase");
+    SolutionStore solutions(rb);
+    if(!so.just_rbase)
+    {
+
+        TraceFollowingQueue tfq(rb->trace, &p->memory_backtracker);
+
+        p->p_stack.setAbstractQueue(&tfq);
+
+        Stats::container().node_count = 0;
+        doSearchBranch<true>(so, p, &solutions, rb, &tfq, 1);
+    }
+    timing_finish();
+    debug_out(1, "search", "Node count:" << Stats::container().node_count);
+    delete rb;
+
+    RECORD_STATS(dumpStats());
+
+    return solutions;
+}
+
+SolutionStore doCosetSearch(Problem* p, const std::vector<AbstractConstraint*>& consL,
+                                        const std::vector<AbstractConstraint*>& consR,
+                                        const SearchOptions& so)
+{
+    Stats::reset();
+
+    timing_start();
+    for(unsigned i = 0; i < consL.size(); ++i) p->addConstraint(consL[i]);
     p->init();
     RBase* rb = buildRBase(p, so.heuristic.rbase_cell, so.heuristic.rbase_value);
     Stats::container().rBase_value_ordering = rb->value_ordering;

@@ -74,7 +74,7 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
         return new StabChain_PermGroup<false, true>(GAP_get_rec(con, RName_arg), ps, mb);
     }
     else if(strcmp(conname, "NULL") == 0)
-        return nullptr;
+        return 0;
 
     else
         throw GAPException("Unknown constraint type: " + std::string(conname));
@@ -169,9 +169,8 @@ Obj solver(Obj conlist, Obj options)
         Problem p(size);
 
         std::vector<AbstractConstraint*> cons = readNestedConstraints(p, conlist);
-        for(unsigned i = 0; i < cons.size(); ++i) p.addConstraint(cons[i]);
 
-        SolutionStore ss = doSearch(&p, so);
+        SolutionStore ss = doSearch(&p, cons, so);
 
         Obj ret =  build_return_value(ss, get_stats);
         return ret;
@@ -198,11 +197,10 @@ Obj cosetSolver(Obj conlistL, Obj conlistR, Obj options)
         Problem p(size);
 
         std::vector<AbstractConstraint*> consL = readNestedConstraints(p, conlistL);
-        for(unsigned i = 0; i < consL.size(); ++i) p.addConstraint(consL[i]);
 
         std::vector<AbstractConstraint*> consR = readNestedConstraints(p, conlistR);
 
-        SolutionStore ss = doSearch(&p, so);
+        SolutionStore ss = doCosetSearch(&p, consL, consR, so);
 
         Obj ret =  build_return_value(ss, get_stats);
         return ret;
