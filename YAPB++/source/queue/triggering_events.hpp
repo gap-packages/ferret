@@ -4,21 +4,8 @@
 #include <set>
 #include "library/library.hpp"
 #include "constraints/abstract_constraint.hpp"
+#include "triggering_enums.hpp"
 
-enum TriggerType
-{
-    Trigger_Fix,
-    Trigger_Change,
-    Trigger_RBaseFinished,
-    Trigger_INVALID
-};
-
-enum TraceEventType
-{
-    TraceEvent_Branch,
-    TraceEvent_Constraint,
-    TraceEvent_INVALID
-};
 
 
 struct TraceEvent

@@ -23,7 +23,7 @@ public:
     { 
     }
 
-    SplitState init()
+    SplitState signal_start()
     {
         debug_out(1, "SetStab", "init " << points.size());
         return filterPartitionStackByFunction(ps, InSet(&points));

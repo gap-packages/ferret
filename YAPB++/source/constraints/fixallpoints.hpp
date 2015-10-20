@@ -24,7 +24,7 @@ public:
     {
     }
 
-    SplitState init()
+    SplitState signal_start()
     {
         debug_out(1, "FixAllPoints", "init");
         vec1<int> points;

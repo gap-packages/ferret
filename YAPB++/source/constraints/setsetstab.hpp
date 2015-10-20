@@ -78,16 +78,22 @@ public:
     }
 
 
-    SplitState init()
+    std::vector<TriggerType> triggers()
     {
-        ps->addTrigger(this, Trigger_Change);
+      std::vector<TriggerType> v;
+      v.push_back(Trigger_Change);
+      return v;
+    }
+
+    SplitState signal_start()
+    {
         debug_out(1, "SetSetStab", "init " << points.size());
         std::set<int> all_values;
         for(int i = 1; i <= points.size(); ++i)
             all_values.insert(points[i].begin(), points[i].end());
         SplitState ss = filterPartitionStackByFunction(ps, InSet(&all_values));
-        (void)ss;
-        D_ASSERT(!ss.hasFailed());
+        if(ss.hasFailed())
+          return ss;
         return filterPartitionStackByUnorderedFunction(ps, ContainerToFunction(&point_map));
     }
 };

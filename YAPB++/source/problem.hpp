@@ -32,11 +32,13 @@ struct Problem
 
     void init()
     {
-        con_store.initConstraints(&con_queue);
+        con_store.initConstraints(this);
         // We do not care about the initalization, we do not want it filling
         // up our trace (at least for groups, let's cover co-sets later...)
         tracer_generator.clearTrace();
     }
 };
+
+#include "constraint_store.ipp"
 
 #endif

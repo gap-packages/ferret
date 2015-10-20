@@ -40,6 +40,7 @@ public:
             points[i] = vec1<int>(pntset.begin(), pntset.end());
         }
         D_ASSERT(points.size() <= ps->domainSize());
+        mset.resize(ps->domainSize(), 0);
     }
 private:
 
@@ -83,10 +84,16 @@ private:
     }
 
 public:
-    SplitState init()
+
+    std::vector<TriggerType> triggers()
     {
-        mset.resize(ps->domainSize(), 0);
-        ps->addTrigger(this, Trigger_Change);
+      std::vector<TriggerType> v;
+      v.push_back(Trigger_Change);
+      return v;
+    }
+
+    SplitState signal_start()
+    {
         vec1<int> cells;
         for(int i = 1; i <= ps->cellCount(); ++i)
             cells.push_back(i);

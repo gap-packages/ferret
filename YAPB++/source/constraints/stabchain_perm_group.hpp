@@ -285,10 +285,17 @@ private:
 
 
 public:
-    SplitState init()
+
+    std::vector<TriggerType> triggers()
     {
-        ps->addTrigger(this, Trigger_Fix);
-        ps->addTrigger(this, Trigger_RBaseFinished);
+      std::vector<TriggerType> v;
+      v.push_back(Trigger_Fix);
+      v.push_back(Trigger_RBaseFinished);
+      return v;
+    }
+
+    SplitState signal_start()
+    {
         return signal_fix_buildingRBase(0);
     }
 

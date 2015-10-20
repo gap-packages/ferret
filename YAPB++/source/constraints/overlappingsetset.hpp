@@ -78,18 +78,25 @@ public:
     }
 
 
-    SplitState init()
+    virtual SplitState signal_start()
     {
-        ps->addTrigger(this, Trigger_Change);
-        debug_out(1, "OverlappingSetSetStab", "init " << points.size());
-        std::set<int> all_values;
-        for(int i = 1; i <= points.size(); ++i)
-            all_values.insert(points[i].begin(), points[i].end());
-        SplitState ss = filterPartitionStackByFunction(ps, InSet(&all_values));
-        (void)ss;
-        D_ASSERT(!ss.hasFailed());
-        return filterPartitionStackByUnorderedListFunction(ps, ContainerToFunction(&point_map));
+      debug_out(1, "OverlappingSetSetStab", "init " << points.size());
+      std::set<int> all_values;
+      for(int i = 1; i <= points.size(); ++i)
+          all_values.insert(points[i].begin(), points[i].end());
+      SplitState ss = filterPartitionStackByFunction(ps, InSet(&all_values));
+      if(ss.hasFailed())
+        return ss;
+      return filterPartitionStackByUnorderedListFunction(ps, ContainerToFunction(&point_map));
     }
+
+    virtual std::vector<TriggerType> triggers()
+    {
+      std::vector<TriggerType> v;
+      v.push_back(Trigger_Change);
+      return v;
+    }
+
 };
 
 #endif

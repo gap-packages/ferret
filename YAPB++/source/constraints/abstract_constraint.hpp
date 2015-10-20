@@ -3,6 +3,7 @@
 #include <assert.h>
 #include "vec1.hpp"
 #include "split_state.hpp"
+#include "../queue/triggering_enums.hpp"
 
 class PartitionStack;
 class RBase;
@@ -48,9 +49,12 @@ public:
     virtual ~AbstractConstraint()
     { }
 
-    // Called once, at start of search
-    // Note: Partition may already be split
-    virtual SplitState init() = 0;
+    // return set of required triggers
+    virtual std::vector<TriggerType> triggers()
+    { return std::vector<TriggerType>(); }
+
+    // perform initial filtering
+    virtual SplitState signal_start() = 0;
 
     // Called with solution permutations, to check they are valid.
     virtual bool verifySolution(const Permutation& p) = 0;

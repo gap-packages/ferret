@@ -21,7 +21,7 @@ public:
             inv_points[points[i]] = i;
     }
 
-    SplitState init()
+    SplitState signal_start()
     {
         return filterPartitionStackByFunction(ps, ContainerToFunction(&inv_points));
     }
