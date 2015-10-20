@@ -132,14 +132,14 @@ Obj FuncSOLVE(Obj self, Obj conlist, Obj options) {
   return solver(conlist, options);
 }
 
-Obj FuncSOLVE_COSET(Obj self, Obj conlist, Obj conlist2, Obj options) {
+Obj FuncSOLVE_COSET(Obj self, Obj conlistC, Obj conlistL, Obj conlistR, Obj options) {
   (void)self; // remove warning
 
   if(!IS_REC(options))
   {
     fprintf(stderr, "Not a record!");
   }
-  return cosetSolver(conlist, conlist2, options);
+  return cosetSolver(conlistC, conlistL, conlistR, options);
 }
 
 static StructGVarFunc GVarFuncs [] = {
@@ -152,7 +152,7 @@ static StructGVarFunc GVarFuncs [] = {
 { "SIMPLE_FUNCTION_CALL_WRAPPER", 2, "function, object", FuncSIMPLE_FUNCTION_CALL_WRAPPER, "src/string.c:FuncSIMPLE_FUNCTION_CALL_WRAPPER" },
 */
   { "YAPB_SOLVE", 2, "object, object", (UInt**(*)())FuncSOLVE, "src/string.c:FuncSOLVE" },
-  { "YAPB_SOLVE_COSET", 3, "object, object, object", (UInt**(*)())FuncSOLVE_COSET, "src/string.c:FuncSOLVE_COSET" },
+  { "YAPB_SOLVE_COSET", 4, "object, object, object, object", (UInt**(*)())FuncSOLVE_COSET, "src/string.c:FuncSOLVE_COSET" },
 
 { 0 }
 

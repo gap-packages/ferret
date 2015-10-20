@@ -183,7 +183,7 @@ Obj solver(Obj conlist, Obj options)
     }
 }
 
-Obj cosetSolver(Obj conlistL, Obj conlistR, Obj options)
+Obj cosetSolver(Obj conlistCommon, Obj conlistL, Obj conlistR, Obj options)
 {
     try{
         InfoLevel() = GAP_get<int>(GAP_callFunction(FunObj_getInfoFerret));
@@ -196,11 +196,11 @@ Obj cosetSolver(Obj conlistL, Obj conlistR, Obj options)
 
         Problem p(size);
 
+        std::vector<AbstractConstraint*> consCommon = readNestedConstraints(p, conlistCommon);
         std::vector<AbstractConstraint*> consL = readNestedConstraints(p, conlistL);
-
         std::vector<AbstractConstraint*> consR = readNestedConstraints(p, conlistR);
 
-        SolutionStore ss = doCosetSearch(&p, consL, consR, so);
+        SolutionStore ss = doCosetSearch(&p, consCommon, consL, consR, so);
 
         Obj ret =  build_return_value(ss, get_stats);
         return ret;
