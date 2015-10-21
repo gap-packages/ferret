@@ -11,7 +11,7 @@ void ConstraintStore::addConstraint(AbstractConstraint* con)
         constraints.push_back(con);
     }
 
-void ConstraintStore::initConstraints()
+void ConstraintStore::initConstraints(bool rbase_building)
     {
         D_ASSERT(!constraints_initalized);
         constraints_initalized = true;
@@ -21,7 +21,11 @@ void ConstraintStore::initConstraints()
             for(unsigned j = 0; j < v.size(); ++j)
               p->p_stack.addTrigger(constraints[i], v[j]);
 
-            constraints[i]->signal_start();
+            if(rbase_building)
+              constraints[i]->signal_start_buildingRBase();
+            else
+              constraints[i]->signal_start();
+
             SplitState ss = p->con_queue.invokeQueue();
             (void)ss; // Avoid warning
             D_ASSERT(!ss.hasFailed());

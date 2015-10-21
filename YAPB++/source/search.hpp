@@ -107,7 +107,8 @@ SolutionStore doSearch(Problem* p, const std::vector<AbstractConstraint*>& cons,
 
     timing_start();
     for(unsigned i = 0; i < cons.size(); ++i) p->addConstraint(cons[i]);
-    p->init();
+    p->con_store.initConstraints(true);
+    p->tracer_generator.clearTrace();
     RBase* rb = buildRBase(p, so.heuristic.rbase_cell, so.heuristic.rbase_value);
     Stats::container().rBase_value_ordering = rb->value_ordering;
     timing_event("Finish RBase");
@@ -141,7 +142,8 @@ SolutionStore doCosetSearch(Problem* p, const std::vector<AbstractConstraint*>& 
 (void)consR;
     timing_start();
     for(unsigned i = 0; i < consCommon.size(); ++i) p->addConstraint(consCommon[i]);
-    p->init();
+    p->con_store.initConstraints(true);
+    p->tracer_generator.clearTrace();
     RBase* rb = buildRBase(p, so.heuristic.rbase_cell, so.heuristic.rbase_value);
     Stats::container().rBase_value_ordering = rb->value_ordering;
     timing_event("Finish RBase");

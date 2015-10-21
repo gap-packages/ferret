@@ -31,13 +31,15 @@ struct Problem
     void addConstraint(AbstractConstraint* ac)
     { con_store.addConstraint(ac); }
 
-    void init()
+#if 0
+    void init(bool rbase_buildin)
     {
         con_store.initConstraints();
         // We do not care about the initalization, we do not want it filling
         // up our trace (at least for groups, let's cover co-sets later...)
-        tracer_generator.clearTrace();
+        //tracer_generator.clearTrace();
     }
+#endif
 };
 
 #include "constraint_store.ipp"

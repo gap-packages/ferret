@@ -23,7 +23,7 @@ public:
 
     void addConstraint(AbstractConstraint* con);
 
-    void initConstraints();
+    void initConstraints(bool rbase_building);
 
     ~ConstraintStore();
 

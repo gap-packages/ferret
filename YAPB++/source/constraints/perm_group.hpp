@@ -50,9 +50,14 @@ public:
       return v;
     }
 
-    SplitState signal_start()
+    SplitState signal_start_buildingRBase()
     {
         return signal_fix_buildingRBase(0);
+    }
+
+    SplitState signal_start()
+    {
+        return signal_fix(0);
     }
 
     virtual void signal_RBaseFinished(RBase* _rb)

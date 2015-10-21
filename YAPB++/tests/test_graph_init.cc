@@ -14,7 +14,7 @@ int main(void)
     }
     p.addConstraint(new SlowGraph<GraphDirected_yes>(s, &p.p_stack));
     p.p_stack.sanity_check();
-    p.init();
+    p.con_store.initConstraints(true);
     p.p_stack.sanity_check();
     assert(p.p_stack.cellCount() == 10);
     p.con_queue.invokeQueue();

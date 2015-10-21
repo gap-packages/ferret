@@ -56,6 +56,9 @@ public:
     // perform initial filtering
     virtual SplitState signal_start() = 0;
 
+    virtual SplitState signal_start_buildingRBase()
+    { return signal_start(); }
+
     // Called with solution permutations, to check they are valid.
     virtual bool verifySolution(const Permutation& p) = 0;
 
