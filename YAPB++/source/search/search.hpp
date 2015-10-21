@@ -2,14 +2,14 @@
 #define _SEARCH_HPP_CAW
 
 
-#include "search_common.hpp"
+#include "search/search_common.hpp"
 
 
 template<bool firstbranch>
 bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
                     RBase* rbase, TraceFollowingQueue* tfq, int depth)
 {
-    info_out(1, "Search depth: " << depth);
+    info_out(1, "search depth: " << depth);
     info_out(2, "Current partition: " <<  p->p_stack.dumpCurrentPartition());
     if(depth > rbase->depth())
     {
@@ -63,7 +63,7 @@ bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
                 (void)branch_split;
                 D_ASSERT(!branch_split.hasFailed());
                 tfq->endBranch();
-                debug_out(0, "Search", "Perm State " << p->p_stack.printCurrentPartition());
+                debug_out(0, "search", "Perm State " << p->p_stack.printCurrentPartition());
 
 
                 SplitState split = tfq->execute_trace();

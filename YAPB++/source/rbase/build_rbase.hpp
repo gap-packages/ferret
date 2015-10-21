@@ -3,7 +3,7 @@
 
 #include "rbase.hpp"
 #include "problem.hpp"
-#include "search_options.hpp"
+#include "search/search_options.hpp"
 
 // The purpose of an RBase Generator is that it will backtrack,
 // so we can explore different options. Once we have finalised

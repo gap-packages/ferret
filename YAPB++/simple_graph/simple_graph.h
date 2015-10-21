@@ -4,7 +4,7 @@
 #include "vec1.hpp"
 #include "library/perm.hpp"
 #include "library/graph.hpp"
-#include "search_options.hpp"
+#include "search/search_options.hpp"
 
 #include <set>
 #include <vector>

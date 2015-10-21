@@ -12,8 +12,8 @@
 
 #include "problem.hpp"
 #include "solution_store.hpp"
-#include "search.hpp"
-#include "search_options.hpp"
+#include "search/search.hpp"
+#include "search/search_options.hpp"
 
 #include "constraints/liststab.hpp"
 #include "constraints/setstab.hpp"

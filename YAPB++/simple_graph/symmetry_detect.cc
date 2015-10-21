@@ -4,7 +4,7 @@
 #include "problem.hpp"
 #include "constraints/slowgraph.hpp"
 #include "constraints/setstab.hpp"
-#include "search.hpp"
+#include "search/search.hpp"
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>

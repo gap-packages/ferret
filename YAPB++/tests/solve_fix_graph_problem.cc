@@ -1,6 +1,6 @@
 #include "problem.hpp"
 #include "constraints/slowgraph.hpp"
-#include "search.hpp"
+#include "search/search.hpp"
 #include <iostream>
 
 int main(void)

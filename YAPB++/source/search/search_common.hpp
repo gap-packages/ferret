@@ -5,7 +5,7 @@
 #include "rbase/build_rbase.hpp"
 #include "queue/trace_following_queue.hpp"
 #include "solution_store.hpp"
-#include "search_options.hpp"
+#include "search/search_options.hpp"
 #include "library/stats.hpp"
 #include "library/perm.hpp"
 

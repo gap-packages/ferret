@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 #include "library/stats.hpp"
-#include "search_options.hpp"
+#include "search/search_options.hpp"
 
 void outputGraph(const Graph& g, SearchOptions so, GraphDirected directed)
 {
