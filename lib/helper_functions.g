@@ -17,18 +17,20 @@ _FerretHelperFuncs := rec(
 # Copies 'useroptions' over values of 'options' with the same name.
 fillUserValues := function(options, useroptions)
   local name, ret;
-  
   ret := rec();
 
   for name in RecNames(options) do
     if IsBound(useroptions.(name)) then
-      options.(name) := useroptions.(name);
+      ret.(name) := useroptions.(name);
       Unbind(useroptions.(name));
+    else
+      ret.(name) := options.(name);
     fi;
   od;
-  
+
   if useroptions <> rec() then
     Error("Unknown options: ", useroptions);
   fi;
- end
- );
+
+  return ret;
+ end);

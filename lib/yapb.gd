@@ -37,6 +37,12 @@ DeclareGlobalFunction("OnDirectedGraph");
 ##
 DeclareGlobalFunction( "Solve" );
 
+#############################################################################
+##
+#F  Solve( <list> ) . . . . . . . .  solve a list of constraints
+##
+DeclareGlobalFunction( "SolveCoset" );
+
 
 #############################################################################
 ##  <#GAPDoc Label="InfoFerret">

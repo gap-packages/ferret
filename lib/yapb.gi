@@ -231,6 +231,17 @@ InstallGlobalFunction( OnDirectedGraph, function()
   Error("This is not a true function, just a place holder");
 end );
 
+
+_FERRET_DEFAULT_OPTIONS := rec(searchValueHeuristic := "RBase",
+                               searchFirstBranchValueHeuristic := "RBase",
+                               rbaseCellHeuristic := "smallest",
+                               rbaseValueHeuristic := "smallest",
+                               stats := false,
+                               recreturn := false,
+                               only_find_generators := true,
+                               just_rbase := false
+                               );
+
 #############################################################################
 ##
 ##
@@ -274,24 +285,16 @@ InstallGlobalFunction( Solve, function( arg )
     maxpoint := 2;
   fi;
 
-  options := rec(searchValueHeuristic := "RBase",
-                 searchFirstBranchValueHeuristic := "RBase",
-                 rbaseCellHeuristic := "smallest",
-                 rbaseValueHeuristic := "smallest",
-                 size := maxpoint,
-                 stats := false,
-                 recreturn := false,
-                 only_find_generators := true,
-                 just_rbase := false
-                 );
-
   if l = 2 then
     useroptions := arg[2];
   else
     useroptions := rec();
   fi;
 
-  _FerretHelperFuncs.fillUserValues(options, useroptions);
+  options := _FerretHelperFuncs.fillUserValues(_FERRET_DEFAULT_OPTIONS,
+                                               useroptions);
+
+  options.size := maxpoint;
 
   if options.stats or options.just_rbase then
     options.recreturn := true;
@@ -336,5 +339,79 @@ InstallGlobalFunction( Solve, function( arg )
 
 end );
 
+InstallGlobalFunction( SolveCoset, function( arg )
+  local maxpoint, record, l, options, useroptions,
+        cCommon, cLeft, cRight, name, buildStabChain, retgrp;
+  l := Length(arg);
+  if l <> 3 and l <> 4 then
+    Error( "usage: Solve(<C-Common>, <C-Left>, <C-Right> [, <options>])");
+  fi;
 
+  cCommon := Filtered(Flat(arg[1]), x -> x.max > 0);
+  cLeft := Flat(arg[2]);
+  cRight := Flat(arg[3]);
+
+  if Length(cLeft) <> Length(cRight) then
+    Error("Length(cLeft) must equal Length(cRight)");
+  fi;
+
+  if Length(cCommon) = 0 and Length(cLeft) = 0 then
+    Error("Must have an least one constraint");
+  fi;
+
+  maxpoint := Maximum(List(Flat([cCommon, cLeft, cRight]), x -> x.max));
+
+  if l = 2 then
+    useroptions := arg[2];
+  else
+    useroptions := rec();
+  fi;
+
+  options := _FerretHelperFuncs.fillUserValues(_FERRET_DEFAULT_OPTIONS,
+                                               useroptions);
+
+  options.size := maxpoint;
+
+  if options.stats or options.just_rbase then
+    options.recreturn := true;
+  fi;
+
+  record := YAPB_SOLVE_COSET(cCommon, cLeft, cRight, options);
+  _YAPB_clearRefs();
+
+  # We now stitch together a stabilizer chain from the return values of YAPB++
+  buildStabChain := function(gens, gen_map)
+    local sc, current_val, start_of_range, i;
+    current_val := gen_map[1][1];
+    start_of_range := 1;
+    sc := EmptyStabChain(gens, ());
+    for i in [2..Length(gen_map)] do
+      if gen_map[i][1] <> current_val then
+        InsertTrivialStabilizer(sc, current_val);
+        AddGeneratorsExtendSchreierTree(sc, gens{[start_of_range..i-1]});
+        current_val := gen_map[i][1];
+        start_of_range := i;
+      fi;
+    od;
+    InsertTrivialStabilizer(sc, current_val);
+    AddGeneratorsExtendSchreierTree(sc, gens{[start_of_range..Length(gens)]});
+    return sc;
+  end;
+
+  if options.recreturn then
+    return record;
+  else
+    if record.generators = [()] then # just to avoid having to make code work in this case
+      retgrp := Group(());
+      StabChainMutable(retgrp);
+    else
+      retgrp := Group(record.generators);
+      SetStabChainMutable(retgrp, buildStabChain(record.generators, record.generators_map));
+    fi;
+
+    Size(retgrp);
+    return retgrp;
+  fi;
+
+end );
 #E  files.gi  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here
