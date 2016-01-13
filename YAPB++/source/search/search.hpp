@@ -141,7 +141,10 @@ SolutionStore doCosetSearch(Problem* p, const std::vector<AbstractConstraint*>& 
 (void)consL;
 (void)consR;
     timing_start();
-    for(unsigned i = 0; i < consCommon.size(); ++i) p->addConstraint(consCommon[i]);
+    for(unsigned i = 0; i < consCommon.size(); ++i)
+    {
+      p->addConstraint(consCommon[i]);
+    }
     p->con_store.initConstraints(true);
     p->tracer_generator.clearTrace();
     RBase* rb = buildRBase(p, so.heuristic.rbase_cell, so.heuristic.rbase_value);
