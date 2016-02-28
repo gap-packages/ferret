@@ -9,14 +9,9 @@
 SetPackageInfo( rec(
 
 PackageName := "ferret",
-Subtitle := "Search in finite permutation groups",
+Subtitle := "Backtrack Search in Permutation Groups",
 Version := "0.5.1",
 Date := "12/01/2015", # dd/mm/yyyy format
-
-##  <#GAPDoc Label="PKGVERSIONDATA">
-##  <!ENTITY VERSION "0.5.1">
-##  <!ENTITY RELEASEDATE "12 January 2014">
-##  <#/GAPDoc>
 
 Persons := [
   rec(
@@ -63,7 +58,7 @@ PackageDoc := rec(
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "Search in finite permutation groups",
+  LongTitle := "Backtrack Search in Permutation Groups",
 ),
 
 Dependencies := rec(
@@ -85,6 +80,19 @@ end,
 TestFile := "tst/testall.g",
 
 #Keywords := [ "TODO" ],
+
+AutoDoc := rec(
+    TitlePage := rec(
+        Copyright := """
+&copyright; 2013-2014 by Christopher Jefferson<P/>
+&Example; package is free software; 
+you can redistribute it and/or modify it under the terms of the 
+<URL Text="GNU General Public License">http://www.fsf.org/licenses/gpl.html</URL> 
+as published by the Free Software Foundation; either version 2 of the License, 
+or (at your option) any later version.
+"""
+    )
+),
 
 ));
 
