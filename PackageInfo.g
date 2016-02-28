@@ -1,11 +1,3 @@
-#
-# ferret: Search in finite permutation groups
-#
-# This file contains package meta data. For additional information on
-# the meaning and correct usage of these fields, please consult the
-# manual of the "Example" package as well as the comments in its
-# PackageInfo.g file.
-#
 SetPackageInfo( rec(
 
 PackageName := "ferret",
@@ -85,10 +77,10 @@ AutoDoc := rec(
     TitlePage := rec(
         Copyright := """
 &copyright; 2013-2014 by Christopher Jefferson<P/>
-&Example; package is free software; 
-you can redistribute it and/or modify it under the terms of the 
-<URL Text="GNU General Public License">http://www.fsf.org/licenses/gpl.html</URL> 
-as published by the Free Software Foundation; either version 2 of the License, 
+&Ferret; package is free software;
+you can redistribute it and/or modify it under the terms of the
+<URL Text="GNU General Public License">http://www.fsf.org/licenses/gpl.html</URL>
+as published by the Free Software Foundation; either version 2 of the License,
 or (at your option) any later version.
 """
     )

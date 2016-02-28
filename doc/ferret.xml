@@ -4,9 +4,9 @@
    [ <!ENTITY Example "<Package>Ferret</Package>">
    ]>
 
-<!-- Documentation of the Example package. -->
+<!-- Documentation of the Ferret package. -->
 
-<Book Name="Example"> 
+<Book Name="Ferret"> 
 
 <#Include SYSTEM "title.xml">
 
