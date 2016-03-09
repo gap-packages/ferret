@@ -1,7 +1,7 @@
 name: ferret
 version: 0.5.1
 date: 12/01/2015
-description: Search in finite permutation groups
+description: Backtrack Search in Permutation Groups
 
 authors:
     - name: Christopher Jefferson
