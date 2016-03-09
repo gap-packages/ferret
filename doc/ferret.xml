@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE Book SYSTEM "gapdoc.dtd"
+   [ <!ENTITY Example "<Package>Ferret</Package>">
+   ]>
+
+<!-- Documentation of the Ferret package. -->
+
+<Book Name="Ferret"> 
+
+<#Include SYSTEM "title.xml">
+
+<TableOfContents/>
+
+<Body>
+
+<#Include SYSTEM "example.xml">
+
+<#Include SYSTEM "solve.xml">
+
+<#Include SYSTEM "install.xml">
+
+</Body>
+
+<TheIndex/>
+
+</Book>
+
+<!-- ==================================================================== -->
+
