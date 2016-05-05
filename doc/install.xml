@@ -60,7 +60,7 @@ directory).
 <Section Label="Compiling Binaries of the Ferret Package">
 <Heading>Compiling Binaries of the Ferret Package</Heading>
 
-After unpacking the archive, go to the newly created <F>example</F>  directory
+After unpacking the archive, go to the newly created <F>ferret</F>  directory
 and call <C>./configure</C> to use the default <C>../..</C> path to the
 &GAP; home directory or <C>./configure <A>path</A></C> where <A>path</A> is 
 the path to the &GAP; home directory, if the package is being installed in a 
@@ -92,7 +92,7 @@ To use the Ferret Package you have to request it explicitly. This  is
 done by calling <Ref Func="LoadPackage" BookName="ref"/>:
 <P/>
 <Example><![CDATA[
-gap> LoadPackage("example");
+gap> LoadPackage("ferret");
 true
 ]]></Example>
 <P/>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<TitlePage>
+  <Title>
+    ferret
+  </Title>
+  <Subtitle>
+    Backtrack Search in Permutation Groups
+  </Subtitle>
+  <Version>
+    0.5.1
+  </Version>
+  <Author>
+    Christopher Jefferson<Alt Only="LaTeX"><Br/></Alt>
+<Address>
+St Andrews<Br/>
+Scotland<Br/>
+UK<Br/>
+</Address>
+<Email>caj21@st-andrews.ac.uk</Email>
+<Homepage>http://caj.host.cs.st-andrews.ac.uk/</Homepage>
+
+  </Author>
+  <Date>
+    12/01/2015
+  </Date>
+  <Copyright>
+    
+&copyright; 2013-2014 by Christopher Jefferson<P/>
+&Ferret; package is free software;
+you can redistribute it and/or modify it under the terms of the
+<URL Text="GNU General Public License">http://www.fsf.org/licenses/gpl.html</URL>
+as published by the Free Software Foundation; either version 2 of the License,
+or (at your option) any later version.
+
+  </Copyright>
+  </TitlePage>
