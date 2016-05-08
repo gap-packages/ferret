@@ -107,6 +107,9 @@ public:
     bool operator==(const vec1<T>& vec) const
     { return v == vec.v; }
 
+    bool operator!=(const vec1<T>& vec) const
+    { return v != vec.v; }
+
     bool operator<(const vec1<T>& vec) const
     { return v < vec.v; }
 
