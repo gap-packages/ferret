@@ -20,6 +20,8 @@
 #include "constraints/setsetstab.hpp"
 #include "constraints/overlappingsetset.hpp"
 #include "constraints/graph.hpp"
+#include "constraints/edgecolouredgraph.hpp"
+#include "constraints/edgecolouredgraph_gapgetter.hpp"
 #include "constraints/perm_group.hpp"
 #include "constraints/stabchain_perm_group.hpp"
 #include "constraints/fixallpoints.hpp"
@@ -52,6 +54,11 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
     {
         return new SlowGraph<GraphDirected_yes>(
             GAP_get<vec1<vec1<int> > >(GAP_get_rec(con, RName_arg)), ps);
+    }
+    else if(strcmp(conname, "DirectedEdgeColouredGraph") == 0)
+    {
+        return new EdgeColouredGraph<GraphDirected_yes>(
+            GAP_get<vec1<vec1<ColEdge> > >(GAP_get_rec(con, RName_arg)), ps);
     }
     else if(strcmp(conname, "Generators_Inefficient") == 0)
     {

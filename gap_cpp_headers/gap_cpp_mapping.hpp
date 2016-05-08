@@ -178,6 +178,23 @@ Con fill_optional_container(Obj rec)
   return v;
 }
 
+template<typename T, typename U>
+struct GAP_getter<std::pair<T, U> >
+{
+    bool isa(Obj recval) const
+    { return IS_SMALL_LIST(recval) && LEN_LIST(recval) == 2; }
+    
+    std::pair<T,U> operator()(Obj rec) const
+    { 
+      if(!isa(rec))
+        throw GAPException("Invalid attempt to read pair");
+      GAP_getter<T> get_T;
+      GAP_getter<U> get_U;
+      std::pair<T,U> p(get_T(ELM_LIST(rec, 1)), get_U(ELM_LIST(rec, 2)));
+      return p;
+    }
+};
+
 template<typename T>
 struct GAP_getter<vec1<optional<T> > >
 {

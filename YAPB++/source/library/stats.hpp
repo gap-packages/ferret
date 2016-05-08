@@ -36,6 +36,7 @@ enum ConstraintType {
     CON_PermGroup,
     CON_SetSetStab,
     CON_SlowGraph,
+    CON_EdgeGraph,
     CON_StabChain_PermGroup,
     CON_END
 };
