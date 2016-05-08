@@ -1,5 +1,5 @@
 #include "problem.hpp"
-#include "constraints/slowgraph.hpp"
+#include "constraints/graph.hpp"
 #include "search/search.hpp"
 #include <iostream>
 

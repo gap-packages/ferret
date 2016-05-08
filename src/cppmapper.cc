@@ -19,7 +19,7 @@
 #include "constraints/setstab.hpp"
 #include "constraints/setsetstab.hpp"
 #include "constraints/overlappingsetset.hpp"
-#include "constraints/slowgraph.hpp"
+#include "constraints/graph.hpp"
 #include "constraints/perm_group.hpp"
 #include "constraints/stabchain_perm_group.hpp"
 #include "constraints/fixallpoints.hpp"

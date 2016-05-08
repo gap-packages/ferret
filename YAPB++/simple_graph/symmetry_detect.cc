@@ -2,7 +2,7 @@
 #include "simple_graph.h"
 
 #include "problem.hpp"
-#include "constraints/slowgraph.hpp"
+#include "constraints/graph.hpp"
 #include "constraints/setstab.hpp"
 #include "search/search.hpp"
 #include <iostream>
