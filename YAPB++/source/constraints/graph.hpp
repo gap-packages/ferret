@@ -30,8 +30,8 @@ public:
             int i_size = points[i].size();
             for(int j = 1; j <= i_size; ++j)
             {
-                if(points[i][j] > 0)
-                    points[points[i][j]].push_back(directed?-i:i);
+                D_ASSERT(points[i][j] > 0);
+                points[points[i][j]].push_back(directed?-i:i);
             }
         }
         for(int i = 1; i <= points.size(); ++i)
