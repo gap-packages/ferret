@@ -65,18 +65,18 @@ public:
     : AbstractConstraint(ps), points(_points),
     advise_branch_monoset(ps->domainSize())
     {
-        for(int i = 1; i <= points.size(); ++i)
+        for(int i = 1; i <= _points.size(); ++i)
         {
-            int i_size = points[i].size();
+            int i_size = _points[i].size();
             for(int j = 1; j <= i_size; ++j)
             {
-                ColEdge edge(i, points[i][j].colour());
+                ColEdge edge(i, _points[i][j].colour());
                 if(directed)
                 {
                   edge = edge.flipped();
                 }
 
-                points[points[i][j].target()].push_back(edge);
+                points[_points[i][j].target()].push_back(edge);
             }
         }
         for(int i = 1; i <= points.size(); ++i)

@@ -25,13 +25,13 @@ public:
     : AbstractConstraint(ps), points(_points),
     advise_branch_monoset(ps->domainSize())
     {
-        for(int i = 1; i <= points.size(); ++i)
+        for(int i = 1; i <= _points.size(); ++i)
         {
-            int i_size = points[i].size();
+            int i_size = _points[i].size();
             for(int j = 1; j <= i_size; ++j)
             {
-                D_ASSERT(points[i][j] > 0);
-                points[points[i][j]].push_back(directed?-i:i);
+                D_ASSERT(_points[i][j] > 0);
+                points[_points[i][j]].push_back(directed?-i:i);
             }
         }
         for(int i = 1; i <= points.size(); ++i)
