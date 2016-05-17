@@ -21,12 +21,12 @@ public:
   ColEdge(int _target, int _colour)
   : tar(_target),
     col(_colour)
-  { D_ASSERT(col >= 0); D_ASSERT(tar > 0); }
+  { D_ASSERT(tar > 0); }
 
   ColEdge(std::pair<int, int> p)
   : tar(p.first),
     col(p.second)
-  { D_ASSERT(col >= 0); D_ASSERT(tar > 0); }
+  { D_ASSERT(tar > 0); }
 
   // we want to allow colour = 0
   ColEdge flipped() const
@@ -61,15 +61,26 @@ public:
     virtual std::string name() const
     { return "EdgeColouredGraph"; }
 
+    
     EdgeColouredGraph(const vec1<vec1<ColEdge> >& _points, PartitionStack* ps)
     : AbstractConstraint(ps), points(_points),
     advise_branch_monoset(ps->domainSize())
     {
+        D_ASSERT(points.size() <= ps->domainSize());
+        points.resize(ps->domainSize());
+        mset.resize(ps->domainSize(), 0);
         for(int i = 1; i <= _points.size(); ++i)
         {
             int i_size = _points[i].size();
             for(int j = 1; j <= i_size; ++j)
             {
+                if(_points[i][j].target() <= 0 || _points[i][j].target() > ps->domainSize()) {
+                    throw GAPException("graph contains out-of-bounds vertex: " + toString(_points[i][j].target()));
+                }
+                
+                if(_points[i][j].colour() <= 0 ) {
+                    throw GAPException("graph contains invalid edge colour: " + toString(_points[i][j].target()));
+                }
                 ColEdge edge(i, _points[i][j].colour());
                 if(directed)
                 {
@@ -84,8 +95,6 @@ public:
             std::set<ColEdge> pntset(points[i].begin(), points[i].end());
             points[i] = vec1<ColEdge>(pntset.begin(), pntset.end());
         }
-        D_ASSERT(points.size() <= ps->domainSize());
-        mset.resize(ps->domainSize(), 0);
     }
 private:
 

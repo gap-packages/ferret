@@ -15,7 +15,7 @@ gap> # Functions which GAP implements inefficently
 gap> for i in [2..9] do
 >      for j in [1..50] do
 >        g := RandomGroupUpToSize(GlobalMersenneTwister, i);
->        for act in [OnSetsSets, OnDirectedGraph] do
+>        for act in [OnSetsSets, OnDirectedGraph, OnEdgeColouredDirectedGraph] do
 >          CheckStab(g, RandomObj(GlobalMersenneTwister, i, act), act);
 >        od;
 >     od;

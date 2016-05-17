@@ -241,6 +241,9 @@ InstallGlobalFunction( OnDirectedGraph, function(graph, perm)
     for j in [1..Length(graph[i])] do
       Add(list, (graph[i][j])^perm);
     od;
+    if i^perm > Length(graph) then
+      ErrorNoReturn("perm invalid on graph");
+    fi;
     newgraph[i^perm] := Set(list);
   od;
   return newgraph;
@@ -254,6 +257,9 @@ InstallGlobalFunction( OnEdgeColouredDirectedGraph, function(graph, perm)
     for j in [1..Length(graph[i])] do
       Add(list, [(graph[i][j][1])^perm, graph[i][j][2]]);
     od;
+    if i^perm > Length(graph) then
+      ErrorNoReturn("perm invalid on graph");
+    fi;
     newgraph[i^perm] := Set(list);
   od;
   return newgraph;

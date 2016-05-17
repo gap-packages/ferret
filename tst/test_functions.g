@@ -39,10 +39,10 @@ end;;
 compare_gen_groups := function(g, record)
     local perms;
     perms := record.generators;
-    if(Group(perms) <> g) then
+    if(Group(perms, ()) <> g) then
         Print("Wrong group!","\n");
         Print("Expected: ",g,"\n");
-        Print("Found: ",Group(perms),"\n");
+        Print("Found: ",Group(perms,()),"\n");
         return false;
     fi;
     if((Length(perms) > LargestMovedPoint(g)) and (Length(perms) > 1)) then
@@ -128,4 +128,3 @@ CheckRandomPrimitives := function()
            ForAll([7..10], x -> CheckStab(RandomGroupOfSize(GlobalMersenneTwister, x), [[1,6],[2,4],[3,5]],OnSetsSets));
 
 end;;
-

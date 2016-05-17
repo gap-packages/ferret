@@ -25,12 +25,18 @@ public:
     : AbstractConstraint(ps), points(_points),
     advise_branch_monoset(ps->domainSize())
     {
+        D_ASSERT(points.size() <= ps->domainSize());
+        points.resize(ps->domainSize());
+        mset.resize(ps->domainSize(), 0);
+
         for(int i = 1; i <= _points.size(); ++i)
         {
             int i_size = _points[i].size();
             for(int j = 1; j <= i_size; ++j)
             {
-                D_ASSERT(_points[i][j] > 0);
+                if(_points[i][j] <= 0 || _points[i][j] > ps->domainSize()) {
+                    throw GAPException("graph contains out-of-bounds vertex " + toString(_points[i][j]));
+                }
                 points[_points[i][j]].push_back(directed?-i:i);
             }
         }
@@ -39,8 +45,6 @@ public:
             std::set<int> pntset(points[i].begin(), points[i].end());
             points[i] = vec1<int>(pntset.begin(), pntset.end());
         }
-        D_ASSERT(points.size() <= ps->domainSize());
-        mset.resize(ps->domainSize(), 0);
     }
 private:
 
@@ -176,8 +180,9 @@ public:
             }
             std::sort(image_set.begin(), image_set.end());
             
-            if(points[p[i]] != image_set)
+            if(points[p[i]] != image_set) {
               return false;
+            }
         }
         return true;
     }

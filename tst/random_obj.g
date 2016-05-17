@@ -5,6 +5,22 @@
 # Makes things that the action can be applied to in the range [1..maxint]
 
 
+
+FT := rec(
+  MergeUncolouredGraphs := function(graphlist)
+	local graph, maxval, g, v;
+	maxval := Maximum(List(graphlist, Length));
+	graph := List([1..maxval], x -> []);
+	for g in [1..Length(graphlist)] do
+		for v in [1..Length(graphlist[g])] do
+			Append(graph[v], List(graphlist[g][v], x -> [x,g]));
+		od;
+	od;
+	return List(graph, Set);
+end
+);
+	
+  
 RandomTuple := function(rgen, maxint)
   return List([1..Random(rgen, [0..maxint])], x -> Random(rgen,[1..maxint]));
 end;
@@ -58,7 +74,7 @@ RandomTupleTuple := function(rgen, maxint)
 end;
 
 RandomObj := function(rgen, maxint, action)
-  local edges, grp;
+  local edges, grp, graphlist;
   
   if action = OnPoints then
     return Random(rgen, [1..maxint]);
@@ -100,6 +116,11 @@ RandomObj := function(rgen, maxint, action)
     grp := PrimitiveGroup(maxint, Random(rgen, [1..NrPrimitiveGroups(maxint)]));
     edges := Set(Orbit(grp, [1,2], OnTuples));
     return List([1..maxint], x -> Filtered([1..maxint], y -> [x,y] in edges));
+  fi;
+  
+  if action = OnEdgeColouredDirectedGraph then
+    graphlist := List([1..Random(rgen, [1..5])], x -> RandomObj(rgen, maxint, OnDirectedGraph));
+    return FT.MergeUncolouredGraphs(graphlist);
   fi;
    
   Error("Invalid Action");
