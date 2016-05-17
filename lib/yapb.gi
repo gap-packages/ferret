@@ -245,6 +245,7 @@ InstallGlobalFunction( OnDirectedGraph, function(graph, perm)
   od;
   return newgraph;
 end );
+
 InstallGlobalFunction( OnEdgeColouredDirectedGraph, function(graph, perm)
   local newgraph, list, i, j;
   newgraph := [];
