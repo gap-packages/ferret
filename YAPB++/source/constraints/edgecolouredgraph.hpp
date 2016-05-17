@@ -50,6 +50,10 @@ public:
     if(lhs.col > rhs.col) return false;
     return true;
   }
+  
+  friend std::ostream& operator<<(std::ostream& o, ColEdge c) {
+      return o << "[" << c.target() << "," << c.colour() << "]";
+  }
 };
 
 template<GraphDirected directed = GraphDirected_yes>
