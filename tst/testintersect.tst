@@ -11,7 +11,7 @@ true
 gap> overload := FerretOverloadsEnabled();;
 gap> EnableFerretOverloads(true);
 gap> SetInfoLevel(InfoFerretOverloads, 9);
-gap> Intersection(Group((1,2),(3,4,5)), Group((2,3),(4,5)), Group((1,2),(3,4,5)));
+gap> Intersection(Group((1,2),(3,4,5),(8,9),(10,11)), Group((2,3),(4,5),(8,9)), Group((1,2),(6,7)));
 #I  Using ferret for Intersection2
 #I  Considering ferret for Stabilizer
 #I  Using ferret for Intersection2
