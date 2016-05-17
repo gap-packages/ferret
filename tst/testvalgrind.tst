@@ -15,6 +15,7 @@ gap> START_TEST("ferret package: testvalgrind.tst");
 # loaded)
 gap> LoadPackage("ferret",false);
 true
+gap> overload := FerretOverloadsEnabled();;
 gap> SetInfoLevel(InfoFerretOverloads, 9);
 gap> EnableFerretOverloads(false);
 gap> ReadPackage("ferret", "tst/test_functions.g");
@@ -47,6 +48,7 @@ gap> CheckStab(makeRowColumnSymmetry(2,3), [1,2], OnSets);
 true
 gap> CheckSmallRandomPrimitives();
 true
+gap> EnableFerretOverloads(overload);
 gap> STOP_TEST( "testvalgrind.tst", 10000 );
 ferret package: testvalgrind.tst
 #############################################################################

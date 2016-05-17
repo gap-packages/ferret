@@ -61,6 +61,7 @@ Ferret automatically installs methods which replace GAP's a number of GAP's buil
 If you would like to disable this functionality, you can use <Ref Label="EnableFerretOverloads"/>.
 
 <#Include Label="EnableFerretOverloads">
+<#Include Label="FerretOverloadsEnabled">
 
 </Section>
 </Chapter>

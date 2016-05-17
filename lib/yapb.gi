@@ -162,6 +162,12 @@ function(list, op)
                arg := list,
                max := Length(list));
   fi;
+  
+  if op = OnEdgeColouredDirectedGraph then
+      return rec(constraint := "EdgeColouredDirectedGraph",
+                 arg := list,
+                 max := Length(list));
+  fi;
 
   Error("Do not understand:", op);
 end);
@@ -227,10 +233,30 @@ function(G, s)
 end);
 
 
-InstallGlobalFunction( OnDirectedGraph, function()
-  Error("This is not a true function, just a place holder");
+InstallGlobalFunction( OnDirectedGraph, function(graph, perm)
+  local newgraph, list, i, j;
+  newgraph := [];
+  for i in [1..Length(graph)] do
+    list := [];
+    for j in [1..Length(graph[i])] do
+      Add(list, (graph[i][j])^perm);
+    od;
+    newgraph[i^perm] := Set(list);
+  od;
+  return newgraph;
 end );
-
+InstallGlobalFunction( OnEdgeColouredDirectedGraph, function(graph, perm)
+  local newgraph, list, i, j;
+  newgraph := [];
+  for i in [1..Length(graph)] do
+    list := [];
+    for j in [1..Length(graph[i])] do
+      Add(list, [(graph[i][j][1])^perm, graph[i][j][2]]);
+    od;
+    newgraph[i^perm] := Set(list);
+  od;
+  return newgraph;
+end );
 
 _FERRET_DEFAULT_OPTIONS := rec(searchValueHeuristic := "RBase",
                                searchFirstBranchValueHeuristic := "RBase",

@@ -21,6 +21,10 @@ InstallGlobalFunction(EnableFerretOverloads, function(b)
     fi;
 end);
 
+InstallGlobalFunction(FerretOverloadsEnabled, function()
+    return _FERRET_ENABLE_OVERLOADS;
+end);
+
 # Based on PermGroupStabilizerOp in oprtperm.gi.
 
 PermGroupStabilizerFerretOp := function(arg)

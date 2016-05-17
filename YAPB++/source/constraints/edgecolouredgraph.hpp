@@ -203,17 +203,21 @@ public:
     }
 
   virtual bool verifySolution(const Permutation& p)
-    {/*
+    {
         for(int i = 1; i <= points.size(); ++i)
         {
-            const vec1<int>& p_p_i = points[p[i]];
-            vec1<int> image_set;
-            for(int j = 1; j <= p_p_i.size(); ++j)
-                image_set.push_back(p_p_i[j]);
+            const vec1<ColEdge>& p_i = points[i];
+            vec1<ColEdge> image_set;
+            for(int j = 1; j <= p_i.size(); ++j) {
+                int pnt = p_i[j].target();
+                int pnt_image = p[pnt];
+                image_set.push_back(ColEdge(pnt_image, p_i[j].colour()));
+            }
             std::sort(image_set.begin(), image_set.end());
-            if (p_p_i.size() != image_set.size() || !std::equal(p_p_i.begin(), p_p_i.end(), image_set.begin()))
-                return false;
-        }*/
+            
+            if(points[p[i]] != image_set)
+              return false;
+        }
         return true;
     }
 };

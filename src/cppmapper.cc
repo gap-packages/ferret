@@ -55,7 +55,7 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
         return new SlowGraph<GraphDirected_yes>(
             GAP_get<vec1<vec1<int> > >(GAP_get_rec(con, RName_arg)), ps);
     }
-    else if(strcmp(conname, "DirectedEdgeColouredGraph") == 0)
+    else if(strcmp(conname, "EdgeColouredDirectedGraph") == 0)
     {
         return new EdgeColouredGraph<GraphDirected_yes>(
             GAP_get<vec1<vec1<ColEdge> > >(GAP_get_rec(con, RName_arg)), ps);

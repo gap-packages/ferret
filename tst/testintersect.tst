@@ -8,8 +8,10 @@ gap> LoadPackage("ferret",false);
 true
 gap> ReadPackage("ferret", "tst/test_functions.g");
 true
+gap> overload := FerretOverloadsEnabled();;
+gap> EnableFerretOverloads(true);
 gap> SetInfoLevel(InfoFerretOverloads, 9);
-gap> Intersection(Group((1,2),(3,4,5)), Group((2,3,4)), Group((1,2),(3,4,5)));
+gap> Intersection(Group((1,2),(3,4,5)), Group((2,3),(4,5))), Group((1,2),(3,4,5)));
 #I  Using ferret for Intersection2
 #I  Considering ferret for Stabilizer
 #I  Using ferret for Intersection2
@@ -18,7 +20,7 @@ Group(())
 gap> EnableFerretOverloads(false);
 gap> for i in [2..20] do
 >      for j in [1..50] do
->        grps := List([1..Random([1..6])], x -> RandomGroupUpToSize(i));
+>        grps := List([1..Random([1..6])], x -> RandomGroupUpToSize(GlobalMersenneTwister, i));
 >        if Intersection(grps) <> Solve(List(grps, ConInGroup)) then
 >          Print("bad intersection: ", grps);
 >        fi;
@@ -31,7 +33,7 @@ gap> SetInfoLevel(InfoFerretOverloads, 0);
 gap> EnableFerretOverloads(true);
 gap> for i in [2..20] do
 >      for j in [1..50] do
->        grps := List([1..Random([1..6])], x -> RandomGroupUpToSize(i));
+>        grps := List([1..Random([1..6])], x -> RandomGroupUpToSize(GlobalMersenneTwister, i));
 >        if Intersection(grps) <> Solve(List(grps, ConInGroup)) then
 >          Print("bad intersection: ", grps);
 >        fi;
@@ -40,6 +42,7 @@ gap> for i in [2..20] do
 >        fi;
 >     od;
 >   od;
+gap> EnableFerretOverloads(overload);
 gap> STOP_TEST( "testintersect.tst", 10000 );
 ferret package: testintersect.tst
 #############################################################################

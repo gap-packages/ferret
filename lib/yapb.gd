@@ -29,6 +29,7 @@ DeclareOperation("ConInGroup", [IsPermGroup, IsString]);
 DeclareOperation("ConInGroup", [IsPermGroup]);
 
 DeclareGlobalFunction("OnDirectedGraph");
+DeclareGlobalFunction("OnEdgeColouredDirectedGraph");
 
 
 #############################################################################

@@ -16,6 +16,7 @@ true
 gap> ReadPackage("ferret", "tst/test_functions.g");
 true
 gap> SetInfoLevel(InfoFerretOverloads, 9);
+gap> overload := FerretOverloadsEnabled();;
 gap> EnableFerretOverloads(false);
 gap> CheckGroup(Group((1,2)));
 true
@@ -50,6 +51,7 @@ gap> CheckStab(makeRowColumnSymmetry(7,7), [ 15, 19, 22, 25, 32, 33, 34 ], OnSet
 true
 gap> CheckRandomPrimitives();
 true
+gap> EnableFerretOverloads(overload);
 gap> STOP_TEST( "testbasic.tst", 10000 );
 ferret package: testbasic.tst
 #############################################################################

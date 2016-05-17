@@ -105,7 +105,7 @@ ConstraintBuilders :=
 [ 
     function(x)
         local g;
-        g := RandomGroupUpToSize(x);
+        g := RandomGroupUpToSize(GlobalMersenneTwister, x);
         return [ConInGroup(g), g];
     end,
     function(x)
@@ -116,16 +116,16 @@ ConstraintBuilders :=
 ];
 
 CheckSmallRandomPrimitives := function()
-    return ForAll([5..10], x -> CheckStab(RandomGroupOfSize(x), [1,2,4],OnSets))
+    return ForAll([5..10], x -> CheckStab(RandomGroupOfSize(GlobalMersenneTwister, x), [1,2,4],OnSets))
      and
-           ForAll([3..6], x -> CheckStab(RandomGroupOfSize(x), [[1,2],[3,4]],OnSetsSets));
+           ForAll([3..6], x -> CheckStab(RandomGroupOfSize(GlobalMersenneTwister, x), [[1,2],[3,4]],OnSetsSets));
 
 end;;
 
 CheckRandomPrimitives := function()
-    return ForAll([10..20], x -> CheckStab(RandomGroupOfSize(x), [2,4,6,8,9],OnSets))
+    return ForAll([10..20], x -> CheckStab(RandomGroupOfSize(GlobalMersenneTwister, x), [2,4,6,8,9],OnSets))
      and
-           ForAll([7..10], x -> CheckStab(RandomGroupOfSize(x), [[1,6],[2,4],[3,5]],OnSetsSets));
+           ForAll([7..10], x -> CheckStab(RandomGroupOfSize(GlobalMersenneTwister, x), [[1,6],[2,4],[3,5]],OnSetsSets));
 
 end;;
 

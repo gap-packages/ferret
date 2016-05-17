@@ -58,7 +58,8 @@ RandomTupleTuple := function(rgen, maxint)
 end;
 
 RandomObj := function(rgen, maxint, action)
-
+  local edges, grp;
+  
   if action = OnPoints then
     return Random(rgen, [1..maxint]);
   fi;
@@ -95,21 +96,27 @@ RandomObj := function(rgen, maxint, action)
     return Set(RandomDisjointTupleTuple(rgen, maxint), Set);
   fi;
 
+  if action = OnDirectedGraph then
+    grp := PrimitiveGroup(maxint, Random(rgen, [1..NrPrimitiveGroups(maxint)]));
+    edges := Set(Orbit(grp, [1,2], OnTuples));
+    return List([1..maxint], x -> Filtered([1..maxint], y -> [x,y] in edges));
+  fi;
+   
   Error("Invalid Action");
 
 end;
 
-RandomGroupOfSize := function(size)
-    return PrimitiveGroup(size, Random([1..NrPrimitiveGroups(size)]));
+RandomGroupOfSize := function(rgen, size)
+    return PrimitiveGroup(size, Random(rgen, [1..NrPrimitiveGroups(size)]));
 end;;
 
-RandomGroupUpToSize := function(size)
+RandomGroupUpToSize := function(rgen, size)
     local s;
     s := Random([1..size]);
     if s = 1 then
       return Group(());
     else
-      return RandomGroupOfSize(s);
+      return RandomGroupOfSize(rgen, s);
     fi;
 end;;
 
