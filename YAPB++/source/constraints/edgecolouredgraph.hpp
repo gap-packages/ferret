@@ -48,7 +48,7 @@ public:
     if(lhs.tar > rhs.tar) return false;
     if(lhs.col < rhs.col) return true;
     if(lhs.col > rhs.col) return false;
-    return true;
+    return false;
   }
   
   friend std::ostream& operator<<(std::ostream& o, ColEdge c) {
@@ -228,8 +228,9 @@ public:
             }
             std::sort(image_set.begin(), image_set.end());
             
-            if(points[p[i]] != image_set)
+            if(points[p[i]] != image_set) {
               return false;
+            }
         }
         return true;
     }
