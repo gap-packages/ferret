@@ -27,7 +27,7 @@ DeclareGlobalFunction( "EnableFerretOverloads" );
 #############################################################################
 ##  <#GAPDoc Label="FerretOverloadsEnabled">
 ##  <ManSection>
-##  <Func Name="FerretOverloadsEnabled"/>
+##  <Func Name="FerretOverloadsEnabled" Arg=""/>
 ##
 ##  <Description>
 ##  Return if Ferret specialisations of Intersection and Stabilizer
