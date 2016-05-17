@@ -11,11 +11,11 @@ true
 gap> overload := FerretOverloadsEnabled();;
 gap> SetInfoLevel(InfoFerretOverloads, 9);
 gap> EnableFerretOverloads(false);
-gap> # Functions which GAP implements efficently
-gap> for i in [2..20] do
->      for j in [1..50] do
+gap> # Functions which GAP implements inefficently
+gap> for i in [2..11] do
+>      for j in [1..40] do
 >        g := RandomGroupUpToSize(GlobalMersenneTwister, i);
->        for act in [OnPoints, OnSets, OnSetsDisjointSets, OnTuplesSets, OnTuplesTuples] do
+>        for act in [OnSetsSets, OnDirectedGraph] do
 >          CheckStab(g, RandomObj(GlobalMersenneTwister, i, act), act);
 >        od;
 >     od;
