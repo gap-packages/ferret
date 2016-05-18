@@ -11,62 +11,17 @@
 #include "library/mono_set.hpp"
 #include "library/graph.hpp"
 
-// Store an edge-coloured graph.
-// We require users only give non-negative colours,
-// we use negative colours to represent reversed direction edges
-class ColEdge {
-  int tar;
-  int col;
-public:
-  ColEdge(int _target, int _colour)
-  : tar(_target),
-    col(_colour)
-  { D_ASSERT(tar > 0); }
-
-  ColEdge(std::pair<int, int> p)
-  : tar(p.first),
-    col(p.second)
-  { D_ASSERT(tar > 0); }
-
-  // we want to allow colour = 0
-  ColEdge flipped() const
-  {
-    ColEdge c(tar, 0);
-    c.col = -1 - col;
-    return c;
-  }
-
-  int target() const { return tar; }
-  int colour() const { return col; }
-
-  friend bool operator==(const ColEdge& lhs, const ColEdge& rhs)
-  { return lhs.tar == rhs.tar && lhs.col == rhs.col; }
-
-  friend bool operator<(const ColEdge& lhs, const ColEdge& rhs)
-  {
-    if(lhs.tar < rhs.tar) return true;
-    if(lhs.tar > rhs.tar) return false;
-    if(lhs.col < rhs.col) return true;
-    if(lhs.col > rhs.col) return false;
-    return false;
-  }
-  
-  friend std::ostream& operator<<(std::ostream& o, ColEdge c) {
-      return o << "[" << c.target() << "," << c.colour() << "]";
-  }
-};
-
-template<GraphDirected directed = GraphDirected_yes>
+template<typename VertexType, GraphDirected directed = GraphDirected_yes>
 class EdgeColouredGraph : public AbstractConstraint
 {
-    vec1<vec1<ColEdge> > points;
+    vec1<vec1<VertexType> > points;
 
 public:
     virtual std::string name() const
-    { return "EdgeColouredGraph"; }
+    { return "Graph<" + VertexType::type() + ">"; }
 
     
-    EdgeColouredGraph(const vec1<vec1<ColEdge> >& _points, PartitionStack* ps)
+    EdgeColouredGraph(const vec1<vec1<VertexType> >& _points, PartitionStack* ps)
     : AbstractConstraint(ps), points(_points),
     advise_branch_monoset(ps->domainSize())
     {
@@ -79,13 +34,13 @@ public:
             for(int j = 1; j <= i_size; ++j)
             {
                 if(_points[i][j].target() <= 0 || _points[i][j].target() > ps->domainSize()) {
-                    throw GAPException("graph contains out-of-bounds vertex: " + toString(_points[i][j].target()));
+                    throw GAPException(name() + " contains out-of-bounds vertex: " + toString(_points[i][j].target()));
                 }
                 
-                if(_points[i][j].colour() <= 0 ) {
-                    throw GAPException("graph contains invalid edge colour: " + toString(_points[i][j].target()));
+                if(_points[i][j].colour() < 0 ) {
+                    throw GAPException(name() + " contains invalid edge colour: " + toString(_points[i][j].colour()));
                 }
-                ColEdge edge(i, _points[i][j].colour());
+                VertexType edge(i, _points[i][j].colour());
                 if(directed)
                 {
                   edge = edge.flipped();
@@ -96,8 +51,8 @@ public:
         }
         for(int i = 1; i <= points.size(); ++i)
         {
-            std::set<ColEdge> pntset(points[i].begin(), points[i].end());
-            points[i] = vec1<ColEdge>(pntset.begin(), pntset.end());
+            std::set<VertexType> pntset(points[i].begin(), points[i].end());
+            points[i] = vec1<VertexType>(pntset.begin(), pntset.end());
         }
     }
 private:
@@ -122,7 +77,7 @@ private:
                 nodes++;
                 int i_cell = ps->cellOfVal(i);
                 int hash = quick_hash(i_cell);
-                for(vec1<ColEdge>::iterator it = points[i].begin(); it != points[i].end(); ++it)
+                for(typename vec1<VertexType>::iterator it = points[i].begin(); it != points[i].end(); ++it)
                 {
                     edges++;
                     // TODO: Is this sufficient?
@@ -192,8 +147,8 @@ public:
             {
                 advise_branch_monoset.clear();
                 int cellfirstmem = *(ps->cellStartPtr(i));
-                for(vec1<ColEdge>::iterator edge = points[cellfirstmem].begin();
-                                            edge != points[cellfirstmem].end(); ++edge)
+                for(typename vec1<VertexType>::iterator edge = points[cellfirstmem].begin();
+                                                        edge != points[cellfirstmem].end(); ++edge)
                 {
                     int cell = ps->cellOfVal(edge->target());
                     if(ps->cellSize(cell) > 1)
@@ -219,12 +174,12 @@ public:
     {
         for(int i = 1; i <= points.size(); ++i)
         {
-            const vec1<ColEdge>& p_i = points[i];
-            vec1<ColEdge> image_set;
+            const vec1<VertexType>& p_i = points[i];
+            vec1<VertexType> image_set;
             for(int j = 1; j <= p_i.size(); ++j) {
                 int pnt = p_i[j].target();
                 int pnt_image = p[pnt];
-                image_set.push_back(ColEdge(pnt_image, p_i[j].colour()));
+                image_set.push_back(VertexType(pnt_image, p_i[j].colour()));
             }
             std::sort(image_set.begin(), image_set.end());
             

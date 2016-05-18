@@ -1,7 +1,7 @@
 #ifndef _EDGEGRAPH_GAPGETTER_ASD
 #define _EDGEGRAPH_GAPGETTER_ASD
 
-#include "edgecolouredgraph.hpp"
+#include "library/graph.hpp"
 
 namespace GAPdetail
 {
@@ -20,6 +20,23 @@ struct GAP_getter<ColEdge>
       return ColEdge(g(rec));
     }
 };
+
+template<>
+struct GAP_getter<UncolouredEdge>
+{
+    bool isa(Obj recval) const
+    {
+      GAP_getter<int> g;
+      return g.isa(recval);
+    }
+    
+    UncolouredEdge operator()(Obj rec) const
+    {
+      GAP_getter<int> g;
+      return UncolouredEdge(g(rec), 0);
+    }
+};
+
 }
 
 #endif
