@@ -69,9 +69,6 @@ public:
     // A descriptive name for the constraint
     virtual std::string name() const = 0;
 
-    // A function, called in debug mode to check if propagation has finished
-    virtual void debug_check_propagation() { }
-
     // Allows constraint to advise which cell to branch on next
     // return -1 for 'no suggestion'
     virtual int advise_branch()

@@ -146,18 +146,6 @@ public:
         return filterGraph(v, config.normal_path_length);
     }
 
-    virtual void debug_check_propagation()
-    {
-        int cellcount = ps->cellCount();
-        vec1<int> cells;
-        for(int i = 1; i <= cellcount; ++i)
-            cells.push_back(i);
-        SplitState ss = filterGraph(cells, 1);
-        (void)ss;
-        D_ASSERT(!ss.hasFailed());
-        D_ASSERT(cellcount == ps->cellCount());
-    }
-
     // We cache this monoset to save allocations.
     MonoSet advise_branch_monoset;
     virtual int advise_branch()
