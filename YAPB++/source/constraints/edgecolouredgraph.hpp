@@ -11,18 +11,32 @@
 #include "library/mono_set.hpp"
 #include "library/graph.hpp"
 
+
+struct GraphConfig
+{
+    int start_path_length;
+    int normal_path_length;
+    GraphConfig(int spl = 1, int npl = 1)
+    : start_path_length(spl), normal_path_length(npl)
+    { }
+    
+    GraphConfig(const GraphConfig& gc)
+    : start_path_length(gc.start_path_length), normal_path_length(gc.normal_path_length)
+    { }
+};
+
 template<typename VertexType, GraphDirected directed = GraphDirected_yes>
 class EdgeColouredGraph : public AbstractConstraint
 {
     vec1<vec1<VertexType> > points;
-
+    GraphConfig config;
 public:
     virtual std::string name() const
     { return "Graph<" + VertexType::type() + ">"; }
 
     
-    EdgeColouredGraph(const vec1<vec1<VertexType> >& _points, PartitionStack* ps)
-    : AbstractConstraint(ps), points(compressGraph(_points)),
+    EdgeColouredGraph(const vec1<vec1<VertexType> >& _points, GraphConfig gc, PartitionStack* ps)
+    : AbstractConstraint(ps), points(compressGraph(_points)), config(gc),
     advise_branch_monoset(ps->domainSize())
     {
         D_ASSERT(points.size() <= ps->domainSize());
@@ -86,7 +100,7 @@ private:
         }
     }
     
-    SplitState filterGraph(const vec1<int>& cells, int path_length = 1)
+    SplitState filterGraph(const vec1<int>& cells, int path_length)
     {
         // Would not normally go this low level, but it is important this is fast
         memset(&(mset.front()), 0, mset.size() * sizeof(mset[0]));
@@ -114,7 +128,7 @@ public:
         vec1<int> cells;
         for(int i = 1; i <= ps->cellCount(); ++i)
             cells.push_back(i);
-        return filterGraph(cells);
+        return filterGraph(cells, config.start_path_length);
     }
 
     virtual SplitState signal_changed(const vec1<int>& v)
@@ -129,7 +143,7 @@ public:
         if(ss.hasFailed())
             return ss;
         return filterGraph(cells);*/
-        return filterGraph(v);
+        return filterGraph(v, config.normal_path_length);
     }
 
     virtual void debug_check_propagation()
@@ -138,7 +152,7 @@ public:
         vec1<int> cells;
         for(int i = 1; i <= cellcount; ++i)
             cells.push_back(i);
-        SplitState ss = filterGraph(cells);
+        SplitState ss = filterGraph(cells, 1);
         (void)ss;
         D_ASSERT(!ss.hasFailed());
         D_ASSERT(cellcount == ps->cellCount());

@@ -51,13 +51,29 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
     }
     else if(strcmp(conname, "DirectedGraph") == 0)
     {
+        GraphConfig gc;
+        if(GAP_has_rec(con, RNamName("start_path_length"))) {
+            gc.start_path_length = GAP_get<int>(GAP_get_rec(con, RNamName("start_path_length")));
+        }
+        if(GAP_has_rec(con, RNamName("normal_path_length"))) {
+            gc.normal_path_length = GAP_get<int>(GAP_get_rec(con, RNamName("normal_path_length")));
+        }
+        
         return new EdgeColouredGraph<UncolouredEdge, GraphDirected_yes>(
-            GAP_get<vec1<vec1<UncolouredEdge> > >(GAP_get_rec(con, RName_arg)), ps);
+            GAP_get<vec1<vec1<UncolouredEdge> > >(GAP_get_rec(con, RName_arg)), gc, ps);
     }
     else if(strcmp(conname, "EdgeColouredDirectedGraph") == 0)
     {
+        GraphConfig gc;
+        if(GAP_has_rec(con, RNamName("start_path_length"))) {
+            gc.start_path_length = GAP_get<int>(GAP_get_rec(con, RNamName("start_path_length")));
+        }
+        if(GAP_has_rec(con, RNamName("normal_path_length"))) {
+            gc.normal_path_length = GAP_get<int>(GAP_get_rec(con, RNamName("normal_path_length")));
+        }
+            
         return new EdgeColouredGraph<ColEdge, GraphDirected_yes>(
-            GAP_get<vec1<vec1<ColEdge> > >(GAP_get_rec(con, RName_arg)), ps);
+            GAP_get<vec1<vec1<ColEdge> > >(GAP_get_rec(con, RName_arg)), gc, ps);
     }
     else if(strcmp(conname, "Generators_Inefficient") == 0)
     {
