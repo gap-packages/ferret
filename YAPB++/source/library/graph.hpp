@@ -89,8 +89,8 @@ public:
 
 // Fake implementation of an coloured edge, for uncoloured graphs!
 class UncolouredEdge {
-  int tar;
-  int orient;
+  unsigned int tar:31;
+  unsigned int orient:1;
 public:
   UncolouredEdge(int _target, int _colour = 0)
   : tar(_target),
