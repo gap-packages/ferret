@@ -2,6 +2,7 @@
 #define _GRAPH_HPP_FDAJIOQ
 
 #include "vec1.hpp"
+#include <set>
 
 // This file stores some simple generic graph related structures
 
@@ -130,5 +131,38 @@ public:
       return o << "[" << c.target() << "," << c.colour() << "]";
   }
 };
+
+
+// Takes a graph with multi-coloured (and possibly multiple occurrences)
+// of edges, and replaces it with one where there is at most one edge between
+// each pair of vertices.
+vec1<vec1<ColEdge> > compressGraph(const vec1<vec1<ColEdge> >& graph)
+{
+  std::map<std::multiset<int>, int> seen_maps;
+  
+  vec1<vec1<ColEdge> > output_graph(graph.size());
+  for(int i = 1; i <= graph.size(); i++) {
+    std::map<int, std::multiset<int> > edges;
+    for(int j = 1; j <= graph[i].size(); ++j) {
+      edges[graph[i][j].target()].insert(graph[i][j].colour());
+    }
+    
+    for(int j = 1; j <= graph[i].size(); ++j) {
+      if(edges[i].size() > 0) {
+        if(seen_maps.count(edges[i]) == 0) {
+          int val = seen_maps.size() + 1;
+          seen_maps[edges[i]] = val;
+        }
+        output_graph[i].push_back(ColEdge(j, seen_maps[edges[i]]));
+      }
+    }
+  }
+  return output_graph;
+}
+
+vec1<vec1<UncolouredEdge> > compressGraph(const vec1<vec1<UncolouredEdge> >& graph)
+{
+  return graph;
+}
 
 #endif
