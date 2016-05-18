@@ -22,7 +22,7 @@ public:
 
     
     EdgeColouredGraph(const vec1<vec1<VertexType> >& _points, PartitionStack* ps)
-    : AbstractConstraint(ps), points(_points),
+    : AbstractConstraint(ps), points(compressGraph(_points)),
     advise_branch_monoset(ps->domainSize())
     {
         D_ASSERT(points.size() <= ps->domainSize());
@@ -60,33 +60,43 @@ private:
     // Construct this once, for use in filterGraph, as the cost is fairly big
     vec1<u_int64_t> mset;
     
-    SplitState filterGraph(const vec1<int>& cells)
+    void hashNeighboursOfVertex(MonoSet& monoset, int vertex, u_int64_t hash, int path_length)
+    {
+        for(typename vec1<VertexType>::iterator it = points[vertex].begin();
+              it != points[vertex].end(); ++it)
+        {
+            monoset.add(ps->cellOfVal(it->target()));
+            u_int64_t new_hash = quick_hash(hash + it->colour());
+            mset[it->target()] += new_hash;
+            if(path_length > 0) {
+                hashNeighboursOfVertex(monoset, it->target(), new_hash, path_length - 1);
+            }
+        }
+    }
+    
+    void hashCell(MonoSet& monoset, int cell, int path_length)
+    {
+        Range<PartitionStack::cellit> r = ps->cellRange(cell);
+        for(PartitionStack::cellit it = r.begin(); it != r.end(); ++it)
+        {
+            int i = *it;
+            int i_cell = ps->cellOfVal(i);
+            int hash = quick_hash(i_cell);
+            hashNeighboursOfVertex(monoset, i, hash, path_length);
+        }
+    }
+    
+    SplitState filterGraph(const vec1<int>& cells, int path_length = 1)
     {
         // Would not normally go this low level, but it is important this is fast
         memset(&(mset.front()), 0, mset.size() * sizeof(mset[0]));
         
         MonoSet monoset(ps->cellCount());
         debug_out(0, "EdgeGraph", "filtering: " << cells.size() << " cells out of " << ps->cellCount());
-        int nodes = 0, edges = 0;
         for(int c = 1; c <= cells.size(); ++c)
         {
-            Range<PartitionStack::cellit> r = ps->cellRange(cells[c]);
-            for(PartitionStack::cellit it = r.begin(); it != r.end(); ++it)
-            {
-                int i = *it;
-                nodes++;
-                int i_cell = ps->cellOfVal(i);
-                int hash = quick_hash(i_cell);
-                for(typename vec1<VertexType>::iterator it = points[i].begin(); it != points[i].end(); ++it)
-                {
-                    edges++;
-                    // TODO: Is this sufficient?
-                    mset[it->target()] += quick_hash(hash + it->colour());
-                    monoset.add(ps->cellOfVal(it->target()));
-                }
-            }
+           hashCell(monoset, cells[c], path_length);
         }
-        debug_out(0, "EdgeGraph", "considered " << nodes << " nodes and " << edges << " edges.");
         return filterPartitionStackByFunctionWithCells(ps, ContainerToFunction(&mset), monoset);
     }
 
