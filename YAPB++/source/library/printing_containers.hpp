@@ -85,6 +85,7 @@ std::string toString(const T& t)
   return oss.str();
 }
 
+
 #endif
 /** @}
  */

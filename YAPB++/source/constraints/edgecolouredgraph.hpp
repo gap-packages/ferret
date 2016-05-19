@@ -11,20 +11,6 @@
 #include "library/mono_set.hpp"
 #include "library/graph.hpp"
 
-
-struct GraphConfig
-{
-    int start_path_length;
-    int normal_path_length;
-    GraphConfig(int spl = 1, int npl = 1)
-    : start_path_length(spl), normal_path_length(npl)
-    { }
-    
-    GraphConfig(const GraphConfig& gc)
-    : start_path_length(gc.start_path_length), normal_path_length(gc.normal_path_length)
-    { }
-};
-
 template<typename VertexType, GraphDirected directed = GraphDirected_yes>
 class EdgeColouredGraph : public AbstractConstraint
 {

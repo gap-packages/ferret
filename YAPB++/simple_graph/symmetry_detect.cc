@@ -2,14 +2,14 @@
 #include "simple_graph.h"
 
 #include "problem.hpp"
-#include "constraints/graph.hpp"
+#include "constraints/edgecolouredgraph.hpp"
 #include "constraints/setstab.hpp"
 #include "search/search.hpp"
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
 
-vec1<Permutation> SolveGraph(const Graph &g, SearchOptions so, GraphDirected graphDir) {
+vec1<Permutation> SolveGraph(const Graph &g, SearchOptions so, GraphConfig gc, GraphDirected graphDir) {
   Problem p(g.graph_size);
 
   std::vector<AbstractConstraint*> cons;
@@ -17,9 +17,9 @@ vec1<Permutation> SolveGraph(const Graph &g, SearchOptions so, GraphDirected gra
     cons.push_back(new SetStab(part, &p.p_stack));
 
   if (graphDir == GraphDirected_yes)
-    cons.push_back(new SlowGraph<GraphDirected_yes>(g.edges, &p.p_stack));
+    cons.push_back(new EdgeColouredGraph<UncolouredEdge, GraphDirected_yes>(g.edges, gc, &p.p_stack));
   else
-    cons.push_back(new SlowGraph<GraphDirected_no>(g.edges, &p.p_stack));
+    cons.push_back(new EdgeColouredGraph<UncolouredEdge, GraphDirected_no>(g.edges, gc, &p.p_stack));
 
   SolutionStore ss = doSearch(&p, cons, so);
   return ss.sols();

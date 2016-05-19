@@ -9,9 +9,9 @@
 #include "library/stats.hpp"
 #include "search/search_options.hpp"
 
-void outputGraph(const Graph& g, SearchOptions so, GraphDirected directed)
+void outputGraph(const Graph& g, SearchOptions so, GraphConfig gc, GraphDirected directed)
 {
-    auto sols = SolveGraph(g, so, directed);
+    auto sols = SolveGraph(g, so, gc, directed);
 
     std::cout << "[";
     for(auto const& sol : sols)
@@ -42,7 +42,9 @@ void print_usage_instructions()
     " --saucy    : Accept graph in saucy format\n"
     " --dimacs   : Accept graph in dimacs format\n"
     " --json     : Accept an AST in json format (see in-depth docs)\n"
-    " <filename> : Filename of graph\n";
+    " <filename> : Filename of graph\n"
+    " --startpathlength <num> : Length of paths to consider at root node (default 1)"
+    " --normalpathlength <num> : Length of paths to consider at all other nodes (default 1)";
 }
 
 
@@ -56,6 +58,7 @@ int main(int argc, char **argv)
     so.heuristic = Heuristic::adviseHeuristic();
     // formats: 1 - DIMACS, 2 - saucy
     int format = 1;
+    GraphConfig gc;
     for(int i = 1; i < argc; ++i)
     {
         if(argv[i] == std::string("--directed"))
@@ -109,6 +112,24 @@ int main(int argc, char **argv)
                     exit(1);
                 }
         }
+        else if(argv[i] == std::string("--startpathlength"))
+        {
+            i++;
+            gc.start_path_length = atoi(argv[i]);
+            if(gc.start_path_length <= 0) {
+                std::cerr << "Invalid startpathlength\n";
+                exit(1);
+            }
+        }
+        else if(argv[i] == std::string("--normalpathlength"))
+        {
+            i++;
+            gc.normal_path_length = atoi(argv[i]);
+            if(gc.normal_path_length <= 0) {
+                std::cerr << "Invalid normalpathlength\n";
+                exit(1);
+            }
+        }
         else if(argv[i] == std::string("-h") || argv[i] == std::string("-help") || argv[i] == std::string("--help"))
         {
             print_usage_instructions();
@@ -134,7 +155,7 @@ int main(int argc, char **argv)
     }
     if(format == 3)
     {
-        solveJsonGraph(filename, so);
+        solveJsonGraph(filename, so, gc);
     }
     else
     {
@@ -157,7 +178,7 @@ int main(int argc, char **argv)
 
     g.clean();
 
-    outputGraph(g, so, directed);
+    outputGraph(g, so, gc, directed);
 }
 
     if(stats) {

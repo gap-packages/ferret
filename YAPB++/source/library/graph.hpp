@@ -4,41 +4,6 @@
 #include "vec1.hpp"
 #include <set>
 
-// This file stores some simple generic graph related structures
-
-enum GraphDirected
-{ GraphDirected_no = 0, GraphDirected_yes = 1};
-
-struct Graph
-{
-	int graph_size;
-	std::vector<std::set<int> > parts;
-	vec1<vec1<int> > edges;
-
-	Graph(int _size = 0) : graph_size(_size), edges(_size)
-	{ }
-
-	void make_symmetric()
-	{
-		for(int i = 1; i <= graph_size; ++i)
-		{
-			for(int j = 1; j <= edges[i].size(); ++j)
-			{
-				edges[edges[i][j]].push_back(i);
-			}
-		}
-	}
-
-	void clean()
-	{
-		for(int i = 1; i <= graph_size; ++i)
-		{
-			std::set<int> e(edges[i].begin(), edges[i].end());
-			edges[i] = vec1<int>(e.begin(), e.end());
-		}
-	}
-};
-
 // Store an edge for an edge-coloured graph.
 // We require users only give non-negative colours,
 // we use negative colours to represent reversed direction edges
@@ -132,11 +97,45 @@ public:
   }
 };
 
+// This file stores some simple generic graph related structures
+
+enum GraphDirected
+{ GraphDirected_no = 0, GraphDirected_yes = 1};
+
+struct Graph
+{
+	int graph_size;
+	std::vector<std::set<int> > parts;
+	vec1<vec1<UncolouredEdge> > edges;
+
+	Graph(int _size = 0) : graph_size(_size), edges(_size)
+	{ }
+
+	void make_symmetric()
+	{
+		for(int i = 1; i <= graph_size; ++i)
+		{
+			for(int j = 1; j <= edges[i].size(); ++j)
+			{
+				edges[edges[i][j].target()].push_back(UncolouredEdge(j));
+			}
+		}
+	}
+
+	void clean()
+	{
+		for(int i = 1; i <= graph_size; ++i)
+		{
+			std::set<UncolouredEdge> e(edges[i].begin(), edges[i].end());
+			edges[i] = vec1<UncolouredEdge>(e.begin(), e.end());
+		}
+	}
+};
 
 // Takes a graph with multi-coloured (and possibly multiple occurrences)
 // of edges, and replaces it with one where there is at most one edge between
 // each pair of vertices.
-vec1<vec1<ColEdge> > compressGraph(const vec1<vec1<ColEdge> >& graph)
+inline vec1<vec1<ColEdge> > compressGraph(const vec1<vec1<ColEdge> >& graph)
 {
   std::map<std::multiset<int>, int> seen_maps;
   
@@ -160,9 +159,24 @@ vec1<vec1<ColEdge> > compressGraph(const vec1<vec1<ColEdge> >& graph)
   return output_graph;
 }
 
-vec1<vec1<UncolouredEdge> > compressGraph(const vec1<vec1<UncolouredEdge> >& graph)
+inline vec1<vec1<UncolouredEdge> > compressGraph(const vec1<vec1<UncolouredEdge> >& graph)
 {
   return graph;
 }
+
+
+// store how to configure graph propagators
+struct GraphConfig
+{
+    int start_path_length;
+    int normal_path_length;
+    GraphConfig(int spl = 1, int npl = 1)
+    : start_path_length(spl), normal_path_length(npl)
+    { }
+    
+    GraphConfig(const GraphConfig& gc)
+    : start_path_length(gc.start_path_length), normal_path_length(gc.normal_path_length)
+    { }
+};
 
 #endif

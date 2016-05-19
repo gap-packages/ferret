@@ -104,13 +104,13 @@ stores the mapping from the node value (colour) to its position (vector index)
 in the graph.
 any nodes to be added that ar not part of the provided json should call this
 function with an extra bool set to true to make sure that it is not escaped. */
-int addNode(vec1<vec1<int>> &graph, int parentNode, string value,
+int addNode(vec1<vec1<UncolouredEdge>> &graph, int parentNode, string value,
             bool escapeValue = true) {
   if (escapeValue) {
     value = escapeVar(value);
   }
   // make new node
-  graph.push_back(vec1<int>());
+  graph.push_back(vec1<UncolouredEdge>());
   int newNode = graph.size();
 
   // make connection
@@ -132,7 +132,7 @@ int addNode(vec1<vec1<int>> &graph, int parentNode, string value,
   return newNode;
 }
 
-void jsonToGraph(JsonValue &o, vec1<vec1<int>> &graph, int currentNode,
+void jsonToGraph(JsonValue &o, vec1<vec1<UncolouredEdge>> &graph, int currentNode,
                  bool symmetryAllowed = false) {
   switch (o.getTag()) {
   case JSON_TAG_OBJECT: {
@@ -175,10 +175,10 @@ void jsonToGraph(JsonValue &o, vec1<vec1<int>> &graph, int currentNode,
   }
 }
 
-void addPrimeVariables(vec1<vec1<int>> &graph, map<string, set<int>> &vars) {
+void addPrimeVariables(vec1<vec1<UncolouredEdge>> &graph, map<string, set<int>> &vars) {
   string tempColourName = makePrimeVar(vars.begin()->first);
   for (pair<string, set<int>> var : vars) {
-    graph.push_back(vec1<int>());
+    graph.push_back(vec1<UncolouredEdge>());
     int newNode = graph.size();
     originalPrimeColours[newNode] = var.first;
     for (int nodeValue : var.second) {
@@ -215,7 +215,7 @@ bool parseToJson(char *buffer, int bufferLength, JsonValue &value,
     return true;
 }
 
-void jsonToGraph(JsonValue o, vec1<vec1<int>> &graph) {
+void jsonToGraph(JsonValue o, vec1<vec1<UncolouredEdge>> &graph) {
   // get variable list
   for (auto i : o) {
     if (i->key == JSON_VARIABLES_TAG) {
@@ -229,7 +229,7 @@ void jsonToGraph(JsonValue o, vec1<vec1<int>> &graph) {
   addPrimeVariables(graph, vars);
 }
 
-void solveJsonGraph(const std::string& filename, SearchOptions so) {
+void solveJsonGraph(const std::string& filename, SearchOptions so, GraphConfig gc) {
   /*
   if (argc < 2) {
     cout << "usage: " << argv[0] << " filePath [-q]\n-q = quiet mode\n";
@@ -257,7 +257,7 @@ void solveJsonGraph(const std::string& filename, SearchOptions so) {
   if (!parseToJson(buffer, bufferLength, o, allocator))
     exit(EXIT_FAILURE);
   //*out << "converting to graph...\n";
-  vec1<vec1<int>> edges;
+  vec1<vec1<UncolouredEdge>> edges;
   jsonToGraph(o, edges);
 
   //*out << "graph build.\nLooking for symmetries...\n";
@@ -271,7 +271,7 @@ void solveJsonGraph(const std::string& filename, SearchOptions so) {
     graph.parts.push_back(colour.second);
   }
 
-  vec1<Permutation> solutions = SolveGraph(graph, so, GraphDirected_yes);
+  vec1<Permutation> solutions = SolveGraph(graph, so, gc, GraphDirected_yes);
   set<int> primeNodeValues = colours[makePrimeVar(vars.begin()->first)];
 
   // build set of permutations to insure no duplicates
