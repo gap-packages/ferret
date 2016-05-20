@@ -18,6 +18,8 @@ _FerretHelperFuncs := rec(
 fillUserValues := function(options, useroptions)
   local name, ret;
   ret := rec();
+  
+  useroptions := ShallowCopy(useroptions);
 
   for name in RecNames(options) do
     if IsBound(useroptions.(name)) then
