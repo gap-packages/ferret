@@ -172,6 +172,38 @@ function(list, op)
   Error("Do not understand:", op);
 end);
 
+InstallMethod(ConStabilize, [IsList, IsFunction, IsRecord],
+  function(list, op, useroptions)
+    local con, options;
+    
+    if Size(RecNames(useroptions)) = 0 then
+      return ConStabilize(list, op);
+    fi;
+  
+    if op = OnEdgeColouredDirectedGraph then
+      con := rec(constraint := "EdgeColouredDirectedGraph",
+                 arg := list,
+                 max := Length(list));
+    elif op = OnDirectedGraph then
+      con := rec(constraint := "DirectedGraph",
+               arg := list,
+               max := Length(list));
+    else
+      ErrorNoReturn("No record argument allowed for " + op);
+    fi;
+    
+     useroptions := _FerretHelperFuncs.fillUserValues(
+          rec(start_path_length := 1,
+              normal_path_length := 1), useroptions);
+     
+     con.start_path_length := useroptions.start_path_length;
+     con.normal_path_length := useroptions.normal_path_length;
+     
+     return con;
+  end);
+  
+  
+
 InstallMethod(ConStabilize, [IsPosInt, IsFunction],
 function(i, op)
   if op = OnPoints then

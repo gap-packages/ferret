@@ -19,6 +19,7 @@ DeclareRepresentation( "IsSimpleConstraint", IsConstraint, []);
 ##
 
 DeclareOperation("ConStabilize", [IsObject, IsObject]);
+DeclareOperation("ConStabilize", [IsObject, IsObject, IsRecord]);
 
 #DeclareOperation("ConStabilize", [IsTransformation, IsPosInt]);
 #DeclareOperation("ConStabilize", [IsPartialPerm, IsPosInt]);
