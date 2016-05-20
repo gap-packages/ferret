@@ -256,7 +256,7 @@ bool GAP_has_rec(Obj rec, UInt n)
 {
     if(!IS_REC(rec))
         throw GAPException("Invalid attempt to read record");
-    return !ISB_REC(rec, n);
+    return ISB_REC(rec, n);
 }
 
 Obj GAP_get_rec(Obj rec, UInt n)
