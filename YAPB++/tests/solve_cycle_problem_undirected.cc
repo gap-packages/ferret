@@ -1,17 +1,17 @@
 #include "problem.hpp"
-#include "constraints/graph.hpp"
+#include "constraints/edgecolouredgraph.hpp"
 #include "search/search.hpp"
 #include <iostream>
 
 int main(void)
 {
     Problem p(6);
-    vec1<vec1<int> > s(6); // c++11 : {{2},{3},{1},{5},{6},{4}};
+    vec1<vec1<UncolouredEdge> > s(6); // c++11 : {{2},{3},{1},{5},{6},{4}};
     int vals[] = {0,2,3,1,5,6,4};
     for(int i = 1; i <= 6; ++i)
     	s[i].push_back(vals[i]);
     std::vector<AbstractConstraint*> v;
-    v.push_back(new SlowGraph<GraphDirected_no>(s, &p.p_stack));
+    v.push_back(new EdgeColouredGraph<UncolouredEdge, GraphDirected_no>(s, GraphConfig(), &p.p_stack));
     SearchOptions so;
     so.only_find_generators = false;
 
