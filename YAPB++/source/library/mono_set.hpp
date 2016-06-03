@@ -16,6 +16,7 @@ public:
 
 	void add(int i)
 	{
+		D_ASSERT(i >= 0 && i <= hit.size());
 		if(!hit[i])
 		{
 			hit[i] = true;
