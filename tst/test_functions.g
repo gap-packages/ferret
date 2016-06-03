@@ -82,17 +82,26 @@ CheckGroup := function(g)
     return true;
 end;;
 
-CheckStab := function(g, s, act)
-    local permsStabChain, permsBlock, stab, comp1, comp2;
-    permsStabChain := Solve([ConInGroup(g), ConStabilize(s, act)], rec(recreturn := true));
-    permsBlock := Solve([ConInGroup(g, "BlockStabChain"), ConStabilize(s, act)], rec(recreturn := true));
+CheckStab := function(g, s, act, extra...)
+    local permsStabChain, permsBlock, stab, comp1, comp2, stabmap;
+    
+    if Size(extra) = 0 then
+        stabmap := ConStabilize(s, act);
+    elif Size(extra) = 1 then
+        stabmap := ConStabilize(s, act, extra[1]);
+    else
+        ErrorNoReturn("Only 1, or no, extra arguments");
+    fi;
+    
+    permsStabChain := Solve([ConInGroup(g), stabmap], rec(recreturn := true));
+    permsBlock := Solve([ConInGroup(g, "BlockStabChain"), stabmap], rec(recreturn := true));
     stab := Stabilizer(g, s, act);
 
     comp1 := compare_gen_groups(stab, permsStabChain);
     comp2 := compare_gen_groups(stab, permsBlock);
 
     if not(comp1 and comp2) then
-        Print("Fast check stab " , g , ",",s," with action ",act," failed:",
+        Print("Fast check stab " , g , ",",s," with action ",act," and ", extra, " failed:",
               comp1,comp2,"\n");
         Print(permsStabChain, "\n",permsBlock,"\n");
     fi;

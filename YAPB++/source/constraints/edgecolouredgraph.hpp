@@ -28,6 +28,7 @@ public:
         D_ASSERT(points.size() <= ps->domainSize());
         points.resize(ps->domainSize());
         mset.resize(ps->domainSize(), 0);
+        msetspare.resize(ps->domainSize(), 0);
         for(int i = 1; i <= _points.size(); ++i)
         {
             int i_size = _points[i].size();
@@ -57,24 +58,13 @@ public:
     }
 private:
 
-    // Construct this once, for use in filterGraph, as the cost is fairly big
+    // Construct these once, for use in filterGraph, as the cost is fairly big
     vec1<u_int64_t> mset;
+    vec1<u_int64_t> msetspare;
     
-    void hashNeighboursOfVertex(MonoSet& monoset, int vertex, u_int64_t hash, int path_length)
-    {
-        for(typename vec1<VertexType>::iterator it = points[vertex].begin();
-              it != points[vertex].end(); ++it)
-        {
-            monoset.add(ps->cellOfVal(it->target()));
-            u_int64_t new_hash = quick_hash(hash + it->colour());
-            mset[it->target()] += new_hash;
-            if(path_length > 0) {
-                hashNeighboursOfVertex(monoset, it->target(), new_hash, path_length - 1);
-            }
-        }
-    }
+    int edgesconsidered;
     
-    void hashCell(MonoSet& monoset, int cell, int path_length)
+    void hashCellSimple(MonoSet& monoset, int cell)
     {
         Range<PartitionStack::cellit> r = ps->cellRange(cell);
         for(PartitionStack::cellit it = r.begin(); it != r.end(); ++it)
@@ -82,7 +72,63 @@ private:
             int i = *it;
             int i_cell = ps->cellOfVal(i);
             int hash = quick_hash(i_cell);
-            hashNeighboursOfVertex(monoset, i, hash, path_length);
+            for(typename vec1<VertexType>::iterator it2 = points[i].begin();
+              it2 != points[i].end(); ++it2)
+            {
+                monoset.add(ps->cellOfVal(it2->target()));
+                u_int64_t new_hash = quick_hash(hash + it2->colour());
+                edgesconsidered++;
+                mset[it2->target()] += new_hash;
+            }
+        }
+    }
+    
+    void hashNeighboursOfVertexDeep2(MonoSet& hitcells, int vertex, u_int64_t hash)
+    {
+        for(typename vec1<VertexType>::iterator it = points[vertex].begin();
+              it != points[vertex].end(); ++it)
+        {
+            hitcells.add(ps->cellOfVal(it->target()));
+            u_int64_t new_hash = quick_hash(hash + it->colour());
+            edgesconsidered++;
+            msetspare[it->target()] += new_hash;
+        }
+    }
+ 
+    template<typename Range>
+    void hashRangeDeep2(MonoSet& hitcells, Range cell)
+    {
+        for(typename Range::iterator it = cell.begin(); it != cell.end(); ++it)
+        {
+            int i = *it;
+            int i_cell = ps->cellOfVal(i);
+            int hash = quick_hash(i_cell + mset[i]);
+            hashNeighboursOfVertexDeep2(hitcells, i, hash);
+        }
+    }
+    
+    void hashNeighboursOfVertexDeep(MonoSet& hitcells, MonoSet& hitvertices, int vertex, u_int64_t hash)
+    {
+        for(typename vec1<VertexType>::iterator it = points[vertex].begin();
+              it != points[vertex].end(); ++it)
+        {
+            hitcells.add(ps->cellOfVal(it->target()));
+            hitvertices.add(it->target());
+            u_int64_t new_hash = quick_hash(hash + it->colour());
+            edgesconsidered++;
+            mset[it->target()] += new_hash;
+        }
+    }
+ 
+    template<typename Range>
+    void hashRangeDeep(MonoSet& hitcells, MonoSet& hitvertices, Range cell)
+    {
+        for(typename Range::iterator it = cell.begin(); it != cell.end(); ++it)
+        {
+            int i = *it;
+            int i_cell = ps->cellOfVal(i);
+            int hash = quick_hash(i_cell);
+            hashNeighboursOfVertexDeep(hitcells, hitvertices, i, hash);
         }
     }
     
@@ -90,12 +136,28 @@ private:
     {
         // Would not normally go this low level, but it is important this is fast
         memset(&(mset.front()), 0, mset.size() * sizeof(mset[0]));
-        
+        edgesconsidered = 0;
         MonoSet monoset(ps->cellCount());
         debug_out(0, "EdgeGraph", "filtering: " << cells.size() << " cells out of " << ps->cellCount());
-        for(int c = 1; c <= cells.size(); ++c)
+        if(path_length == 1) {
+            for(int c = 1; c <= cells.size(); ++c)
+            {
+                hashCellSimple(monoset, cells[c]);
+            }
+        }
+        else
         {
-           hashCell(monoset, cells[c], path_length);
+            MonoSet hitvertices(ps->domainSize());
+            for(int c = 1; c <= cells.size(); ++c)
+            {
+                hashRangeDeep(monoset, hitvertices, ps->cellRange(cells[c]));
+            }
+            
+            memset(&(msetspare.front()), 0, msetspare.size() * sizeof(msetspare[0]));
+            hashRangeDeep2(monoset, hitvertices.getMembers());
+            for(int i = 1; i <= mset.size(); ++i) {
+                mset[i] += msetspare[i] * 71;
+            }
         }
         return filterPartitionStackByFunctionWithCells(ps, ContainerToFunction(&mset), monoset);
     }

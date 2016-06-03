@@ -26,6 +26,9 @@ public:
   Range(Iterator _b, Iterator _e) : b(_b), e(_e)
   { }
 
+  typedef Iterator iterator;
+  //typedef const Iterator const_iterator;
+
   Iterator begin() const { return b; }
   Iterator end() const { return e; }
 
