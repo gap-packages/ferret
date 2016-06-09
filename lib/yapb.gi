@@ -52,6 +52,10 @@ _YAPB_isGroupConj := function(p, g)
   return g^p = g;
 end;
 
+_YAPB_isGroupNorm := function(p, g)
+    return (p in g) or (g^p = g);
+end;
+
 _YAPB_getOrbitPart := function(g, maxval)
   return OrbitsDomain(Group(g.generators), [1..maxval]);
 end;
