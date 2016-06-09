@@ -27,17 +27,17 @@ private:
 
     vec1<int> getRBasePartition(const vec1<int>& fix)
     {
-        debug_out(0, "PermGroup", "Fixing: " << fix);
+        debug_out(3, "PermGroup", "Fixing: " << fix);
         Obj vec = GAP_make(fix);
         Obj orbits = GAP_callFunction(FunObj_YAPB_FixedOrbits, group, GAP_make(ps->domainSize()), vec);
         vec1<vec1<int> > oart = GAP_get<vec1<vec1<int> > >(orbits);
-        debug_out(0, "PermGroup", "Got orbit partition" << oart);
+        debug_out(3, "PermGroup", "Got orbit partition" << oart);
         // This might not be necessary, but it doesn't hurt!
         for(int i = 1; i <= oart.size(); ++i)
             std::sort(oart[i].begin(), oart[i].end());
         std::sort(oart.begin(), oart.end());
         vec1<int> filter = partitionToList(oart, ps->domainSize(), MissingPoints_Fixed);
-        debug_out(0, "PermGroup", "Filter partition: " << filter);
+        debug_out(3, "PermGroup", "Filter partition: " << filter);
         return filter;
     }
 
@@ -102,7 +102,7 @@ public:
             return SplitState(false);
         }
         vec1<int> perm = GAP_get<vec1<int> >(obj_perm);
-        debug_out(0, "PermGroup", "mapping is: " << perm);
+        debug_out(3, "PermGroup", "mapping is: " << perm);
         vec1<int> permuted_part(part.size(), 0);
         for(int i = 1; i <= part.size(); ++i)
         {
@@ -111,7 +111,7 @@ public:
             else
                 permuted_part[i] = part[i];
         }
-        debug_out(0, "PermGroup", "Permuted partition" << permuted_part);
+        debug_out(3, "PermGroup", "Permuted partition" << permuted_part);
         return filterPartitionStackByFunction(ps, ContainerToFunction(&permuted_part));
     }
 

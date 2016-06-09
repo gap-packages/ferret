@@ -67,7 +67,7 @@ public:
     {
         permutations.push_back(sol);
         D_ASSERT(sol.size() == orbit_mins.size());
-        debug_out(0, "SS", "Old orbit_mins:" << orbit_mins);
+        debug_out(3, "SS", "Old orbit_mins:" << orbit_mins);
         for(int i = 1; i <= sol.size(); ++i)
         {
             if(sol[i] != i)
@@ -87,8 +87,8 @@ public:
             }
         }
         debug_out(1, "SS", "Solution found");
-        debug_out(0, "SS", "Sol:" << sol);
-        debug_out(0, "SS", "New orbit_mins:" << orbit_mins);
+        debug_out(3, "SS", "Sol:" << sol);
+        debug_out(3, "SS", "New orbit_mins:" << orbit_mins);
     }
 
     void markLastSolutionFrom(int from, int to)

@@ -60,7 +60,7 @@ SortEvent filterCellByFunction_noSortData(PartitionStack* ps, int cell, F f)
     se.finalise();
 
     D_ASSERT(cellsplits > 0);
-    debug_out(0, "filter",  "Succeeded at: " << cell << ", " << cellsplits << " ( " << (cellEnd - cellBegin) << ", " << cellBegin << ", " << cellEnd << ", " << ps->cellCount() << ")\n");
+    debug_out(3, "filter",  "Succeeded at: " << cell << ", " << cellsplits << " ( " << (cellEnd - cellBegin) << ", " << cellBegin << ", " << cellEnd << ", " << ps->cellCount() << ")\n");
     return se;
 }
 
@@ -70,7 +70,7 @@ SortEvent filterCellByFunction_noSortData(PartitionStack* ps, int cell, F f)
 template<typename F>
 inline SplitState filterCellByFunction_withSortData(PartitionStack* ps, int cell, F f, const SortEvent& se)
 {
-    debug_out(0, "filter",  "Start filter");
+    debug_out(3, "filter",  "Start filter");
 
     D_ASSERT(se.hash_starts.size() > 1);
 
@@ -85,7 +85,7 @@ inline SplitState filterCellByFunction_withSortData(PartitionStack* ps, int cell
 template<typename F>
 bool validateFixedCell(PartitionStack* ps, int cell, int hash, F f)
 {
-    debug_out(0, "filter", "validating fixed cell by hash " << hash);
+    debug_out(3, "filter", "validating fixed cell by hash " << hash);
     typedef PartitionStack::cellit it_type;
     it_type end = ps->cellEndPtr(cell);
     for(it_type it = ps->cellStartPtr(cell); it != end; ++it)
@@ -186,20 +186,20 @@ SplitState filterPartitionStackByFunctionWithCells_noSortData(PartitionStack* ps
 template<typename F>
 SplitState filterPartitionStackByFunction(PartitionStack* ps, F f)
 {
-    debug_out(0, "filterByFunction", "prestate " << ps->printCurrentPartition());
+    debug_out(3, "filterByFunction", "prestate " << ps->printCurrentPartition());
     SplitState ret(false);
     if(ps->getAbstractQueue()->hasSortData())
       ret = filterPartitionStackByFunction_withSortData(ps, f);
     else
       ret = filterPartitionStackByFunction_noSortData(ps, f);
-    debug_out(0, "filterByFunction", "poststate " << ps->printCurrentPartition());
+    debug_out(3, "filterByFunction", "poststate " << ps->printCurrentPartition());
     return ret;
 }
 
 template<typename F, typename Cells>
 SplitState filterPartitionStackByFunctionWithCells(PartitionStack* ps, F f, const Cells& cells)
 {
-    debug_out(0, "filterByFunction", "prestate " << ps->printCurrentPartition());
+    debug_out(3, "filterByFunction", "prestate " << ps->printCurrentPartition());
     SplitState ret(false);
     if(ps->getAbstractQueue()->hasSortData())
     {
@@ -208,7 +208,7 @@ SplitState filterPartitionStackByFunctionWithCells(PartitionStack* ps, F f, cons
     }
     else
       ret = filterPartitionStackByFunctionWithCells_noSortData(ps, f, cells);
-    debug_out(0, "filterByFunction", "poststate " << ps->printCurrentPartition());
+    debug_out(3, "filterByFunction", "poststate " << ps->printCurrentPartition());
     return ret;
 }
 
@@ -252,7 +252,7 @@ SplitState filterCellByUnorderedFunction(PartitionStack* ps, int cell, F f)
 template<typename F>
 SplitState filterPartitionStackByUnorderedFunction(PartitionStack* ps, F f)
 {
-    debug_out(0, "filterUnFun", "prestate " << ps->printCurrentPartition());
+    debug_out(3, "filterUnFun", "prestate " << ps->printCurrentPartition());
     int cellCount = ps->cellCount();
     // first of all, we need to try to distinguish as many values of F as possible.
 
@@ -274,17 +274,17 @@ SplitState filterPartitionStackByUnorderedFunction(PartitionStack* ps, F f)
     	}
     }
 
-    debug_out(0, "filter", "Hash:" << full_hash);
-    debug_out(0, "filter", "Function:" << f);
+    debug_out(3, "filter", "Hash:" << full_hash);
+    debug_out(3, "filter", "Function:" << f);
     SplitState ret = filterPartitionStackByFunction(ps, IndirectFunction(MapToFunction(&full_hash), f));
-    debug_out(0, "filterUnFun", "poststate " << ps->printCurrentPartition());
+    debug_out(3, "filterUnFun", "poststate " << ps->printCurrentPartition());
     return ret;
 }
 
 template<typename F>
 SplitState filterPartitionStackByUnorderedListFunction(PartitionStack* ps, F f)
 {
-    debug_out(0, "filterUnListFun", "prestate " << ps->printCurrentPartition());
+    debug_out(3, "filterUnListFun", "prestate " << ps->printCurrentPartition());
     int cellCount = ps->cellCount();
     // first of all, we need to try to distinguish as many values of F as possible.
 
@@ -310,7 +310,7 @@ SplitState filterPartitionStackByUnorderedListFunction(PartitionStack* ps, F f)
     }
 
     SplitState ret = filterPartitionStackByFunction(ps, IndirectVecCollapseFunction(MapToFunction(&full_hash), f));
-    debug_out(0, "filterUnListFun", "poststate " << ps->printCurrentPartition());
+    debug_out(3, "filterUnListFun", "poststate " << ps->printCurrentPartition());
     return ret;
 }
 

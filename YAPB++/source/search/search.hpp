@@ -63,7 +63,7 @@ bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
                 (void)branch_split;
                 D_ASSERT(!branch_split.hasFailed());
                 tfq->endBranch();
-                debug_out(0, "search", "Perm State " << p->p_stack.printCurrentPartition());
+                debug_out(3, "search", "Perm State " << p->p_stack.printCurrentPartition());
 
 
                 SplitState split = tfq->execute_trace();

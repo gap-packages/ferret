@@ -172,7 +172,7 @@ struct StabChainCache
         GAP_callFunction(FunObj_ChangeStabChain, stabChain, GAP_make(order));
 
         debug_out(1, "SCC", "Setting up cache");
-        debug_out(0, "SCC", "Order " << order);
+        debug_out(3, "SCC", "Order " << order);
         int order_pos = 1;
 
         GAPStabChainWrapper stabChainCpy(stabChain);
@@ -182,11 +182,11 @@ struct StabChainCache
 
             while(order[order_pos] != scl.base_value)
             {
-                debug_out(0, "SCC", "Skipping depth " << order_pos);
+                debug_out(3, "SCC", "Skipping depth " << order_pos);
                 order_pos++;
             }
 
-            debug_out(1, "SCC", "Setting depth "<<order_pos<<" base point "<<scl.base_value);
+            debug_out(3, "SCC", "Setting depth "<<order_pos<<" base point "<<scl.base_value);
             levels.push_back(scl);
             unpacked_stabChain_depth[order_pos] = levels.size();
 
@@ -249,15 +249,15 @@ private:
 
     const vec1<int>& getRBasePartition(const vec1<int>& fix)
     {
-        debug_out(0, "scpg", "Fixing: "<< fix);
+        debug_out(3, "scpg", "Fixing: "<< fix);
         vec1<vec1<int> > oart = scc.orbits(fix, ps->domainSize());
-        debug_out(0, "scpg", "Got orbit partition"<< oart);
+        debug_out(3, "scpg", "Got orbit partition"<< oart);
         // This might not be necessary, but it doesn't hurt!
         for(int i = 1; i <= oart.size(); ++i)
             std::sort(oart[i].begin(), oart[i].end());
         std::sort(oart.begin(), oart.end());
         vec1<int> filter = partitionToList(oart, ps->domainSize(), MissingPoints_Fixed);
-        debug_out(0, "scpg", "Filter partition: "<< filter);
+        debug_out(3, "scpg", "Filter partition: "<< filter);
 
         original_partitions[fix.size()+1] = MOVE(filter);
 
@@ -308,7 +308,7 @@ public:
 
     virtual SplitState signal_fix_buildingRBase(int /*i*/)
     {
-        debug_out(1, "scpg", "signal_fix_buildingRBase");
+        debug_out(3, "scpg", "signal_fix_buildingRBase");
         const vec1<int>& part = getRBasePartition(ps->fixed_values());
 
         vec1<std::map<int,int> > blocks;
@@ -339,7 +339,7 @@ public:
 
     virtual SplitState signal_fix(int /*fix_pos*/)
     {
-        debug_out(1, "scpg", "signal_fix");
+        debug_out(3, "scpg", "signal_fix");
         const vec1<int>& new_fix_cells = ps->fixed_values();
 
         Permutation perm(last_permutation.back());
@@ -361,24 +361,24 @@ public:
             {
                 StabChainLevel& scl = scc.getUnpackedLevel(i);
                 D_ASSERT(scl.base_value == (rb->value_ordering)[i]);
-                debug_out(1, "scpg", "Trying to map "<<new_fix_cells[i]<<" to "<<(rb->value_ordering)[i]);
+                debug_out(3, "scpg", "Trying to map "<<new_fix_cells[i]<<" to "<<(rb->value_ordering)[i]);
                 int image = perm_stack[new_fix_cells[i]];
-                debug_out(0, "scpg", "Pre-image of "<<new_fix_cells[i]<<" is "<<image);
+                debug_out(3, "scpg", "Pre-image of "<<new_fix_cells[i]<<" is "<<image);
                 if(!scl.exists_perm_to(image))
                 {
-                    debug_out(1, "scpg", "No perm exists to map to image");
+                    debug_out(3, "scpg", "No perm exists to map to image");
                     return SplitState(false);
                 }
                 const optional<Permutation>& p = scl.perm_mapping_from(image);
                 if(!p)
                 {
-                    debug_out(1, "scpg", "No perm mapping from image?");
+                    debug_out(3, "scpg", "No perm mapping from image?");
                     return SplitState(false);
                 }
                 D_ASSERT((*p)[image] == (rb->value_ordering)[i]);
-                debug_out(0, "scpg", "Old stack: " << perm_stack.getPerm());
+                debug_out(3, "scpg", "Old stack: " << perm_stack.getPerm());
                 perm_stack.addPerm((*p));
-                debug_out(0, "scpg", "New perm: " << *p << " added to stack gives " << perm_stack.getPerm());
+                debug_out(3, "scpg", "New perm: " << *p << " added to stack gives " << perm_stack.getPerm());
                 D_ASSERT(perm_stack[new_fix_cells[i]] == (rb->value_ordering)[i]);
             }
             else

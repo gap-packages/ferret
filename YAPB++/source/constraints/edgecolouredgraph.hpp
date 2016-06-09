@@ -138,7 +138,7 @@ private:
         memset(&(mset.front()), 0, mset.size() * sizeof(mset[0]));
         edgesconsidered = 0;
         MonoSet monoset(ps->cellCount());
-        debug_out(0, "EdgeGraph", "filtering: " << cells.size() << " cells out of " << ps->cellCount());
+        debug_out(3, "EdgeGraph", "filtering: " << cells.size() << " cells out of " << ps->cellCount());
         if(path_length == 1) {
             for(int c = 1; c <= cells.size(); ++c)
             {

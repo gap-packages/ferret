@@ -42,7 +42,7 @@ template<typename PartitionStack, typename SortFun>
 bool indirect_data_sorter_impl(int cell, PartitionStack* ps, SortFun f, const SortEvent& sd)
 {
 	static vec1<vec1<int> > v;
-	debug_out(0, "sort", "start");
+	debug_out(3, "sort", "start");
 	v.resize(sd.hash_starts.size());
 
 	for(int i = 1; i <= sd.hash_starts.size(); ++i)
@@ -86,11 +86,11 @@ bool indirect_data_sorter_impl(int cell, PartitionStack* ps, SortFun f, const So
 
 		std::copy(v[i].begin(), v[i].end(), ps->valPtr(sd.hash_starts[pos].startPos));
 
-		debug_out(0, "sort", "clear: " << i);
+		debug_out(3, "sort", "clear: " << i);
 		v[i].clear();
 	}
 
-	debug_out(0, "sort", "end");
+	debug_out(3, "sort", "end");
 	return true;
 }
 
