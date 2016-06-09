@@ -89,7 +89,7 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
     }
     else if(strcmp(conname, "Normaliser") == 0)
     {
-        return new Normalise(GAP_get_rec(con, RName_arg), ps);
+        return new Normaliser(GAP_get_rec(con, RName_arg), ps);
     }
     else if(strcmp(conname, "NULL") == 0)
         return 0;
