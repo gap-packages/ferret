@@ -28,6 +28,8 @@ DeclareOperation("ConStabilize", [IsObject, IsObject, IsRecord]);
 DeclareOperation("ConInGroup", [IsPermGroup, IsRecord]);
 DeclareOperation("ConInGroup", [IsPermGroup]);
 
+DeclareOperation("ConNormaliser", [IsPermGroup]);
+
 DeclareGlobalFunction("OnDirectedGraph");
 DeclareGlobalFunction("OnEdgeColouredDirectedGraph");
 

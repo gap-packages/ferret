@@ -24,6 +24,7 @@
 #include "constraints/perm_group.hpp"
 #include "constraints/stabchain_perm_group.hpp"
 #include "constraints/fixallpoints.hpp"
+#include "constraints/normaliser.hpp"
 
 AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktracker* mb, MemoryBacktracker* rbase_mb)
 {
@@ -85,6 +86,10 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
                             GAP_get<std::string>(GAP_get_rec(con, RNamName("blocks"))),
                             GAP_get<std::string>(GAP_get_rec(con, RNamName("orbitals"))));
         return new StabChain_PermGroup(GAP_get_rec(con, RNamName("arg")), scc, ps, mb, rbase_mb);
+    }
+    else if(strcmp(conname, "Normaliser") == 0)
+    {
+        return new Normalise(GAP_get_rec(con, RName_arg), ps);
     }
     else if(strcmp(conname, "NULL") == 0)
         return 0;
