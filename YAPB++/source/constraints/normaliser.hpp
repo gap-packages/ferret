@@ -16,6 +16,8 @@
  * It should be sufficient to just compute the normaliser of a group
  * E <= S_n, then we can intersect E with another group G and get
  * the normaliser of E in G.
+ *
+ * Use with extreme portions of salt, this isn't finished.
  */
 
 class Normaliser : public AbstractConstraint
@@ -38,15 +40,21 @@ private:
 public:
     std::vector<TriggerType> triggers()
     {
+        std::vector<TriggerType> v;
+        v.push_back(Trigger_RBaseFinished);
+        return v;
     }
     SplitState signal_start_buildingRBase()
     {
+
     }
     SplitState signal_start()
     {
+        
     }
     virtual void signal_RBaseFinished(RBase* _rb)
     {
+        rb = _rb;
     }
     virtual SplitState signal_fix_buildingRBase(int)
     {
@@ -55,7 +63,9 @@ public:
     {
     }
     virtual bool verifySolution(const Permutation& p)
-    { return GAP_get<bool>(GAP_callFunction(FunObj_inGroup, GAP_make(p), group)); }
+    {
+        return GAP_get<bool>(GAP_callFunction(FunObj_isGroupConj, GAP_make(p), group));
+    }
 };
 
 
