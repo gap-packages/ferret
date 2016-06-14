@@ -42,6 +42,12 @@ ArchiveFormats := ".tar.gz",
 ##
 Status := "dev",
 
+SourceRepository := rec( 
+  Type := "git", 
+  URL := "https://github.com/gap-packages/ferret"
+),
+IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
+
 AbstractHTML   :=  "",
 
 PackageDoc := rec(
