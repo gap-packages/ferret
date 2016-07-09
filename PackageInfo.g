@@ -22,9 +22,9 @@ Persons := [
   ),
 ],
 
-PackageWWWHome := "http://gap-system.github.io/ferret/",
+PackageWWWHome := "http://gap-packages.github.io/ferret/",
 
-ArchiveURL     := Concatenation("https://github.com/gap-system/ferret/",
+ArchiveURL     := Concatenation("https://github.com/gap-packages/ferret/",
                                 "releases/download/v", ~.Version,
                                 "/ferret-", ~.Version),
 README_URL     := Concatenation( ~.PackageWWWHome, "README" ),
@@ -82,8 +82,8 @@ TestFile := "tst/testall.g",
 AutoDoc := rec(
     TitlePage := rec(
         Copyright := """
-&copyright; 2013-2014 by Christopher Jefferson<P/>
-Ferret package is free software;
+&copyright; 2013-2016 by Christopher Jefferson<P/>
+The Ferret package is free software;
 you can redistribute it and/or modify it under the terms of the
 <URL Text="GNU General Public License">http://www.fsf.org/licenses/gpl.html</URL>
 as published by the Free Software Foundation; either version 2 of the License,
