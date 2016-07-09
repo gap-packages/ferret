@@ -36,7 +36,7 @@
   
   [1X3.2 [33X[0;0YCompiling Binaries of the Ferret Package[133X[101X
   
-  [33X[0;0YAfter  unpacking  the archive, go to the newly created [11Xexample[111X directory and
+  [33X[0;0YAfter  unpacking  the  archive, go to the newly created [11Xferret[111X directory and
   call  [10X./configure[110X to use the default [10X../..[110X path to the [5XGAP[105X home directory or
   [10X./configure  [3Xpath[103X[10X[110X  where  [3Xpath[103X is the path to the [5XGAP[105X home directory, if the
   package  is being installed in a non-default location. So for example if you
@@ -63,7 +63,7 @@
   calling [2XLoadPackage[102X ([14XReference: LoadPackage[114X):[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XLoadPackage("example");[127X[104X
+    [4X[25Xgap>[125X [27XLoadPackage("ferret");[127X[104X
     [4X[28Xtrue[128X[104X
   [4X[32X[104X
   

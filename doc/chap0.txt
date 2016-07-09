@@ -1,15 +1,15 @@
   
   
-                                     [1X[5XFerret[105X[101X
+                                    [1X ferret [101X
   
   
-                     [1XBacktrack Search in Permutation Groups[101X
+                    [1X Backtrack Search in Permutation Groups [101X
   
   
-                                 Version 0.5.1
+                                     0.6.0
   
   
-                                12 January 2014
+                                   09/07/2016
   
   
                              Christopher Jefferson
@@ -19,13 +19,18 @@
   Christopher Jefferson
       Email:    [7Xmailto:caj21@st-andrews.ac.uk[107X
       Homepage: [7Xhttp://caj.host.cs.st-andrews.ac.uk/[107X
+      Address:  [33X[0;14YSt Andrews[133X
+                [33X[0;14YScotland[133X
+                [33X[0;14YUK[133X
+  
+  
   
   -------------------------------------------------------
   [1XCopyright[101X
-  [33X[0;0Y© 2013-2014 by Christopher Jefferson[133X
+  [33X[0;0Y© 2013-2016 by Christopher Jefferson[133X
   
-  [33X[0;0Y[5XFerret[105X  package  is  free software; you can redistribute it and/or modify it
-  under     the     terms     of    the    GNU    General    Public    License
+  [33X[0;0YThe  Ferret  package is free software; you can redistribute it and/or modify
+  it    under    the    terms    of    the    GNU   General   Public   License
   ([7Xhttp://www.fsf.org/licenses/gpl.html[107X)  as  published  by  the Free Software
   Foundation;  either  version 2 of the License, or (at your option) any later
   version.[133X
@@ -34,11 +39,12 @@
   -------------------------------------------------------
   
   
-  [1XContents (Example)[101X
+  [1XContents (Ferret)[101X
   
   1 [33X[0;0YThe Ferret Package[133X
     1.1 [33X[0;0YReplacing Built-in functionality[133X
       1.1-1 EnableFerretOverloads
+      1.1-2 FerretOverloadsEnabled
   2 [33X[0;0YThe Solve Method[133X
     2.1 [33X[0;0YMethods of representing groups in Ferret[133X
       2.1-1 [33X[0;0YConStabilize[133X

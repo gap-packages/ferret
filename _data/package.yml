@@ -1,6 +1,6 @@
 name: ferret
-version: 0.5.1
-date: 12/01/2015
+version: 0.6.0
+date: 09/07/2016
 description: Backtrack Search in Permutation Groups
 
 authors:
@@ -18,13 +18,13 @@ needed-pkgs:
       version: ">= 1.5"
       url: "http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc"
 
-www: http://gap-system.github.io/ferret/
-readme: http://gap-system.github.io/ferret/README
-packageinfo: http://gap-system.github.io/ferret/PackageInfo.g
+www: http://gap-packages.github.io/ferret/
+readme: http://gap-packages.github.io/ferret/README
+packageinfo: http://gap-packages.github.io/ferret/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/gap-system/ferret/releases/download/v0.5.1/ferret-0.5.1.tar.gz
+      url: https://github.com/gap-packages/ferret/releases/download/v0.6.0/ferret-0.6.0.tar.gz
 
 abstract: 
 
