@@ -102,13 +102,13 @@ public:
 enum GraphDirected
 { GraphDirected_no = 0, GraphDirected_yes = 1};
 
-struct Graph
+struct ParsedGraph
 {
 	int graph_size;
 	std::vector<std::set<int> > parts;
 	vec1<vec1<UncolouredEdge> > edges;
 
-	Graph(int _size = 0) : graph_size(_size), edges(_size)
+	ParsedGraph(int _size = 0) : graph_size(_size), edges(_size)
 	{ }
 
 	void make_symmetric()

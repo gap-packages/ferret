@@ -9,7 +9,7 @@
 #include "library/stats.hpp"
 #include "search/search_options.hpp"
 
-void outputGraph(const Graph& g, SearchOptions so, GraphConfig gc, GraphDirected directed)
+void outputGraph(const ParsedGraph& g, SearchOptions so, GraphConfig gc, GraphDirected directed)
 {
     auto sols = SolveGraph(g, so, gc, directed);
 
@@ -167,7 +167,7 @@ int main(int argc, char **argv)
         perror("Error: "); 
     }
 
-    Graph g;
+    ParsedGraph g;
     switch(format)
     {
         case 1: g = read_dimacs_graph(fp); break;

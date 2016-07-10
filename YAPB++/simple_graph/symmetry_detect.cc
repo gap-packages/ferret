@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-vec1<Permutation> SolveGraph(const Graph &g, SearchOptions so, GraphConfig gc, GraphDirected graphDir) {
+vec1<Permutation> SolveGraph(const ParsedGraph &g, SearchOptions so, GraphConfig gc, GraphDirected graphDir) {
   Problem p(g.graph_size);
 
   std::vector<AbstractConstraint*> cons;

@@ -6,10 +6,10 @@
 #include <map>
 #include <set>
 
-Graph read_saucy_graph(FILE *f) {
+ParsedGraph read_saucy_graph(FILE *f) {
   int num_edges, num_cells, num_verts;
   assert(fscanf(f, "%d %d %d", &num_verts, &num_edges, &num_cells) == 3);
-  Graph g(num_verts);
+  ParsedGraph g(num_verts);
   int prev_cell_start = 0;
   for (int i = 0; i < num_cells - 1; ++i) {
     std::set<int> cell;
@@ -31,7 +31,7 @@ Graph read_saucy_graph(FILE *f) {
   return g;
 }
 
-Graph read_dimacs_graph(FILE *fp) {
+ParsedGraph read_dimacs_graph(FILE *fp) {
   FILE *errstr = 0;
 
   std::map<int, std::set<int>> colours;
@@ -85,7 +85,7 @@ Graph read_dimacs_graph(FILE *fp) {
     fflush(verbstr);
   }
 
-  Graph g(nof_vertices);
+  ParsedGraph g(nof_vertices);
 
   //
   // Read vertex colors

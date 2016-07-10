@@ -263,7 +263,7 @@ void solveJsonGraph(const std::string& filename, SearchOptions so, GraphConfig g
   //*out << "graph build.\nLooking for symmetries...\n";
 
   // build graph object for symmetry detection
-  Graph graph(edges.size());
+  ParsedGraph graph(edges.size());
   graph.edges = edges;
 
   // load colour groups
