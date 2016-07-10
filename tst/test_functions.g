@@ -11,23 +11,23 @@ compare_full_groups := function(g, record)
     local perms;
     perms := record.generators;
     if(Size(perms) <> Size(Group(perms))) then
-        Print("Size(p) = ", Size(perms), ", Size(Group(p)) = ", Size(Group(perms)),"\n");
-        Print("p:", perms,"\n");
+        Print("CFG: Size(p) = ", Size(perms), ", Size(Group(p)) = ", Size(Group(perms)),"\n");
+        Print("CFG: p:", perms,"\n");
         return fail;
     fi;
     if(Size(Set(perms)) <> Size(perms)) then
-        Print("Repeated members of p!","\n");
+        Print("CFG: Repeated members of p!","\n");
         Print(perms,"\n");
         return fail;
     fi;
     if(Set(perms) <> Set(Group(perms))) then
-        Print("p not whole group!","\n");
+        Print("CFG: p not whole group!","\n");
         Print(Set(perms),"\n");
         Print(Set(Group(perms)),"\n");
         return fail;
     fi;
     if(Group(perms) <> g) then
-        Print("Wrong group!","\n");
+        Print("CFG: Wrong group!","\n");
         Print(g,"\n");
         Print(Group(perms),"\n");
         return fail;
@@ -40,13 +40,13 @@ compare_gen_groups := function(g, record)
     local perms;
     perms := record.generators;
     if(Group(perms, ()) <> g) then
-        Print("Wrong group!","\n");
-        Print("Expected: ",g,"\n");
-        Print("Found: ",Group(perms,()),"\n");
+        Print("CGG: Wrong group!","\n");
+        Print("CGG: Expected: ",g,"\n");
+        Print("CGG: Found: ",Group(perms,()),"\n");
         return false;
     fi;
     if((Length(perms) > LargestMovedPoint(g)) and (Length(perms) > 1)) then
-        Print("Too many generators! (LMP=)",LargestMovedPoint(g),"\n");
+        Print("CGG: Too many generators! (LMP=)",LargestMovedPoint(g),"\n");
         Print(perms,"\n");
         return false;
     fi;

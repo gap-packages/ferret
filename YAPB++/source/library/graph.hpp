@@ -48,7 +48,7 @@ public:
   }
   
   friend std::ostream& operator<<(std::ostream& o, ColEdge c) {
-      return o << "[" << c.target() << "," << c.colour() << "]";
+      return o << "(" << c.target() << ":c" << c.colour() << ")";
   }
 };
 
@@ -93,7 +93,7 @@ public:
   }
   
   friend std::ostream& operator<<(std::ostream& o, UncolouredEdge c) {
-      return o << "[" << c.target() << "," << c.colour() << "]";
+      return o << "(" << c.target() << ":o" << c.colour() << ")";
   }
 };
 
@@ -145,15 +145,14 @@ inline vec1<vec1<ColEdge> > compressGraph(const vec1<vec1<ColEdge> >& graph)
     for(int j = 1; j <= graph[i].size(); ++j) {
       edges[graph[i][j].target()].insert(graph[i][j].colour());
     }
-    
-    for(int j = 1; j <= graph[i].size(); ++j) {
-      if(edges[i].size() > 0) {
-        if(seen_maps.count(edges[i]) == 0) {
-          int val = seen_maps.size() + 1;
-          seen_maps[edges[i]] = val;
-        }
-        output_graph[i].push_back(ColEdge(j, seen_maps[edges[i]]));
+    typedef std::map<int, std::multiset<int> >::iterator edge_iterator;
+    for(edge_iterator it = edges.begin(); it != edges.end(); ++it)
+    {
+      if(seen_maps.count(it->second) == 0) {
+        int val = seen_maps.size() + 1;
+        seen_maps[it->second] = val;
       }
+      output_graph[i].push_back(ColEdge(it->first, seen_maps[it->second]));
     }
   }
   return output_graph;
@@ -164,13 +163,46 @@ inline vec1<vec1<UncolouredEdge> > compressGraph(const vec1<vec1<UncolouredEdge>
   return graph;
 }
 
-template<typename VertexType>
+template<typename VertexType, GraphDirected directed = GraphDirected_yes>
 struct Graph
 {
   vec1<vec1<VertexType> > edges;
 
-  Graph(RVALREF(vec1<vec1<VertexType> >) _e) : edges(MOVE(_e))
-  { }
+  Graph(const vec1<vec1<VertexType> >& _points_in, int domain)
+  { 
+    vec1<vec1<VertexType> > _points = compressGraph(_points_in);
+    if(_points.size() > domain)
+      throw GAPException("Graph too large");
+    edges = _points;
+    edges.resize(domain);
+    
+    for(int i = 1; i <= _points.size(); ++i)
+    {
+        int i_size = _points[i].size();
+        for(int j = 1; j <= i_size; ++j)
+        {
+            if(_points[i][j].target() <= 0 || _points[i][j].target() > domain) {
+                throw GAPException("Graph contains out-of-bounds vertex: " + toString(_points[i][j].target()));
+            }
+            
+            if(_points[i][j].colour() < 0 ) {
+                throw GAPException(" Graph contains invalid edge colour: " + toString(_points[i][j].colour()));
+            }
+            VertexType edge(i, _points[i][j].colour());
+            if(directed)
+            {
+              edge = edge.flipped();
+            }
+
+            edges[_points[i][j].target()].push_back(edge);
+        }
+    }
+    for(int i = 1; i <= edges.size(); ++i)
+    {
+        std::set<VertexType> pntset(edges[i].begin(), edges[i].end());
+        edges[i] = vec1<VertexType>(pntset.begin(), pntset.end());
+    }
+  }
 
 };
 

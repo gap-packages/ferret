@@ -15,7 +15,6 @@
 template<typename VertexType>
 class GraphRefiner
 {
-    typedef vec1<vec1<VertexType> > Graph;
 
     GraphRefiner();
 public:
@@ -33,7 +32,7 @@ public:
     
     int edgesconsidered;
     
-    void hashCellSimple(PartitionStack* ps, const Graph& points, MonoSet& monoset, int cell)
+    void hashCellSimple(PartitionStack* ps, const Graph<VertexType>& points, MonoSet& monoset, int cell)
     {
         Range<PartitionStack::cellit> r = ps->cellRange(cell);
         for(PartitionStack::cellit it = r.begin(); it != r.end(); ++it)
@@ -41,8 +40,8 @@ public:
             int i = *it;
             int i_cell = ps->cellOfVal(i);
             int hash = quick_hash(i_cell);
-            for(typename vec1<VertexType>::const_iterator it2 = points[i].begin();
-              it2 != points[i].end(); ++it2)
+            for(typename vec1<VertexType>::const_iterator it2 = points.edges[i].begin();
+              it2 != points.edges[i].end(); ++it2)
             {
                 monoset.add(ps->cellOfVal(it2->target()));
                 u_int64_t new_hash = quick_hash(hash + it2->colour());
@@ -52,11 +51,11 @@ public:
         }
     }
     
-    void hashNeighboursOfVertexDeep2(PartitionStack* ps, const Graph& points, 
+    void hashNeighboursOfVertexDeep2(PartitionStack* ps, const Graph<VertexType>& points, 
                                      MonoSet& hitcells, int vertex, u_int64_t hash)
     {
-        for(typename vec1<VertexType>::const_iterator it = points[vertex].begin();
-              it != points[vertex].end(); ++it)
+        for(typename vec1<VertexType>::const_iterator it = points.edges[vertex].begin();
+              it != points.edges[vertex].end(); ++it)
         {
             hitcells.add(ps->cellOfVal(it->target()));
             u_int64_t new_hash = quick_hash(hash + it->colour());
@@ -66,7 +65,7 @@ public:
     }
  
     template<typename Range>
-    void hashRangeDeep2(PartitionStack* ps, const Graph& points, MonoSet& hitcells, Range cell)
+    void hashRangeDeep2(PartitionStack* ps, const Graph<VertexType>& points, MonoSet& hitcells, Range cell)
     {
         for(typename Range::iterator it = cell.begin(); it != cell.end(); ++it)
         {
@@ -77,11 +76,11 @@ public:
         }
     }
     
-    void hashNeighboursOfVertexDeep(PartitionStack* ps, const Graph& points, 
+    void hashNeighboursOfVertexDeep(PartitionStack* ps, const Graph<VertexType>& points, 
                                     MonoSet& hitcells, MonoSet& hitvertices, int vertex, u_int64_t hash)
     {
-        for(typename vec1<VertexType>::const_iterator it = points[vertex].begin();
-              it != points[vertex].end(); ++it)
+        for(typename vec1<VertexType>::const_iterator it = points.edges[vertex].begin();
+              it != points.edges[vertex].end(); ++it)
         {
             hitcells.add(ps->cellOfVal(it->target()));
             hitvertices.add(it->target());
@@ -92,7 +91,7 @@ public:
     }
  
     template<typename Range>
-    void hashRangeDeep(PartitionStack* ps, const Graph& points, 
+    void hashRangeDeep(PartitionStack* ps, const Graph<VertexType>& points, 
                        MonoSet& hitcells, MonoSet& hitvertices, Range cell)
     {
         for(typename Range::iterator it = cell.begin(); it != cell.end(); ++it)
@@ -104,7 +103,7 @@ public:
         }
     }
     
-    SplitState filterGraph(PartitionStack* ps, const Graph& points,
+    SplitState filterGraph(PartitionStack* ps, const Graph<VertexType>& points,
                            const vec1<int>& cells, int path_length)
     {
         // Would not normally go this low level, but it is important this is fast
@@ -139,7 +138,7 @@ public:
 template<typename VertexType, GraphDirected directed = GraphDirected_yes>
 class EdgeColouredGraph : public AbstractConstraint
 {
-    vec1<vec1<VertexType> > points;
+    Graph<VertexType, directed> points;
     GraphConfig config;
 
     GraphRefiner<VertexType> refiner;
@@ -150,39 +149,10 @@ public:
 
     
     EdgeColouredGraph(const vec1<vec1<VertexType> >& _points, GraphConfig gc, PartitionStack* ps)
-    : AbstractConstraint(ps), points(compressGraph(_points)), config(gc),
+    : AbstractConstraint(ps), points(_points, ps->domainSize()), config(gc),
     refiner(ps->domainSize()),
     advise_branch_monoset(ps->domainSize())
-    {
-        D_ASSERT(points.size() <= ps->domainSize());
-        points.resize(ps->domainSize());
-        for(int i = 1; i <= _points.size(); ++i)
-        {
-            int i_size = _points[i].size();
-            for(int j = 1; j <= i_size; ++j)
-            {
-                if(_points[i][j].target() <= 0 || _points[i][j].target() > ps->domainSize()) {
-                    throw GAPException(name() + " contains out-of-bounds vertex: " + toString(_points[i][j].target()));
-                }
-                
-                if(_points[i][j].colour() < 0 ) {
-                    throw GAPException(name() + " contains invalid edge colour: " + toString(_points[i][j].colour()));
-                }
-                VertexType edge(i, _points[i][j].colour());
-                if(directed)
-                {
-                  edge = edge.flipped();
-                }
-
-                points[_points[i][j].target()].push_back(edge);
-            }
-        }
-        for(int i = 1; i <= points.size(); ++i)
-        {
-            std::set<VertexType> pntset(points[i].begin(), points[i].end());
-            points[i] = vec1<VertexType>(pntset.begin(), pntset.end());
-        }
-    }
+    { }
 private:
 
   
@@ -231,8 +201,8 @@ public:
             {
                 advise_branch_monoset.clear();
                 int cellfirstmem = *(ps->cellStartPtr(i));
-                for(typename vec1<VertexType>::iterator edge = points[cellfirstmem].begin();
-                                                        edge != points[cellfirstmem].end(); ++edge)
+                for(typename vec1<VertexType>::iterator edge = points.edges[cellfirstmem].begin();
+                                                        edge != points.edges[cellfirstmem].end(); ++edge)
                 {
                     int cell = ps->cellOfVal(edge->target());
                     if(ps->cellSize(cell) > 1)
@@ -256,9 +226,9 @@ public:
 
   virtual bool verifySolution(const Permutation& p)
     {
-        for(int i = 1; i <= points.size(); ++i)
+        for(int i = 1; i <= points.edges.size(); ++i)
         {
-            const vec1<VertexType>& p_i = points[i];
+            const vec1<VertexType>& p_i = points.edges[i];
             vec1<VertexType> image_set;
             for(int j = 1; j <= p_i.size(); ++j) {
                 int pnt = p_i[j].target();
@@ -267,7 +237,7 @@ public:
             }
             std::sort(image_set.begin(), image_set.end());
             
-            if(points[p[i]] != image_set) {
+            if(points.edges[p[i]] != image_set) {
               return false;
             }
         }
