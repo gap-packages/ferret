@@ -163,7 +163,7 @@ inline vec1<vec1<UncolouredEdge> > compressGraph(const vec1<vec1<UncolouredEdge>
   return graph;
 }
 
-template<typename VertexType, GraphDirected directed = GraphDirected_yes>
+template<typename VertexType, GraphDirected directed>
 struct Graph
 {
   vec1<vec1<VertexType> > edges;
