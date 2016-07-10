@@ -93,6 +93,58 @@ _YAPB_getInfoFerretDebug := function()
   return InfoLevel(InfoFerretDebug);
 end;
 
+_YAPB_getOrbitalList := function(G, cutoff)
+	local orb, orbitsG, iorb, graph, graphlist, val, p, i, orbsizes, orbpos, innerorblist, orbitsizes,
+		  biggestOrbit, skippedOneLargeOrbit;
+	
+	graphlist := [];
+	orbitsG := Orbits(G);
+	
+	orbsizes := [];
+	orbpos := [];
+	# Efficently store size of orbits of values
+	for orb in [1..Length(orbitsG)] do
+		for i in orbitsG[orb] do
+			orbsizes[i] := Size(orbitsG[orb]);
+			orbpos[i] := orb;
+		od;
+	od;
+	
+	innerorblist := List(orbitsG, o -> Orbits(Stabilizer(G, o[1]), [1..LargestMovedPoint(G)]));
+
+    orbitsizes := List([1..Length(orbitsG)], 
+	  x -> List(innerorblist[x], y -> Size(orbitsG[x])*Size(y)));
+	
+	biggestOrbit := Maximum(Flat(orbitsizes));
+
+	skippedOneLargeOrbit := false;
+
+
+	for i in [1..Size(orbitsG)] do
+		orb := orbitsG[i];
+		for iorb in innerorblist[i] do
+			if (Size(orb) * Size(iorb) = biggestOrbit and not skippedOneLargeOrbit) then
+				skippedOneLargeOrbit := true;
+			else
+				if (Size(orb) * Size(iorb) <= cutoff) and
+				# orbit size unchanged
+				not(Size(iorb) = orbsizes[iorb[1]]) and
+				# orbit size only removed one point
+				not(orbpos[orb[1]] = orbpos[iorb[1]] and Size(iorb) + 1 = orbsizes[iorb[1]])
+					then
+					graph := List([1..LargestMovedPoint(G)], x -> []);
+					for val in orb do
+						p := RepresentativeAction(G, orb[1], val); 
+						graph[val] := List(iorb, x -> x^p);
+					od;
+					Add(graphlist, graph);
+				fi;
+			fi;
+		od;
+	od;
+	return graphlist;
+end;
+
 #####
 # END OF FUNCTIONS CALLED FROM C++ CODE
 #####

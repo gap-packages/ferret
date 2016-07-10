@@ -81,19 +81,23 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
     }
     else if(strcmp(conname, "Generators_OrbStabChain") == 0)
     {
-        return new StabChain_PermGroup<true, false>(GAP_get_rec(con, RName_arg), ps, mb);
+        StabChainConfig scc(true, false, false);
+        return new StabChain_PermGroup(GAP_get_rec(con, RName_arg), scc, ps, mb);
     }
     else if(strcmp(conname, "Generators_BlockOrbStabChain") == 0)
     {
-        return new StabChain_PermGroup<true, true>(GAP_get_rec(con, RName_arg), ps, mb);
+        StabChainConfig scc(true, true, false);
+        return new StabChain_PermGroup(GAP_get_rec(con, RName_arg), scc, ps, mb);
     }
     else if(strcmp(conname, "Generators_StabChain") == 0)
     {
-        return new StabChain_PermGroup<false, false>(GAP_get_rec(con, RName_arg), ps, mb);
+        StabChainConfig scc(false, false, false);
+        return new StabChain_PermGroup(GAP_get_rec(con, RName_arg), scc, ps, mb);
     }
     else if(strcmp(conname, "Generators_BlockStabChain") == 0)
     {
-        return new StabChain_PermGroup<false, true>(GAP_get_rec(con, RName_arg), ps, mb);
+        StabChainConfig scc(false, true, false);
+        return new StabChain_PermGroup(GAP_get_rec(con, RName_arg), scc, ps, mb);
     }
     else if(strcmp(conname, "NULL") == 0)
         return 0;

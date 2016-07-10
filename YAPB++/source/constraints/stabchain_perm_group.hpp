@@ -206,10 +206,26 @@ struct StabChainCache
     }
 };
 
-template<bool UseOrbits, bool UseBlocks>
+struct StabChainConfig
+{
+    bool useOrbits;
+    bool useBlocks;
+    bool useOrbitals;
+
+    StabChainConfig()
+    : useOrbits(false), useBlocks(false), useOrbitals(false)
+    { }
+
+    StabChainConfig(bool uO, bool uB, bool uOtals)
+    : useOrbits(uO), useBlocks(uB), useOrbitals(uOtals)
+    { }
+};
+
+
+
 class StabChain_PermGroup : public AbstractConstraint
 {
-
+    StabChainConfig config;
     StabChainCache scc;
     //vec1<vec1<vec1<int> > >
     RBase* rb;
@@ -225,20 +241,21 @@ public:
     virtual std::string name() const
     {
         std::string s;
-        if(UseBlocks) s += "Block";
-        if(UseOrbits) s += "Orb";
+        if(config.useOrbits) s += "Orbit";
+        if(config.useBlocks) s += "Block";
+        if(config.useOrbitals) s += "Orbitals";
         return s + "StabChainInGroup";
      }
 
 
-    StabChain_PermGroup(Obj _group, PartitionStack* ps, MemoryBacktracker* mb)
-    : AbstractConstraint(ps), scc(_group),
+    StabChain_PermGroup(Obj _group, StabChainConfig _config, PartitionStack* ps, MemoryBacktracker* mb)
+    : AbstractConstraint(ps), config(_config), scc(_group), 
       last_permutation(mb->makeRevertingStack<Permutation>()),
       last_depth(mb->makeReverting<int>())
     {
         original_partitions.resize(ps->domainSize()+1);
 
-        if(UseBlocks)
+        if(config.useBlocks)
             original_blocks.resize(ps->domainSize() + 1);
 
         // We set up our 'reverting' at the start
@@ -312,20 +329,21 @@ public:
         const vec1<int>& part = getRBasePartition(ps->fixed_values());
 
         vec1<std::map<int,int> > blocks;
-        if(UseBlocks)
+
+        if(config.useBlocks)
         {
             blocks = getRBaseBlocks(ps->fixed_values());
         }
 
         SplitState ss(true);
-        if(UseOrbits)
+        if(config.useOrbits)
         {
             ss = filterPartitionStackByFunction(ps, ContainerToFunction(&part));
             if(ss.hasFailed())
                 return ss;
         }
 
-        if(UseBlocks)
+        if(config.useBlocks)
         {
             for(int i = 1; i <= blocks.size(); ++i)
             {
@@ -334,6 +352,7 @@ public:
                     return ss;
             }
         }
+
         return ss;
     }
 
@@ -400,14 +419,14 @@ public:
         const vec1<int>& part = getRBasePartition_cached(new_depth);
 
         SplitState ss(true);
-        if(UseOrbits)
+        if(config.useOrbits)
         {
             ss = filterPartitionStackByFunction(ps, FunctionByPerm(ContainerToFunction(&part), perm));
             if(ss.hasFailed())
                 return ss;
         }
 
-        if(UseBlocks)
+        if(config.useBlocks)
         {
             const vec1<std::map<int,int> >& blocks = getRBaseBlocks_cached(new_depth);
             for(int i = 1; i <= blocks.size(); ++i)

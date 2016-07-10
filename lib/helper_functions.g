@@ -14,6 +14,17 @@
 
 _FerretHelperFuncs := rec(
 
+  # Simple helper to support optional arguments
+  optArg := function(Val, default)
+    if Length(Val) = 0 then
+      return default;
+    fi;
+    if Length(Val) = 1 then
+      return Val[1];
+    fi;
+    ErrorNoReturn("Only one optional argument!");
+  end,
+
 # Copies 'useroptions' over values of 'options' with the same name.
 fillUserValues := function(options, useroptions)
   local name, ret;
