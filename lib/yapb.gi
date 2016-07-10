@@ -299,19 +299,26 @@ end);
 ##  <#/GAPDoc>
 InstallMethod(ConInGroup, [IsPermGroup],
 function(G)
-  return ConInGroup(G, "OrbStabChain");
+  return ConInGroup(G, rec() );
 end);
 
 # Inefficient, StabChain, BlockStabChain, OrbStabChain, BlockOrbStabChain, UnorderedStabChain
 
-InstallMethod(ConInGroup, [IsPermGroup, IsString],
-function(G, s)
+InstallMethod(ConInGroup, [IsPermGroup, IsRecord],
+function(G, useroptions)
+
+  useroptions := _FerretHelperFuncs.fillUserValues(
+          rec(orbits := true, blocks := false, orbitals := false), useroptions);
+
   # We special case the identity group, because it is a pain
   if IsTrivial(G) then
     return rec(constraint:="FixAllPoints", max := 1);
   else
-    return rec(constraint:=Concatenation("Generators_", s),
+    return rec(constraint:= "Generators_StabChain",
                arg := G,
+               orbits := useroptions.orbits,
+               blocks := useroptions.blocks,
+               orbitals := useroptions.orbitals,
                max := LargestMovedPoint(G));
   fi;
 end);

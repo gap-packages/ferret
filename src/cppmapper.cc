@@ -31,7 +31,7 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
 
     if(strcmp(conname, "SetStab") == 0)
     {
-        return new SetStab(GAP_get<vec1<int> >(GAP_get_rec(con, RName_arg)), ps);
+        return new SetStab(GAP_get<vec1<int> >(GAP_get_rec(con, RNamName("arg"))), ps);
     }
     if(strcmp(conname, "FixAllPoints") == 0)
     {
@@ -39,15 +39,15 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
     }
     else if(strcmp(conname, "SetSetStab") == 0)
     {
-        return new SetSetStab(GAP_get<vec1<vec1<int> > >(GAP_get_rec(con, RName_arg)), ps);
+        return new SetSetStab(GAP_get<vec1<vec1<int> > >(GAP_get_rec(con, RNamName("arg"))), ps);
     }
     else if(strcmp(conname, "OverlappingSetSetStab") == 0)
     {
-        return new OverlapSetSetStab(GAP_get<vec1<vec1<int> > >(GAP_get_rec(con, RName_arg)), ps);
+        return new OverlapSetSetStab(GAP_get<vec1<vec1<int> > >(GAP_get_rec(con, RNamName("arg"))), ps);
     }
     else if(strcmp(conname, "ListStab") == 0)
     {
-        return new ListStab(GAP_get<vec1<int> >(GAP_get_rec(con, RName_arg)), ps);
+        return new ListStab(GAP_get<vec1<int> >(GAP_get_rec(con, RNamName("arg"))), ps);
     }
     else if(strcmp(conname, "DirectedGraph") == 0)
     {
@@ -60,7 +60,7 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
         }
         
         return new EdgeColouredGraph<UncolouredEdge, GraphDirected_yes>(
-            GAP_get<vec1<vec1<UncolouredEdge> > >(GAP_get_rec(con, RName_arg)), gc, ps);
+            GAP_get<vec1<vec1<UncolouredEdge> > >(GAP_get_rec(con, RNamName("arg"))), gc, ps);
     }
     else if(strcmp(conname, "EdgeColouredDirectedGraph") == 0)
     {
@@ -73,31 +73,18 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
         }
             
         return new EdgeColouredGraph<ColEdge, GraphDirected_yes>(
-            GAP_get<vec1<vec1<ColEdge> > >(GAP_get_rec(con, RName_arg)), gc, ps);
+            GAP_get<vec1<vec1<ColEdge> > >(GAP_get_rec(con, RNamName("arg"))), gc, ps);
     }
     else if(strcmp(conname, "Generators_Inefficient") == 0)
     {
-        return new PermGroup(GAP_get_rec(con, RName_arg), ps);
-    }
-    else if(strcmp(conname, "Generators_OrbStabChain") == 0)
-    {
-        StabChainConfig scc(true, false, false);
-        return new StabChain_PermGroup(GAP_get_rec(con, RName_arg), scc, ps, mb);
-    }
-    else if(strcmp(conname, "Generators_BlockOrbStabChain") == 0)
-    {
-        StabChainConfig scc(true, true, false);
-        return new StabChain_PermGroup(GAP_get_rec(con, RName_arg), scc, ps, mb);
+        return new PermGroup(GAP_get_rec(con, RNamName("arg")), ps);
     }
     else if(strcmp(conname, "Generators_StabChain") == 0)
     {
-        StabChainConfig scc(false, false, false);
-        return new StabChain_PermGroup(GAP_get_rec(con, RName_arg), scc, ps, mb);
-    }
-    else if(strcmp(conname, "Generators_BlockStabChain") == 0)
-    {
-        StabChainConfig scc(false, true, false);
-        return new StabChain_PermGroup(GAP_get_rec(con, RName_arg), scc, ps, mb);
+        StabChainConfig scc(GAP_get<bool>(GAP_get_rec(con, RNamName("orbits"))),
+                            GAP_get<bool>(GAP_get_rec(con, RNamName("blocks"))),
+                            GAP_get<bool>(GAP_get_rec(con, RNamName("orbitals"))));
+        return new StabChain_PermGroup(GAP_get_rec(con, RNamName("arg")), scc, ps, mb);
     }
     else if(strcmp(conname, "NULL") == 0)
         return 0;

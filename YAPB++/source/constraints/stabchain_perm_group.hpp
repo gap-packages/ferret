@@ -241,9 +241,9 @@ public:
     virtual std::string name() const
     {
         std::string s;
-        if(config.useOrbits) s += "Orbit";
-        if(config.useBlocks) s += "Block";
-        if(config.useOrbitals) s += "Orbitals";
+        if(config.useOrbits) s += "Orbits:";
+        if(config.useBlocks) s += "Blocks:";
+        if(config.useOrbitals) s += "Orbitals:";
         return s + "StabChainInGroup";
      }
 

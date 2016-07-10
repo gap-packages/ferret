@@ -24,8 +24,11 @@ gap> for i in [2..20] do
 >        if Intersection(grps) <> Solve(List(grps, ConInGroup)) then
 >          Print("bad intersection: ", grps);
 >        fi;
->        if Intersection(grps) <> Solve(List(grps, x -> ConInGroup(x, "BlockStabChain"))) then
+>        if Intersection(grps) <> Solve(List(grps, x -> ConInGroup(x, rec(blocks:=true)))) then
 >          Print("bad block intersection: ", grps);
+>        fi;
+>        if Intersection(grps) <> Solve(List(grps, x -> ConInGroup(x, rec(orbitals:=true)))) then
+>          Print("bad orbital intersection: ", grps);
 >        fi;
 >     od;
 >   od;
@@ -37,8 +40,11 @@ gap> for i in [2..20] do
 >        if Intersection(grps) <> Solve(List(grps, ConInGroup)) then
 >          Print("bad intersection: ", grps);
 >        fi;
->        if Intersection(grps) <> Solve(List(grps, x -> ConInGroup(x, "BlockStabChain"))) then
+>        if Intersection(grps) <> Solve(List(grps, x -> ConInGroup(x, rec(blocks:=true)))) then
 >          Print("bad block intersection: ", grps);
+>        fi;
+>        if Intersection(grps) <> Solve(List(grps, x -> ConInGroup(x, rec(orbitals:=true)))) then
+>          Print("bad orbital intersection: ", grps);
 >        fi;
 >     od;
 >   od;

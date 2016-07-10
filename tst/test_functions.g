@@ -57,33 +57,38 @@ heuristics := ["largest", "first", "smallest2", "randomsmallest", "random", "ran
 
 # Checks all the ways of building up a single group -- can be extremely slow!
 CheckGroup := function(g)
-    local permsfull, permsgen, permsfullStabChain, permsgenStabChain, permsfullBlock, permsgenBlock, h;
+    local h, only_gen, orbits, blocks, orbitals, output, record, f;
     for h in heuristics do
-        permsfull := Solve([ConInGroup(g, "Inefficient")],
-                           rec( only_find_generators := false, rbaseCellHeuristic := h, recreturn := true));
-        permsgen := Solve([ConInGroup(g, "Inefficient")], rec( rbaseCellHeuristic := h, recreturn := true));
-        permsfullStabChain := Solve([ConInGroup(g)],
-                              rec( only_find_generators := false, rbaseCellHeuristic := h, recreturn := true));
-        permsgenStabChain := Solve([ConInGroup(g)], rec( rbaseCellHeuristic := h, recreturn := true));
+            for orbits in [false, true] do
+                for blocks in [false, true] do
+                    for orbitals in [false, true] do
+                        record := rec(orbits := orbits, blocks := blocks, orbitals := orbitals);
+                        output :=
+                            Solve([ConInGroup(g, record)],
+                                              rec( only_find_generators := true,
+                                                   rbaseCellHeuristic := h,
+                                                   recreturn := true) );
+                        if not(compare_gen_groups(g, output)) then
+                            Print("Check Group", [g,record,h]);
+                        fi;
 
-        permsfullBlock := Solve([ConInGroup(g, "BlockStabChain")],
-                                rec( only_find_generators := false, rbaseCellHeuristic := h, recreturn := true));
-        permsgenBlock := Solve([ConInGroup(g, "BlockStabChain")], rec( rbaseCellHeuristic := h, recreturn := true));
-
-        if not(
-               compare_full_groups(g, permsfullStabChain) and compare_gen_groups(g, permsgenStabChain) and
-               compare_full_groups(g, permsfull) and compare_gen_groups(g, permsgen) and
-               compare_full_groups(g, permsfullBlock) and compare_gen_groups(g, permsgenBlock)
-            ) then
-            Print("Check Group", g, " failed with heuristic ", h,"\n");
-            return false;
-        fi;
+                         output :=
+                            Solve([ConInGroup(g, record)],
+                                              rec( only_find_generators := false,
+                                                   rbaseCellHeuristic := h,
+                                                   recreturn := true) );
+                        if not(compare_full_groups(g, output)) then
+                            Print("Check full group",[g,record,h]);
+                        fi;
+                    od;
+                od;
+            od;
     od;
     return true;
 end;;
 
 CheckStab := function(g, s, act, extra...)
-    local permsStabChain, permsBlock, stab, comp1, comp2, stabmap;
+    local permsStabChain, permsBlock, permsOrbitals, stab, comp1, comp2, comp3, stabmap;
     
     if Size(extra) = 0 then
         stabmap := ConStabilize(s, act);
@@ -94,16 +99,19 @@ CheckStab := function(g, s, act, extra...)
     fi;
     
     permsStabChain := Solve([ConInGroup(g), stabmap], rec(recreturn := true));
-    permsBlock := Solve([ConInGroup(g, "BlockStabChain"), stabmap], rec(recreturn := true));
+    permsBlock := Solve([ConInGroup(g, rec(blocks := true)), stabmap], rec(recreturn := true));
+    permsOrbitals := Solve([ConInGroup(g, rec(orbitals := true)), stabmap], rec(recreturn := true));
+    
     stab := Stabilizer(g, s, act);
 
     comp1 := compare_gen_groups(stab, permsStabChain);
     comp2 := compare_gen_groups(stab, permsBlock);
+    comp3 := compare_gen_groups(stab, permsOrbitals);
 
-    if not(comp1 and comp2) then
+    if not(comp1 and comp2 and comp3) then
         Print("Fast check stab " , g , ",",s," with action ",act," and ", extra, " failed:",
-              comp1,comp2,"\n");
-        Print(permsStabChain, "\n",permsBlock,"\n");
+              comp1,comp2,comp3,"\n");
+        Print(permsStabChain, "\n",permsBlock,"\n",permsOrbitals,"\n");
     fi;
     return (comp1 and comp2);
 end;;
