@@ -164,6 +164,15 @@ inline vec1<vec1<UncolouredEdge> > compressGraph(const vec1<vec1<UncolouredEdge>
   return graph;
 }
 
+template<typename VertexType>
+struct Graph
+{
+  vec1<vec1<VertexType> > edges;
+
+  Graph(RVALREF(vec1<vec1<VertexType> >) _e) : edges(MOVE(_e))
+  { }
+
+};
 
 // store how to configure graph propagators
 struct GraphConfig
