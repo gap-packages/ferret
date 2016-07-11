@@ -15,16 +15,16 @@ void ConstraintStore::initConstraints(bool rbase_building)
     {
         D_ASSERT(!constraints_initalized);
         constraints_initalized = true;
-        for(int i = 1; i <= constraints.size(); ++i)
+        for(auto con : constraints)
         {
-            std::vector<TriggerType> v = constraints[i]->triggers();
+            std::vector<TriggerType> v = con->triggers();
             for(auto & j : v)
-              p->p_stack.addTrigger(constraints[i], j);
+              p->p_stack.addTrigger(con, j);
 
             if(rbase_building)
-              constraints[i]->signal_start_buildingRBase();
+              con->signal_start_buildingRBase();
             else
-              constraints[i]->signal_start();
+              con->signal_start();
 
             SplitState ss = p->con_queue.invokeQueue();
             (void)ss; // Avoid warning
@@ -34,8 +34,8 @@ void ConstraintStore::initConstraints(bool rbase_building)
 
 ConstraintStore::~ConstraintStore()
     {
-        for(int i = 1; i <= constraints.size(); ++i)
-            delete constraints[i];
+        for(auto con : constraints)
+            delete con;
     }
 
 bool ConstraintStore::initCalled() const
