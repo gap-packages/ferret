@@ -113,7 +113,7 @@ struct ParsedGraph
 
 	void make_symmetric()
 	{
-		for(int i = 1; i <= graph_size; ++i)
+		for(int i : range1(graph_size))
 		{
 			for(int j = 1; j <= edges[i].size(); ++j)
 			{
@@ -124,7 +124,7 @@ struct ParsedGraph
 
 	void clean()
 	{
-		for(int i = 1; i <= graph_size; ++i)
+		for(int i : range1(graph_size))
 		{
 			std::set<UncolouredEdge> e(edges[i].begin(), edges[i].end());
 			edges[i] = vec1<UncolouredEdge>(e.begin(), e.end());
@@ -176,7 +176,7 @@ struct Graph
     edges = _points;
     edges.resize(domain);
     
-    for(int i = 1; i <= _points.size(); ++i)
+    for(int i : range1(_points.size()))
     {
         int i_size = _points[i].size();
         for(int j = 1; j <= i_size; ++j)
@@ -197,7 +197,7 @@ struct Graph
             edges[_points[i][j].target()].push_back(edge);
         }
     }
-    for(int i = 1; i <= edges.size(); ++i)
+    for(int i : range1(edges.size()))
     {
         std::set<VertexType> pntset(edges[i].begin(), edges[i].end());
         edges[i] = vec1<VertexType>(pntset.begin(), pntset.end());

@@ -31,7 +31,7 @@ public:
         // The reason for this sorting is that it makes implementing 'verifySolution' easier.
         std::sort(points.begin(), points.end());
 
-        for(int i = 1; i <= points.size(); ++i)
+        for(int i : range1(points.size()))
         {
             for(std::set<int>::const_iterator it = points[i].begin(); it != points[i].end(); ++it)
             {
@@ -80,7 +80,7 @@ public:
     {
       debug_out(1, "OverlappingSetSetStab", "init " << points.size());
       std::set<int> all_values;
-      for(int i = 1; i <= points.size(); ++i)
+      for(int i : range1(points.size()))
           all_values.insert(points[i].begin(), points[i].end());
       SplitState ss = filterPartitionStackByFunction(ps, InSet(&all_values));
       if(ss.hasFailed())

@@ -94,7 +94,7 @@ public:
 
         enable_cellOfFunctions = true;
         int cell = 1;
-        for(int i = 1; i <= marks_m.size(); ++i)
+        for(int i : range1(marks_m.size()))
         {
             if(marks_m[i] > 0)
                 cell = marks_m[i];
@@ -180,7 +180,7 @@ public:
     {
         backtrack_depths.push_back(1);
 
-        for(int i = 1; i <= n; ++i)
+        for(int i : range1(n))
         {
             vals[i] = i;
             invvals[i] = i;
@@ -276,7 +276,7 @@ public:
         assert(vals.size() == n);
         assert(invvals.size() == n);
 
-        for(int i = 1; i <= n; ++i)
+        for(int i : range1(n))
         {
            assert(invvals[vals[i]] == i);
            assert(vals[invvals[i]] == i);
@@ -284,7 +284,7 @@ public:
 
         assert(contains_no_repeats(fixed));
         assert(fixed.size() == fixed_vals.size());
-        for(int i = 1; i <= fixed.size(); ++i)
+        for(int i : range1(fixed.size()))
         {
             assert(cellsize[fixed[i]] == 1);
             assert(*(cellStartPtr(fixed[i])) == fixed_vals[i]);
@@ -298,7 +298,7 @@ public:
 
         int fixed_count = 0;
 
-        for(int i = 1; i <= cellCount(); ++i)
+        for(int i : range1(cellCount()))
         {
             assert(cellsize[i] > 0);
             if(cellsize[i] == 1)
@@ -324,7 +324,7 @@ public:
         if(markstore.has_cellOf())
         {
             int cell = 99999; // random number
-            for(int i = 1; i <= n; ++i)
+            for(int i : range1(n))
             {
                 assert(markstore.marks(i) != 0);
 
@@ -341,7 +341,7 @@ public:
         }
         else
         {
-            for(int i = 1; i <= n; ++i)
+            for(int i : range1(n))
             {
                 if(markstore.marks(i) != 0)
                     assert(cellstart[markstore.marks(i)] == i);
@@ -463,7 +463,7 @@ public:
     vec1<vec1<int> > dumpCurrentPartition()
     {
         vec1<vec1<int> > partition;
-        for(int i = 1; i <= cellCount(); ++i)
+        for(int i : range1(cellCount()))
         {
             vec1<int> v;
             for(cellit it = cellStartPtr(i); it != cellEndPtr(i); ++it)
@@ -479,7 +479,7 @@ public:
         vec1<vec1<int> > v = dumpCurrentPartition();
         std::ostringstream oss;
         oss << "[" << markstore.marks(1) << ": ";
-        for(int i = 1; i <= n; ++i)
+        for(int i : range1(n))
         {
             oss << vals[i];
             if(markstore.marks(i+1) > 0)

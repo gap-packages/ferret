@@ -28,14 +28,14 @@ public:
     {
         debug_out(1, "FixAllPoints", "init");
         vec1<int> points;
-        for(int i = 1; i <= ps->domainSize(); ++i)
+        for(int i : range1(ps->domainSize()))
             points.push_back(i);
         return filterPartitionStackByFunction(ps, ContainerToFunction(&points));
     }
 
     virtual bool verifySolution(const Permutation& p)
     {
-        for(int i = 1; i <= p.size(); ++i)
+        for(int i : range1(p.size()))
             if(p[i] != i)
                 return false;
         return true;

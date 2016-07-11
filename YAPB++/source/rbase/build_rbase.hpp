@@ -41,7 +41,7 @@ public:
         rb->initial_permstack = ps->clone();
         rb->trace = trace;
         //vec1<int> ordering(ps->domainSize(), -1);
-        //for(int i = 1; i <= ps->domainSize(); ++i)
+        //for(int i : range1(ps->domainSize()))
         //    ordering[*(ps->cellStartPtr(i))] = i;
         rb->value_ordering = ps->fixed_values(); //ordering;
         rb->inv_value_ordering = invertVecAsPermutation(rb->value_ordering);
@@ -93,7 +93,7 @@ int choose_branch_cell(PartitionStack* ps, ConstraintStore* cstore,
         case RBaseBranch_ConstraintAdvise:
         {
             ConstraintStore::get_type container = cstore->get();
-            for(int i = 1; i <= container->size(); ++i)
+            for(int i : range1(container->size()))
             {
                 int val = ((*container)[i])->advise_branch();
                 if(val != -1)

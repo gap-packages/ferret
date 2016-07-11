@@ -120,15 +120,15 @@ struct PartitionEvent
 
 		vec1<int> changing_cells;
 
-		for(int i = 1; i <= change_cells.size(); ++i)
+		for(int i : range1(change_cells.size()))
 			changing_cells.push_back(i);
 
 		std::sort(changing_cells.begin(), changing_cells.end(), ChangeSorter<PartitionEvent>(this));
 
-		for(int i = 1; i <= change_cells.size(); ++i)
+		for(int i : range1(change_cells.size()))
 			order.push_back(EventOrder(changing_cells[i], true));
 
-		for(int i = 1; i <= no_change_cells.size(); ++i)
+		for(int i : range1(no_change_cells.size()))
 			order.push_back(EventOrder(i, false));
 
 	}

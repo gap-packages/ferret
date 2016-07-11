@@ -41,7 +41,7 @@ bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
                   firstbranch ? so.heuristic.search_first_branch_value : so.heuristic.search_value,
                   rbase);
 
-        for(int i = 1; i <= cell.size(); ++i)
+        for(int i : range1(cell.size()))
         {
             D_ASSERT(!(firstbranch && i == 1 && !ss->isMinimum(cell[i])));
             D_ASSERT(!(firstbranch && i == 1 && cell[i] != rbase->branchvalue[depth]));

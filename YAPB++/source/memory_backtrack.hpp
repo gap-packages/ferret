@@ -140,9 +140,9 @@ public:
 
     ~MemoryBacktracker()
     {
-        for(int i = 1; i <= raw_mem_store.size(); ++i)
+        for(int i : range1(raw_mem_store.size()))
             free(raw_mem_store[i]);
-        for(int i = 1; i <= stack_mem_store.size(); ++i)
+        for(int i : range1(stack_mem_store.size()))
             stack_mem_store[i]();
     }
 

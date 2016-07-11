@@ -17,7 +17,7 @@ int main(void)
     SolutionStore ss = doSearch(&p, v, so);
 
     D_ASSERT(ss.sols().size() == 4*3*2*2);
-    for(int i = 1; i <= ss.sols().size(); ++i)
+    for(int i : range1(ss.sols().size()))
     {
         D_ASSERT(ss.sols()[i][2] == 2 || ss.sols()[i][2] == 4);
         D_ASSERT(ss.sols()[i][2] == 4 || ss.sols()[i][2] == 2);

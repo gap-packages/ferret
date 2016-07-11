@@ -35,7 +35,7 @@ public:
         vec1<Permutation> labels(getLabels());
 
         vec1<optional<Permutation> > p(translabels.size(), optional<Permutation>());
-        for(int i = 1; i <= translabels.size(); ++i)
+        for(int i : range1(translabels.size()))
         {
             if(translabels[i])
             {
@@ -60,7 +60,7 @@ public:
         if(!hasOrbit())
         {
             vec1<vec1<int> > v(dom);
-            for(int i = 1; i <= v.size(); ++i)
+            for(int i : range1(v.size()))
                 v[i].push_back(i);
             return v;
         }

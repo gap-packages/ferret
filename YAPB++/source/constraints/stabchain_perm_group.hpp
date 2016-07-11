@@ -32,7 +32,7 @@ struct StabChainLevel
 
     bool check_transversal(const vec1<Permutation>& trans, int start, int end)
     {
-        for(int i = 1; i <= trans.size(); ++i)
+        for(int i : range1(trans.size()))
         {
             start = trans[i][start];
         }
@@ -195,7 +195,7 @@ struct StabChainCache
         while(stabChainCpy.hasNextLevel());
 
 #ifndef NO_DEBUG
-        for(int i = 1; i <= unpacked_stabChain_depth.size(); ++i)
+        for(int i : range1(unpacked_stabChain_depth.size()))
         {
             if(unpacked_stabChain_depth[i] != 0)
             {
@@ -270,7 +270,7 @@ private:
         vec1<vec1<int> > oart = scc.orbits(fix, ps->domainSize());
         debug_out(3, "scpg", "Got orbit partition"<< oart);
         // This might not be necessary, but it doesn't hurt!
-        for(int i = 1; i <= oart.size(); ++i)
+        for(int i : range1(oart.size()))
             std::sort(oart[i].begin(), oart[i].end());
         std::sort(oart.begin(), oart.end());
         vec1<int> filter = partitionToList(oart, ps->domainSize(), MissingPoints_Fixed);
@@ -285,7 +285,7 @@ private:
     {
         vec1<vec1<vec1<int> > > blocks = scc.blocks(fix);
         vec1<std::map<int,int> > block_functions;
-        for(int i = 1; i <= blocks.size(); ++i)
+        for(int i : range1(blocks.size()))
         {
             block_functions.push_back(partitionToMap(blocks[i]));
         }
@@ -345,7 +345,7 @@ public:
 
         if(config.useBlocks)
         {
-            for(int i = 1; i <= blocks.size(); ++i)
+            for(int i : range1(blocks.size()))
             {
                 ss = filterPartitionStackByUnorderedFunction(ps, SparseFunction<MissingPoints_Free>(&blocks[i]));
                 if(ss.hasFailed())
@@ -368,8 +368,11 @@ public:
         int new_depth = new_fix_cells.size();
 
 #ifndef NO_DEBUG
-        for(int i = 1; i <= old_depth; ++i)
-        { D_ASSERT(perm[new_fix_cells[i]] == (rb->value_ordering)[i]); }
+        for(int i : range1(old_depth))
+        { 
+            (void)i;
+            D_ASSERT(perm[new_fix_cells[i]] == (rb->value_ordering)[i]);
+        }
 #endif
 
         PermutationStack perm_stack(perm);
@@ -412,8 +415,11 @@ public:
         last_depth.set(new_depth);
 
 #ifndef NO_DEBUG
-        for(int i = 1; i <= new_depth; ++i)
-        { D_ASSERT(perm[new_fix_cells[i]] == (rb->value_ordering)[i]); }
+        for(int i : range1(new_depth))
+        {
+            (void)i;
+            D_ASSERT(perm[new_fix_cells[i]] == (rb->value_ordering)[i]);
+        }
 #endif
 
         const vec1<int>& part = getRBasePartition_cached(new_depth);
@@ -429,7 +435,7 @@ public:
         if(config.useBlocks)
         {
             const vec1<std::map<int,int> >& blocks = getRBaseBlocks_cached(new_depth);
-            for(int i = 1; i <= blocks.size(); ++i)
+            for(int i : range1(blocks.size()))
             {
                 ss = filterPartitionStackByUnorderedFunction(ps, FunctionByPerm(SparseFunction<MissingPoints_Free>(&blocks[i]), perm));
                 if(ss.hasFailed())

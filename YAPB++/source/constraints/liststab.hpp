@@ -17,7 +17,7 @@ public:
     ListStab(const vec1<int>& _points, PartitionStack* ps)
     : AbstractConstraint(ps), points(_points), inv_points(ps->domainSize(), 0)
     {
-        for(int i = 1; i <= points.size(); ++i)
+        for(int i : range1(points.size()))
             inv_points[points[i]] = i;
     }
 
@@ -28,7 +28,7 @@ public:
 
     virtual bool verifySolution(const Permutation& p)
     {
-        for(int i = 1; i <= points.size(); ++i)
+        for(int i : range1(points.size()))
         {
             if(p[points[i]] != points[i])
                 return false;

@@ -45,7 +45,7 @@ bool ConstraintStore::verifySolution(const Permutation& p) const
     {
         // TODO: Investigate cases where this fails
         static bool printed_warning = false;
-        for(int i = 1; i <= constraints.size(); ++i)
+        for(int i : range1(constraints.size()))
         {
             if(!constraints[i]->verifySolution(p))
             {

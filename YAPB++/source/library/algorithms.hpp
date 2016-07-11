@@ -31,7 +31,7 @@ inline vec1<int> partitionToList(const vec1<vec1<int> >& part, int size, Missing
 {
     vec1<int> vec(size, 0);
     int covered = 1;
-    for(int i = 1; i <= part.size(); ++i)
+    for(int i : range1(part.size()))
     {
         for(int j = 1; j <= part[i].size(); ++j)
         {
@@ -44,7 +44,7 @@ inline vec1<int> partitionToList(const vec1<vec1<int> >& part, int size, Missing
     // should all be treated as defined by 'MissingPoints'
     if(mp == MissingPoints_Fixed)
     {
-        for(int i = 1; i <= vec.size(); ++i)
+        for(int i : range1(vec.size()))
         {
             if(vec[i] == 0)
                 vec[i] = vec.size() + 1 + i; // (is +1 required? It doesn't hurt)
@@ -90,7 +90,7 @@ inline std::map<int, int> partitionToMap(const vec1<vec1<int> >& part)
 {
     std::map<int, int> m;
     int covered = 1;
-    for(int i = 1; i <= part.size(); ++i)
+    for(int i : range1(part.size()))
     {
         for(int j = 1; j <= part[i].size(); ++j)
         {
@@ -107,7 +107,7 @@ inline std::map<int, int> partitionToMap(const vec1<vec1<int> >& part)
 inline vec1<int> invertVecAsPermutation(const vec1<int>& v)
 {
     vec1<int> ret(v.size());
-    for(int i = 1; i <= v.size(); ++i)
+    for(int i : range1(v.size()))
     {
         ret[v[i]] = i;
     }

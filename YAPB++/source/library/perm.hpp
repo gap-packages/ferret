@@ -59,7 +59,7 @@ PermSharedData* makePermSharedDataFromContainer(const T& data)
 {
     PermSharedData* psd = (PermSharedData*)malloc(sizeof(PermSharedData) + data.size()*sizeof(int));
     psd = new (psd) PermSharedData(data.size());
-    for(int i = 1; i <= data.size(); ++i)
+    for(int i : range1(data.size()))
         (psd->data_m)[i] = data[i];
     return psd;
 }
@@ -114,7 +114,7 @@ private:
     static bool isPermutation(Container con)
     {
         std::sort(con.begin(), con.end());
-        for(int i = 1; i <= con.size(); ++i)
+        for(int i : range1(con.size()))
             if(con[i] != i)
                 return false;
         return true;
@@ -183,7 +183,7 @@ public:
     {
 
         int maxsize = std::max(p.size(), q.size());
-        for(int i = 1; i <= maxsize; ++i)
+        for(int i : range1(maxsize))
         {
             if(p[i] != q[i])
                 return false;
@@ -196,7 +196,7 @@ public:
         std::ostringstream oss;
         std::vector<bool> checked(size() + 1, false);
         bool some_printed = false;
-        for(int i = 1; i <= size(); ++i)
+        for(int i : range1(size()))
         {
             if(!checked[i] && (*this)[i] != i)
             {
@@ -222,7 +222,7 @@ public:
     friend std::ostream& operator<<(std::ostream& o, const Permutation& p)
     {
         o << "[";
-        for(int i = 1; i <= p.size(); ++i)
+        for(int i : range1(p.size()))
         {
             if(i != 1)
                 o << ",";
@@ -234,10 +234,10 @@ public:
     bool validate() const
     {
     	vec1<int> p;
-    	for(int i = 1; i <= size(); ++i)
+    	for(int i : range1(size()))
     		p.push_back((*this)[i]);
     	std::sort(p.begin(), p.end());
-    	for(int i = 1; i <= size(); ++i)
+    	for(int i : range1(size()))
     	{
     		if(p[i] != i)
     			return false;
@@ -285,14 +285,14 @@ inline Permutation mergePermutations(const vec1<Permutation>& v)
         return v[1];
 
     int max_moved = 0;
-    for(int i = 1; i <= v.size(); ++i)
+    for(int i : range1(v.size()))
     {
         max_moved = std::max(max_moved, v[i].size());
     }
 
     vec1<int> vec(max_moved);
 
-    for(int i = 1; i <= max_moved; ++i)
+    for(int i : range1(max_moved))
     {
         int pos = i;
         for(int j = 1; j <= v.size(); ++j)
@@ -315,7 +315,7 @@ PermSharedData* makePermSharedDataFromPermList(const vec1<Permutation>& data)
 inline PermSharedData* makePermSharedDataFromPermList(const vec1<Permutation>& data)
 {
     int maxval = 0;
-    for(int i = 1; i <= data.size(); ++i)
+    for(int i : range1(data.size()))
         maxval = std::max(maxval, data[i].size());
     PermSharedData* psd = makePermSharedData(maxval);
     psd->perms = data;
@@ -353,7 +353,7 @@ public:
 
     int operator[](int val) const
     {
-        for(int i = 1; i <= v.size(); ++i)
+        for(int i : range1(v.size()))
         {
             val = v[i][val];
         }

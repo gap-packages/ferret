@@ -126,7 +126,7 @@ SplitState filterPartitionStackByFunction_withSortData(PartitionStack* ps, F f)
 	}
 
 	// Finally, do the splits
-	for(int i = 1; i <= pe.change_cells.size(); ++i)
+	for(int i : range1(pe.change_cells.size()))
 	{
 	    int cell = pe.change_cells[i].first;
 	    const SortEvent& se = pe.change_cells[i].second;
@@ -160,7 +160,7 @@ SplitState filterPartitionStackByFunction_noSortData(PartitionStack* ps, F f)
 {
     PartitionEvent pe;
     int cellCount = ps->cellCount();
-    for(int i = 1; i <= cellCount; ++i)
+    for(int i : range1(cellCount))
     {
         filterCell(ps, f, i, &pe);
     }
@@ -255,7 +255,7 @@ SplitState filterPartitionStackByUnorderedFunction(PartitionStack* ps, F f)
 
     std::map<typename F::result_type, HashType> full_hash;
 
-    for(int i = 1; i <= cellCount; ++i)
+    for(int i : range1(cellCount))
     {
     	typedef std::map<typename F::result_type, unsigned> map_type;
     	map_type count_map;
@@ -286,7 +286,7 @@ SplitState filterPartitionStackByUnorderedListFunction(PartitionStack* ps, F f)
 
     std::map<typename F::result_type::value_type, HashType> full_hash;
 
-    for(int i = 1; i <= cellCount; ++i)
+    for(int i : range1(cellCount))
     {
         typedef std::map<typename F::result_type::value_type, unsigned> map_type;
         map_type count_map;

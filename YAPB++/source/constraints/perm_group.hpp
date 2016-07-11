@@ -33,7 +33,7 @@ private:
         vec1<vec1<int> > oart = GAP_get<vec1<vec1<int> > >(orbits);
         debug_out(3, "PermGroup", "Got orbit partition" << oart);
         // This might not be necessary, but it doesn't hurt!
-        for(int i = 1; i <= oart.size(); ++i)
+        for(int i : range1(oart.size()))
             std::sort(oart[i].begin(), oart[i].end());
         std::sort(oart.begin(), oart.end());
         vec1<int> filter = partitionToList(oart, ps->domainSize(), MissingPoints_Fixed);
@@ -70,7 +70,7 @@ public:
         Stats::ConstraintInvoke(Stats::CON_PermGroup);
         vec1<int> fixed_values;
         const vec1<int>& fixed = ps->fixed_cells();
-        for(int i = 1; i <= fixed.size(); ++i)
+        for(int i : range1(fixed.size()))
         {
             fixed_values.push_back(*ps->cellStartPtr(fixed[i]));
         }
@@ -88,7 +88,7 @@ public:
         vec1<int> new_fixed_values;
         old_fixed_values.reserve(new_fix_cells.size());
         new_fixed_values.reserve(new_fix_cells.size());
-        for(int i = 1; i <= new_fix_cells.size(); ++i)
+        for(int i : range1(new_fix_cells.size()))
         {
             old_fixed_values.push_back(*rb->initial_permstack->cellStartPtr(new_fix_cells[i]));
             new_fixed_values.push_back(*ps->cellStartPtr(new_fix_cells[i]));
@@ -104,7 +104,7 @@ public:
         vec1<int> perm = GAP_get<vec1<int> >(obj_perm);
         debug_out(3, "PermGroup", "mapping is: " << perm);
         vec1<int> permuted_part(part.size(), 0);
-        for(int i = 1; i <= part.size(); ++i)
+        for(int i : range1(part.size()))
         {
             if(i <= perm.size())
                 permuted_part[perm[i]] = part[i];

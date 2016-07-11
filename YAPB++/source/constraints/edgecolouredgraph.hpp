@@ -123,7 +123,7 @@ public:
             
             memset(&(msetspare.front()), 0, msetspare.size() * sizeof(msetspare[0]));
             hashRangeDeep2(ps, points, monoset, hitvertices.getMembers());
-            for(int i = 1; i <= mset.size(); ++i) {
+            for(int i : range1(mset.size())) {
                 mset[i] += msetspare[i] * 71;
             }
         }
@@ -164,7 +164,7 @@ public:
     SplitState signal_start()
     {
         vec1<int> cells;
-        for(int i = 1; i <= ps->cellCount(); ++i)
+        for(int i : range1(ps->cellCount()))
             cells.push_back(i);
         return refiner.filterGraph(ps, points, cells, config.start_path_length);
     }
@@ -175,7 +175,7 @@ public:
         debug_out(1, "EdgeGraph", "signal_changed");
         /*
         vec1<int> cells;
-        for(int i = 1; i <= ps->cellCount(); ++i)
+        for(int i : range1(ps->cellCount()))
             cells.push_back(i);
         SplitState ss = filterGraph(cells);
         if(ss.hasFailed())
@@ -191,7 +191,7 @@ public:
         int best_cell = -1;
         int best_neighbours = 0;
         int best_size = std::numeric_limits<int>::max();
-        for(int i = 1; i <= ps->cellCount(); ++i)
+        for(int i : range1(ps->cellCount()))
         {
             if(ps->cellSize(i) > 1)
             {
@@ -221,7 +221,7 @@ public:
 
   virtual bool verifySolution(const Permutation& p)
     {
-        for(int i = 1; i <= points.edges.size(); ++i)
+        for(int i : range1(points.edges.size()))
         {
             const vec1<VertexType>& p_i = points.edges[i];
             vec1<VertexType> image_set;

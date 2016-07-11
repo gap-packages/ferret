@@ -38,7 +38,7 @@ public:
     vec1<int> getMins() const
     {
         vec1<int> minimums;
-        for(int i = 1; i <= orbit_mins.size(); ++i)
+        for(int i : range1(orbit_mins.size()))
         {
             if(isMinimum(i))
                 minimums.push_back(i);
@@ -68,7 +68,7 @@ public:
         permutations.push_back(sol);
         D_ASSERT(sol.size() == orbit_mins.size());
         debug_out(3, "SS", "Old orbit_mins:" << orbit_mins);
-        for(int i = 1; i <= sol.size(); ++i)
+        for(int i : range1(sol.size()))
         {
             if(sol[i] != i)
             {
