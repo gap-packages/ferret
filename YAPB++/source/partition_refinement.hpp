@@ -101,9 +101,8 @@ template<typename F>
 SplitState filterPartitionStackByFunction_withSortData(PartitionStack* ps, F f)
 {
 	PartitionEvent& pe = ps->getAbstractQueue()->getPartitionEvent();
-	typedef PartitionEvent::PromotableList::iterator it_type;
 	int len = 0;
-	for(it_type it = pe.order.begin(); it != pe.order.end(); ++it)
+	for(auto it = pe.order.begin(); it != pe.order.end(); ++it)
 	{
 	    len++;
 	    if(it->change)
@@ -176,8 +175,8 @@ template<typename F, typename Cells>
 SplitState filterPartitionStackByFunctionWithCells_noSortData(PartitionStack* ps, F f, const Cells& cells)
 {
     PartitionEvent pe;
-    for(typename Cells::iterator it = cells.begin(); it != cells.end(); ++it)
-        filterCell(ps, f, *it, &pe);
+    for(int c : cells)
+        filterCell(ps, f, c, &pe);
     pe.finalise();
     ps->getAbstractQueue()->addPartitionEvent(std::move(pe));
     return SplitState(true);
@@ -268,9 +267,9 @@ SplitState filterPartitionStackByUnorderedFunction(PartitionStack* ps, F f)
     		count_map[f(*it)]++;
     	}
 
-    	for(typename map_type::iterator it = count_map.begin(); it != count_map.end(); ++it)
+    	for(const auto& m : count_map)
     	{
-    		full_hash[it->first] = hash_combine(full_hash[it->first], i, it->second);
+    		full_hash[m.first] = hash_combine(full_hash[m.first], i, m.second);
     	}
     }
 

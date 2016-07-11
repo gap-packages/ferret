@@ -190,7 +190,7 @@ public:
         }
         function_reversions.pop_back();
 
-        for(std::set<BacktrackableType*>::reverse_iterator it = objects_to_notify.rbegin();
+        for(auto it = objects_to_notify.rbegin();
             it != objects_to_notify.rend(); ++it)
             (*it)->event_popWorld();
     }
