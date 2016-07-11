@@ -92,10 +92,10 @@ inline std::map<int, int> partitionToMap(const vec1<vec1<int> >& part)
     int covered = 1;
     for(int i : range1(part.size()))
     {
-        for(int j = 1; j <= part[i].size(); ++j)
+        for(int val : part[i])
         {
-            D_ASSERT(m[part[i][j]] == 0);
-            m[part[i][j]] = i;
+            D_ASSERT(m[val] == 0);
+            m[val] = i;
             covered++;
         }
     }    

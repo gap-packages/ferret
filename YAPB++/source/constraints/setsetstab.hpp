@@ -24,10 +24,9 @@ public:
     SetSetStab(const Container& _points, PartitionStack* ps)
     : AbstractConstraint(ps), point_map(ps->domainSize(), 0)
     {
-        typedef typename Container::const_iterator in_con;
-        for(in_con it = _points.begin(); it != _points.end(); ++it)
+        for(const auto& l : _points)
         {
-            points.push_back(std::set<int>(it->begin(), it->end()));
+            points.push_back(std::set<int>(l.begin(), l.end()));
         }
 
         // The reason for this sorting is that it makes implementing 'verifySolution' easier.
