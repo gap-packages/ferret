@@ -90,6 +90,11 @@ template<typename T>
 intrangeimpl::IntlikeRange<T> xrange(T end) { return intrangeimpl::IntlikeRange<T>(end); }
 
 template<typename T>
+intrangeimpl::IntlikeRange<T> range1(T end) { return intrangeimpl::IntlikeRange<T>(1, end + 1); }
+
+
+template<typename T>
 intrangeimpl::IntlikeRange<T> xrange(T begin, T end) { return intrangeimpl::IntlikeRange<T>(begin, end); }
+
 
 #endif
