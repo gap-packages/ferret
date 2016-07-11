@@ -35,11 +35,11 @@ public:
 
         for(int i : range1(points.size()))
         {
-            for(std::set<int>::const_iterator it = points[i].begin(); it != points[i].end(); ++it)
+            for(int val : points[i])
             {
-                if(point_map[*it] != 0)
+                if(point_map[val] != 0)
                     throw std::runtime_error("Cannot have set of sets with repeated inner points");
-                point_map[*it] = i;
+                point_map[val] = i;
             }
         }
     }

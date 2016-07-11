@@ -33,10 +33,10 @@ inline vec1<int> partitionToList(const vec1<vec1<int> >& part, int size, Missing
     int covered = 1;
     for(int i : range1(part.size()))
     {
-        for(int j = 1; j <= part[i].size(); ++j)
+        for(int val : part[i])
         {
-            D_ASSERT(vec[part[i][j]] == 0);
-            vec[part[i][j]] = i;
+            D_ASSERT(vec[val] == 0);
+            vec[val] = i;
             covered++;
         }
     }    

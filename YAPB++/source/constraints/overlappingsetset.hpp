@@ -33,11 +33,11 @@ public:
 
         for(int i : range1(points.size()))
         {
-            for(std::set<int>::const_iterator it = points[i].begin(); it != points[i].end(); ++it)
+            for(const auto& p : points[i])
             {
-                if(!point_map[*it].empty() && point_map[*it].back() == i)
+                if(!point_map[p].empty() && point_map[p].back() == i)
                     throw std::runtime_error("Inner sets cannot have repeated values");
-                point_map[*it].push_back(i);
+                point_map[p].push_back(i);
             }
         }
     }

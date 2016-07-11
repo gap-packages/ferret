@@ -225,10 +225,10 @@ public:
         {
             const vec1<VertexType>& p_i = points.edges[i];
             vec1<VertexType> image_set;
-            for(int j = 1; j <= p_i.size(); ++j) {
-                int pnt = p_i[j].target();
+            for(const auto& edge : p_i) {
+                int pnt = edge.target();
                 int pnt_image = p[pnt];
-                image_set.push_back(VertexType(pnt_image, p_i[j].colour()));
+                image_set.push_back(VertexType(pnt_image, edge.colour()));
             }
             std::sort(image_set.begin(), image_set.end());
             
