@@ -17,7 +17,8 @@
 #define DEFAULT_MOVE_COPY_CONST_ASSIGN(C) 
 
 #endif
-  
+
+
 template<typename Iterator>
 class Range
 {
@@ -37,6 +38,58 @@ public:
 };
 
 template<typename Iterator>
-Range<Iterator> make_range(Iterator b, Iterator e)
+Range<Iterator> rangeWrap(Iterator b, Iterator e)
 { return Range<Iterator>(b,e); }
+
+namespace intrangeimpl {
+
+template<typename T>
+class IntlikeRangeIterator
+{
+    T value;
+public:
+    IntlikeRangeIterator(T value_)
+        : value(value_){}
+
+    bool operator!=(const IntlikeRangeIterator& other) const
+    { return value != other.value; }
+
+    T operator*() const
+    { return value; }
+
+    IntlikeRangeIterator& operator++()
+    {
+        ++value;
+        return *this;
+    }
+};
+
+template<typename T>
+class IntlikeRange
+{
+    T const from;
+    T const to;
+
+public:
+    IntlikeRange(T from_, T to_)
+        : from(from_), to(to_){}
+
+    IntlikeRange(T to_)
+        : from(0), to(to_){}
+
+    IntlikeRangeIterator<T> begin() const
+    { return IntlikeRangeIterator<T>(from); }
+
+    IntlikeRangeIterator<T> end() const
+    { return IntlikeRangeIterator<T>(to); }
+};
+
+}
+
+template<typename T>
+intrangeimpl::IntlikeRange<T> xrange(T end) { return intrangeimpl::IntlikeRange<T>(end); }
+
+template<typename T>
+intrangeimpl::IntlikeRange<T> xrange(T begin, T end) { return intrangeimpl::IntlikeRange<T>(begin, end); }
+
 #endif

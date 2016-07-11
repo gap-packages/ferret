@@ -221,7 +221,7 @@ public:
     { return valPtr(cellEndPos(i)); }
 
     Range<cellit> cellRange(int i)
-    { return make_range(cellStartPtr(i), cellEndPtr(i)); }
+    { return rangeWrap(cellStartPtr(i), cellEndPtr(i)); }
 
     int val(int pos)
     { return *valPtr(pos); }
