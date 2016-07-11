@@ -96,12 +96,12 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
 void readNestedConstraints_inner(Problem& p, Obj conlist, std::vector<AbstractConstraint*>& vec)
 {
     vec1<Obj> cons = GAP_get<vec1<Obj> >(conlist);
-    for(int i = 1; i <= cons.size(); ++i)
+    for(const auto& con : cons)
     {
-        if(GAP_isa<vec1<Obj> >(cons[i]))
-            readNestedConstraints_inner(p, cons[i], vec);
+        if(GAP_isa<vec1<Obj> >(con))
+            readNestedConstraints_inner(p, con, vec);
         else
-            vec.push_back(buildConstraint(cons[i], &p.p_stack, &p.memory_backtracker));
+            vec.push_back(buildConstraint(con, &p.p_stack, &p.memory_backtracker));
             //p.addConstraint(buildConstraint(cons[i], &p.p_stack, &p.memory_backtracker));
     }
 }
