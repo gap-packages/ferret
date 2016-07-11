@@ -1,7 +1,8 @@
 #ifndef CPP11_CAJ_HEADER
 #define CPP11_CAJ_HEADER
 
-#ifdef USE_CPP11
+
+#if __cplusplus >= 201103L
 
 #define MOVE(x) std::move(x)
 #define DEFAULT_MOVE_COPY_CONST_ASSIGN(C) \
@@ -11,7 +12,7 @@
   C& operator=(C&&) = default;
 
 #else
-  
+
 #define MOVE(x) x
 #define DEFAULT_MOVE_COPY_CONST_ASSIGN(C) 
 
