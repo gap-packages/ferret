@@ -233,7 +233,7 @@ template<typename T>
 void Reverting<T>::set(T&& t)
 {
     mb->storeCurrentValue(val);
-    *val = MOVE(t);
+    *val = std::move(t);
 }
 #endif
 
@@ -248,7 +248,7 @@ template<typename T>
 void RevertingStack<T>::push_back(T&& t)
 {
     mb->storeCurrentSize(stack);
-    stack->push_back(MOVE(t));
+    stack->push_back(std::move(t));
 }
 #endif
 

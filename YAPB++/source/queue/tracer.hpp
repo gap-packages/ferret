@@ -53,12 +53,12 @@ public:
 
     void addEvent(BranchEvent be)
     {
-        trace.getMutable_dangerous().back().branchEvents.push_back(MOVE(be));
+        trace.getMutable_dangerous().back().branchEvents.push_back(std::move(be));
     }
 
     void addPartitionEvent(PartitionEvent se)
     {
-        trace.getMutable_dangerous().back().partitionEvents.push_back(MOVE(se));
+        trace.getMutable_dangerous().back().partitionEvents.push_back(std::move(se));
     }
 
     const vec1<TraceList>& getTrace() const

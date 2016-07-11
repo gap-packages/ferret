@@ -276,7 +276,7 @@ private:
         vec1<int> filter = partitionToList(oart, ps->domainSize(), MissingPoints_Fixed);
         debug_out(3, "scpg", "Filter partition: "<< filter);
 
-        original_partitions[fix.size()+1] = MOVE(filter);
+        original_partitions[fix.size()+1] = std::move(filter);
 
         return original_partitions[fix.size()+1];
     }
@@ -289,7 +289,7 @@ private:
         {
             block_functions.push_back(partitionToMap(blocks[i]));
         }
-        original_blocks[fix.size() + 1] = MOVE(block_functions);
+        original_blocks[fix.size() + 1] = std::move(block_functions);
 
         return original_blocks[fix.size() + 1];
     }

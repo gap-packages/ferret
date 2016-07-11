@@ -82,7 +82,7 @@ public:
 
     virtual void addPartitionEvent(PartitionEvent se)
     {
-        tracer->addPartitionEvent(MOVE(se));
+        tracer->addPartitionEvent(std::move(se));
     }
 
 private:
