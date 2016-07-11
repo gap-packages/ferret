@@ -41,13 +41,12 @@ public:
         {
             int i_cell = ps->cellOfVal(i);
             int hash = quick_hash(i_cell);
-            for(typename vec1<VertexType>::const_iterator it2 = points.edges[i].begin();
-              it2 != points.edges[i].end(); ++it2)
+            for(const auto& edge : points.edges[i])
             {
-                monoset.add(ps->cellOfVal(it2->target()));
-                u_int64_t new_hash = quick_hash(hash + it2->colour());
+                monoset.add(ps->cellOfVal(edge.target()));
+                u_int64_t new_hash = quick_hash(hash + edge.colour());
                 edgesconsidered++;
-                mset[it2->target()] += new_hash;
+                mset[edge.target()] += new_hash;
             }
         }
     }
@@ -55,22 +54,20 @@ public:
     void hashNeighboursOfVertexDeep2(PartitionStack* ps, const GraphType& points, 
                                      MonoSet& hitcells, int vertex, u_int64_t hash)
     {
-        for(typename vec1<VertexType>::const_iterator it = points.edges[vertex].begin();
-              it != points.edges[vertex].end(); ++it)
+        for(const auto& edge : points.edges[vertex])
         {
-            hitcells.add(ps->cellOfVal(it->target()));
-            u_int64_t new_hash = quick_hash(hash + it->colour());
+            hitcells.add(ps->cellOfVal(edge.target()));
+            u_int64_t new_hash = quick_hash(hash + edge.colour());
             edgesconsidered++;
-            msetspare[it->target()] += new_hash;
+            msetspare[edge.target()] += new_hash;
         }
     }
  
     template<typename Range>
     void hashRangeDeep2(PartitionStack* ps, const GraphType& points, MonoSet& hitcells, Range cell)
     {
-        for(typename Range::iterator it = cell.begin(); it != cell.end(); ++it)
+        for(int i : cell)
         {
-            int i = *it;
             int i_cell = ps->cellOfVal(i);
             int hash = quick_hash(i_cell + mset[i]);
             hashNeighboursOfVertexDeep2(ps, points, hitcells, i, hash);
@@ -94,9 +91,8 @@ public:
     void hashRangeDeep(PartitionStack* ps, const GraphType& points, 
                        MonoSet& hitcells, MonoSet& hitvertices, Range cell)
     {
-        for(typename Range::iterator it = cell.begin(); it != cell.end(); ++it)
+        for(int i : cell)
         {
-            int i = *it;
             int i_cell = ps->cellOfVal(i);
             int hash = quick_hash(i_cell);
             hashNeighboursOfVertexDeep(ps, points, hitcells, hitvertices, i, hash);
@@ -112,17 +108,17 @@ public:
         MonoSet monoset(ps->cellCount());
         debug_out(3, "EdgeGraph", "filtering: " << cells.size() << " cells out of " << ps->cellCount());
         if(path_length == 1) {
-            for(int c = 1; c <= cells.size(); ++c)
+            for(int c : cells)
             {
-                hashCellSimple(ps, points, monoset, cells[c]);
+                hashCellSimple(ps, points, monoset, c);
             }
         }
         else
         {
             MonoSet hitvertices(ps->domainSize());
-            for(int c = 1; c <= cells.size(); ++c)
+            for(int c : cells)
             {
-                hashRangeDeep(ps, points, monoset, hitvertices, ps->cellRange(cells[c]));
+                hashRangeDeep(ps, points, monoset, hitvertices, ps->cellRange(c));
             }
             
             memset(&(msetspare.front()), 0, msetspare.size() * sizeof(msetspare[0]));
