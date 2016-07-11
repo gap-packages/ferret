@@ -31,10 +31,9 @@ public:
 
     virtual bool verifySolution(const Permutation& p)
     {
-        typedef std::set<int>::iterator it_type;
-        for(it_type it = points.begin(); it != points.end(); ++it)
+        for(int x : points)
         {
-            if(points.count(p[*it]) != 1)
+            if(points.count(p[x]) != 1)
                 return false;
         }
         return true;

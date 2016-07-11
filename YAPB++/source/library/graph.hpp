@@ -145,14 +145,14 @@ inline vec1<vec1<ColEdge> > compressGraph(const vec1<vec1<ColEdge> >& graph)
     for(int j = 1; j <= graph[i].size(); ++j) {
       edges[graph[i][j].target()].insert(graph[i][j].colour());
     }
-    typedef std::map<int, std::multiset<int> >::iterator edge_iterator;
-    for(edge_iterator it = edges.begin(); it != edges.end(); ++it)
+
+    for(auto & edge : edges)
     {
-      if(seen_maps.count(it->second) == 0) {
+      if(seen_maps.count(edge.second) == 0) {
         int val = seen_maps.size() + 1;
-        seen_maps[it->second] = val;
+        seen_maps[edge.second] = val;
       }
-      output_graph[i].push_back(ColEdge(it->first, seen_maps[it->second]));
+      output_graph[i].push_back(ColEdge(edge.first, seen_maps[edge.second]));
     }
   }
   return output_graph;

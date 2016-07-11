@@ -46,8 +46,8 @@ public:
 
 	void clear()
 	{
-		for(unsigned i = 0; i < members.size(); ++i)
-			hit[members[i]] = false;
+		for(int member : members)
+			hit[member] = false;
 		members.clear();
 	}
 

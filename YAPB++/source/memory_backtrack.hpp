@@ -164,9 +164,8 @@ public:
     void pushWorld()
     {
         debug_out(1, "MemoryManager", "pushWorld");
-        for(std::set<BacktrackableType*>::iterator it = objects_to_notify.begin();
-            it != objects_to_notify.end(); ++it)
-            (*it)->event_pushWorld();
+        for(auto it : objects_to_notify)
+            it->event_pushWorld();
 
         reversions.resize(reversions.size() + 1);
         function_reversions.resize(function_reversions.size() + 1);

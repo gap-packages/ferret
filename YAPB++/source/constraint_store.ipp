@@ -18,8 +18,8 @@ void ConstraintStore::initConstraints(bool rbase_building)
         for(int i = 1; i <= constraints.size(); ++i)
         {
             std::vector<TriggerType> v = constraints[i]->triggers();
-            for(unsigned j = 0; j < v.size(); ++j)
-              p->p_stack.addTrigger(constraints[i], v[j]);
+            for(auto & j : v)
+              p->p_stack.addTrigger(constraints[i], j);
 
             if(rbase_building)
               constraints[i]->signal_start_buildingRBase();

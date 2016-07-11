@@ -37,9 +37,8 @@ public:
     void hashCellSimple(PartitionStack* ps, const GraphType& points, MonoSet& monoset, int cell)
     {
         Range<PartitionStack::cellit> r = ps->cellRange(cell);
-        for(PartitionStack::cellit it = r.begin(); it != r.end(); ++it)
+        for(int i : r)
         {
-            int i = *it;
             int i_cell = ps->cellOfVal(i);
             int hash = quick_hash(i_cell);
             for(typename vec1<VertexType>::const_iterator it2 = points.edges[i].begin();
@@ -81,14 +80,13 @@ public:
     void hashNeighboursOfVertexDeep(PartitionStack* ps, const GraphType& points, 
                                     MonoSet& hitcells, MonoSet& hitvertices, int vertex, u_int64_t hash)
     {
-        for(typename vec1<VertexType>::const_iterator it = points.edges[vertex].begin();
-              it != points.edges[vertex].end(); ++it)
+        for(const auto& val : points.edges[vertex])
         {
-            hitcells.add(ps->cellOfVal(it->target()));
-            hitvertices.add(it->target());
-            u_int64_t new_hash = quick_hash(hash + it->colour());
+            hitcells.add(ps->cellOfVal(val.target()));
+            hitvertices.add(val.target());
+            u_int64_t new_hash = quick_hash(hash + val.colour());
             edgesconsidered++;
-            mset[it->target()] += new_hash;
+            mset[val.target()] += new_hash;
         }
     }
  

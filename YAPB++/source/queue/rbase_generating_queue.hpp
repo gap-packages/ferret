@@ -88,18 +88,18 @@ public:
 private:
     void triggerChange(int oldcell, int newcell)
     {
-        for(unsigned i = 0; i < to_invoke_change.size(); ++i)
+        for(auto & i : to_invoke_change)
         {
-            to_invoke_change[i].insert(oldcell);
-            to_invoke_change[i].insert(newcell);
+            i.insert(oldcell);
+            i.insert(newcell);
         }
     }
 
     void triggerFix(int fixedcell)
     {
-        for(unsigned i = 0; i < to_invoke_fix.size(); ++i)
-            if(to_invoke_fix[i] == -1)
-                to_invoke_fix[i] = fixedcell;
+        for(int & i : to_invoke_fix)
+            if(i == -1)
+                i = fixedcell;
     }
 public:
     SplitState invokeQueue()
@@ -149,9 +149,9 @@ public:
 
     void RBaseFinished(RBase* rb)
     {
-        for(unsigned i = 0; i < constraint_rbase_finished_list.size(); ++i)
+        for(auto & i : constraint_rbase_finished_list)
         {
-            constraint_rbase_finished_list[i]->signal_RBaseFinished(rb);
+            i->signal_RBaseFinished(rb);
         }
     }
 };

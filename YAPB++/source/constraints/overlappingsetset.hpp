@@ -62,13 +62,12 @@ public:
 
         vec1<std::set<int> > mapped_points;
 
-        typedef std::set<int>::iterator it_type;
-        for(int i = 1; i <= points.size(); ++i)
+        for(const auto& set : points)
         {
             std::set<int> set_image;
-            for(it_type it = points[i].begin(); it != points[i].end(); ++it)
+            for(int x : set)
             {
-                set_image.insert(p[*it]);
+                set_image.insert(p[x]);
             }
             mapped_points.push_back(set_image);
         }
