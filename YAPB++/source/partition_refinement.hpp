@@ -86,11 +86,9 @@ template<typename F>
 bool validateFixedCell(PartitionStack* ps, int cell, int hash, F f)
 {
     debug_out(3, "filter", "validating fixed cell by hash " << hash);
-    typedef PartitionStack::cellit it_type;
-    it_type end = ps->cellEndPtr(cell);
-    for(it_type it = ps->cellStartPtr(cell); it != end; ++it)
+    for(int val : ps->cellRange(cell))
     {
-        if((int)f(*it) != hash)
+        if((int)f(val) != hash)
             return false;
     }
     RECORD_STATS(addSortStat(Stats::Sort(ps->cellSize(cell), 1, true)));
@@ -261,10 +259,9 @@ SplitState filterPartitionStackByUnorderedFunction(PartitionStack* ps, F f)
     {
     	typedef std::map<typename F::result_type, unsigned> map_type;
     	map_type count_map;
-    	typedef PartitionStack::cellit cell_it;
-    	for(cell_it it = ps->cellStartPtr(i); it != ps->cellEndPtr(i); ++it)
+    	for(int x : ps->cellRange(i))
     	{
-    		count_map[f(*it)]++;
+    		count_map[f(x)]++;
     	}
 
     	for(const auto& m : count_map)
@@ -293,18 +290,15 @@ SplitState filterPartitionStackByUnorderedListFunction(PartitionStack* ps, F f)
     {
         typedef std::map<typename F::result_type::value_type, unsigned> map_type;
         map_type count_map;
-        typedef PartitionStack::cellit cell_it;
-        for(cell_it it = ps->cellStartPtr(i); it != ps->cellEndPtr(i); ++it)
+        for(int val : ps->cellRange(i))
         {
-            typedef typename F::result_type con_type;
-            const con_type& res = f(*it);
-            for(typename con_type::const_iterator it2 = res.begin(); it2 != res.end(); ++it2)
-                count_map[*it2]++;
+            for(const auto& val2 : f(val))
+                count_map[val2]++;
         }
 
-        for(typename map_type::iterator it = count_map.begin(); it != count_map.end(); ++it)
+        for(const auto& val : count_map)
         {
-            full_hash[it->first] = hash_combine(full_hash[it->first], i, it->second);
+            full_hash[val.first] = hash_combine(full_hash[val.first], i, val.second);
         }
     }
 
