@@ -80,9 +80,9 @@ struct Container
 
     void dumpStats()
     {
-        for(std::map<Sort, int>::const_iterator it = sortStats.begin(); it != sortStats.end(); ++it)
+        for(const auto& m : sortStats)
         {
-            std::cerr << it->first << " : " << it->second << "\n";
+            std::cerr << m.first << " : " << m.second << "\n";
         }
     }
 };

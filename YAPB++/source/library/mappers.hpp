@@ -118,11 +118,10 @@ struct IndirectVecCollapseFunctionImpl
 
     result_type operator()(int i)
     {
-        typedef typename inner_type::const_iterator it_type;
         const inner_type& c = f2(i);
         result_type r = 0;
-        for(it_type it = c.begin(); it != c.end(); ++it)
-            r += f1(*it);
+        for(const auto& member : c)
+            r += f1(member);
         return r;
     }
 };
