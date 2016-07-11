@@ -197,10 +197,9 @@ public:
             {
                 advise_branch_monoset.clear();
                 int cellfirstmem = *(ps->cellStartPtr(i));
-                for(typename vec1<VertexType>::iterator edge = points.edges[cellfirstmem].begin();
-                                                        edge != points.edges[cellfirstmem].end(); ++edge)
+                for(const auto& edge : points.edges[cellfirstmem])
                 {
-                    int cell = ps->cellOfVal(edge->target());
+                    int cell = ps->cellOfVal(edge.target());
                     if(ps->cellSize(cell) > 1)
                         advise_branch_monoset.add(cell);
                 }
