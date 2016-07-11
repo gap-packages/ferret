@@ -6,6 +6,12 @@ branches:
     - gh-pages
 
 addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-4.8
+      - g++-4.8
   apt_packages:
       - libgmp3-dev
       - parallel
@@ -17,6 +23,7 @@ env:
 
 
 install:
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8"; export CC=gcc-4.8; fi
   - git clone --depth=2 https://github.com/gap-system/gap.git gap
   - pwd
   - ( cd gap && ./configure --with-gmp=system && make && make bootstrap-pkg-minimal)
