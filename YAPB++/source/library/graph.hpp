@@ -212,17 +212,6 @@ public:
 
 };
 
-template<typename VertexType, GraphDirected directed>
-class PermutedGraph
-{
-  Graph<VertexType,directed>* graph;
-  Permutation p;
-
-  PermutedGraph(Graph<VertexType, directed>* _g, Permutation _p)
-  : graph(_g), p(_p)
-  { }
-};
-
 // store how to configure graph propagators
 struct GraphConfig
 {
