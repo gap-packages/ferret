@@ -41,7 +41,7 @@ template<typename Iterator>
 Range<Iterator> rangeWrap(Iterator b, Iterator e)
 { return Range<Iterator>(b,e); }
 
-namespace intrangeimpl {
+namespace rangeimpl {
 
 template<typename T>
 class IntlikeRangeIterator
@@ -84,17 +84,60 @@ public:
     { return IntlikeRangeIterator<T>(to); }
 };
 
+template<typename T, typename Func>
+class FuncMapRangeIterator
+{
+    T value;
+    Func* f;
+public:
+    FuncMapRangeIterator(T value_, Func* _f)
+        : value(value_), f(_f) {}
+
+    bool operator!=(const FuncMapRangeIterator& other) const
+    { return value != other.value; }
+
+    T operator*() const
+    { return f(value); }
+
+    FuncMapRangeIterator& operator++()
+    {
+        ++value;
+        return *this;
+    }
+};
+
+template<typename Range, typename Func>
+class FuncMapRange
+{
+    Range range;
+    Func f;
+
+    typedef decltype(range.begin()) Iterator;
+public:
+    FuncMapRange(Range _r, const Func& _f)
+        : range(_r), f(_f) {}
+
+    FuncMapRangeIterator<Iterator, Func> begin() const
+    { return FuncMapRangeIterator<Iterator, Func>(range.begin(), &f); }
+
+    FuncMapRangeIterator<Iterator, Func> end() const
+    { return FuncMapRangeIterator<Iterator, Func>(range.end(), &f); }
+};
+
 }
 
 template<typename T>
-intrangeimpl::IntlikeRange<T> xrange(T end) { return intrangeimpl::IntlikeRange<T>(end); }
+rangeimpl::IntlikeRange<T> xrange(T end) { return rangeimpl::IntlikeRange<T>(end); }
 
 template<typename T>
-intrangeimpl::IntlikeRange<T> range1(T end) { return intrangeimpl::IntlikeRange<T>(1, end + 1); }
+rangeimpl::IntlikeRange<T> range1(T end) { return rangeimpl::IntlikeRange<T>(1, end + 1); }
 
 
 template<typename T>
-intrangeimpl::IntlikeRange<T> xrange(T begin, T end) { return intrangeimpl::IntlikeRange<T>(begin, end); }
+rangeimpl::IntlikeRange<T> xrange(T begin, T end) { return rangeimpl::IntlikeRange<T>(begin, end); }
 
+template<typename Range, typename Func>
+rangeimpl::FuncMapRange<Range, Func> maprange(Range&& range, Func&& f)
+{ return rangeimpl::FuncMapRange<Range, Func>(range, f); }
 
 #endif
