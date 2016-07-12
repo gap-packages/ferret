@@ -209,7 +209,22 @@ public:
 
   int vertices() const
   { return edges.size(); }
+};
 
+template<typename VertexType, GraphDirected directed>
+class PermutedGraph
+{
+  Graph<VertexType,directed>* graph;
+  Permutation p;
+
+  PermutedGraph(Graph<VertexType, directed>* _g, Permutation _p)
+  : graph(_g), p(_p)
+  { }
+
+  int vertices() const 
+  { return graph->vertices(); }
+
+  
 };
 
 // store how to configure graph propagators
