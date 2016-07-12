@@ -30,7 +30,7 @@ public:
         vec1<int> points;
         for(int i : range1(ps->domainSize()))
             points.push_back(i);
-        return filterPartitionStackByFunction(ps, ContainerToFunction(&points));
+        return filterPartitionStackByFunction(ps, SquareBrackToFunction(&points));
     }
 
     virtual bool verifySolution(const Permutation& p)

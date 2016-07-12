@@ -127,7 +127,7 @@ public:
                 mset[i] += msetspare[i] * 71;
             }
         }
-        return filterPartitionStackByFunctionWithCells(ps, ContainerToFunction(&mset), monoset);
+        return filterPartitionStackByFunctionWithCells(ps, SquareBrackToFunction(&mset), monoset);
     }
 };
 

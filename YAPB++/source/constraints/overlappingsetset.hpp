@@ -51,7 +51,7 @@ public:
         Stats::ConstraintInvoke(Stats::CON_OverlappingSetSetStab);
 
         debug_out(1, "slowGraph", "signal_changed");
-        return filterPartitionStackByUnorderedListFunction(ps, ContainerToFunction(&point_map));
+        return filterPartitionStackByUnorderedListFunction(ps, SquareBrackToFunction(&point_map));
     }
 
     virtual bool verifySolution(const Permutation& p)
@@ -85,7 +85,7 @@ public:
       SplitState ss = filterPartitionStackByFunction(ps, InSet(&all_values));
       if(ss.hasFailed())
         return ss;
-      return filterPartitionStackByUnorderedListFunction(ps, ContainerToFunction(&point_map));
+      return filterPartitionStackByUnorderedListFunction(ps, SquareBrackToFunction(&point_map));
     }
 
     virtual std::vector<TriggerType> triggers()

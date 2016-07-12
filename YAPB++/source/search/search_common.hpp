@@ -38,11 +38,11 @@ void orderCell(It begin, It end, SearchHeuristic sh, RBase* rbase)
     {
         case SearchBranch_RBase:
              std::sort(begin, end,
-                IndirectSorter(ContainerToFunction(&rbase->inv_value_ordering)));
+                IndirectSorter(SquareBrackToFunction(&rbase->inv_value_ordering)));
             return;
         case SearchBranch_InvRBase:
              std::sort(begin, end,
-                ReverseSorter(IndirectSorter(ContainerToFunction(&rbase->inv_value_ordering))));
+                ReverseSorter(IndirectSorter(SquareBrackToFunction(&rbase->inv_value_ordering))));
             return;
         case SearchBranch_Random:
             std::random_shuffle(begin, end);

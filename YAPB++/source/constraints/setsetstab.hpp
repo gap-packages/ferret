@@ -51,7 +51,7 @@ public:
     {
         Stats::ConstraintInvoke(Stats::CON_SetSetStab);
         debug_out(1, "slowGraph", "signal_changed");
-        return filterPartitionStackByUnorderedFunction(ps, ContainerToFunction(&point_map));
+        return filterPartitionStackByUnorderedFunction(ps, SquareBrackToFunction(&point_map));
     }
 
     virtual bool verifySolution(const Permutation& p)
@@ -92,7 +92,7 @@ public:
         SplitState ss = filterPartitionStackByFunction(ps, InSet(&all_values));
         if(ss.hasFailed())
           return ss;
-        return filterPartitionStackByUnorderedFunction(ps, ContainerToFunction(&point_map));
+        return filterPartitionStackByUnorderedFunction(ps, SquareBrackToFunction(&point_map));
     }
 };
 

@@ -21,7 +21,7 @@ class SolutionStore
     // This is here to allow different functions
     // later.
     bool comparison(int i, int j) const
-    { return IndirectSorter(ContainerToFunction(&(rb->inv_value_ordering)))(i, j); }
+    { return IndirectSorter(SquareBrackToFunction(&(rb->inv_value_ordering)))(i, j); }
 
 public:
     SolutionStore(RBase* _rb) : rb(_rb), orbit_mins(rb->initial_permstack->domainSize(), -1)

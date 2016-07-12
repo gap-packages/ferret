@@ -224,7 +224,6 @@ class PermutedGraph
   int vertices() const 
   { return graph->vertices(); }
 
-  
 };
 
 // store how to configure graph propagators

@@ -39,7 +39,7 @@ struct ContainerToFunctionImpl
 
 // Transform a class with an operator[] to one with an operator()
 template<typename T>
-ContainerToFunctionImpl<T> ContainerToFunction(T const* t)
+ContainerToFunctionImpl<T> SquareBrackToFunction(T const* t)
 { return ContainerToFunctionImpl<T>(t); }
 
 // This exists just because for map we want 'result_type', not 'value_type'

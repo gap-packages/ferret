@@ -338,7 +338,7 @@ public:
         SplitState ss(true);
         if(config.useOrbits)
         {
-            ss = filterPartitionStackByFunction(ps, ContainerToFunction(&part));
+            ss = filterPartitionStackByFunction(ps, SquareBrackToFunction(&part));
             if(ss.hasFailed())
                 return ss;
         }
@@ -427,7 +427,7 @@ public:
         SplitState ss(true);
         if(config.useOrbits)
         {
-            ss = filterPartitionStackByFunction(ps, FunctionByPerm(ContainerToFunction(&part), perm));
+            ss = filterPartitionStackByFunction(ps, FunctionByPerm(SquareBrackToFunction(&part), perm));
             if(ss.hasFailed())
                 return ss;
         }
