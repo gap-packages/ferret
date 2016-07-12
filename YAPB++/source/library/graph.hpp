@@ -117,7 +117,7 @@ struct ParsedGraph
 		{
 			for(int j = 1; j <= edges[i].size(); ++j)
 			{
-				edges[edges[i][j].target()].push_back(UncolouredEdge(j));
+        edges[edges[i][j].target()].push_back(UncolouredEdge(j));
 			}
 		}
 	}
@@ -164,10 +164,10 @@ inline vec1<vec1<UncolouredEdge> > compressGraph(const vec1<vec1<UncolouredEdge>
 }
 
 template<typename VertexType, GraphDirected directed>
-struct Graph
+class Graph
 {
   vec1<vec1<VertexType> > edges;
-
+public:
   Graph(const vec1<vec1<VertexType> >& _points_in, int domain)
   { 
     vec1<vec1<VertexType> > _points = compressGraph(_points_in);
@@ -204,6 +204,23 @@ struct Graph
     }
   }
 
+  const vec1<VertexType>& neighbours(int i) const
+  { return edges[i]; }
+
+  int vertices() const
+  { return edges.size(); }
+
+};
+
+template<typename VertexType, GraphDirected directed>
+class PermutedGraph
+{
+  Graph<VertexType,directed>* graph;
+  Permutation p;
+
+  PermutedGraph(Graph<VertexType, directed>* _g, Permutation _p)
+  : graph(_g), p(_p)
+  { }
 };
 
 // store how to configure graph propagators

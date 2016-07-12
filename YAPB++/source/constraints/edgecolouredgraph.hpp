@@ -41,7 +41,7 @@ public:
         {
             int i_cell = ps->cellOfVal(i);
             int hash = quick_hash(i_cell);
-            for(const auto& edge : points.edges[i])
+            for(const auto& edge : points.neighbours(i))
             {
                 monoset.add(ps->cellOfVal(edge.target()));
                 u_int64_t new_hash = quick_hash(hash + edge.colour());
@@ -54,7 +54,7 @@ public:
     void hashNeighboursOfVertexDeep2(PartitionStack* ps, const GraphType& points, 
                                      MonoSet& hitcells, int vertex, u_int64_t hash)
     {
-        for(const auto& edge : points.edges[vertex])
+        for(const auto& edge : points.neighbours(vertex))
         {
             hitcells.add(ps->cellOfVal(edge.target()));
             u_int64_t new_hash = quick_hash(hash + edge.colour());
@@ -77,7 +77,7 @@ public:
     void hashNeighboursOfVertexDeep(PartitionStack* ps, const GraphType& points, 
                                     MonoSet& hitcells, MonoSet& hitvertices, int vertex, u_int64_t hash)
     {
-        for(const auto& val : points.edges[vertex])
+        for(const auto& val : points.neighbours(vertex))
         {
             hitcells.add(ps->cellOfVal(val.target()));
             hitvertices.add(val.target());
@@ -197,7 +197,7 @@ public:
             {
                 advise_branch_monoset.clear();
                 int cellfirstmem = *(ps->cellStartPtr(i));
-                for(const auto& edge : points.edges[cellfirstmem])
+                for(const auto& edge : points.neighbours(cellfirstmem))
                 {
                     int cell = ps->cellOfVal(edge.target());
                     if(ps->cellSize(cell) > 1)
@@ -221,9 +221,9 @@ public:
 
   virtual bool verifySolution(const Permutation& p)
     {
-        for(int i : range1(points.edges.size()))
+        for(int i : range1(points.vertices()))
         {
-            const vec1<VertexType>& p_i = points.edges[i];
+            const vec1<VertexType>& p_i = points.neighbours(i);
             vec1<VertexType> image_set;
             for(const auto& edge : p_i) {
                 int pnt = edge.target();
@@ -232,7 +232,7 @@ public:
             }
             std::sort(image_set.begin(), image_set.end());
             
-            if(points.edges[p[i]] != image_set) {
+            if(points.neighbours(p[i]) != image_set) {
               return false;
             }
         }
