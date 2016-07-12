@@ -5,8 +5,9 @@
 #include "vec1.hpp"
 #include "perm.hpp"
 
-// Some useful class for filtering
+// Some useful classes for filtering
 
+// A function which returns if a value is in a set
 struct InSet
 {
     const std::set<int>* vals;
@@ -36,6 +37,7 @@ struct ContainerToFunctionImpl
     { return o << *(c.vec); }
 };
 
+// Transform a class with an operator[] to one with an operator()
 template<typename T>
 ContainerToFunctionImpl<T> ContainerToFunction(T const* t)
 { return ContainerToFunctionImpl<T>(t); }
