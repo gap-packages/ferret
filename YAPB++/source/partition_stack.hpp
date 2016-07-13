@@ -9,7 +9,7 @@
 
 #include "optional.hpp"
 #include "library/algorithms.hpp"
-#include "vec1.hpp"
+#include "library/vec1.hpp"
 #include "library/sorter.hpp"
 #include "queue/abstract_queue.hpp"
 #include "memory_backtrack.hpp"

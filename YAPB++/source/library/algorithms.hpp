@@ -1,7 +1,7 @@
 #ifndef ALGORITHMS_HPP_YPAQW
 #define ALGORITHMS_HPP_YPAQW
 
-#include "vec1.hpp"
+#include "library/vec1.hpp"
 #include "library.hpp"
 #include "perm.hpp"
 #include <algorithm>

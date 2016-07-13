@@ -1,7 +1,7 @@
 #ifndef _ABSTRACT_CONSTRAINT_HPP_VFJIOVDS
 #define _ABSTRACT_CONSTRAINT_HPP_VFJIOVDS
 #include <assert.h>
-#include "vec1.hpp"
+#include "library/vec1.hpp"
 #include "split_state.hpp"
 #include "../queue/triggering_enums.hpp"
 

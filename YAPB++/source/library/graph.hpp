@@ -1,7 +1,7 @@
 #ifndef _GRAPH_HPP_FDAJIOQ
 #define _GRAPH_HPP_FDAJIOQ
 
-#include "vec1.hpp"
+#include "library/vec1.hpp"
 #include <set>
 
 // Store an edge for an edge-coloured graph.

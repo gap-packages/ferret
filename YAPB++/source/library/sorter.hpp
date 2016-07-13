@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <iostream>
-#include "vec1.hpp"
+#include "library/vec1.hpp"
 #include "library.hpp"
 #include "sort_events.hpp"
 #include "stats.hpp"

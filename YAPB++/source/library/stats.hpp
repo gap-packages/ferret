@@ -1,7 +1,7 @@
 #ifndef _STATS_HPP_LCDSJIOSA
 #define _STATS_HPP_LCDSJIOSA
 
-#include "vec1.hpp"
+#include "library/vec1.hpp"
 #include <ostream>
 #include <iostream>
 #include <map>

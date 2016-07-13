@@ -1,7 +1,7 @@
 #ifndef _TRACER_HPP_CPRLIXUQ
 #define _TRACER_HPP_CPRLIXUQ
 
-#include "vec1.hpp"
+#include "library/vec1.hpp"
 #include "triggering_events.hpp"
 #include "memory_backtrack.hpp"
 #include <utility>

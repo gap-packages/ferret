@@ -1,7 +1,7 @@
 #ifndef _SORT_EVENT_CDHUCDS
 #define _SORT_EVENT_CDHUCDS
 #include "library.hpp"
-#include "vec1.hpp"
+#include "library/vec1.hpp"
 #include "promotable_list.hpp"
 
 typedef int HashType;

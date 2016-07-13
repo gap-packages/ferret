@@ -2,7 +2,7 @@
 #define _MAPPERS_HPP
 
 #include <set>
-#include "vec1.hpp"
+#include "library/vec1.hpp"
 #include "perm.hpp"
 
 // Some useful classes for filtering

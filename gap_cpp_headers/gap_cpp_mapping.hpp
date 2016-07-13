@@ -14,7 +14,7 @@
 #include "gap_exception.hpp"
 #include "gap_function.hpp"
 
-#include "vec1.hpp"
+#include "library/vec1.hpp"
 #include "optional.hpp"
 
 

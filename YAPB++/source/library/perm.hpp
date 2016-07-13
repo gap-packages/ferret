@@ -1,7 +1,7 @@
 #ifndef PERM_HPP_PDWE
 #define PERM_HPP_PDWE
 
-#include "vec1.hpp"
+#include "library/vec1.hpp"
 #include "library.hpp"
 #include "shared_ptr.hpp"
 
