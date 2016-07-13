@@ -2,7 +2,7 @@
 #include "generated_headers/RNamNames_list.h"
 
 #include "library/perm.hpp"
-#include "optional.hpp"
+#include "library/optional.hpp"
 
 // This class just provides a thin wrapper around a
 // GAP stabilizer chain, to avoid having to remember the

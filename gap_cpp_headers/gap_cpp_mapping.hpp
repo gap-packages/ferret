@@ -15,7 +15,7 @@
 #include "gap_function.hpp"
 
 #include "library/vec1.hpp"
-#include "optional.hpp"
+#include "library/optional.hpp"
 
 
 namespace GAPdetail

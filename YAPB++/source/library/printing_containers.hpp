@@ -11,7 +11,7 @@
 #include <set>
 #include <list>
 #include <map>
-#include "../../../gap_cpp_headers/optional.hpp"
+#include "optional.hpp"
 
 template<typename T>
 void output_container(std::ostream& o, const T& t);
