@@ -262,6 +262,10 @@ class StabChain_PermGroup : public AbstractConstraint
     RevertingStack<Permutation> last_permutation;
     Reverting<int> last_depth;
 
+    Reverting<int> first_found_orbits;
+    Reverting<int> first_found_blocks;
+    Reverting<int> first_found_orbitals;
+
 public:
     virtual std::string name() const
     {
@@ -278,14 +282,6 @@ public:
       last_permutation(mb->makeRevertingStack<Permutation>()),
       last_depth(mb->makeReverting<int>())
     {
-        original_partitions.resize(ps->domainSize()+1);
-
-        if(config.useBlocks)
-            original_blocks.resize(ps->domainSize() + 1);
-
-        if(config.useOrbitals)
-            original_orbitals.resize(ps->domainSize() + 1);
-
         // We set up our 'reverting' at the start
         last_depth.set(0);
         last_permutation.push_back(Permutation());
@@ -304,6 +300,9 @@ private:
         vec1<int> filter = partitionToList(oart, ps->domainSize(), MissingPoints_Fixed);
         debug_out(3, "scpg", "Filter partition: "<< filter);
 
+        if(original_partitions.size() < fix.size() + 1)
+            original_partitions.resize(fix.size() + 1);
+
         original_partitions[fix.size()+1] = std::move(filter);
 
         return &(original_partitions[fix.size()+1]);
@@ -317,6 +316,10 @@ private:
         {
             block_functions.push_back(partitionToMap(blocks[i]));
         }
+
+        if(original_blocks.size() < fix.size() + 1)
+            original_blocks.resize(fix.size() + 1);
+
         original_blocks[fix.size() + 1] = std::move(block_functions);
 
         return &(original_blocks[fix.size() + 1]);
@@ -325,6 +328,10 @@ private:
     vec1<OrbitalGraph>* getRBaseOrbitals(const vec1<int>& fix)
     {
         vec1<OrbitalGraph> orbitals = scc.orbitals(fix, ps->domainSize());
+
+        if(original_orbitals.size() < fix.size() + 1)
+            original_orbitals.resize(fix.size() + 1);
+    
         original_orbitals[fix.size() + 1] = std::move(orbitals);
         return &(original_orbitals[fix.size() + 1]);
     }
@@ -498,11 +505,11 @@ public:
         }
 #endif
 
-        const vec1<int>& part = getRBasePartition_cached(new_depth);
 
         SplitState ss(true);
         if(config.useOrbits == StabChainConfig::always)
         {
+            const vec1<int>& part = getRBasePartition_cached(new_depth);
             debug_out(3, "scpg", "fix:orbits" << part << " by " << perm);
             ss = filterPartitionStackByFunction(ps, FunctionByPerm(SquareBrackToFunction(&part), perm));
             if(ss.hasFailed())
