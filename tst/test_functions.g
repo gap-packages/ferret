@@ -55,13 +55,15 @@ end;;
 
 heuristics := ["largest", "first", "smallest2", "randomsmallest", "random", "random", "random", "random"];
 
+proporderings := ["always", "never", "root", "firstnontrivial" ];
+
 # Checks all the ways of building up a single group -- can be extremely slow!
 CheckGroup := function(g)
     local h, only_gen, orbits, blocks, orbitals, output, record, f;
     for h in heuristics do
-            for orbits in [false, true] do
-                for blocks in [false, true] do
-                    for orbitals in [false, true] do
+            for orbits in proporderings do
+                for blocks in proporderings do
+                    for orbitals in proporderings do
                         record := rec(orbits := orbits, blocks := blocks, orbitals := orbitals);
                         output :=
                             Solve([ConInGroup(g, record)],
@@ -99,8 +101,8 @@ CheckStab := function(g, s, act, extra...)
     fi;
     
     permsStabChain := Solve([ConInGroup(g), stabmap], rec(recreturn := true));
-    permsBlock := Solve([ConInGroup(g, rec(blocks := true)), stabmap], rec(recreturn := true));
-    permsOrbitals := Solve([ConInGroup(g, rec(orbitals := true)), stabmap], rec(recreturn := true));
+    permsBlock := Solve([ConInGroup(g, rec(blocks := "always")), stabmap], rec(recreturn := true));
+    permsOrbitals := Solve([ConInGroup(g, rec(orbitals := "always")), stabmap], rec(recreturn := true));
     
     stab := Stabilizer(g, s, act);
 

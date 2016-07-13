@@ -81,9 +81,9 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
     }
     else if(strcmp(conname, "Generators_StabChain") == 0)
     {
-        StabChainConfig scc(GAP_get<bool>(GAP_get_rec(con, RNamName("orbits"))),
-                            GAP_get<bool>(GAP_get_rec(con, RNamName("blocks"))),
-                            GAP_get<bool>(GAP_get_rec(con, RNamName("orbitals"))));
+        StabChainConfig scc(GAP_get<std::string>(GAP_get_rec(con, RNamName("orbits"))),
+                            GAP_get<std::string>(GAP_get_rec(con, RNamName("blocks"))),
+                            GAP_get<std::string>(GAP_get_rec(con, RNamName("orbitals"))));
         return new StabChain_PermGroup(GAP_get_rec(con, RNamName("arg")), scc, ps, mb);
     }
     else if(strcmp(conname, "NULL") == 0)

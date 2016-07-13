@@ -311,7 +311,7 @@ InstallMethod(ConInGroup, [IsPermGroup, IsRecord],
 function(G, useroptions)
 
   useroptions := _FerretHelperFuncs.fillUserValues(
-          rec(orbits := true, blocks := false, orbitals := false), useroptions);
+          rec(orbits := "always", blocks := "never", orbitals := "never"), useroptions);
 
   # We special case the identity group, because it is a pain
   if IsTrivial(G) then

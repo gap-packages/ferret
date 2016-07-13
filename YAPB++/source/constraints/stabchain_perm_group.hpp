@@ -212,16 +212,35 @@ struct StabChainCache
 
 struct StabChainConfig
 {
-    bool useOrbits;
-    bool useBlocks;
-    bool useOrbitals;
+    enum sc_config_option {
+        never,
+        always,
+        root,
+        firstnontrivial
+    };
+
+    sc_config_option optionFromString(std::string s) {
+        if(s == "never") return never;
+        if(s == "always") return always;
+        if(s == "root") return root;
+        if(s == "firstnontrivial") return firstnontrivial;
+        throw GAPException("'" + s + "' is not a valid configuration option for ConInGroup."
+                           "Valid options are never, always, root, firstnontrivial");
+    }
+
+    sc_config_option useOrbits;
+    sc_config_option useBlocks;
+    sc_config_option useOrbitals;
 
     StabChainConfig()
-    : useOrbits(false), useBlocks(false), useOrbitals(false)
+    : useOrbits(never), useBlocks(never), useOrbitals(never)
     { }
 
-    StabChainConfig(bool uO, bool uB, bool uOtals)
-    : useOrbits(uO), useBlocks(uB), useOrbitals(uOtals)
+
+    StabChainConfig(const std::string& uO, const std::string& uB, const std::string& uOtals)
+    : useOrbits(optionFromString(uO)),
+      useBlocks(optionFromString(uB)),
+      useOrbitals(optionFromString(uOtals))
     { }
 };
 
@@ -360,7 +379,7 @@ public:
         }
 
         SplitState ss(true);
-        if(config.useOrbits)
+        if(config.useOrbits == StabChainConfig::always)
         {
             debug_out(3, "scpg", "fix_rBase:orbits");
             ss = filterPartitionStackByFunction(ps, SquareBrackToFunction(part));
@@ -368,7 +387,7 @@ public:
                 return ss;
         }
 
-        if(config.useBlocks)
+        if(config.useBlocks == StabChainConfig::always)
         {
             for(int i : range1(blocks->size()))
             {
@@ -379,7 +398,7 @@ public:
             }
         }
 
-        if(config.useOrbitals)
+        if(config.useOrbitals == StabChainConfig::always)
         {
             for(const auto& graph : (*orbitals))
             {
@@ -469,7 +488,7 @@ public:
         const vec1<int>& part = getRBasePartition_cached(new_depth);
 
         SplitState ss(true);
-        if(config.useOrbits)
+        if(config.useOrbits == StabChainConfig::always)
         {
             debug_out(3, "scpg", "fix:orbits" << part << " by " << perm);
             ss = filterPartitionStackByFunction(ps, FunctionByPerm(SquareBrackToFunction(&part), perm));
@@ -477,7 +496,7 @@ public:
                 return ss;
         }
 
-        if(config.useBlocks)
+        if(config.useBlocks == StabChainConfig::always)
         {
             const vec1<std::map<int,int> >& blocks = getRBaseBlocks_cached(new_depth);
             for(int i : range1(blocks.size()))
@@ -489,7 +508,7 @@ public:
             }
         }
 
-        if(config.useOrbitals)
+        if(config.useOrbitals == StabChainConfig::always)
         {
             const vec1<OrbitalGraph>& orbitals = getRBaseOrbitals_cached(new_depth);
             for(const auto& graph : orbitals)
