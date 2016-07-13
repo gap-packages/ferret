@@ -1,7 +1,9 @@
 #ifndef BASE1VEC_CDJXJIO
 #define BASE1VEC_CDJXJIO
+
 #include <vector>
 #include <ostream>
+#include "debug.hpp"
 
 template<typename T>
 class vec1
@@ -41,10 +43,16 @@ public:
     { }
 
     T& operator[](unsigned i)
-    { return v[i-1]; }
+    {
+        D_ASSERT(i <= this->size() && i != 0);
+        return v[i-1];
+    }
 
     const T& operator[](unsigned i) const
-    { return v[i-1]; }
+    {
+        D_ASSERT(i <= this->size() && i != 0);
+        return v[i-1];
+    }
 
     // Yes, this is 'int' on purpose. This is to avoid
     // signed/unsigned warnings all over the place.
