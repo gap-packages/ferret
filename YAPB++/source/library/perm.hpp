@@ -246,6 +246,14 @@ public:
     }
 };
 
+Permutation invertPermutation(const Permutation& p)
+{
+    vec1<int> vec(p.size());
+    for(int i = 1; i <= p.size(); ++i)
+        vec[p[i]] = i;
+    return Permutation(vec, p.size());
+}
+
 
 inline int& PermSharedData::operator[](int i)
 {

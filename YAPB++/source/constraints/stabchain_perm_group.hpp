@@ -13,6 +13,7 @@
 #include "../rbase/rbase.hpp"
 #include "../tunables.hpp"
 
+typedef Graph<UncolouredEdge, GraphDirected_yes> OrbitalGraph;
 
 // Stores a single level of a stabilizer chain
 struct StabChainLevel
@@ -164,6 +165,9 @@ struct StabChainCache
     vec1<vec1<vec1<int> > > blocks(const vec1<int>& v)
     { return getscc(v).getBlockList(); }
 
+    vec1<OrbitalGraph> orbitals(const vec1<int>& v, int domain_size)
+    { return getscc(v).getOrbitalList(domain_size); }
+
     void initalize(const vec1<int>& order)
     {
         D_ASSERT(!fixed_base);
@@ -234,6 +238,8 @@ class StabChain_PermGroup : public AbstractConstraint
 
     vec1<vec1< std::map<int,int> > > original_blocks;
 
+    vec1<vec1<OrbitalGraph> > original_orbitals;
+
     RevertingStack<Permutation> last_permutation;
     Reverting<int> last_depth;
 
@@ -258,13 +264,16 @@ public:
         if(config.useBlocks)
             original_blocks.resize(ps->domainSize() + 1);
 
+        if(config.useOrbitals)
+            original_orbitals.resize(ps->domainSize() + 1);
+
         // We set up our 'reverting' at the start
         last_depth.set(0);
         last_permutation.push_back(Permutation());
     }
 private:
 
-    const vec1<int>& getRBasePartition(const vec1<int>& fix)
+    const vec1<int>* getRBasePartition(const vec1<int>& fix)
     {
         debug_out(3, "scpg", "Fixing: "<< fix);
         vec1<vec1<int> > oart = scc.orbits(fix, ps->domainSize());
@@ -278,10 +287,10 @@ private:
 
         original_partitions[fix.size()+1] = std::move(filter);
 
-        return original_partitions[fix.size()+1];
+        return &(original_partitions[fix.size()+1]);
     }
 
-    vec1<std::map<int,int> >& getRBaseBlocks(const vec1<int>& fix)
+    vec1<std::map<int,int> >* getRBaseBlocks(const vec1<int>& fix)
     {
         vec1<vec1<vec1<int> > > blocks = scc.blocks(fix);
         vec1<std::map<int,int> > block_functions;
@@ -291,7 +300,14 @@ private:
         }
         original_blocks[fix.size() + 1] = std::move(block_functions);
 
-        return original_blocks[fix.size() + 1];
+        return &(original_blocks[fix.size() + 1]);
+    }
+
+    vec1<OrbitalGraph>* getRBaseOrbitals(const vec1<int>& fix)
+    {
+        vec1<OrbitalGraph> orbitals = scc.orbitals(fix, ps->domainSize());
+        original_orbitals[fix.size() + 1] = std::move(orbitals);
+        return &(original_orbitals[fix.size() + 1]);
     }
 
     const vec1<int>& getRBasePartition_cached(int s)
@@ -300,6 +316,8 @@ private:
     const vec1<std::map<int,int> >& getRBaseBlocks_cached(int s)
     {  return original_blocks[s+1]; }
 
+    const vec1<OrbitalGraph>& getRBaseOrbitals_cached(int s)
+    { return original_orbitals[s+1]; }
 
 public:
 
@@ -326,30 +344,56 @@ public:
     virtual SplitState signal_fix_buildingRBase(int /*i*/)
     {
         debug_out(3, "scpg", "signal_fix_buildingRBase");
-        const vec1<int>& part = getRBasePartition(ps->fixed_values());
+        const vec1<int>* part = getRBasePartition(ps->fixed_values());
 
-        vec1<std::map<int,int> > blocks;
-
+        vec1<std::map<int,int> >* blocks = 0;
+        vec1<OrbitalGraph>* orbitals = 0;
+        
         if(config.useBlocks)
         {
             blocks = getRBaseBlocks(ps->fixed_values());
         }
 
+        if(config.useOrbitals)
+        {
+            orbitals = getRBaseOrbitals(ps->fixed_values());
+        }
+
         SplitState ss(true);
         if(config.useOrbits)
         {
-            ss = filterPartitionStackByFunction(ps, SquareBrackToFunction(&part));
+            debug_out(3, "scpg", "fix_rBase:orbits");
+            ss = filterPartitionStackByFunction(ps, SquareBrackToFunction(part));
             if(ss.hasFailed())
                 return ss;
         }
 
         if(config.useBlocks)
         {
-            for(int i : range1(blocks.size()))
+            for(int i : range1(blocks->size()))
             {
-                ss = filterPartitionStackByUnorderedFunction(ps, SparseFunction<MissingPoints_Free>(&blocks[i]));
+                debug_out(3, "scpg", "fix_rBase:blocks" << (*blocks)[i] );
+                ss = filterPartitionStackByUnorderedFunction(ps, SparseFunction<MissingPoints_Free>(&(*blocks)[i]));
                 if(ss.hasFailed())
                     return ss;
+            }
+        }
+
+        if(config.useOrbitals)
+        {
+            for(const auto& graph : (*orbitals))
+            {
+                debug_out(3, "scpg", "fix_rBase:orbitals"  << graph);
+                GraphRefiner gr(ps->domainSize());
+                vec1<int> cells;
+                for(int i : range1(ps->cellCount()))
+                    cells.push_back(i);
+                ss = gr.filterGraph(ps, graph, cells, 1);
+                if(ss.hasFailed())
+                {
+                    debug_out(3, "scpg", "Orbital failed");
+                    return ss;
+                }
             }
         }
 
@@ -427,6 +471,7 @@ public:
         SplitState ss(true);
         if(config.useOrbits)
         {
+            debug_out(3, "scpg", "fix:orbits" << part << " by " << perm);
             ss = filterPartitionStackByFunction(ps, FunctionByPerm(SquareBrackToFunction(&part), perm));
             if(ss.hasFailed())
                 return ss;
@@ -437,7 +482,24 @@ public:
             const vec1<std::map<int,int> >& blocks = getRBaseBlocks_cached(new_depth);
             for(int i : range1(blocks.size()))
             {
+                debug_out(3, "scpg", "fix:blocks" << blocks[i] << " by " << perm);
                 ss = filterPartitionStackByUnorderedFunction(ps, FunctionByPerm(SparseFunction<MissingPoints_Free>(&blocks[i]), perm));
+                if(ss.hasFailed())
+                    return ss;
+            }
+        }
+
+        if(config.useOrbitals)
+        {
+            const vec1<OrbitalGraph>& orbitals = getRBaseOrbitals_cached(new_depth);
+            for(const auto& graph : orbitals)
+            {
+                debug_out(3, "scpg", "fix:orbitals" << graph << " by " << perm);
+                GraphRefiner gr(ps->domainSize());
+                vec1<int> cells;
+                for(int i : range1(ps->cellCount()))
+                    cells.push_back(i);
+                ss = gr.filterGraph(ps, PermutedGraph<OrbitalGraph>(&graph, perm), cells, 1);
                 if(ss.hasFailed())
                     return ss;
             }

@@ -51,6 +51,9 @@ public:
 		members.clear();
 	}
 
+	friend std::ostream& operator<<(std::ostream& o, const MonoSet& m)
+	{ return o << "(" << m.members << ")"; }
+
 };
 
 #endif

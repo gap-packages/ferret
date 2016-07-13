@@ -78,6 +78,25 @@ public:
             return GAP_get<vec1<vec1<vec1<int> > > >(GAP_callFunction(FunObj_getBlockList, sc)); 
     }
 
+    vec1<Graph<UncolouredEdge, GraphDirected_yes> > getOrbitalList(int domain) const
+    {
+        if(!hasOrbit())
+        {
+            return vec1<Graph<UncolouredEdge, GraphDirected_yes> >();
+        }
+        else
+        {
+            vec1<vec1<vec1<UncolouredEdge> > > graphvecs;
+            graphvecs = GAP_get<vec1<vec1<vec1<UncolouredEdge> > > >(GAP_callFunction(FunObj_getOrbitalList, sc, GAP_make(domain)));
+            vec1<Graph<UncolouredEdge, GraphDirected_yes> > graphs;
+            for(const auto& edgesets : graphvecs)
+            {
+                graphs.push_back(Graph<UncolouredEdge, GraphDirected_yes>(edgesets, domain));
+            }
+            return graphs;
+        }
+    }
+
     int getOrbitStart() const
     { 
        // printf("getOrbitStart.");

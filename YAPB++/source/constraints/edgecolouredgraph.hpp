@@ -12,7 +12,6 @@
 #include "library/graph.hpp"
 
 
-template<typename VertexType, GraphDirected directed>
 class GraphRefiner
 {
 
@@ -26,31 +25,34 @@ public:
 
     };
 
-    typedef Graph<VertexType, directed> GraphType;
-
   // Construct these once, for use in filterGraph, as the cost is fairly big
     vec1<u_int64_t> mset;
     vec1<u_int64_t> msetspare;
     
     int edgesconsidered;
     
+    template<typename GraphType>
     void hashCellSimple(PartitionStack* ps, const GraphType& points, MonoSet& monoset, int cell)
     {
         Range<PartitionStack::cellit> r = ps->cellRange(cell);
         for(int i : r)
         {
+            debug_out(4, "filter", "filtering " << i);
             int i_cell = ps->cellOfVal(i);
             int hash = quick_hash(i_cell);
+            debug_out(4, "filter", "initial cell" << ps->cellOfVal(i) << ":" << i_cell);
             for(const auto& edge : points.neighbours(i))
             {
                 monoset.add(ps->cellOfVal(edge.target()));
                 u_int64_t new_hash = quick_hash(hash + edge.colour());
+                debug_out(4, "filter", "adding to " << edge << ":" << new_hash);
                 edgesconsidered++;
                 mset[edge.target()] += new_hash;
             }
         }
     }
     
+    template<typename GraphType>
     void hashNeighboursOfVertexDeep2(PartitionStack* ps, const GraphType& points, 
                                      MonoSet& hitcells, int vertex, u_int64_t hash)
     {
@@ -63,7 +65,7 @@ public:
         }
     }
  
-    template<typename Range>
+    template<typename Range, typename GraphType>
     void hashRangeDeep2(PartitionStack* ps, const GraphType& points, MonoSet& hitcells, Range cell)
     {
         for(int i : cell)
@@ -74,6 +76,7 @@ public:
         }
     }
     
+    template<typename GraphType>
     void hashNeighboursOfVertexDeep(PartitionStack* ps, const GraphType& points, 
                                     MonoSet& hitcells, MonoSet& hitvertices, int vertex, u_int64_t hash)
     {
@@ -87,7 +90,7 @@ public:
         }
     }
  
-    template<typename Range>
+    template<typename Range, typename GraphType>
     void hashRangeDeep(PartitionStack* ps, const GraphType& points, 
                        MonoSet& hitcells, MonoSet& hitvertices, Range cell)
     {
@@ -99,6 +102,7 @@ public:
         }
     }
     
+    template<typename GraphType>
     SplitState filterGraph(PartitionStack* ps, const GraphType& points,
                            const vec1<int>& cells, int path_length)
     {
@@ -127,6 +131,7 @@ public:
                 mset[i] += msetspare[i] * 71;
             }
         }
+        debug_out(3, "EdgeGraph", "filtering " << mset << " : " << monoset);
         return filterPartitionStackByFunctionWithCells(ps, SquareBrackToFunction(&mset), monoset);
     }
 };
@@ -137,7 +142,7 @@ class EdgeColouredGraph : public AbstractConstraint
     Graph<VertexType, directed> points;
     GraphConfig config;
 
-    GraphRefiner<VertexType, directed> refiner;
+    GraphRefiner refiner;
 
 public:
     virtual std::string name() const

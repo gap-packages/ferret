@@ -52,8 +52,8 @@ _YAPB_isGroupConj := function(p, g)
   return g^p = g;
 end;
 
-_YAPB_getOrbitPart := function(g, i)
-  return OrbitsDomain(Group(g.generators), [1..i]);
+_YAPB_getOrbitPart := function(g, maxval)
+  return OrbitsDomain(Group(g.generators), [1..maxval]);
 end;
 
 _YAPB_getBlockList := function(sc)
@@ -93,12 +93,16 @@ _YAPB_getInfoFerretDebug := function()
   return InfoLevel(InfoFerretDebug);
 end;
 
-_YAPB_getOrbitalList := function(G, cutoff)
-	local orb, orbitsG, iorb, graph, graphlist, val, p, i, orbsizes, orbpos, innerorblist, orbitsizes,
-		  biggestOrbit, skippedOneLargeOrbit;
+_YAPB_getOrbitalList := function(sc, maxval)
+	local G, cutoff,
+        orb, orbitsG, iorb, graph, graphlist, val, p, i, orbsizes, orbpos, innerorblist, orbitsizes,
+		    biggestOrbit, skippedOneLargeOrbit;
 	
+  G := Group(sc.generators);
+  cutoff := infinity;
+
 	graphlist := [];
-	orbitsG := Orbits(G);
+	orbitsG := Orbits(G,[1..maxval]);
 	
 	orbsizes := [];
 	orbpos := [];
@@ -112,13 +116,12 @@ _YAPB_getOrbitalList := function(G, cutoff)
 	
 	innerorblist := List(orbitsG, o -> Orbits(Stabilizer(G, o[1]), [1..LargestMovedPoint(G)]));
 
-    orbitsizes := List([1..Length(orbitsG)], 
+  orbitsizes := List([1..Length(orbitsG)], 
 	  x -> List(innerorblist[x], y -> Size(orbitsG[x])*Size(y)));
 	
 	biggestOrbit := Maximum(Flat(orbitsizes));
 
 	skippedOneLargeOrbit := false;
-
 
 	for i in [1..Size(orbitsG)] do
 		orb := orbitsG[i];

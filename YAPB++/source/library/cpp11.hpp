@@ -84,24 +84,24 @@ public:
     { return IntlikeRangeIterator<T>(to); }
 };
 
-template<typename T, typename Func>
+template<typename Iterator, typename Func>
 class FuncMapRangeIterator
 {
-    T value;
+    Iterator it;
     Func* f;
 public:
-    FuncMapRangeIterator(T value_, Func* _f)
-        : value(value_), f(_f) {}
+    FuncMapRangeIterator(Iterator _it, Func* _f)
+        : it(_it), f(_f) {}
 
     bool operator!=(const FuncMapRangeIterator& other) const
-    { return value != other.value; }
+    { return it != other.it; }
 
-    T operator*() const
-    { return f(value); }
+    decltype((*f)(*it)) operator*() const
+    { return (*f)(*it); }
 
     FuncMapRangeIterator& operator++()
     {
-        ++value;
+        ++it;
         return *this;
     }
 };
@@ -117,11 +117,11 @@ public:
     FuncMapRange(Range _r, const Func& _f)
         : range(_r), f(_f) {}
 
-    FuncMapRangeIterator<Iterator, Func> begin() const
-    { return FuncMapRangeIterator<Iterator, Func>(range.begin(), &f); }
+    FuncMapRangeIterator<Iterator, const Func> begin() const
+    { return FuncMapRangeIterator<Iterator, const Func>(range.begin(), &f); }
 
-    FuncMapRangeIterator<Iterator, Func> end() const
-    { return FuncMapRangeIterator<Iterator, Func>(range.end(), &f); }
+    FuncMapRangeIterator<Iterator, const Func> end() const
+    { return FuncMapRangeIterator<Iterator, const Func>(range.end(), &f); }
 };
 
 }

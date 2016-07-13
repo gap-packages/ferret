@@ -13,6 +13,8 @@ public:
     bool hasFailed() const
     { return !success; }
 
+    friend std::ostream& operator<<(std::ostream& o, SplitState s)
+    { return o << (s.hasFailed() ? "fail" : "pass"); }
 };
 
 #endif

@@ -209,21 +209,50 @@ public:
 
   int vertices() const
   { return edges.size(); }
+
+  friend std::ostream& operator<<(std::ostream& o, const Graph& g)
+  { return o << g.edges; }
 };
 
-template<typename VertexType, GraphDirected directed>
-class PermutedGraph
+template<typename VertexType>
+class MapEdgeByPerm
 {
-  Graph<VertexType,directed>* graph;
-  Permutation p;
+   const Permutation* p;
+public:
+   MapEdgeByPerm(const Permutation* _p)
+   : p(_p)
+   { }
 
-  PermutedGraph(Graph<VertexType, directed>* _g, Permutation _p)
-  : graph(_g), p(_p)
+   VertexType operator()(const VertexType& v) const
+   {
+     VertexType mapvert((*p)[v.target()], v.colour());
+     debug_out(3, "mebp", "mapping " << v << " to " << mapvert);
+     return mapvert;
+   }
+};
+
+template<typename T>
+class PermutedGraph;
+
+template<typename VertexType, GraphDirected directed>
+class PermutedGraph<Graph<VertexType, directed> >
+{
+  const Graph<VertexType,directed>* graph;
+  Permutation p;
+  Permutation pinv;
+public:
+  PermutedGraph(const Graph<VertexType, directed>* _g, Permutation _p)
+  : graph(_g), p(_p), pinv(invertPermutation(_p))
   { }
 
   int vertices() const 
   { return graph->vertices(); }
 
+  auto neighbours(int i)  const -> decltype( maprange(graph->neighbours(p[1]), MapEdgeByPerm<VertexType>(&p)) )
+  {
+    debug_out(3, "pg", "mapping " << i << " to " << p[i]);
+    return maprange(graph->neighbours(p[i]), MapEdgeByPerm<VertexType>(&pinv));
+  }
 };
 
 // store how to configure graph propagators

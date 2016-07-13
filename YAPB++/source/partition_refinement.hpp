@@ -30,6 +30,7 @@ SortEvent filterCellByFunction_noSortData(PartitionStack* ps, int cell, F f)
     if(allequal)
     {
         SortEvent se(cellBegin, cellEnd);
+        debug_out(3, "filter", "all hashes equal: " + toString(first_val));
         se.addHashStart(f(ps->val(cellBegin)), cellBegin);
         se.finalise();
         return se;
@@ -89,7 +90,10 @@ bool validateFixedCell(PartitionStack* ps, int cell, int hash, F f)
     for(int val : ps->cellRange(cell))
     {
         if((int)f(val) != hash)
+        {
+            debug_out(3, "filter", "error: found " << f(val) << " for " << val);
             return false;
+        }
     }
     RECORD_STATS(addSortStat(Stats::Sort(ps->cellSize(cell), 1, true)));
     return true;
@@ -110,6 +114,7 @@ SplitState filterPartitionStackByFunction_withSortData(PartitionStack* ps, F f)
 	        ps->fixCellInverses(cell);
 	        if(!sorter)
 	        {
+                debug_out(3, "filterPSBF_WSD", "failed " << cell);
 	            pe.order.promote(it);
 	            return SplitState(false);
 	        }
@@ -119,6 +124,7 @@ SplitState filterPartitionStackByFunction_withSortData(PartitionStack* ps, F f)
 	        if(!validateFixedCell(ps, pe.no_change_cells[it->index].first, pe.no_change_cells[it->index].second, f))
 	        {
 	            pe.order.promote(it);
+                debug_out(3, "filterPSBF_WSD", "failed validate fixed cell");
 	            return SplitState(false);
 	        }
 	    }
@@ -189,7 +195,7 @@ SplitState filterPartitionStackByFunction(PartitionStack* ps, F f)
       ret = filterPartitionStackByFunction_withSortData(ps, f);
     else
       ret = filterPartitionStackByFunction_noSortData(ps, f);
-    debug_out(3, "filterByFunction", "poststate " << ps->printCurrentPartition());
+    debug_out(3, "filterByFunction", "poststate " << ps->printCurrentPartition() << ":" << ret);
     return ret;
 }
 
@@ -205,7 +211,7 @@ SplitState filterPartitionStackByFunctionWithCells(PartitionStack* ps, F f, cons
     }
     else
       ret = filterPartitionStackByFunctionWithCells_noSortData(ps, f, cells);
-    debug_out(3, "filterByFunction", "poststate " << ps->printCurrentPartition());
+    debug_out(3, "filterByFunctionWC", "poststate " << ps->printCurrentPartition() << ":" << ret);
     return ret;
 }
 
