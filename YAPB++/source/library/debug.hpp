@@ -3,6 +3,7 @@
 
 #include <sstream>
 #include "info.hpp"
+#include <assert.h>
 
 #ifndef DEBUG_LEVEL
 #define DEBUG_LEVEL 1
