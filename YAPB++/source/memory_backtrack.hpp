@@ -42,9 +42,7 @@ public:
     { return *val; }
 
     void set(const T& val);
-#ifdef USE_CPP11
     void set(T&& val);
-#endif
 };
 
 template<typename T>
@@ -66,9 +64,8 @@ public:
     { }
 
     void push_back(const T& t);
-#ifdef USE_CPP11
     void push_back(T&& t);
-#endif
+
     const T& back()
     { return stack->back(); }
 
@@ -228,14 +225,13 @@ void Reverting<T>::set(const T& t)
     mb->storeCurrentValue(val);
     *val = t;
 }
-#ifdef USE_CPP11
+
 template<typename T>
 void Reverting<T>::set(T&& t)
 {
     mb->storeCurrentValue(val);
     *val = std::move(t);
 }
-#endif
 
 template<typename T>
 void RevertingStack<T>::push_back(const T& t)
@@ -243,14 +239,13 @@ void RevertingStack<T>::push_back(const T& t)
     mb->storeCurrentSize(stack);
     stack->push_back(t);
 }
-#ifdef USE_CPP11
+
 template<typename T>
 void RevertingStack<T>::push_back(T&& t)
 {
     mb->storeCurrentSize(stack);
     stack->push_back(std::move(t));
 }
-#endif
 
 BacktrackableType::BacktrackableType(MemoryBacktracker* _mb)
 : mb(_mb)
