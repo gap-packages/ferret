@@ -350,6 +350,12 @@ public:
 
     SplitState signal_start()
     {
+        SplitState root = fix_buildingRBase(vec1<int>(),
+                                            config.useOrbits == StabChainConfig::root,
+                                            config.useBlocks == StabChainConfig::root,
+                                            config.useOrbitals == StabChainConfig::root);
+        if(root.hasFailed()) return root;
+
         return signal_fix_buildingRBase(0);
     }
 
@@ -363,23 +369,30 @@ public:
     virtual SplitState signal_fix_buildingRBase(int /*i*/)
     {
         debug_out(3, "scpg", "signal_fix_buildingRBase");
-        const vec1<int>* part = getRBasePartition(ps->fixed_values());
+        return fix_buildingRBase(ps->fixed_values(),
+                                 config.useOrbits == StabChainConfig::always,
+                                 config.useBlocks == StabChainConfig::always,
+                                 config.useOrbitals == StabChainConfig::always);
+    }
 
-        vec1<std::map<int,int> >* blocks = 0;
-        vec1<OrbitalGraph>* orbitals = 0;
-        
-        if(config.useBlocks)
-        {
-            blocks = getRBaseBlocks(ps->fixed_values());
-        }
+    SplitState fix_buildingRBase(const vec1<int>& fixed_values, bool useOrbits, bool useBlocks, bool useOrbitals)
+    {
 
-        if(config.useOrbitals)
-        {
-            orbitals = getRBaseOrbitals(ps->fixed_values());
-        }
+        const vec1<int>* part = 0;
+        const vec1<std::map<int,int> >* blocks = 0;
+        const vec1<OrbitalGraph>* orbitals = 0;
+
+        if(useOrbits)
+        {   part = getRBasePartition(fixed_values); }
+
+        if(useBlocks)
+        { blocks = getRBaseBlocks(fixed_values); }
+
+        if(useOrbitals)
+        { orbitals = getRBaseOrbitals(fixed_values); }
 
         SplitState ss(true);
-        if(config.useOrbits == StabChainConfig::always)
+        if(useOrbits)
         {
             debug_out(3, "scpg", "fix_rBase:orbits");
             ss = filterPartitionStackByFunction(ps, SquareBrackToFunction(part));
@@ -387,7 +400,7 @@ public:
                 return ss;
         }
 
-        if(config.useBlocks == StabChainConfig::always)
+        if(useBlocks)
         {
             for(int i : range1(blocks->size()))
             {
@@ -398,7 +411,7 @@ public:
             }
         }
 
-        if(config.useOrbitals == StabChainConfig::always)
+        if(useOrbitals)
         {
             for(const auto& graph : (*orbitals))
             {
