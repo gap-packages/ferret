@@ -53,7 +53,7 @@ compare_gen_groups := function(g, record)
     return true;
 end;;
 
-heuristics := ["largest", "first", "smallest2", "randomsmallest", "random", "random", "random", "random"];
+heuristics := ["largest", "first", "smallest2", "randomsmallest", "random", "random"];
 
 proporderings := ["always", "never", "root", "firstnontrivial", "firstnontrivialwithroot"];
 

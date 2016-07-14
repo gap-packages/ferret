@@ -24,12 +24,10 @@ gap> CheckGroup(Group((1,2)));
 true
 gap> CheckGroup(Group((1,2),(3,4)));
 true
-gap> CheckGroup(Group((1,4)(2,5)(3,6), (1,2)(4,5)));
-true
+gap> heuristics := ["first", "smallest"];;
 gap> g1 := Group((1,4)(2,5)(3,6), (1,2)(4,5), (2,3)(5,6));;
 gap> CheckGroup(g1);
 true
-gap> heuristics := ["first", "smallest"];;
 gap> CheckGroup(makeRowColumnSymmetry(2,3));
 true
 gap> CheckStab(SymmetricGroup(5), [], OnSets);
