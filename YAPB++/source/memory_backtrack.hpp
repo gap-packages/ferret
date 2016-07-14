@@ -211,6 +211,14 @@ public:
     }
 
     template<typename T>
+    Reverting<T> makeReverting(const T& t)
+    {
+        Reverting<T> r = makeReverting<T>();
+        r.set(t);
+        return r;
+    }
+
+    template<typename T>
     RevertingStack<T> makeRevertingStack()
     {
         vec1<T>* ptr = new vec1<T>();

@@ -216,16 +216,22 @@ struct StabChainConfig
         never,
         always,
         root,
-        firstnontrivial
+        firstnontrivial,
+        firstnontrivialwithroot
     };
+
+    static bool requiresStoreNontrivial(StabChainConfig::sc_config_option o)
+    { return o == firstnontrivial || o == firstnontrivialwithroot; }
 
     sc_config_option optionFromString(std::string s) {
         if(s == "never") return never;
         if(s == "always") return always;
         if(s == "root") return root;
         if(s == "firstnontrivial") return firstnontrivial;
+        if(s == "firstnontrivialwithroot") return firstnontrivialwithroot;
+        
         throw GAPException("'" + s + "' is not a valid configuration option for ConInGroup."
-                           "Valid options are never, always, root, firstnontrivial");
+                           "Valid options are never, always, root, firstnontrivial, firstnontrivialwithroot");
     }
 
     sc_config_option useOrbits;
@@ -282,6 +288,15 @@ public:
       last_permutation(mb->makeRevertingStack<Permutation>()),
       last_depth(mb->makeReverting<int>())
     {
+        if(StabChainConfig::requiresStoreNontrivial(config.useOrbits))
+        { first_found_orbits = Reverting<int>(mb->makeReverting<int>(-2)); }
+
+        if(StabChainConfig::requiresStoreNontrivial(config.useBlocks))
+        { first_found_blocks = Reverting<int>(mb->makeReverting<int>(-2)); }
+
+        if(StabChainConfig::requiresStoreNontrivial(config.useOrbitals))
+        { first_found_orbitals = Reverting<int>(mb->makeReverting<int>(-2)); }
+
         // We set up our 'reverting' at the start
         last_depth.set(0);
         last_permutation.push_back(Permutation());

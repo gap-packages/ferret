@@ -42,13 +42,13 @@ public:
     : v(size, val)
     { }
 
-    T& operator[](unsigned i)
+    T& operator[](int i)
     {
         D_ASSERT(i <= this->size() && i != 0);
         return v[i-1];
     }
 
-    const T& operator[](unsigned i) const
+    const T& operator[](int i) const
     {
         D_ASSERT(i <= this->size() && i != 0);
         return v[i-1];
