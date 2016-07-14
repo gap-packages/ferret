@@ -222,13 +222,16 @@ struct StabChainConfig
 
     // For these cases, we need to store the depth at which we found the first non-trivial
     // orbit / block / orbital
-    static bool requiresStoreNontrivial(StabChainConfig::sc_config_option o)
+    static bool doStoreNontrivial(StabChainConfig::sc_config_option o)
     { return o == firstnontrivial || o == firstnontrivialwithroot; }
 
     // In these cases we do an extra check at the root, where we consider the initial group
     // without any extra propagation
-    static bool requiresRootCheck(StabChainConfig::sc_config_option o)
+    static bool doRootCheck(StabChainConfig::sc_config_option o)
     { return o == root || o == firstnontrivialwithroot; }
+
+    static bool doConsiderEveryNode(StabChainConfig::sc_config_option o)
+    { return o == always || o == firstnontrivial || o == firstnontrivialwithroot; }
 
 
     sc_config_option optionFromString(std::string s) {
@@ -296,13 +299,13 @@ public:
       last_permutation(mb->makeRevertingStack<Permutation>()),
       last_depth(mb->makeReverting<int>())
     {
-        if(StabChainConfig::requiresStoreNontrivial(config.useOrbits))
+        if(StabChainConfig::doStoreNontrivial(config.useOrbits))
         { first_found_orbits = Reverting<int>(mb->makeReverting<int>(-2)); }
 
-        if(StabChainConfig::requiresStoreNontrivial(config.useBlocks))
+        if(StabChainConfig::doStoreNontrivial(config.useBlocks))
         { first_found_blocks = Reverting<int>(mb->makeReverting<int>(-2)); }
 
-        if(StabChainConfig::requiresStoreNontrivial(config.useOrbitals))
+        if(StabChainConfig::doStoreNontrivial(config.useOrbitals))
         { first_found_orbitals = Reverting<int>(mb->makeReverting<int>(-2)); }
 
         // We set up our 'reverting' at the start
@@ -359,14 +362,14 @@ private:
         return &(original_orbitals[fix.size() + 1]);
     }
 
-    const vec1<int>& getRBasePartition_cached(int s)
-    {  return original_partitions[s+1]; }
+    const vec1<int>* getRBasePartition_cached(int s)
+    {  return &(original_partitions[s+1]); }
 
-    const vec1<std::map<int,int> >& getRBaseBlocks_cached(int s)
-    {  return original_blocks[s+1]; }
+    const vec1<std::map<int,int> >* getRBaseBlocks_cached(int s)
+    {  return &(original_blocks[s+1]); }
 
-    const vec1<OrbitalGraph>& getRBaseOrbitals_cached(int s)
-    { return original_orbitals[s+1]; }
+    const vec1<OrbitalGraph>* getRBaseOrbitals_cached(int s)
+    { return &(original_orbitals[s+1]); }
 
 public:
 
@@ -381,9 +384,9 @@ public:
     SplitState signal_start()
     {
         SplitState root = fix_buildingRBase(vec1<int>(),
-                                            StabChainConfig::requiresRootCheck(config.useOrbits),
-                                            StabChainConfig::requiresRootCheck(config.useBlocks),
-                                            StabChainConfig::requiresRootCheck(config.useOrbitals));
+                                            StabChainConfig::doRootCheck(config.useOrbits),
+                                            StabChainConfig::doRootCheck(config.useBlocks),
+                                            StabChainConfig::doRootCheck(config.useOrbitals));
         if(root.hasFailed()) return root;
 
         return signal_fix_buildingRBase(0);
@@ -400,9 +403,42 @@ public:
     {
         debug_out(3, "scpg", "signal_fix_buildingRBase");
         return fix_buildingRBase(ps->fixed_values(),
-                                 config.useOrbits == StabChainConfig::always,
-                                 config.useBlocks == StabChainConfig::always,
-                                 config.useOrbitals == StabChainConfig::always);
+                                 StabChainConfig::doConsiderEveryNode(config.useOrbits),
+                                 StabChainConfig::doConsiderEveryNode(config.useBlocks),
+                                 StabChainConfig::doConsiderEveryNode(config.useOrbitals));
+    }
+
+    // This horrible function just wraps up something we want to do several times.
+    // basically, if we have set a nontrivial depth, get the cached value at that
+    // depth, else calculate a new value, and see if it is non-trivial.
+    template<typename StorePoint, typename Func, typename CacheFunc>
+    void doCacheCheck(StabChainConfig::sc_config_option configchoice,
+                      Reverting<int>& nontrivialdepth,
+                      StorePoint& ptr,
+                      Func get, CacheFunc cached_get,
+                      const vec1<int>& fixed_values, const char* name)
+    {
+        if(StabChainConfig::doStoreNontrivial(configchoice) )
+            {
+                //std::cerr << ":" << name << "\n";
+                if(nontrivialdepth.get() >= 0)
+                {
+                    //std::cerr << "Using cached depth: " << nontrivialdepth.get() << "\n"; 
+                    ptr = cached_get(nontrivialdepth.get() ); 
+                }
+                else
+                {
+                    ptr = get(fixed_values);
+                    //std::cerr << "Found: " << *ptr << "\n";
+                    if(ptr->size() > 1)
+                    {
+                        //std::cerr << "Setting cache depth: " << fixed_values.size() << "\n";
+                        nontrivialdepth.set(fixed_values.size());
+                    }
+                }
+            }
+            else
+            { ptr = get(fixed_values); }
     }
 
     SplitState fix_buildingRBase(const vec1<int>& fixed_values, bool useOrbits, bool useBlocks, bool useOrbitals)
@@ -413,16 +449,31 @@ public:
         const vec1<OrbitalGraph>* orbitals = 0;
 
         if(useOrbits)
-        { part = getRBasePartition(fixed_values); }
+        {
+            doCacheCheck(config.useOrbits, first_found_orbits, part,
+                         [this](const vec1<int>& v){ return this->getRBasePartition(v); },
+                         [this](int i){ return this->getRBasePartition_cached(i); },
+                         fixed_values, "orbits");
+        }
 
         if(useBlocks)
-        { blocks = getRBaseBlocks(fixed_values); }
+        { 
+             doCacheCheck(config.useBlocks, first_found_blocks, blocks,
+                         [this](const vec1<int>& v){ return this->getRBaseBlocks(v); },
+                         [this](int i){ return this->getRBaseBlocks_cached(i); },
+                         fixed_values, "blocks");
+        }
 
         if(useOrbitals)
-        { orbitals = getRBaseOrbitals(fixed_values); }
+        { 
+            doCacheCheck(config.useOrbitals, first_found_orbitals, orbitals,
+                         [this](const vec1<int>& v){ return this->getRBaseOrbitals(v); },
+                         [this](int i){ return this->getRBaseOrbitals_cached(i); },
+                         fixed_values, "orbitals");
+        }
 
         SplitState ss(true);
-        if(useOrbits)
+        if(part)
         {
             debug_out(3, "scpg", "fix_rBase:orbits");
             ss = filterPartitionStackByFunction(ps, SquareBrackToFunction(part));
@@ -430,7 +481,7 @@ public:
                 return ss;
         }
 
-        if(useBlocks)
+        if(blocks)
         {
             for(int i : range1(blocks->size()))
             {
@@ -441,7 +492,7 @@ public:
             }
         }
 
-        if(useOrbitals)
+        if(orbitals)
         {
             for(const auto& graph : (*orbitals))
             {
@@ -530,40 +581,77 @@ public:
 
 
         SplitState ss(true);
-        if(config.useOrbits == StabChainConfig::always)
+        if(StabChainConfig::doConsiderEveryNode(config.useOrbits))
         {
-            const vec1<int>& part = getRBasePartition_cached(new_depth);
-            debug_out(3, "scpg", "fix:orbits" << part << " by " << perm);
-            ss = filterPartitionStackByFunction(ps, FunctionByPerm(SquareBrackToFunction(&part), perm));
-            if(ss.hasFailed())
-                return ss;
-        }
-
-        if(config.useBlocks == StabChainConfig::always)
-        {
-            const vec1<std::map<int,int> >& blocks = getRBaseBlocks_cached(new_depth);
-            for(int i : range1(blocks.size()))
-            {
-                debug_out(3, "scpg", "fix:blocks" << blocks[i] << " by " << perm);
-                ss = filterPartitionStackByUnorderedFunction(ps, FunctionByPerm(SparseFunction<MissingPoints_Free>(&blocks[i]), perm));
+            int depth = new_depth;
+            bool skip = false;
+            if(StabChainConfig::doStoreNontrivial(config.useOrbits)) {
+                int orbit_depth = first_found_orbits.get();
+                if(orbit_depth > depth || orbit_depth < 0)
+                    skip = true;
+                if(orbit_depth < depth)
+                    depth = orbit_depth;
+            }
+            if(!skip) {
+                const vec1<int>* part = getRBasePartition_cached(depth);
+                debug_out(3, "scpg", "fix:orbits" << part << " by " << perm);
+                ss = filterPartitionStackByFunction(ps, FunctionByPerm(SquareBrackToFunction(part), perm));
                 if(ss.hasFailed())
                     return ss;
             }
         }
 
-        if(config.useOrbitals == StabChainConfig::always)
+        if(StabChainConfig::doConsiderEveryNode(config.useBlocks))
         {
-            const vec1<OrbitalGraph>& orbitals = getRBaseOrbitals_cached(new_depth);
-            for(const auto& graph : orbitals)
-            {
-                debug_out(3, "scpg", "fix:orbitals" << graph << " by " << perm);
-                GraphRefiner gr(ps->domainSize());
-                vec1<int> cells;
-                for(int i : range1(ps->cellCount()))
-                    cells.push_back(i);
-                ss = gr.filterGraph(ps, PermutedGraph<OrbitalGraph>(&graph, perm), cells, 1);
-                if(ss.hasFailed())
-                    return ss;
+            int depth = new_depth;
+            bool skip = false;
+            if(StabChainConfig::doStoreNontrivial(config.useBlocks)) {
+                int orbit_depth = first_found_blocks.get();
+                if(orbit_depth > depth || orbit_depth < 0)
+                    skip = true;
+                if(orbit_depth < depth)
+                    depth = orbit_depth;
+            }
+
+            if(!skip) {
+                const vec1<std::map<int,int> >* blocks = getRBaseBlocks_cached(depth);
+                for(int i : range1(blocks->size()))
+                {
+                    debug_out(3, "scpg", "fix:blocks" << blocks[i] << " by " << perm);
+                    ss = filterPartitionStackByUnorderedFunction(ps, FunctionByPerm(SparseFunction<MissingPoints_Free>(&((*blocks)[i])), perm));
+                    if(ss.hasFailed())
+                        return ss;
+                }
+            }
+        }
+
+        if(StabChainConfig::doConsiderEveryNode(config.useOrbitals))
+        {
+            int depth = new_depth;
+            bool skip = false;
+            if(StabChainConfig::doStoreNontrivial(config.useOrbitals)) {
+                int orbit_depth = first_found_orbitals.get();
+                if(orbit_depth > depth || orbit_depth < 0)
+                    skip = true;
+                if(orbit_depth < depth)
+                    depth = orbit_depth;
+            }
+
+            if(!skip) {
+                const vec1<OrbitalGraph>* orbitals = getRBaseOrbitals_cached(depth);
+                //std::cerr << new_depth << ":" << depth << ":" << *orbitals << std::endl;
+
+                for(const auto& graph : (*orbitals))
+                {
+                    debug_out(3, "scpg", "fix:orbitals" << graph << " by " << perm);
+                    GraphRefiner gr(ps->domainSize());
+                    vec1<int> cells;
+                    for(int i : range1(ps->cellCount()))
+                        cells.push_back(i);
+                    ss = gr.filterGraph(ps, PermutedGraph<OrbitalGraph>(&graph, perm), cells, 1);
+                    if(ss.hasFailed())
+                        return ss;
+                }
             }
         }
         return ss;
