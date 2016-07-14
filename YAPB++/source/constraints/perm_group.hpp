@@ -25,7 +25,7 @@ public:
     }
 private:
 
-    vec1<int> getRBasePartition(const vec1<int>& fix)
+    vec1<int> getRBaseOrbitPartition(const vec1<int>& fix)
     {
         debug_out(3, "PermGroup", "Fixing: " << fix);
         Obj vec = GAP_make(fix);
@@ -74,7 +74,7 @@ public:
         {
             fixed_values.push_back(*ps->cellStartPtr(fixed[i]));
         }
-        vec1<int> part = getRBasePartition(fixed_values);
+        vec1<int> part = getRBaseOrbitPartition(fixed_values);
         return filterPartitionStackByFunction(ps, SquareBrackToFunction(&part));
     }
 
@@ -93,7 +93,7 @@ public:
             old_fixed_values.push_back(*rb->initial_permstack->cellStartPtr(new_fix_cells[i]));
             new_fixed_values.push_back(*ps->cellStartPtr(new_fix_cells[i]));
         }
-        vec1<int> part = getRBasePartition(old_fixed_values);
+        vec1<int> part = getRBaseOrbitPartition(old_fixed_values);
         Obj obj_perm = GAP_callFunction(FunObj_YAPB_RepresentElement, group, GAP_make(old_fixed_values), GAP_make(new_fixed_values));
         debug_out(1, "PermGroup", "mapping from: " << old_fixed_values << " to " << new_fixed_values);
         if(obj_perm == Fail)

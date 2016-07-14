@@ -314,7 +314,7 @@ public:
     }
 private:
 
-    const vec1<int>* getRBasePartition(const vec1<int>& fix)
+    const vec1<int>* getRBaseOrbitPartition(const vec1<int>& fix)
     {
         debug_out(3, "scpg", "Fixing: "<< fix);
         vec1<vec1<int> > oart = scc.orbits(fix, ps->domainSize());
@@ -362,7 +362,7 @@ private:
         return &(original_orbitals[fix.size() + 1]);
     }
 
-    const vec1<int>* getRBasePartition_cached(int s)
+    const vec1<int>* getRBaseOrbitPartition_cached(int s)
     {  return &(original_partitions[s+1]); }
 
     const vec1<std::map<int,int> >* getRBaseBlocks_cached(int s)
@@ -451,8 +451,8 @@ public:
         if(useOrbits)
         {
             doCacheCheck(config.useOrbits, first_found_orbits, part,
-                         [this](const vec1<int>& v){ return this->getRBasePartition(v); },
-                         [this](int i){ return this->getRBasePartition_cached(i); },
+                         [this](const vec1<int>& v){ return this->getRBaseOrbitPartition(v); },
+                         [this](int i){ return this->getRBaseOrbitPartition_cached(i); },
                          fixed_values, "orbits");
         }
 
@@ -593,7 +593,7 @@ public:
                     depth = orbit_depth;
             }
             if(!skip) {
-                const vec1<int>* part = getRBasePartition_cached(depth);
+                const vec1<int>* part = getRBaseOrbitPartition_cached(depth);
                 debug_out(3, "scpg", "fix:orbits" << part << " by " << perm);
                 ss = filterPartitionStackByFunction(ps, FunctionByPerm(SquareBrackToFunction(part), perm));
                 if(ss.hasFailed())
