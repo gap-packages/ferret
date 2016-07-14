@@ -220,8 +220,16 @@ struct StabChainConfig
         firstnontrivialwithroot
     };
 
+    // For these cases, we need to store the depth at which we found the first non-trivial
+    // orbit / block / orbital
     static bool requiresStoreNontrivial(StabChainConfig::sc_config_option o)
     { return o == firstnontrivial || o == firstnontrivialwithroot; }
+
+    // In these cases we do an extra check at the root, where we consider the initial group
+    // without any extra propagation
+    static bool requiresRootCheck(StabChainConfig::sc_config_option o)
+    { return o == root || o == firstnontrivialwithroot; }
+
 
     sc_config_option optionFromString(std::string s) {
         if(s == "never") return never;
@@ -373,9 +381,9 @@ public:
     SplitState signal_start()
     {
         SplitState root = fix_buildingRBase(vec1<int>(),
-                                            config.useOrbits == StabChainConfig::root,
-                                            config.useBlocks == StabChainConfig::root,
-                                            config.useOrbitals == StabChainConfig::root);
+                                            StabChainConfig::requiresRootCheck(config.useOrbits),
+                                            StabChainConfig::requiresRootCheck(config.useBlocks),
+                                            StabChainConfig::requiresRootCheck(config.useOrbitals));
         if(root.hasFailed()) return root;
 
         return signal_fix_buildingRBase(0);
@@ -405,7 +413,7 @@ public:
         const vec1<OrbitalGraph>* orbitals = 0;
 
         if(useOrbits)
-        {   part = getRBasePartition(fixed_values); }
+        { part = getRBasePartition(fixed_values); }
 
         if(useBlocks)
         { blocks = getRBaseBlocks(fixed_values); }
