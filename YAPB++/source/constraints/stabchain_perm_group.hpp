@@ -318,14 +318,14 @@ private:
     {
         debug_out(3, "scpg", "Fixing: "<< fix);
         vec1<vec1<int> > oart = scc.orbits(fix, ps->domainSize());
-        debug_out(3, "scpg", "Got orbit partition"<< oart);
+        debug_out(3, "scpg", "Got orbit partition" << oart);
         // This might not be necessary, but it doesn't hurt!
         for(int i : range1(oart.size()))
             std::sort(oart[i].begin(), oart[i].end());
         std::sort(oart.begin(), oart.end());
 
         vec1<int> filter;
-        if(!oart.empty())
+        //if(oart.size() > 1)
             filter = partitionToList(oart, ps->domainSize(), MissingPoints_Fixed);
 
         debug_out(3, "scpg", "Filter partition: "<< filter);
