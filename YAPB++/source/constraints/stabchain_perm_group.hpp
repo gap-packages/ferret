@@ -323,7 +323,11 @@ private:
         for(int i : range1(oart.size()))
             std::sort(oart[i].begin(), oart[i].end());
         std::sort(oart.begin(), oart.end());
-        vec1<int> filter = partitionToList(oart, ps->domainSize(), MissingPoints_Fixed);
+
+        vec1<int> filter;
+        if(!oart.empty())
+            filter = partitionToList(oart, ps->domainSize(), MissingPoints_Fixed);
+
         debug_out(3, "scpg", "Filter partition: "<< filter);
 
         if(original_partitions.size() < fix.size() + 1)
