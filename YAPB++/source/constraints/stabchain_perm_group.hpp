@@ -430,7 +430,7 @@ public:
                 {
                     ptr = get(fixed_values);
                     //std::cerr << "Found: " << *ptr << "\n";
-                    if(ptr->size() > 1)
+                    if(ptr->size() > 0)
                     {
                         //std::cerr << "Setting cache depth: " << fixed_values.size() << "\n";
                         nontrivialdepth.set(fixed_values.size());
