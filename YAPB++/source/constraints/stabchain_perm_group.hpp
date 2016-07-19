@@ -404,7 +404,7 @@ public:
                                             StabChainConfig::doRootCheck(config.useOrbitals));
         if(root.hasFailed()) return root;
 
-        return signal_fix_buildingRBase(0);
+        return root;
     }
 
     virtual void signal_RBaseFinished(RBase* _rb)
