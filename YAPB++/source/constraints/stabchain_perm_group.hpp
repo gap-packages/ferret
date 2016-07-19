@@ -318,7 +318,7 @@ public:
         { tracking_first_found_orbitals = Reverting<int>(mb->makeReverting<int>(-2)); }
 
         // We set up our 'reverting' at the start
-        last_depth.set(0);
+        last_depth.set(-1);
         last_permutation.push_back(Permutation());
 
         debug_out(3, "scpg", "Setup");
@@ -467,6 +467,9 @@ public:
 
     SplitState fix_buildingRBase(const vec1<int>& fixed_values, bool useOrbits, bool useBlocks, bool useOrbitals)
     {
+        debug_out(3, "scpg", "last depth " << last_depth.get() << " new depth " << fixed_values.size());
+        D_ASSERT(fixed_values.size() > last_depth.get());
+        last_depth.set(fixed_values.size());
 
         const vec1<int>* part = 0;
         const vec1<std::map<int,int> >* blocks = 0;
@@ -548,6 +551,8 @@ public:
 
         // We have to do this, as new_fix_cells changes as the function progresses
         int new_depth = new_fix_cells.size();
+
+        D_ASSERT(new_depth > old_depth);
 
 #ifndef NO_DEBUG
         for(int i : range1(old_depth))
