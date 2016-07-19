@@ -279,9 +279,16 @@ class StabChain_PermGroup : public AbstractConstraint
     RevertingStack<Permutation> last_permutation;
     Reverting<int> last_depth;
 
-    Reverting<int> first_found_orbits;
-    Reverting<int> first_found_blocks;
-    Reverting<int> first_found_orbitals;
+    // These variables are used to track where we find the 
+    // first non-trivial cases during rBase construction
+    Reverting<int> tracking_first_found_orbits;
+    Reverting<int> tracking_first_found_blocks;
+    Reverting<int> tracking_first_found_orbitals;
+
+    // These are filled in once the rbase is constructed
+    int first_found_orbits;
+    int first_found_blocks;
+    int first_found_orbitals;
 
 public:
     virtual std::string name() const
@@ -299,18 +306,22 @@ public:
       last_permutation(mb->makeRevertingStack<Permutation>()),
       last_depth(mb->makeReverting<int>())
     {
+        first_found_blocks = first_found_blocks = first_found_orbitals = -2;
+
         if(StabChainConfig::doStoreNontrivial(config.useOrbits))
-        { first_found_orbits = Reverting<int>(mb->makeReverting<int>(-2)); }
+        { tracking_first_found_orbits = Reverting<int>(mb->makeReverting<int>(-2)); }
 
         if(StabChainConfig::doStoreNontrivial(config.useBlocks))
-        { first_found_blocks = Reverting<int>(mb->makeReverting<int>(-2)); }
+        { tracking_first_found_blocks = Reverting<int>(mb->makeReverting<int>(-2)); }
 
         if(StabChainConfig::doStoreNontrivial(config.useOrbitals))
-        { first_found_orbitals = Reverting<int>(mb->makeReverting<int>(-2)); }
+        { tracking_first_found_orbitals = Reverting<int>(mb->makeReverting<int>(-2)); }
 
         // We set up our 'reverting' at the start
         last_depth.set(0);
         last_permutation.push_back(Permutation());
+
+        debug_out(3, "scpg", "Setup");
     }
 private:
 
@@ -325,7 +336,7 @@ private:
         std::sort(oart.begin(), oart.end());
 
         vec1<int> filter;
-        //if(oart.size() > 1)
+        if(oart.size() > 1)
             filter = partitionToList(oart, ps->domainSize(), MissingPoints_Fixed);
 
         debug_out(3, "scpg", "Filter partition: "<< filter);
@@ -401,6 +412,15 @@ public:
         rb = _rb;
         D_ASSERT(rb->value_ordering == ps->fixed_values());
         scc.initalize(rb->value_ordering);
+
+        if(StabChainConfig::doStoreNontrivial(config.useOrbits))
+            first_found_orbits = tracking_first_found_orbits.get();
+
+        if(StabChainConfig::doStoreNontrivial(config.useBlocks))
+        first_found_blocks = tracking_first_found_blocks.get();
+
+        if(StabChainConfig::doStoreNontrivial(config.useOrbitals))
+        first_found_orbitals = tracking_first_found_orbitals.get();
     }
 
     virtual SplitState signal_fix_buildingRBase(int /*i*/)
@@ -454,7 +474,7 @@ public:
 
         if(useOrbits)
         {
-            doCacheCheck(config.useOrbits, first_found_orbits, part,
+            doCacheCheck(config.useOrbits, tracking_first_found_orbits, part,
                          [this](const vec1<int>& v){ return this->getRBaseOrbitPartition(v); },
                          [this](int i){ return this->getRBaseOrbitPartition_cached(i); },
                          fixed_values, "orbits");
@@ -462,7 +482,7 @@ public:
 
         if(useBlocks)
         { 
-             doCacheCheck(config.useBlocks, first_found_blocks, blocks,
+             doCacheCheck(config.useBlocks, tracking_first_found_blocks, blocks,
                          [this](const vec1<int>& v){ return this->getRBaseBlocks(v); },
                          [this](int i){ return this->getRBaseBlocks_cached(i); },
                          fixed_values, "blocks");
@@ -470,7 +490,7 @@ public:
 
         if(useOrbitals)
         { 
-            doCacheCheck(config.useOrbitals, first_found_orbitals, orbitals,
+            doCacheCheck(config.useOrbitals, tracking_first_found_orbitals, orbitals,
                          [this](const vec1<int>& v){ return this->getRBaseOrbitals(v); },
                          [this](int i){ return this->getRBaseOrbitals_cached(i); },
                          fixed_values, "orbitals");
@@ -480,7 +500,8 @@ public:
         if(part)
         {
             debug_out(3, "scpg", "fix_rBase:orbits");
-            ss = filterPartitionStackByFunction(ps, SquareBrackToFunction(part));
+            if(!part->empty())
+                ss = filterPartitionStackByFunction(ps, SquareBrackToFunction(part));
             if(ss.hasFailed())
                 return ss;
         }
@@ -590,7 +611,8 @@ public:
             int depth = new_depth;
             bool skip = false;
             if(StabChainConfig::doStoreNontrivial(config.useOrbits)) {
-                int orbit_depth = first_found_orbits.get();
+                int orbit_depth = first_found_orbits;
+                debug_out(3, "scpg", "orbit check" << orbit_depth << ":" << depth);
                 if(orbit_depth > depth || orbit_depth < 0)
                     skip = true;
                 if(orbit_depth < depth)
@@ -599,7 +621,8 @@ public:
             if(!skip) {
                 const vec1<int>* part = getRBaseOrbitPartition_cached(depth);
                 debug_out(3, "scpg", "fix:orbits" << part << " by " << perm);
-                ss = filterPartitionStackByFunction(ps, FunctionByPerm(SquareBrackToFunction(part), perm));
+                if(!part->empty())
+                    ss = filterPartitionStackByFunction(ps, FunctionByPerm(SquareBrackToFunction(part), perm));
                 if(ss.hasFailed())
                     return ss;
             }
@@ -610,7 +633,8 @@ public:
             int depth = new_depth;
             bool skip = false;
             if(StabChainConfig::doStoreNontrivial(config.useBlocks)) {
-                int orbit_depth = first_found_blocks.get();
+                int orbit_depth = first_found_blocks;
+                debug_out(3, "scpg", "block check" << orbit_depth << ":" << depth);
                 if(orbit_depth > depth || orbit_depth < 0)
                     skip = true;
                 if(orbit_depth < depth)
@@ -634,7 +658,8 @@ public:
             int depth = new_depth;
             bool skip = false;
             if(StabChainConfig::doStoreNontrivial(config.useOrbitals)) {
-                int orbit_depth = first_found_orbitals.get();
+                int orbit_depth = first_found_orbitals;
+                debug_out(3, "scpg", "orbital check" << orbit_depth << ":" << depth);
                 if(orbit_depth > depth || orbit_depth < 0)
                     skip = true;
                 if(orbit_depth < depth)
