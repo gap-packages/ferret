@@ -82,6 +82,9 @@ public:
 
     IntlikeRangeIterator<T> end() const
     { return IntlikeRangeIterator<T>(to); }
+
+    int size() const
+    { return to - from; }
 };
 
 template<typename Iterator, typename Func>
@@ -122,6 +125,9 @@ public:
 
     FuncMapRangeIterator<Iterator, const Func> end() const
     { return FuncMapRangeIterator<Iterator, const Func>(range.end(), &f); }
+
+    int size() const
+    { return range.size(); }
 };
 
 }
