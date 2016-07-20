@@ -3,6 +3,10 @@ LoadPackage("atlas", false);
 
 ReadPackage("ferret", "tst/random_obj.g");
 
+if not(IsBound(FERRET_EXTRA_TESTS)) then
+    FERRET_EXTRA_TESTS := false;
+fi;
+
 if not(IsBound(FERRET_TEST_COUNT)) then
     FERRET_TEST_COUNT := 50;
 fi;
@@ -53,15 +57,23 @@ compare_gen_groups := function(g, record)
     return true;
 end;;
 
-heuristics := ["largest", "first", "smallest2", "randomsmallest", "random", "random"];
+
 
 proporderings := ["always", "never", "root", "firstnontrivial", "firstnontrivialwithroot"];
 
 # Checks all the ways of building up a single group -- can be extremely slow!
 CheckGroup := function(g)
-    local h, only_gen, orbits, blocks, orbitals, output, record, f;
+    local h, heuristics, only_gen, orbits, blocks, orbitals, output, record, f, orborders;
+    if FERRET_EXTRA_TESTS then
+        orborders := proporderings;
+        heuristics := ["largest", "first", "smallest2", "randomsmallest", "random", "random"];
+    else
+        orborders := ["always"];
+        heuristics := ["smallest", "smallest2", "randomsmallest", "random"];
+    fi;
+
     for h in heuristics do
-            for orbits in proporderings do
+            for orbits in orborders do
                 for blocks in proporderings do
                     for orbitals in proporderings do
                         record := rec(orbits := orbits, blocks := blocks, orbitals := orbitals);
@@ -90,7 +102,7 @@ CheckGroup := function(g)
 end;;
 
 CheckStab := function(g, s, act, extra...)
-    local permsStabChain, permsBlock, permsOrbitals, stab, comp1, comp2, comp3, stabmap;
+    local permsStandard, permsExtra, stab, comp1, comp2, stabmap, optrec;
     
     if Size(extra) = 0 then
         stabmap := ConStabilize(s, act);
@@ -100,20 +112,24 @@ CheckStab := function(g, s, act, extra...)
         ErrorNoReturn("Only 1, or no, extra arguments");
     fi;
     
-    permsStabChain := Solve([ConInGroup(g), stabmap], rec(recreturn := true));
-    permsBlock := Solve([ConInGroup(g, rec(blocks := "always")), stabmap], rec(recreturn := true));
-    permsOrbitals := Solve([ConInGroup(g, rec(orbitals := "always")), stabmap], rec(recreturn := true));
+    permsStandard := Solve([ConInGroup(g), stabmap], rec(recreturn := true));
+
+    optrec := rec(blocks := Random(proporderings), orbitals := Random(proporderings));
+    permsExtra := Solve([ConInGroup(g, optrec), stabmap], rec(recreturn := true));
     
     stab := Stabilizer(g, s, act);
 
-    comp1 := compare_gen_groups(stab, permsStabChain);
-    comp2 := compare_gen_groups(stab, permsBlock);
-    comp3 := compare_gen_groups(stab, permsOrbitals);
+    comp1 := compare_gen_groups(stab, permsStandard);
 
-    if not(comp1 and comp2 and comp3) then
-        Print("Fast check stab " , g , ",",s," with action ",act," and ", extra, " failed:",
-              comp1,comp2,comp3,"\n");
-        Print(permsStabChain, "\n",permsBlock,"\n",permsOrbitals,"\n");
+    if not(comp1) then
+        Print("Fast check stab " , g , ",",s," with action ",act," and ", extra, " failed\n");
+    fi;
+
+
+    comp2 := compare_gen_groups(stab, permsExtra);
+
+    if not(comp2) then
+        Print("Fast check stab " , g , ",",s," with action ",act," and ", extra, " : ", optrec, " failed\n");
     fi;
     return (comp1 and comp2);
 end;;
