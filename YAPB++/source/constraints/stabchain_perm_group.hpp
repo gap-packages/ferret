@@ -393,7 +393,22 @@ public:
       std::vector<TriggerType> v;
       v.push_back(Trigger_Fix);
       v.push_back(Trigger_RBaseFinished);
+      if(config.useBlocks != StabChainConfig::never || config.useOrbitals != StabChainConfig::never)
+        v.push_back(Trigger_Change);
       return v;
+    }
+
+    // We only want to do 'changed' propagation for blocks and orbitals
+    // and then, only when we don't expect it to be handled by a 'fix' in future.
+    SplitState signal_changed(const vec1<int>& cells)
+    {
+        D_ASSERT(last_depth.get() <= ps->fixed_values().size());
+        if(last_depth.get() == ps->fixed_values().size())
+        {
+
+        }
+        SplitState ss(true);
+        return ss;
     }
 
     SplitState signal_start()
@@ -660,34 +675,45 @@ public:
 
         if(StabChainConfig::doConsiderEveryNode(config.useOrbitals))
         {
-            int depth = new_depth;
-            bool skip = false;
-            if(StabChainConfig::doStoreNontrivial(config.useOrbitals)) {
-                int orbit_depth = first_found_orbitals;
-                debug_out(3, "scpg", "orbital check" << orbit_depth << ":" << depth);
-                if(orbit_depth > depth || orbit_depth < 0)
-                    skip = true;
-                if(orbit_depth < depth)
-                    depth = orbit_depth;
-            }
+          ss = filterOrbitals_fix(new_depth, perm);
+          if(ss.hasFailed())
+            return ss;
+        }
+        return ss;
+    }
 
-            if(!skip) {
-                const vec1<OrbitalGraph>* orbitals = getRBaseOrbitals_cached(depth);
-                //std::cerr << new_depth << ":" << depth << ":" << *orbitals << std::endl;
+    SplitState filterOrbitals_fix(int new_depth, const Permutation& perm)
+    {
+        SplitState ss(true);
 
-                for(const auto& graph : (*orbitals))
-                {
-                    debug_out(3, "scpg", "fix:orbitals" << graph << " by " << perm);
-                    GraphRefiner gr(ps->domainSize());
-                    vec1<int> cells;
-                    for(int i : range1(ps->cellCount()))
-                        cells.push_back(i);
-                    ss = gr.filterGraph(ps, PermutedGraph<OrbitalGraph>(&graph, perm), cells, 1);
-                    if(ss.hasFailed())
-                        return ss;
-                }
+        int depth = new_depth;
+        bool skip = false;
+        if(StabChainConfig::doStoreNontrivial(config.useOrbitals)) {
+            int orbit_depth = first_found_orbitals;
+            debug_out(3, "scpg", "orbital check" << orbit_depth << ":" << depth);
+            if(orbit_depth > depth || orbit_depth < 0)
+                skip = true;
+            if(orbit_depth < depth)
+                depth = orbit_depth;
+        }
+
+        if(!skip) {
+            const vec1<OrbitalGraph>* orbitals = getRBaseOrbitals_cached(depth);
+            //std::cerr << new_depth << ":" << depth << ":" << *orbitals << std::endl;
+
+            for(const auto& graph : (*orbitals))
+            {
+                debug_out(3, "scpg", "fix:orbitals" << graph << " by " << perm);
+                GraphRefiner gr(ps->domainSize());
+                vec1<int> cells;
+                for(int i : range1(ps->cellCount()))
+                    cells.push_back(i);
+                ss = gr.filterGraph(ps, PermutedGraph<OrbitalGraph>(&graph, perm), range1(ps->cellCount()), 1);
+                if(ss.hasFailed())
+                    return ss;
             }
         }
+        
         return ss;
     }
 
