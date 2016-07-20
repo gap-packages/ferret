@@ -102,9 +102,9 @@ public:
         }
     }
     
-    template<typename GraphType>
+    template<typename GraphType, typename CellList>
     SplitState filterGraph(PartitionStack* ps, const GraphType& points,
-                           const vec1<int>& cells, int path_length)
+                           const CellList& cells, int path_length)
     {
         // Would not normally go this low level, but it is important this is fast
         memset(&(mset.front()), 0, mset.size() * sizeof(mset[0]));
