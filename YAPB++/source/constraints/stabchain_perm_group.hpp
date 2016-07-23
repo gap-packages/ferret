@@ -461,6 +461,8 @@ public:
                       Func get, CacheFunc cached_get,
                       const vec1<int>& fixed_values, const char* name)
     {
+        (void)name;
+
         if(StabChainConfig::doStoreNontrivial(configchoice) )
             {
                 //std::cerr << ":" << name << "\n";
@@ -532,7 +534,7 @@ public:
         {
             for(const auto& block : *blocks)
             {
-                debug_out(3, "scpg", "fix_rBase:blocks" << (*blocks)[i] );
+                debug_out(3, "scpg", "fix_rBase:blocks" << block );
                 ss = filterPartitionStackByUnorderedFunction(ps, SparseFunction<MissingPoints_Free>(&block));
                 if(ss.hasFailed())
                     return ss;
@@ -690,7 +692,6 @@ public:
             const vec1<std::map<int,int> >* blocks = getRBaseBlocks_cached(depth);
             for(const auto& block : *blocks)
             {
-                debug_out(3, "scpg", "fix:blocks" << blocks[i] << " by " << perm);
                 ss = filterPartitionStackByUnorderedFunction(ps, abm(&block));
                 if(ss.hasFailed())
                     return ss;
@@ -724,7 +725,6 @@ public:
 
             for(const auto& graph : (*orbitals))
             {
-                debug_out(3, "scpg", "fix:orbitals" << graph << " by " << perm);
                 GraphRefiner gr(ps->domainSize());
                 ss = gr.filterGraph(ps, agm(&graph), range1(ps->cellCount()), 1);
                 if(ss.hasFailed())
