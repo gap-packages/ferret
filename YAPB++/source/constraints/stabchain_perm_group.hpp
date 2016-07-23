@@ -675,14 +675,15 @@ public:
 
         if(StabChainConfig::doConsiderEveryNode(config.useOrbitals))
         {
-          ss = filterOrbitals_fix(new_depth, perm);
+          ss = filterOrbitals_fix(new_depth, [&perm](auto graphptr){ return PermutedGraph<OrbitalGraph>(graphptr, perm); });
           if(ss.hasFailed())
             return ss;
         }
         return ss;
     }
 
-    SplitState filterOrbitals_fix(int new_depth, const Permutation& perm)
+    template<typename ApplyGraphMapping>
+    SplitState filterOrbitals_fix(int new_depth, const ApplyGraphMapping& agm)
     {
         SplitState ss(true);
 
@@ -708,7 +709,7 @@ public:
                 vec1<int> cells;
                 for(int i : range1(ps->cellCount()))
                     cells.push_back(i);
-                ss = gr.filterGraph(ps, PermutedGraph<OrbitalGraph>(&graph, perm), range1(ps->cellCount()), 1);
+                ss = gr.filterGraph(ps, agm(&graph), range1(ps->cellCount()), 1);
                 if(ss.hasFailed())
                     return ss;
             }
