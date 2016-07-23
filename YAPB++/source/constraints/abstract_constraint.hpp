@@ -28,7 +28,7 @@ public:
     { (void)ps; /* warning supression */ }
 
     // Cell 'newcell' created, of size 1
-    virtual SplitState signal_fix(int /*firstfix*/)
+    virtual SplitState signal_fix()
     { assert(0); }
 
     // Any change has occurred
@@ -36,8 +36,8 @@ public:
     { assert(0); }
 
     // For types which want to distinguish when the rbase is being built
-    virtual SplitState signal_fix_buildingRBase(int i)
-    { return signal_fix(i); }
+    virtual SplitState signal_fix_buildingRBase()
+    { return signal_fix(); }
 
     // For types which want to distinguish when the rbase is being built
     virtual SplitState signal_changed_buildingRBase(const vec1<int>& v)

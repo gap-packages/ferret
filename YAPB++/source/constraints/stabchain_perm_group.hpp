@@ -442,7 +442,7 @@ public:
         first_found_orbitals = tracking_first_found_orbitals.get();
     }
 
-    virtual SplitState signal_fix_buildingRBase(int /*i*/)
+    virtual SplitState signal_fix_buildingRBase()
     {
         debug_out(3, "scpg", "signal_fix_buildingRBase");
         return fix_buildingRBase(ps->fixed_values(),
@@ -557,7 +557,7 @@ public:
         return ss;
     }
 
-    virtual SplitState signal_fix(int /*fix_pos*/)
+    virtual SplitState signal_fix()
     {
         debug_out(3, "scpg", "signal_fix");
         const vec1<int>& new_fix_cells = ps->fixed_values();

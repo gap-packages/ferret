@@ -131,12 +131,11 @@ public:
             {
                 if(to_invoke_fix[i] != -1)
                 {
-                    tracer->beginConstraint(constraint_Fix(constraint_fix_list[i], to_invoke_fix[i]));
+                    tracer->beginConstraint(constraint_Fix(constraint_fix_list[i]));
                     triggered = true;
-                    int first_fixed = to_invoke_fix[i];
                     to_invoke_fix[i] = -1;
                     info_out(2, "Executing: " << constraint_fix_list[i]->full_name());
-                    if(constraint_fix_list[i]->signal_fix_buildingRBase(first_fixed).hasFailed())
+                    if(constraint_fix_list[i]->signal_fix_buildingRBase().hasFailed())
                         return SplitState(false);
                     info_out(2, "After splitting: " <<
                                 constraint_fix_list[i]->getPartitionStack()->dumpCurrentPartition());

@@ -14,7 +14,6 @@ struct TraceEvent
 
     TriggerType trigger_type;
     AbstractConstraint* con;
-    int con_int;
     vec1<int> con_vec;
 
     TraceEvent()
@@ -23,8 +22,8 @@ struct TraceEvent
 
     DEFAULT_MOVE_COPY_CONST_ASSIGN(TraceEvent);
 
-    TraceEvent(TriggerType _type, AbstractConstraint* ac, int _num)
-    : event(TraceEvent_Constraint), trigger_type(_type), con(ac), con_int(_num)
+    TraceEvent(TriggerType _type, AbstractConstraint* ac)
+    : event(TraceEvent_Constraint), trigger_type(_type), con(ac)
     { D_ASSERT(trigger_type == Trigger_Fix); }
 
     TraceEvent(TriggerType _type, AbstractConstraint* ac, std::set<int> _s)
@@ -32,7 +31,7 @@ struct TraceEvent
     { D_ASSERT(trigger_type == Trigger_Change); }
 
     TraceEvent(TraceEventType tet)
-    : event(tet), trigger_type(Trigger_INVALID), con(NULL), con_int(-1)
+    : event(tet), trigger_type(Trigger_INVALID), con(NULL)
     { D_ASSERT(tet != TraceEvent_Constraint); }
 
     SplitState invoke()
@@ -42,7 +41,7 @@ struct TraceEvent
         switch(trigger_type)
         {
             case Trigger_Fix:
-                return con->signal_fix(con_int);
+                return con->signal_fix();
             case Trigger_Change:
                 return con->signal_changed(con_vec);
             default:
@@ -54,8 +53,8 @@ struct TraceEvent
     { return con->getPartitionStack(); }
 };
 
-TraceEvent constraint_Fix(AbstractConstraint* ac, int pos)
-{ return TraceEvent(Trigger_Fix, ac, pos); }
+TraceEvent constraint_Fix(AbstractConstraint* ac)
+{ return TraceEvent(Trigger_Fix, ac); }
 
 TraceEvent constraint_Change(AbstractConstraint* ac, const std::set<int>& pos)
 { return TraceEvent(Trigger_Change, ac, pos); }

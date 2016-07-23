@@ -52,12 +52,12 @@ public:
 
     SplitState signal_start_buildingRBase()
     {
-        return signal_fix_buildingRBase(0);
+        return signal_fix_buildingRBase();
     }
 
     SplitState signal_start()
     {
-        return signal_fix(0);
+        return signal_fix();
     }
 
     virtual void signal_RBaseFinished(RBase* _rb)
@@ -65,7 +65,7 @@ public:
         rb = _rb;
     }
 
-    virtual SplitState signal_fix_buildingRBase(int /*i*/)
+    virtual SplitState signal_fix_buildingRBase()
     {
         Stats::ConstraintInvoke(Stats::CON_PermGroup);
         vec1<int> fixed_values;
@@ -78,7 +78,7 @@ public:
         return filterPartitionStackByFunction(ps, SquareBrackToFunction(&part));
     }
 
-    virtual SplitState signal_fix(int /*i*/)
+    virtual SplitState signal_fix()
     {
         Stats::ConstraintInvoke(Stats::CON_PermGroup);
 
