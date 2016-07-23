@@ -168,24 +168,13 @@ public:
 
     SplitState signal_start()
     {
-        vec1<int> cells;
-        for(int i : range1(ps->cellCount()))
-            cells.push_back(i);
-        return refiner.filterGraph(ps, points, cells, config.start_path_length);
+        return refiner.filterGraph(ps, points, range1(ps->cellCount()), config.start_path_length);
     }
 
     virtual SplitState signal_changed(const vec1<int>& v)
     {
         Stats::ConstraintInvoke(Stats::CON_EdgeGraph);
         debug_out(1, "EdgeGraph", "signal_changed");
-        /*
-        vec1<int> cells;
-        for(int i : range1(ps->cellCount()))
-            cells.push_back(i);
-        SplitState ss = filterGraph(cells);
-        if(ss.hasFailed())
-            return ss;
-        return filterGraph(cells);*/
         return refiner.filterGraph(ps, points, v, config.normal_path_length);
     }
 
