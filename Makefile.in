@@ -28,7 +28,7 @@ else
 printflag =
 endif
 
-MYCFLAGS=-std=gnu++11 -Wall -Wextra -Wno-missing-field-initializers -g -IYAPB++/source -Igap_cpp_headers
+MYCFLAGS=-std=gnu++14 -Wall -Wextra -Wno-missing-field-initializers -g -IYAPB++/source -Igap_cpp_headers
 
 BUILDSTUFF=-L "@CPPLIB@" -o bin/$(GAPARCH)/hellod.so -d src/hellod.cc src/cppmapper.cc
 
