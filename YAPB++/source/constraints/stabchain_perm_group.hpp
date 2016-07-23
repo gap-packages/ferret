@@ -650,40 +650,53 @@ public:
 
         if(StabChainConfig::doConsiderEveryNode(config.useBlocks))
         {
-            int depth = new_depth;
-            bool skip = false;
-            if(StabChainConfig::doStoreNontrivial(config.useBlocks)) {
-                int orbit_depth = first_found_blocks;
-                debug_out(3, "scpg", "block check" << orbit_depth << ":" << depth);
-                if(orbit_depth > depth || orbit_depth < 0)
-                    skip = true;
-                if(orbit_depth < depth)
-                    depth = orbit_depth;
-            }
-
-            if(!skip) {
-                const vec1<std::map<int,int> >* blocks = getRBaseBlocks_cached(depth);
-                for(int i : range1(blocks->size()))
-                {
-                    debug_out(3, "scpg", "fix:blocks" << blocks[i] << " by " << perm);
-                    ss = filterPartitionStackByUnorderedFunction(ps, FunctionByPerm(SparseFunction<MissingPoints_Free>(&((*blocks)[i])), perm));
-                    if(ss.hasFailed())
-                        return ss;
-                }
-            }
+            ss = filterBlocks(new_depth, [&perm](auto blockptr)
+                              { return FunctionByPerm(SparseFunction<MissingPoints_Free>(blockptr), perm); });
+            if(ss.hasFailed())
+                return ss;
         }
 
         if(StabChainConfig::doConsiderEveryNode(config.useOrbitals))
         {
-          ss = filterOrbitals_fix(new_depth, [&perm](auto graphptr){ return PermutedGraph<OrbitalGraph>(graphptr, perm); });
+          ss = filterOrbitals(new_depth, [&perm](auto graphptr){ return PermutedGraph<OrbitalGraph>(graphptr, perm); });
           if(ss.hasFailed())
             return ss;
         }
         return ss;
     }
 
+
+    template<typename ApplyBlockMapping>
+    SplitState filterBlocks(int new_depth, const ApplyBlockMapping& abm)
+    {
+        SplitState ss(true);
+
+        int depth = new_depth;
+        bool skip = false;
+        if(StabChainConfig::doStoreNontrivial(config.useBlocks)) {
+            int orbit_depth = first_found_blocks;
+            debug_out(3, "scpg", "block check" << orbit_depth << ":" << depth);
+            if(orbit_depth > depth || orbit_depth < 0)
+                skip = true;
+            if(orbit_depth < depth)
+                depth = orbit_depth;
+        }
+
+        if(!skip) {
+            const vec1<std::map<int,int> >* blocks = getRBaseBlocks_cached(depth);
+            for(const auto& block : *blocks)
+            {
+                debug_out(3, "scpg", "fix:blocks" << blocks[i] << " by " << perm);
+                ss = filterPartitionStackByUnorderedFunction(ps, abm(&block));
+                if(ss.hasFailed())
+                    return ss;
+            }
+        }
+        return ss;
+    }
+    
     template<typename ApplyGraphMapping>
-    SplitState filterOrbitals_fix(int new_depth, const ApplyGraphMapping& agm)
+    SplitState filterOrbitals(int new_depth, const ApplyGraphMapping& agm)
     {
         SplitState ss(true);
 
