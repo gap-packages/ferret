@@ -650,7 +650,7 @@ public:
 
         if(StabChainConfig::doConsiderEveryNode(config.useBlocks))
         {
-            ss = filterBlocks(new_depth, [&perm](auto blockptr)
+            ss = filterBlocks(new_depth, [&perm](const std::map<int,int>* blockptr)
                               { return FunctionByPerm(SparseFunction<MissingPoints_Free>(blockptr), perm); });
             if(ss.hasFailed())
                 return ss;
@@ -658,7 +658,7 @@ public:
 
         if(StabChainConfig::doConsiderEveryNode(config.useOrbitals))
         {
-          ss = filterOrbitals(new_depth, [&perm](auto graphptr){ return PermutedGraph<OrbitalGraph>(graphptr, perm); });
+          ss = filterOrbitals(new_depth, [&perm](const OrbitalGraph* graphptr){ return PermutedGraph<OrbitalGraph>(graphptr, perm); });
           if(ss.hasFailed())
             return ss;
         }
