@@ -616,6 +616,7 @@ public:
         last_permutation.push_back(perm);
         last_depth.set(new_depth);
 
+// Check our permutation maps known points in the right way.
 #ifndef NO_DEBUG
         for(int i : range1(new_depth))
         {
@@ -665,7 +666,9 @@ public:
         return ss;
     }
 
-
+    // Perform graph filtering, assuming 'new_depth' fixed points.
+    // Apply function 'abm' to blocks, which will either be the identity function,
+    // (when building rbase), or the permutation to apply to the graph (otherwise)
     template<typename ApplyBlockMapping>
     SplitState filterBlocks(int new_depth, const ApplyBlockMapping& abm)
     {
@@ -695,6 +698,9 @@ public:
         return ss;
     }
     
+    // Perform graph filtering, assuming 'new_depth' fixed points.
+    // Apply function 'agm' to graphs, which will either be the identity function,
+    // (when building rbase), or the permutation to apply to the graph (otherwise)
     template<typename ApplyGraphMapping>
     SplitState filterOrbitals(int new_depth, const ApplyGraphMapping& agm)
     {
