@@ -325,6 +325,10 @@ public:
     }
 private:
 
+    // The following 3 methods call into GAP, finding the orbit partition,
+    // blocks or orbitals of the stabilizer of the group, under a given list
+    // of fixed points.
+
     const vec1<int>* getRBaseOrbitPartition(const vec1<int>& fix)
     {
         debug_out(3, "scpg", "Fixing: "<< fix);
