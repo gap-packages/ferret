@@ -541,10 +541,10 @@ public:
             {
                 debug_out(3, "scpg", "fix_rBase:orbitals"  << graph);
                 GraphRefiner gr(ps->domainSize());
-                vec1<int> cells;
-                for(int i : range1(ps->cellCount()))
-                    cells.push_back(i);
-                ss = gr.filterGraph(ps, graph, cells, 1);
+//                vec1<int> cells;
+//                for(int i : range1(ps->cellCount()))
+//                    cells.push_back(i);
+                ss = gr.filterGraph(ps, graph, range1(ps->cellCount()), 1);
                 if(ss.hasFailed())
                 {
                     debug_out(3, "scpg", "Orbital failed");
