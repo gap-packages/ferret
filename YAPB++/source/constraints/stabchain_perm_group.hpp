@@ -530,10 +530,10 @@ public:
 
         if(blocks)
         {
-            for(int i : range1(blocks->size()))
+            for(const auto& block : *blocks)
             {
                 debug_out(3, "scpg", "fix_rBase:blocks" << (*blocks)[i] );
-                ss = filterPartitionStackByUnorderedFunction(ps, SparseFunction<MissingPoints_Free>(&(*blocks)[i]));
+                ss = filterPartitionStackByUnorderedFunction(ps, SparseFunction<MissingPoints_Free>(&block));
                 if(ss.hasFailed())
                     return ss;
             }
