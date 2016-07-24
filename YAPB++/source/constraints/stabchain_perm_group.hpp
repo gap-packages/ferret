@@ -443,7 +443,7 @@ public:
         SplitState root = fix_buildingRBase(vec1<int>(),
                                             StabChainConfig::doRootCheck(config.useOrbits),
                                             StabChainConfig::doRootCheck(config.useBlocks),
-                                            StabChainConfig::doRootCheck(config.useOrbitals));
+                                            StabChainConfig::doRootCheck(config.useOrbitals), true);
         if(root.hasFailed()) return root;
 
         return root;
@@ -491,7 +491,7 @@ public:
         }
     }
 
-    SplitState fix_buildingRBase(const vec1<int>& fixed_values, bool useOrbits, bool useBlocks, bool useOrbitals)
+    SplitState fix_buildingRBase(const vec1<int>& fixed_values, bool useOrbits, bool useBlocks, bool useOrbitals, bool rootCall = false)
     {
         debug_out(3, "scpg", "last depth " << last_depth.get() << " new depth " << fixed_values.size());
         D_ASSERT(fixed_values.size() > last_depth.get());
@@ -520,17 +520,26 @@ public:
 
         SplitState ss(true);
 
+        int fixed_size = fixed_values.size();
+
         if(useOrbits)
         {
             const vec1<int>* part = 0;
             if(tracking_first_found_orbits.get() >= 0)
                 part = this->getRBaseOrbitPartition_cached(tracking_first_found_orbits.get());
             else
-                part = this->getRBaseOrbitPartition_cached(fixed_values.size());
+                part = this->getRBaseOrbitPartition_cached(fixed_size);
             debug_out(3, "scpg", "fix_rBase:orbits");
             if(!part->empty())
                 ss = filterPartitionStackByFunction(ps, SquareBrackToFunction(part));
+            if(ss.hasFailed())
+                return ss;
         }
+
+        if( ( StabChainConfig::doStoreNontrivial(config.useOrbitals) && fixed_size == tracking_first_found_orbitals.get() ) ||
+            ( config.useOrbitals == StabChainConfig::always ) ||
+            ( rootCall ) )
+        { return signal_changed_generic(range1(ps->cellCount()), identityPermutation()); }
 
         return ss;
     }
@@ -618,6 +627,10 @@ public:
                     return ss;
             }
         }
+
+        if( ( StabChainConfig::doStoreNontrivial(config.useOrbitals) && new_depth == tracking_first_found_orbitals.get() ) ||
+            ( config.useOrbitals == StabChainConfig::always ) )
+        { return signal_changed_generic(range1(ps->cellCount()), perm); }
 
         return ss;
     }
