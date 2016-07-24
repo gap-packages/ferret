@@ -324,7 +324,7 @@ private:
     // blocks or orbitals of the stabilizer of the group, under a given list
     // of fixed points.
 
-    const vec1<int>* getRBaseOrbitPartition(const vec1<int>& fix)
+    const vec1<int>* fillRBaseOrbitPartitionCache(const vec1<int>& fix)
     {
         debug_out(3, "scpg", "Fixing: "<< fix);
         vec1<vec1<int> > oart = scc.orbits(fix, ps->domainSize());
@@ -345,10 +345,10 @@ private:
 
         original_partitions[fix.size()+1] = std::move(filter);
 
-        return &(original_partitions[fix.size()+1]);
+         return &(original_partitions[fix.size() + 1]);
     }
 
-    vec1<std::map<int,int> >* getRBaseBlocks(const vec1<int>& fix)
+    const vec1<std::map<int,int> >* fillRBaseBlocksCache(const vec1<int>& fix)
     {
         vec1<vec1<vec1<int> > > blocks = scc.blocks(fix);
         vec1<std::map<int,int> > block_functions;
@@ -365,7 +365,7 @@ private:
         return &(original_blocks[fix.size() + 1]);
     }
 
-    vec1<OrbitalGraph>* getRBaseOrbitals(const vec1<int>& fix)
+    const vec1<OrbitalGraph>* fillRBaseOrbitalsCache(const vec1<int>& fix)
     {
         vec1<OrbitalGraph> orbitals = scc.orbitals(fix, ps->domainSize());
 
@@ -373,7 +373,8 @@ private:
             original_orbitals.resize(fix.size() + 1);
     
         original_orbitals[fix.size() + 1] = std::move(orbitals);
-        return &(original_orbitals[fix.size() + 1]);
+
+         return &(original_orbitals[fix.size() + 1]);
     }
 
     const vec1<int>* getRBaseOrbitPartition_cached(int s)
@@ -459,36 +460,27 @@ public:
     // This horrible function just wraps up something we want to do several times.
     // basically, if we have set a nontrivial depth, get the cached value at that
     // depth, else calculate a new value, and see if it is non-trivial.
-    template<typename StorePoint, typename Func, typename CacheFunc>
+    template<typename Func>
     void doCacheCheck(StabChainConfig::sc_config_option configchoice,
                       Reverting<int>& nontrivialdepth,
-                      StorePoint& ptr,
-                      Func get, CacheFunc cached_get,
+                      Func cache_fill,
                       const vec1<int>& fixed_values, const char* name)
     {
         (void)name;
 
         if(StabChainConfig::doStoreNontrivial(configchoice) )
+        {
+            if(nontrivialdepth.get() < 0)
             {
-                //std::cerr << ":" << name << "\n";
-                if(nontrivialdepth.get() >= 0)
-                {
-                    //std::cerr << "Using cached depth: " << nontrivialdepth.get() << "\n"; 
-                    ptr = cached_get(nontrivialdepth.get() ); 
-                }
-                else
-                {
-                    ptr = get(fixed_values);
-                    //std::cerr << "Found: " << *ptr << "\n";
-                    if(ptr->size() > 0)
-                    {
-                        //std::cerr << "Setting cache depth: " << fixed_values.size() << "\n";
-                        nontrivialdepth.set(fixed_values.size());
-                    }
-                }
+                const auto& ptr = cache_fill(fixed_values);
+                if(ptr->size() > 0)
+                { nontrivialdepth.set(fixed_values.size()); }
             }
-            else
-            { ptr = get(fixed_values); }
+        }
+        else
+        {
+            cache_fill(fixed_values);
+        }
     }
 
     SplitState fix_buildingRBase(const vec1<int>& fixed_values, bool useOrbits, bool useBlocks, bool useOrbitals)
@@ -503,38 +495,36 @@ public:
 
         if(useOrbits)
         {
-            doCacheCheck(config.useOrbits, tracking_first_found_orbits, part,
-                         [this](const vec1<int>& v){ return this->getRBaseOrbitPartition(v); },
-                         [this](int i){ return this->getRBaseOrbitPartition_cached(i); },
+            doCacheCheck(config.useOrbits, tracking_first_found_orbits,
+                         [this](const vec1<int>& v){ return this->fillRBaseOrbitPartitionCache(v); },
                          fixed_values, "orbits");
         }
 
         if(useBlocks)
         { 
-             doCacheCheck(config.useBlocks, tracking_first_found_blocks, blocks,
-                         [this](const vec1<int>& v){ return this->getRBaseBlocks(v); },
-                         [this](int i){ return this->getRBaseBlocks_cached(i); },
+             doCacheCheck(config.useBlocks, tracking_first_found_blocks,
+                         [this](const vec1<int>& v){ return this->fillRBaseBlocksCache(v); },
                          fixed_values, "blocks");
         }
 
         if(useOrbitals)
         { 
-            doCacheCheck(config.useOrbitals, tracking_first_found_orbitals, orbitals,
-                         [this](const vec1<int>& v){ return this->getRBaseOrbitals(v); },
-                         [this](int i){ return this->getRBaseOrbitals_cached(i); },
+            doCacheCheck(config.useOrbitals, tracking_first_found_orbitals,
+                         [this](const vec1<int>& v){ return this->fillRBaseOrbitalsCache(v); },
                          fixed_values, "orbitals");
         }
 
         SplitState ss(true);
 
         
-        if(part)
+        int fixed_size = fixed_values.size();
+
+        if(useOrbits)
         {
-            /*
             if(tracking_first_found_orbits.get() >= 0)
                 part = this->getRBaseOrbitPartition_cached(tracking_first_found_orbits.get());
             else
-                part = this->getRBaseOrbitPartition_cached(fixed_values.size());*/
+                part = this->getRBaseOrbitPartition_cached(fixed_size);
             debug_out(3, "scpg", "fix_rBase:orbits");
             if(!part->empty())
                 ss = filterPartitionStackByFunction(ps, SquareBrackToFunction(part));
@@ -542,38 +532,38 @@ public:
                 return ss;
         }
 
-        if(blocks)
-        {/*
-            if(tracking_first_found_blocks.get() >= 0)
-                blocks = this->getRBaseBlocks_cached(tracking_first_found_blocks.get());
-            else
-                blocks = this->getRBaseBlocks_cached(fixed_values.size());*/
-
-            for(const auto& block : *blocks)
+        if(useBlocks)
+        {
+            auto level = getDepthLevel(fixed_size, tracking_first_found_blocks.get(), config.useBlocks);
+            if(!level.skip)
             {
-                debug_out(3, "scpg", "fix_rBase:blocks" << block );
-                ss = filterPartitionStackByUnorderedFunction(ps, SparseFunction<MissingPoints_Free>(&block));
-                if(ss.hasFailed())
-                    return ss;
+                blocks = this->getRBaseBlocks_cached(level.depth);
+                for(const auto& block : *blocks)
+                {
+                    debug_out(3, "scpg", "fix_rBase:blocks" << block );
+                    ss = filterPartitionStackByUnorderedFunction(ps, SparseFunction<MissingPoints_Free>(&block));
+                    if(ss.hasFailed())
+                        return ss;
+                }
             }
         }
 
-        if(orbitals)
-        {/*
-            if(tracking_first_found_orbitals.get() >= 0)
-                orbitals = this->getRBaseOrbitals_cached(tracking_first_found_orbitals.get());
-            else
-                orbitals = this->getRBaseOrbitals_cached(fixed_values.size());*/
-
-            for(const auto& graph : (*orbitals))
+        if(useOrbitals)
+        {
+            auto level = getDepthLevel(fixed_size, tracking_first_found_orbitals.get(), config.useOrbitals);
+            if(!level.skip)
             {
-                debug_out(3, "scpg", "fix_rBase:orbitals"  << graph);
-                GraphRefiner gr(ps->domainSize());
-                ss = gr.filterGraph(ps, graph, range1(ps->cellCount()), 1);
-                if(ss.hasFailed())
+                orbitals = this->getRBaseOrbitals_cached(level.depth);
+                for(const auto& graph : (*orbitals))
                 {
-                    debug_out(3, "scpg", "Orbital failed");
-                    return ss;
+                    debug_out(3, "scpg", "fix_rBase:orbitals"  << graph);
+                    GraphRefiner gr(ps->domainSize());
+                    ss = gr.filterGraph(ps, graph, range1(ps->cellCount()), 1);
+                    if(ss.hasFailed())
+                    {
+                        debug_out(3, "scpg", "Orbital failed");
+                        return ss;
+                    }
                 }
             }
         }
@@ -705,7 +695,7 @@ public:
     {
         SplitState ss(true);
 
-        auto level = getDepthLevel(new_depth, first_found_blocks, config.useBlocks);       
+        auto level = getDepthLevel(new_depth, first_found_blocks, config.useBlocks);
 
         if(!level.skip) {
             const vec1<std::map<int,int> >* blocks = getRBaseBlocks_cached(level.depth);
