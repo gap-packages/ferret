@@ -503,10 +503,6 @@ public:
         D_ASSERT(fixed_values.size() > last_depth.get());
         last_depth.set(fixed_values.size());
 
-        const vec1<int>* part = 0;
-        const vec1<std::map<int,int> >* blocks = 0;
-        const vec1<OrbitalGraph>* orbitals = 0;
-
         if(useOrbits)
         {
             doCacheCheck(config.useOrbits, tracking_first_found_orbits,
@@ -535,6 +531,7 @@ public:
 
         if(useOrbits)
         {
+            const vec1<int>* part = 0;
             if(tracking_first_found_orbits.get() >= 0)
                 part = this->getRBaseOrbitPartition_cached(tracking_first_found_orbits.get());
             else
@@ -542,44 +539,6 @@ public:
             debug_out(3, "scpg", "fix_rBase:orbits");
             if(!part->empty())
                 ss = filterPartitionStackByFunction(ps, SquareBrackToFunction(part));
-            if(ss.hasFailed())
-                return ss;
-        }
-
-        if(useBlocks)
-        {
-            auto level = getDepthLevel(fixed_size, tracking_first_found_blocks.get(), config.useBlocks);
-            if(!level.skip)
-            {
-                blocks = this->getRBaseBlocks_cached(level.depth);
-                for(const auto& block : *blocks)
-                {
-                    debug_out(3, "scpg", "fix_rBase:blocks" << block );
-                    ss = filterPartitionStackByUnorderedFunction(ps, SparseFunction<MissingPoints_Free>(&block));
-                    if(ss.hasFailed())
-                        return ss;
-                }
-            }
-        }
-
-        if(useOrbitals)
-        {
-            auto level = getDepthLevel(fixed_size, tracking_first_found_orbitals.get(), config.useOrbitals);
-            if(!level.skip)
-            {
-                orbitals = this->getRBaseOrbitals_cached(level.depth);
-                for(const auto& graph : (*orbitals))
-                {
-                    debug_out(3, "scpg", "fix_rBase:orbitals"  << graph);
-                    GraphRefiner gr(ps->domainSize());
-                    ss = gr.filterGraph(ps, graph, range1(ps->cellCount()), 1);
-                    if(ss.hasFailed())
-                    {
-                        debug_out(3, "scpg", "Orbital failed");
-                        return ss;
-                    }
-                }
-            }
         }
 
         return ss;
@@ -669,20 +628,6 @@ public:
             }
         }
 
-        if(StabChainConfig::doConsiderEveryNode(config.useBlocks))
-        {
-            ss = filterBlocks(new_depth, [&perm](const std::map<int,int>* blockptr)
-                              { return FunctionByPerm(SparseFunction<MissingPoints_Free>(blockptr), perm); });
-            if(ss.hasFailed())
-                return ss;
-        }
-
-        if(StabChainConfig::doConsiderEveryNode(config.useOrbitals))
-        {
-          ss = filterOrbitals(new_depth, [&perm](const OrbitalGraph* graphptr){ return PermutedGraph<OrbitalGraph>(graphptr, perm); });
-          if(ss.hasFailed())
-            return ss;
-        }
         return ss;
     }
 
