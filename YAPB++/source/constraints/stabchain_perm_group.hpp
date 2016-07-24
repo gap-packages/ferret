@@ -413,16 +413,27 @@ public:
       return v;
     }
 
-    // We only want to do 'changed' propagation for blocks and orbitals
-    // and then, only when we don't expect it to be handled by a 'fix' in future.
     SplitState signal_changed(const vec1<int>& cells)
     {
+        Permutation perm = last_permutation.back();
+        return signal_changed_generic(cells, perm);
+    }
+
+    SplitState signal_changed_buildingRBase(const vec1<int>& cells)
+    {
+        return signal_changed_generic(cells, identityPermutation());
+    }
+
+    // We only want to do 'changed' propagation for blocks and orbitals
+    // and then, only when we don't expect it to be handled by a 'fix' in future.
+    SplitState signal_changed_generic(const vec1<int>& cells, Permutation mapper)
+    {
         D_ASSERT(last_depth.get() <= ps->fixed_values().size());
+        SplitState ss(true);
         if(last_depth.get() == ps->fixed_values().size())
         {
-
+            
         }
-        SplitState ss(true);
         return ss;
     }
 
