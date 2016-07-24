@@ -308,14 +308,9 @@ public:
     {
         first_found_blocks = first_found_blocks = first_found_orbitals = -2;
 
-        if(StabChainConfig::doStoreNontrivial(config.useOrbits))
-        { tracking_first_found_orbits = Reverting<int>(mb->makeReverting<int>(-2)); }
-
-        if(StabChainConfig::doStoreNontrivial(config.useBlocks))
-        { tracking_first_found_blocks = Reverting<int>(mb->makeReverting<int>(-2)); }
-
-        if(StabChainConfig::doStoreNontrivial(config.useOrbitals))
-        { tracking_first_found_orbitals = Reverting<int>(mb->makeReverting<int>(-2)); }
+        tracking_first_found_orbits = Reverting<int>(mb->makeReverting<int>(-2));
+        tracking_first_found_blocks = Reverting<int>(mb->makeReverting<int>(-2));
+        tracking_first_found_orbitals = Reverting<int>(mb->makeReverting<int>(-2));
 
         // We set up our 'reverting' at the start
         last_depth.set(-1);
@@ -432,13 +427,8 @@ public:
         D_ASSERT(rb->value_ordering == ps->fixed_values());
         scc.initalize(rb->value_ordering);
 
-        if(StabChainConfig::doStoreNontrivial(config.useOrbits))
-            first_found_orbits = tracking_first_found_orbits.get();
-
-        if(StabChainConfig::doStoreNontrivial(config.useBlocks))
+        first_found_orbits = tracking_first_found_orbits.get();
         first_found_blocks = tracking_first_found_blocks.get();
-
-        if(StabChainConfig::doStoreNontrivial(config.useOrbitals))
         first_found_orbitals = tracking_first_found_orbitals.get();
     }
 
