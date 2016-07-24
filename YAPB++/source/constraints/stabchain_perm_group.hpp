@@ -407,39 +407,33 @@ public:
     }
 
     SplitState signal_changed(const vec1<int>& cells)
-    {
-        Permutation perm = last_permutation.back();
-        return signal_changed_generic(cells, perm);
-    }
+    { return signal_changed_generic(cells, last_permutation.back()); }
 
     SplitState signal_changed_buildingRBase(const vec1<int>& cells)
-    {
-        return signal_changed_generic(cells, identityPermutation());
-    }
+    { return signal_changed_generic(cells, identityPermutation()); }
 
     // We only want to do 'changed' propagation for blocks and orbitals
     // and then, only when we don't expect it to be handled by a 'fix' in future.
-    SplitState signal_changed_generic(const vec1<int>& cells, Permutation perm)
+    template<typename CellRange>
+    SplitState signal_changed_generic(const CellRange& cells, Permutation perm)
     {
         D_ASSERT(last_depth.get() <= ps->fixed_values().size());
         SplitState ss(true);
         if(last_depth.get() == ps->fixed_values().size())
         {
             int new_depth = last_depth.get();
-            if(StabChainConfig::doConsiderEveryNode(config.useBlocks))
-            {
-                ss = filterBlocks(new_depth, [&perm](const std::map<int,int>* blockptr)
+            ss = filterBlocks(new_depth,
+                              [&perm](const std::map<int,int>* blockptr)
                                 { return FunctionByPerm(SparseFunction<MissingPoints_Free>(blockptr), perm); });
-                if(ss.hasFailed())
-                    return ss;
-            }
-
-            if(StabChainConfig::doConsiderEveryNode(config.useOrbitals))
-            {
-            ss = filterOrbitals(new_depth, [&perm](const OrbitalGraph* graphptr){ return PermutedGraph<OrbitalGraph>(graphptr, perm); });
             if(ss.hasFailed())
                 return ss;
-            }
+
+            ss = filterOrbitals(new_depth,
+                                [&perm](const OrbitalGraph* graphptr)
+                                    { return PermutedGraph<OrbitalGraph>(graphptr, perm); },
+                                cells);
+            if(ss.hasFailed())
+                return ss;
         }
         return ss;
     }
@@ -671,8 +665,8 @@ public:
     // Perform graph filtering, assuming 'new_depth' fixed points.
     // Apply function 'agm' to graphs, which will either be the identity function,
     // (when building rbase), or the permutation to apply to the graph (otherwise)
-    template<typename ApplyGraphMapping>
-    SplitState filterOrbitals(int new_depth, const ApplyGraphMapping& agm)
+    template<typename ApplyGraphMapping, typename CellRange>
+    SplitState filterOrbitals(int new_depth, const ApplyGraphMapping& agm, const CellRange& cells)
     {
         SplitState ss(true);
 
@@ -687,7 +681,7 @@ public:
                 for(const auto& graph : (*orbitals))
                 {
                     GraphRefiner gr(ps->domainSize());
-                    ss = gr.filterGraph(ps, agm(&graph), range1(ps->cellCount()), 1);
+                    ss = gr.filterGraph(ps, agm(&graph), cells, 1);
                     if(ss.hasFailed())
                         return ss;
                 }
