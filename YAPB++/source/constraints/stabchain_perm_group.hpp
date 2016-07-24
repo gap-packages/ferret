@@ -526,16 +526,13 @@ public:
 
         SplitState ss(true);
 
-        
-        int fixed_size = fixed_values.size();
-
         if(useOrbits)
         {
             const vec1<int>* part = 0;
             if(tracking_first_found_orbits.get() >= 0)
                 part = this->getRBaseOrbitPartition_cached(tracking_first_found_orbits.get());
             else
-                part = this->getRBaseOrbitPartition_cached(fixed_size);
+                part = this->getRBaseOrbitPartition_cached(fixed_values.size());
             debug_out(3, "scpg", "fix_rBase:orbits");
             if(!part->empty())
                 ss = filterPartitionStackByFunction(ps, SquareBrackToFunction(part));
