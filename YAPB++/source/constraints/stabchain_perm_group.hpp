@@ -285,11 +285,6 @@ class StabChain_PermGroup : public AbstractConstraint
     Reverting<int> tracking_first_found_blocks;
     Reverting<int> tracking_first_found_orbitals;
 
-    // These are filled in once the rbase is constructed
-    int first_found_orbits;
-    int first_found_blocks;
-    int first_found_orbitals;
-
 public:
     virtual std::string name() const
     {
@@ -306,8 +301,6 @@ public:
       last_permutation(mb->makeRevertingStack<Permutation>()),
       last_depth(mb->makeReverting<int>())
     {
-        first_found_blocks = first_found_blocks = first_found_orbitals = -2;
-
         tracking_first_found_orbits = Reverting<int>(rbase_mb->makeReverting<int>(-2));
         tracking_first_found_blocks = Reverting<int>(rbase_mb->makeReverting<int>(-2));
         tracking_first_found_orbitals = Reverting<int>(rbase_mb->makeReverting<int>(-2));
@@ -453,10 +446,6 @@ public:
         rb = _rb;
         D_ASSERT(rb->value_ordering == ps->fixed_values());
         scc.initalize(rb->value_ordering);
-
-        first_found_orbits = tracking_first_found_orbits.get();
-        first_found_blocks = tracking_first_found_blocks.get();
-        first_found_orbitals = tracking_first_found_orbitals.get();
     }
 
     virtual SplitState signal_fix_buildingRBase()
@@ -655,7 +644,7 @@ public:
         SplitState ss(true);
         if(StabChainConfig::doConsiderEveryNode(config.useOrbits))
         {
-            auto level = getDepthLevel(new_depth, first_found_orbits, config.useOrbits); 
+            auto level = getDepthLevel(new_depth, tracking_first_found_orbits.get(), config.useOrbits); 
             if(!level.skip) {
                 const vec1<int>* part = getRBaseOrbitPartition_cached(level.depth);
                 debug_out(3, "scpg", "fix:orbits" << part << " by " << perm);
@@ -706,7 +695,7 @@ public:
     {
         SplitState ss(true);
 
-        auto level = getDepthLevel(new_depth, first_found_blocks, config.useBlocks);
+        auto level = getDepthLevel(new_depth, tracking_first_found_blocks.get(), config.useBlocks);
 
         if(!level.skip) {
             const vec1<std::map<int,int> >* blocks = getRBaseBlocks_cached(level.depth);
@@ -728,7 +717,7 @@ public:
     {
         SplitState ss(true);
 
-        auto level = getDepthLevel(new_depth, first_found_orbitals, config.useOrbitals);
+        auto level = getDepthLevel(new_depth, tracking_first_found_orbitals.get(), config.useOrbitals);
 
         if(!level.skip) {
             const vec1<OrbitalGraph>* orbitals = getRBaseOrbitals_cached(level.depth);
