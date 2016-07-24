@@ -419,13 +419,27 @@ public:
 
     // We only want to do 'changed' propagation for blocks and orbitals
     // and then, only when we don't expect it to be handled by a 'fix' in future.
-    SplitState signal_changed_generic(const vec1<int>& cells, Permutation mapper)
+    SplitState signal_changed_generic(const vec1<int>& cells, Permutation perm)
     {
         D_ASSERT(last_depth.get() <= ps->fixed_values().size());
         SplitState ss(true);
         if(last_depth.get() == ps->fixed_values().size())
         {
-            
+            int new_depth = last_depth.get();
+            if(StabChainConfig::doConsiderEveryNode(config.useBlocks))
+            {
+                ss = filterBlocks(new_depth, [&perm](const std::map<int,int>* blockptr)
+                                { return FunctionByPerm(SparseFunction<MissingPoints_Free>(blockptr), perm); });
+                if(ss.hasFailed())
+                    return ss;
+            }
+
+            if(StabChainConfig::doConsiderEveryNode(config.useOrbitals))
+            {
+            ss = filterOrbitals(new_depth, [&perm](const OrbitalGraph* graphptr){ return PermutedGraph<OrbitalGraph>(graphptr, perm); });
+            if(ss.hasFailed())
+                return ss;
+            }
         }
         return ss;
     }
@@ -699,11 +713,14 @@ public:
 
         if(!level.skip) {
             const vec1<std::map<int,int> >* blocks = getRBaseBlocks_cached(level.depth);
-            for(const auto& block : *blocks)
+            if(blocks)
             {
-                ss = filterPartitionStackByUnorderedFunction(ps, abm(&block));
-                if(ss.hasFailed())
-                    return ss;
+                for(const auto& block : *blocks)
+                {
+                    ss = filterPartitionStackByUnorderedFunction(ps, abm(&block));
+                    if(ss.hasFailed())
+                        return ss;
+                }
             }
         }
         return ss;
@@ -723,12 +740,15 @@ public:
             const vec1<OrbitalGraph>* orbitals = getRBaseOrbitals_cached(level.depth);
             //std::cerr << new_depth << ":" << depth << ":" << *orbitals << std::endl;
 
-            for(const auto& graph : (*orbitals))
+            if(orbitals)
             {
-                GraphRefiner gr(ps->domainSize());
-                ss = gr.filterGraph(ps, agm(&graph), range1(ps->cellCount()), 1);
-                if(ss.hasFailed())
-                    return ss;
+                for(const auto& graph : (*orbitals))
+                {
+                    GraphRefiner gr(ps->domainSize());
+                    ss = gr.filterGraph(ps, agm(&graph), range1(ps->cellCount()), 1);
+                    if(ss.hasFailed())
+                        return ss;
+                }
             }
         }
         
