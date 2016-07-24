@@ -641,7 +641,6 @@ public:
     {
         bool skip=false;
         if(StabChainConfig::doStoreNontrivial(configopt)) {
-            int orbit_depth = first_found_depth;
             if(first_found_depth > depth || first_found_depth < 0)
                 skip = true;
             if(first_found_depth < depth)
