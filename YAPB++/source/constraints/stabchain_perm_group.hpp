@@ -377,13 +377,28 @@ private:
     }
 
     const vec1<int>* getRBaseOrbitPartition_cached(int s)
-    {  return &(original_partitions[s+1]); }
+    {
+        if(s < original_partitions.size())
+            return &(original_partitions[s+1]);
+        else
+            return 0;
+    }
 
     const vec1<std::map<int,int> >* getRBaseBlocks_cached(int s)
-    {  return &(original_blocks[s+1]); }
+    {
+        if(s < original_blocks.size())
+            return &(original_blocks[s+1]);
+        else
+            return 0;
+    }
 
     const vec1<OrbitalGraph>* getRBaseOrbitals_cached(int s)
-    { return &(original_orbitals[s+1]); }
+    {
+        if(s < original_orbitals.size())
+            return &(original_orbitals[s+1]);
+        else
+            return 0;
+    }
 
 public:
 
@@ -511,8 +526,15 @@ public:
         }
 
         SplitState ss(true);
+
+        
         if(part)
         {
+            /*
+            if(tracking_first_found_orbits.get() >= 0)
+                part = this->getRBaseOrbitPartition_cached(tracking_first_found_orbits.get());
+            else
+                part = this->getRBaseOrbitPartition_cached(fixed_values.size());*/
             debug_out(3, "scpg", "fix_rBase:orbits");
             if(!part->empty())
                 ss = filterPartitionStackByFunction(ps, SquareBrackToFunction(part));
@@ -521,7 +543,12 @@ public:
         }
 
         if(blocks)
-        {
+        {/*
+            if(tracking_first_found_blocks.get() >= 0)
+                blocks = this->getRBaseBlocks_cached(tracking_first_found_blocks.get());
+            else
+                blocks = this->getRBaseBlocks_cached(fixed_values.size());*/
+
             for(const auto& block : *blocks)
             {
                 debug_out(3, "scpg", "fix_rBase:blocks" << block );
@@ -532,7 +559,12 @@ public:
         }
 
         if(orbitals)
-        {
+        {/*
+            if(tracking_first_found_orbitals.get() >= 0)
+                orbitals = this->getRBaseOrbitals_cached(tracking_first_found_orbitals.get());
+            else
+                orbitals = this->getRBaseOrbitals_cached(fixed_values.size());*/
+
             for(const auto& graph : (*orbitals))
             {
                 debug_out(3, "scpg", "fix_rBase:orbitals"  << graph);
@@ -622,18 +654,9 @@ public:
         SplitState ss(true);
         if(StabChainConfig::doConsiderEveryNode(config.useOrbits))
         {
-            int depth = new_depth;
-            bool skip = false;
-            if(StabChainConfig::doStoreNontrivial(config.useOrbits)) {
-                int orbit_depth = first_found_orbits;
-                debug_out(3, "scpg", "orbit check" << orbit_depth << ":" << depth);
-                if(orbit_depth > depth || orbit_depth < 0)
-                    skip = true;
-                if(orbit_depth < depth)
-                    depth = orbit_depth;
-            }
-            if(!skip) {
-                const vec1<int>* part = getRBaseOrbitPartition_cached(depth);
+            auto level = getDepthLevel(new_depth, first_found_orbits, config.useOrbits); 
+            if(!level.skip) {
+                const vec1<int>* part = getRBaseOrbitPartition_cached(level.depth);
                 debug_out(3, "scpg", "fix:orbits" << part << " by " << perm);
                 if(!part->empty())
                     ss = filterPartitionStackByFunction(ps, FunctionByPerm(SquareBrackToFunction(part), perm));
@@ -659,6 +682,21 @@ public:
         return ss;
     }
 
+    struct depth_level { bool skip; int depth; };
+
+    static depth_level getDepthLevel(int depth, int first_found_depth, StabChainConfig::sc_config_option configopt)
+    {
+        bool skip=false;
+        if(StabChainConfig::doStoreNontrivial(configopt)) {
+            int orbit_depth = first_found_depth;
+            if(first_found_depth > depth || first_found_depth < 0)
+                skip = true;
+            if(first_found_depth < depth)
+                depth = first_found_depth;
+        }
+        return depth_level{skip, depth};
+    }
+
     // Perform graph filtering, assuming 'new_depth' fixed points.
     // Apply function 'abm' to blocks, which will either be the identity function,
     // (when building rbase), or the permutation to apply to the graph (otherwise)
@@ -667,19 +705,10 @@ public:
     {
         SplitState ss(true);
 
-        int depth = new_depth;
-        bool skip = false;
-        if(StabChainConfig::doStoreNontrivial(config.useBlocks)) {
-            int orbit_depth = first_found_blocks;
-            debug_out(3, "scpg", "block check" << orbit_depth << ":" << depth);
-            if(orbit_depth > depth || orbit_depth < 0)
-                skip = true;
-            if(orbit_depth < depth)
-                depth = orbit_depth;
-        }
+        auto level = getDepthLevel(new_depth, first_found_blocks, config.useBlocks);       
 
-        if(!skip) {
-            const vec1<std::map<int,int> >* blocks = getRBaseBlocks_cached(depth);
+        if(!level.skip) {
+            const vec1<std::map<int,int> >* blocks = getRBaseBlocks_cached(level.depth);
             for(const auto& block : *blocks)
             {
                 ss = filterPartitionStackByUnorderedFunction(ps, abm(&block));
@@ -698,19 +727,10 @@ public:
     {
         SplitState ss(true);
 
-        int depth = new_depth;
-        bool skip = false;
-        if(StabChainConfig::doStoreNontrivial(config.useOrbitals)) {
-            int orbit_depth = first_found_orbitals;
-            debug_out(3, "scpg", "orbital check" << orbit_depth << ":" << depth);
-            if(orbit_depth > depth || orbit_depth < 0)
-                skip = true;
-            if(orbit_depth < depth)
-                depth = orbit_depth;
-        }
+        auto level = getDepthLevel(new_depth, first_found_orbitals, config.useOrbitals);
 
-        if(!skip) {
-            const vec1<OrbitalGraph>* orbitals = getRBaseOrbitals_cached(depth);
+        if(!level.skip) {
+            const vec1<OrbitalGraph>* orbitals = getRBaseOrbitals_cached(level.depth);
             //std::cerr << new_depth << ":" << depth << ":" << *orbitals << std::endl;
 
             for(const auto& graph : (*orbitals))
