@@ -9,16 +9,17 @@
 
 struct Problem
 {
-    MemoryBacktracker memory_backtracker;
+    MemoryBacktracker full_search_memory_backtracker;
+    MemoryBacktracker rbase_generation_memory_backtracker;
     TracerGenerator tracer_generator;
     ConstraintStore con_store;
     ConstraintQueue con_queue;
     PartitionStack p_stack;
     Problem(int n) :
-    tracer_generator(&memory_backtracker),
+    tracer_generator(&full_search_memory_backtracker),
     con_store(this),
     con_queue(&tracer_generator),
-    p_stack(n, &con_queue, &memory_backtracker)
+    p_stack(n, &con_queue, &full_search_memory_backtracker)
     {
         if(n < 2)
         {

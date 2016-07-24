@@ -225,16 +225,17 @@ It choose_value(It begin, It end, RBaseSearchHeuristic sh)
 
 RBase* buildRBase(Problem* p, RBaseSearchHeuristic cellHeuristic, RBaseSearchHeuristic valueHeuristic)
 {
-    int depth = p->memory_backtracker.getDepth();
+    int depth = p->full_search_memory_backtracker.getDepth();
 
-    BacktrackingRBase revrbase(&p->memory_backtracker);
+    BacktrackingRBase revrbase(&p->full_search_memory_backtracker);
     D_ASSERT(p->con_store.initCalled());
     int branch_cell = 1;
 
     while(branch_cell != -1)
     {
         p->con_queue.invokeQueue();
-        p->memory_backtracker.pushWorld();
+        p->full_search_memory_backtracker.pushWorld();
+        p->rbase_generation_memory_backtracker.pushWorld();
         branch_cell = choose_branch_cell(&p->p_stack,
                                          &p->con_store, cellHeuristic);
         if(branch_cell != -1)
@@ -258,7 +259,7 @@ RBase* buildRBase(Problem* p, RBaseSearchHeuristic cellHeuristic, RBaseSearchHeu
 
     RBase* rb = revrbase.fixRBase(&p->p_stack, p->tracer_generator.getTrace());
     p->con_queue.RBaseFinished(rb);
-    p->memory_backtracker.popWorldToDepth(depth);
+    p->full_search_memory_backtracker.popWorldToDepth(depth);
     return rb;
 }
 

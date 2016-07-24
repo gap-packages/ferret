@@ -55,7 +55,7 @@ bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
                 p->p_stack.swapPositions(cell_start, i_pos);
 
                 // Push state of the world
-                p->memory_backtracker.pushWorld();
+                p->full_search_memory_backtracker.pushWorld();
                 info_out(1, "branch on: " << cell[i]);
                 Stats::container().node_count++;
                 tfq->beginBranch();
@@ -79,7 +79,7 @@ bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
                     {
                         if(!firstbranch)
                         {
-                            p->memory_backtracker.popWorld();
+                            p->full_search_memory_backtracker.popWorld();
                             return true;
                         }
                         else
@@ -88,7 +88,7 @@ bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
                         }
                     }
                 }
-                p->memory_backtracker.popWorld();
+                p->full_search_memory_backtracker.popWorld();
             }
             else
             { debug_out(1, "search", "skipping " << i); }
@@ -116,7 +116,7 @@ SolutionStore doSearch(Problem* p, const std::vector<AbstractConstraint*>& cons,
     if(!so.just_rbase)
     {
 
-        TraceFollowingQueue tfq(rb->trace, &p->memory_backtracker);
+        TraceFollowingQueue tfq(rb->trace, &p->full_search_memory_backtracker);
 
         p->p_stack.setAbstractQueue(&tfq);
 
@@ -154,7 +154,7 @@ SolutionStore doCosetSearch(Problem* p, const std::vector<AbstractConstraint*>& 
     if(!so.just_rbase)
     {
 
-        TraceFollowingQueue tfq(rb->trace, &p->memory_backtracker);
+        TraceFollowingQueue tfq(rb->trace, &p->full_search_memory_backtracker);
 
         p->p_stack.setAbstractQueue(&tfq);
 

@@ -301,16 +301,16 @@ public:
      }
 
 
-    StabChain_PermGroup(Obj _group, StabChainConfig _config, PartitionStack* ps, MemoryBacktracker* mb)
+    StabChain_PermGroup(Obj _group, StabChainConfig _config, PartitionStack* ps, MemoryBacktracker* mb, MemoryBacktracker* rbase_mb)
     : AbstractConstraint(ps), config(_config), scc(_group), 
       last_permutation(mb->makeRevertingStack<Permutation>()),
       last_depth(mb->makeReverting<int>())
     {
         first_found_blocks = first_found_blocks = first_found_orbitals = -2;
 
-        tracking_first_found_orbits = Reverting<int>(mb->makeReverting<int>(-2));
-        tracking_first_found_blocks = Reverting<int>(mb->makeReverting<int>(-2));
-        tracking_first_found_orbitals = Reverting<int>(mb->makeReverting<int>(-2));
+        tracking_first_found_orbits = Reverting<int>(rbase_mb->makeReverting<int>(-2));
+        tracking_first_found_blocks = Reverting<int>(rbase_mb->makeReverting<int>(-2));
+        tracking_first_found_orbitals = Reverting<int>(rbase_mb->makeReverting<int>(-2));
 
         // We set up our 'reverting' at the start
         last_depth.set(-1);

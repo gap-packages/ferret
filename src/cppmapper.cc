@@ -25,7 +25,7 @@
 #include "constraints/stabchain_perm_group.hpp"
 #include "constraints/fixallpoints.hpp"
 
-AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktracker* mb)
+AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktracker* mb, MemoryBacktracker* rbase_mb)
 {
     char* conname = GAP_get<char*>(GAP_get_rec(con, RName_constraint));
 
@@ -84,7 +84,7 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
         StabChainConfig scc(GAP_get<std::string>(GAP_get_rec(con, RNamName("orbits"))),
                             GAP_get<std::string>(GAP_get_rec(con, RNamName("blocks"))),
                             GAP_get<std::string>(GAP_get_rec(con, RNamName("orbitals"))));
-        return new StabChain_PermGroup(GAP_get_rec(con, RNamName("arg")), scc, ps, mb);
+        return new StabChain_PermGroup(GAP_get_rec(con, RNamName("arg")), scc, ps, mb, rbase_mb);
     }
     else if(strcmp(conname, "NULL") == 0)
         return 0;
@@ -101,8 +101,8 @@ void readNestedConstraints_inner(Problem& p, Obj conlist, std::vector<AbstractCo
         if(GAP_isa<vec1<Obj> >(con))
             readNestedConstraints_inner(p, con, vec);
         else
-            vec.push_back(buildConstraint(con, &p.p_stack, &p.memory_backtracker));
-            //p.addConstraint(buildConstraint(cons[i], &p.p_stack, &p.memory_backtracker));
+            vec.push_back(buildConstraint(con, &p.p_stack, &p.full_search_memory_backtracker, &p.rbase_generation_memory_backtracker));
+            //p.addConstraint(buildConstraint(cons[i], &p.p_stack, &p.full_search_memory_backtracker));
     }
 }
 
