@@ -64,6 +64,8 @@ proporderings := ["always", "never", "root", "firstnontrivial", "firstnontrivial
 # Checks all the ways of building up a single group -- can be extremely slow!
 CheckGroup := function(g)
     local h, heuristics, only_gen, orbits, blocks, orbitals, output, record, f, orborders;
+    # Clean off GAP name from group
+    g := Group(GeneratorsOfGroup(g), ());
     if FERRET_EXTRA_TESTS then
         orborders := proporderings;
         heuristics := ["largest", "first", "smallest2", "randomsmallest", "random", "random"];
