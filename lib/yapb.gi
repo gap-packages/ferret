@@ -384,7 +384,56 @@ _FERRET_DEFAULT_OPTIONS := rec(searchValueHeuristic := "RBase",
 ##  ConStabilize.
 ##
 ##  The optional second argument allows configuration options to be
-##  passed in.
+##  passed in. These follow options are supported:
+##
+##  <List>
+##  <Mark><C>rbaseCellHeuristic</C> (default "smallest")</Mark>
+##  <Item>
+##      The cell to be branched on. This is the option which will most
+##      effect the time taken to search. the default is usually best.
+##
+##      Other options are: "First" (first cell), "Largest" (largest cell),
+##      "smallest2" (the 2nd smallest cell), "random" (a random cell)
+##      and "randomsmallest" (one of the smallest cells, choosen randomly)
+##  </Item>
+##  <Mark><C>rbaseValueHeuristic</C> (default "smallest")</Mark>
+##  <Item>
+##      Choose which cell to branch on within a cell. While this will
+##      generally make a big difference to search, it is hard to predict
+##      the best value, and small changes to the problem will change the
+##      best heuristic. Options are the same as <C>rbaseCellHeuristic</C>.
+##  </Item>
+##  <Mark><C>searchValueHeuristic</C> (default <K>RBase</K>)</Mark>
+##  <Item>
+##      The order to branch during search. In general the best order
+##      is very hard to predict. Options are "RBase", "InvRBase",
+##      "Random", "Sorted" or "Nosort" (which uses the order the values
+##      naturally end up in by the algorithm).
+##  </Item>
+##  <Mark><C>searchFirstBranchValueHeuristic</C> (default <K>RBase</K>)</Mark>
+##  <Item>
+##      Choose the search order used just on the left-most branches of
+##      search. Allows the same options as <C>searchValueHeuristic</C>
+##  </Item>
+##  <Mark><C>stats</C> (default <C>false</C>)</Mark>
+##  <Item>
+##      Change the return value to provide a range of information about how
+##      search performed (implies <C>recreturn</C>). This information will
+##      change between releases.
+##  </Item>
+##  <Mark><C>recreturn</C> (default <C>false</C>) </Mark>
+##  <Item>
+##      Return a record containing private information, rather than the group.
+##  </Item>
+##  <Mark><C>only_find_generators</C> (default <C>true</C>)</Mark>
+##  <Item>
+##      By default only find the generators of the group. If false, then
+##      find all members of the group. This option is only useful for testing.
+##      If 'true', then sets 'recreturn' to true.
+##  </Item>
+##  </List>
+##
+##
 ##  </Description>
 ##  </ManSection>
 ##  <#/GAPDoc>
