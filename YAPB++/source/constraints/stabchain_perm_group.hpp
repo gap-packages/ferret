@@ -216,17 +216,12 @@ struct StabChainConfig
         never,
         always,
         root,
-        firstnontrivial,
-        firstnontrivialwithroot
+        firstnontrivial
     };
 
-    // For these cases, we need to store the depth at which we found the first non-trivial
-    // orbit / block / orbital
-    static bool doStoreNontrivial(StabChainConfig::sc_config_option o)
-    { return o == firstnontrivial || o == firstnontrivialwithroot; }
-
+    // Simple wrapping function, for those nodes we must always consider
     static bool doConsiderEveryNode(StabChainConfig::sc_config_option o)
-    { return o == always || o == firstnontrivial || o == firstnontrivialwithroot; }
+    { return o == always || o == firstnontrivial; }
 
 
     sc_config_option optionFromString(std::string s) {
@@ -234,10 +229,9 @@ struct StabChainConfig
         if(s == "always") return always;
         if(s == "root") return root;
         if(s == "firstnontrivial") return firstnontrivial;
-        if(s == "firstnontrivialwithroot") return firstnontrivialwithroot;
         
         throw GAPException("'" + s + "' is not a valid configuration option for ConInGroup."
-                           "Valid options are never, always, root, firstnontrivial, firstnontrivialwithroot");
+                           "Valid options are never, always, root, firstnontrivial");
     }
 
     sc_config_option useOrbits;
@@ -469,7 +463,7 @@ public:
     {
         (void)name;
 
-        if(StabChainConfig::doStoreNontrivial(configchoice) )
+        if(configchoice == StabChainConfig::firstnontrivial)
         {
             if(nontrivialdepth.get() < 0)
             {
@@ -529,7 +523,7 @@ public:
                 return ss;
         }
 
-        if( ( StabChainConfig::doStoreNontrivial(config.useOrbitals) && fixed_size == tracking_first_found_orbitals.get() ) ||
+        if( ( config.useOrbitals == StabChainConfig::firstnontrivial && fixed_size == tracking_first_found_orbitals.get() ) ||
             ( config.useOrbitals == StabChainConfig::always ) ||
             ( rootCall ) )
         { return signal_changed_generic(range1(ps->cellCount()), identityPermutation()); }
@@ -621,7 +615,7 @@ public:
             }
         }
 
-        if( ( StabChainConfig::doStoreNontrivial(config.useOrbitals) && new_depth == tracking_first_found_orbitals.get() ) ||
+        if( ( config.useOrbitals == StabChainConfig::firstnontrivial && new_depth == tracking_first_found_orbitals.get() ) ||
             ( config.useOrbitals == StabChainConfig::always ) )
         { return signal_changed_generic(range1(ps->cellCount()), perm); }
 
@@ -633,7 +627,7 @@ public:
     static depth_level getDepthLevel(int depth, int first_found_depth, StabChainConfig::sc_config_option configopt)
     {
         bool skip=false;
-        if(StabChainConfig::doStoreNontrivial(configopt)) {
+        if(configopt == StabChainConfig::firstnontrivial) {
             if(first_found_depth > depth || first_found_depth < 0)
                 skip = true;
             if(first_found_depth < depth)
