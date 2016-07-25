@@ -225,11 +225,6 @@ struct StabChainConfig
     static bool doStoreNontrivial(StabChainConfig::sc_config_option o)
     { return o == firstnontrivial || o == firstnontrivialwithroot; }
 
-    // In these cases we do an extra check at the root, where we consider the initial group
-    // without any extra propagation
-    static bool doRootCheck(StabChainConfig::sc_config_option o)
-    { return o == root || o == firstnontrivialwithroot; }
-
     static bool doConsiderEveryNode(StabChainConfig::sc_config_option o)
     { return o == always || o == firstnontrivial || o == firstnontrivialwithroot; }
 
@@ -441,11 +436,9 @@ public:
     SplitState signal_start()
     {
         SplitState root = fix_buildingRBase(vec1<int>(),
-                                            StabChainConfig::doRootCheck(config.useOrbits),
-                                            StabChainConfig::doRootCheck(config.useBlocks),
-                                            StabChainConfig::doRootCheck(config.useOrbitals), true);
-        if(root.hasFailed()) return root;
-
+                                            config.useOrbits != StabChainConfig::never,
+                                            config.useBlocks != StabChainConfig::never,
+                                            config.useOrbitals != StabChainConfig::never, true);
         return root;
     }
 
