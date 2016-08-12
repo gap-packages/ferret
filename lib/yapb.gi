@@ -138,7 +138,9 @@ _YAPB_getOrbitalList := function(sc, maxval)
 				# orbit size unchanged
 				not(Size(iorb) = orbsizes[iorb[1]]) and
 				# orbit size only removed one point
-				not(orbpos[orb[1]] = orbpos[iorb[1]] and Size(iorb) + 1 = orbsizes[iorb[1]])
+				not(orbpos[orb[1]] = orbpos[iorb[1]] and Size(iorb) + 1 = orbsizes[iorb[1]]) and
+        # don't want to take the fixed point orbit
+        not(orb[1] = iorb[1] and Size(iorb) = 1)
 					then
 					graph := List([1..LargestMovedPoint(G)], x -> []);
 					for val in orb do
