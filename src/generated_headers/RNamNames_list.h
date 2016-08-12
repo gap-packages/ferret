@@ -18,6 +18,8 @@ RNAM(searchFirstBranchValueHeuristic)
 RNAM(rbaseCellHeuristic)
 RNAM(rbaseValueHeuristic)
 
+RNAM(nodeLimit)
+
 RNAM(generators)
 RNAM(genlabels)
 RNAM(identity)

@@ -98,7 +98,12 @@ _YAPB_getOrbitalList := function(sc, maxval)
         orb, orbitsG, iorb, graph, graphlist, val, p, i, orbsizes, orbpos, innerorblist, orbitsizes,
 		    biggestOrbit, skippedOneLargeOrbit;
 	
-  G := Group(sc.generators);
+  if IsGroup(sc) then
+    G := sc;
+  else
+    G := GroupStabChain(sc);
+  fi;
+  
   cutoff := infinity;
 
 	graphlist := [];
@@ -364,6 +369,7 @@ _FERRET_DEFAULT_OPTIONS := rec(searchValueHeuristic := "RBase",
                                rbaseCellHeuristic := "smallest",
                                rbaseValueHeuristic := "smallest",
                                stats := false,
+                               nodeLimit := false,
                                recreturn := false,
                                only_find_generators := true,
                                just_rbase := false
@@ -420,6 +426,14 @@ _FERRET_DEFAULT_OPTIONS := rec(searchValueHeuristic := "RBase",
 ##      Change the return value to provide a range of information about how
 ##      search performed (implies <C>recreturn</C>). This information will
 ##      change between releases.
+##  </Item>
+##  <Mark><C>nodeLimit</C> (default <C>false</C>) </Mark>
+##  <Item>
+##      Either <B>false</B>, or an integer which places a limit on the amount
+##      of search which should be performed. WARNING: When this option is set
+##      to an integer, Ferret will return the current best answer when the limit
+##      is reached, which may be a subgroup of the actual result. To know if this
+##      limit was reached, set <C>stats</C> to <B>true</B>, and check the nodes.
 ##  </Item>
 ##  <Mark><C>recreturn</C> (default <C>false</C>) </Mark>
 ##  <Item>

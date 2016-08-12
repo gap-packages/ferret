@@ -4,6 +4,8 @@
 
 #include "search/search_common.hpp"
 
+class EndOfSearch : public std::exception
+{ };
 
 template<bool firstbranch>
 bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
@@ -58,6 +60,8 @@ bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
                 p->full_search_memory_backtracker.pushWorld();
                 info_out(1, "branch on: " << cell[i]);
                 Stats::container().node_count++;
+                if(so.node_limit >= 0 && Stats::container().node_count >= so.node_limit)
+                { throw EndOfSearch(); }
                 tfq->beginBranch();
                 SplitState branch_split = p->p_stack.split(branchcell, cell_start + 1);
                 (void)branch_split;
@@ -121,7 +125,12 @@ SolutionStore doSearch(Problem* p, const std::vector<AbstractConstraint*>& cons,
         p->p_stack.setAbstractQueue(&tfq);
 
         Stats::container().node_count = 0;
-        doSearchBranch<true>(so, p, &solutions, rb, &tfq, 1);
+        try {
+            doSearchBranch<true>(so, p, &solutions, rb, &tfq, 1);
+        }
+        catch(const EndOfSearch&) { 
+            debug_out(1, "search", "Node limit reached!");
+        }
     }
     timing_finish();
     debug_out(1, "search", "Node count:" << Stats::container().node_count);

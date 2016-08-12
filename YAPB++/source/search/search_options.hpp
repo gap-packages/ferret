@@ -128,8 +128,10 @@ struct SearchOptions
 
     Heuristic heuristic;
 
+    long long node_limit;
+
     SearchOptions() :
-    only_find_generators(true), find_canonical_perm(false), just_rbase(false)
+    only_find_generators(true), find_canonical_perm(false), just_rbase(false), node_limit(-1)
     { }
 
 };

@@ -119,6 +119,12 @@ SearchOptions fillSearchOptions(Obj options)
 
   so.only_find_generators = GAP_get<bool>(GAP_get_rec(options, RName_only_find_generators));
   //so.find_canonical_perm = GAP_get<bool>(GAP_get_rec(options, RName_canonical));
+
+  Obj limit = GAP_get_rec(options, RName_nodeLimit);
+  if(limit != False) {
+      so.node_limit = GAP_get<long>(limit);
+  }
+
   so.just_rbase = GAP_get<bool>(GAP_get_rec(options, RName_just_rbase));
   so.heuristic.rbase_value = getRBaseHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_rbaseValueHeuristic)));
   so.heuristic.rbase_cell = getRBaseHeuristic(GAP_get<std::string>(GAP_get_rec(options, RName_rbaseCellHeuristic)));

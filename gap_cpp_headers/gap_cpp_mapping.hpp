@@ -99,6 +99,20 @@ struct GAP_getter<int>
     }
 };
 
+template<>
+struct GAP_getter<long>
+{
+    bool isa(Obj recval) const
+    { return IS_INTOBJ(recval); }
+    
+    long operator()(Obj recval) const
+    {
+        if(!isa(recval))
+            throw GAPException("Invalid attempt to read int");
+        return INT_INTOBJ(recval);
+    }
+};
+
 
 template<typename Con>
 Con fill_container(Obj rec)
