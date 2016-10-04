@@ -342,7 +342,6 @@ function(E)
   return rec(constraint:="Normaliser", arg := E, max := LargestMovedPoint(E));
 end);
 
-
 InstallGlobalFunction( OnDirectedGraph, function(graph, perm)
   local newgraph, list, i, j;
   newgraph := [];

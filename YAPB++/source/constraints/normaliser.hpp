@@ -46,24 +46,30 @@ public:
     }
     SplitState signal_start_buildingRBase()
     {
-
+        debug_out(0, "normaliser", "starting rbase");
     }
     SplitState signal_start()
     {
-        
+        debug_out(0, "normaliser", "starting");
     }
     virtual void signal_RBaseFinished(RBase* _rb)
     {
         rb = _rb;
     }
+    // default of this is signal_fix (because some things don't care)
     virtual SplitState signal_fix_buildingRBase(int)
     {
+        debug_out(0, "normaliser", "fix while building rbase");
     }
     virtual SplitState signal_fix(int)
     {
+        debug_out(0, "normaliser", "fix");
     }
     virtual bool verifySolution(const Permutation& p)
     {
+        debug_out(0,"normaliser", "verifying");
+        /* we could in principle first test whether p \in group, not
+           sure whether that's worth it, I should test that */
         return GAP_get<bool>(GAP_callFunction(FunObj_isGroupConj, GAP_make(p), group));
     }
 };
