@@ -12,9 +12,10 @@ if [ "$ret" -ne "0" ]; then
   exit 0
 fi
 
+$(dirname -- "$0")/gapbliss.sh $1 > $mytmpdir/bliss
+
 if ! $(dirname -- "$0")/check_groups_equal.sh \
-   $mytmpdir/ferret \
-   <( $(dirname -- "$0")/gapbliss.sh $1); then
+   $mytmpdir/ferret $mytmpdir/bliss ; then
    echo Graph comparison failed: $1
    exit 1
 else

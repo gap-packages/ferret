@@ -246,13 +246,13 @@ public:
     }
 };
 
-Permutation identityPermutation()
+inline Permutation identityPermutation()
 {
     static Permutation p(vec1<int>(0));
     return p;
 }
 
-Permutation invertPermutation(const Permutation& p)
+inline Permutation invertPermutation(const Permutation& p)
 {
     vec1<int> vec(p.size());
     for(int i = 1; i <= p.size(); ++i)

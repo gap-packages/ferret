@@ -24,7 +24,7 @@ ParsedGraph read_saucy_graph(FILE *f) {
   for (int i = 0; i < num_edges; ++i) {
     int x, y;
     assert(fscanf(f, "%d %d", &x, &y) == 2);
-    g.neighbours(x + 1).push_back(y + 1);
+    g.edges[x + 1].push_back(y + 1);
     // g.neighbours(y+1).push_back(x+1);
   }
 
@@ -149,7 +149,7 @@ ParsedGraph read_dimacs_graph(FILE *fp) {
       abort();
     }
     line_num++;
-    g.neighbours(from).push_back(to);
+    g.edges[from].push_back(to);
   }
   if (verbose) {
     fprintf(verbstr, "Done\n");
