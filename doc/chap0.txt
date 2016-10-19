@@ -6,7 +6,7 @@
                     [1X Backtrack Search in Permutation Groups [101X
   
   
-                                     0.6.0
+                                     0.7.0
   
   
                                    09/07/2016

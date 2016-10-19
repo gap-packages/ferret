@@ -55,5 +55,48 @@
   [33X[0;0YFinds  the  intersection of the list [3Xconstraints[103X. Each member of [3Xconstraints[103X
   should  be  a  group  or  coset  generated  by  one of [2XConInGroup[102X ([14X2.1-2[114X) or
   ConStabilize.  The  optional second argument allows configuration options to
-  be passed in.[133X
+  be passed in. These follow options are supported:[133X
+  
+  [8X[10XrbaseCellHeuristic[110X (default "smallest")[108X
+        [33X[0;6YThe  cell to be branched on. This is the option which will most effect
+        the  time  taken to search. the default is usually best. Other options
+        are:  "First" (first cell), "Largest" (largest cell), "smallest2" (the
+        2nd smallest cell), "random" (a random cell) and "randomsmallest" (one
+        of the smallest cells, choosen randomly)[133X
+  
+  [8X[10XrbaseValueHeuristic[110X (default "smallest")[108X
+        [33X[0;6YChoose  which  cell  to  branch  on  within  a  cell.  While this will
+        generally  make  a big difference to search, it is hard to predict the
+        best  value,  and  small  changes  to the problem will change the best
+        heuristic. Options are the same as [10XrbaseCellHeuristic[110X.[133X
+  
+  [8X[10XsearchValueHeuristic[110X (default [9XRBase[109X)[108X
+        [33X[0;6YThe  order  to branch during search. In general the best order is very
+        hard  to  predict. Options are "RBase", "InvRBase", "Random", "Sorted"
+        or  "Nosort"  (which  uses the order the values naturally end up in by
+        the algorithm).[133X
+  
+  [8X[10XsearchFirstBranchValueHeuristic[110X (default [9XRBase[109X)[108X
+        [33X[0;6YChoose the search order used just on the left-most branches of search.
+        Allows the same options as [10XsearchValueHeuristic[110X[133X
+  
+  [8X[10Xstats[110X (default [10Xfalse[110X)[108X
+        [33X[0;6YChange  the  return  value to provide a range of information about how
+        search  performed  (implies  [10Xrecreturn[110X).  This information will change
+        between releases.[133X
+  
+  [8X[10XnodeLimit[110X (default [10Xfalse[110X) [108X
+        [33X[0;6YEither  [12Xfalse[112X,  or  an  integer  which places a limit on the amount of
+        search  which should be performed. WARNING: When this option is set to
+        an  integer, Ferret will return the current best answer when the limit
+        is  reached,  which may be a subgroup of the actual result. To know if
+        this limit was reached, set [10Xstats[110X to [12Xtrue[112X, and check the nodes.[133X
+  
+  [8X[10Xrecreturn[110X (default [10Xfalse[110X) [108X
+        [33X[0;6YReturn a record containing private information, rather than the group.[133X
+  
+  [8X[10Xonly_find_generators[110X (default [10Xtrue[110X)[108X
+        [33X[0;6YBy  default only find the generators of the group. If false, then find
+        all  members  of the group. This option is only useful for testing. If
+        'true', then sets 'recreturn' to true.[133X
   

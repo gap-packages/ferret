@@ -1,5 +1,5 @@
 name: ferret
-version: 0.6.0
+version: 0.7.0
 date: 09/07/2016
 description: Backtrack Search in Permutation Groups
 
@@ -24,7 +24,7 @@ packageinfo: http://gap-packages.github.io/ferret/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/gap-packages/ferret/releases/download/v0.6.0/ferret-0.6.0.tar.gz
+      url: https://github.com/gap-packages/ferret/releases/download/v0.7.0/ferret-0.7.0.tar.gz
 
 abstract: 
 
