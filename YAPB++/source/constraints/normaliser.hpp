@@ -23,7 +23,7 @@
 class Normaliser : public AbstractConstraint
 {
     Obj group;
-    RBase* rb;
+
 
 public:
     virtual std::string name() const
@@ -34,37 +34,50 @@ public:
     {
     }
 private:
-    vec1<int> getRBasePartition(const vec1<int>& fix)
+
+vec1<int> getRBaseOrbitPartition(const vec1<int>& fix)
     {
+        debug_out(3, "PermGroup", "Fixing: " << fix);
+        Obj vec = GAP_make(fix);
+        Obj orbits = GAP_callFunction(FunObj_YAPB_FixedOrbits, group, GAP_make(ps->domainSize()), vec);
+        vec1<vec1<int> > oart = GAP_get<vec1<vec1<int> > >(orbits);
+        debug_out(3, "PermGroup", "Got orbit partition" << oart);
+        // This might not be necessary, but it doesn't hurt!
+        for(int i : range1(oart.size()))
+            std::sort(oart[i].begin(), oart[i].end());
+        std::sort(oart.begin(), oart.end());
+        vec1<int> filter = partitionToList(oart, ps->domainSize(), MissingPoints_Fixed);
+        debug_out(3, "PermGroup", "Filter partition: " << filter);
+        return filter;
     }
+
 public:
     std::vector<TriggerType> triggers()
     {
         std::vector<TriggerType> v;
-        v.push_back(Trigger_RBaseFinished);
+         v.push_back(Trigger_Fix);
         return v;
     }
-    SplitState signal_start_buildingRBase()
-    {
-        debug_out(0, "normaliser", "starting rbase");
-    }
+
     SplitState signal_start()
     {
         debug_out(0, "normaliser", "starting");
+        return signal_fix();
     }
-    virtual void signal_RBaseFinished(RBase* _rb)
+
+ virtual SplitState signal_fix()
     {
-        rb = _rb;
+        Stats::ConstraintInvoke(Stats::CON_PermGroup);
+        vec1<int> fixed_values;
+        const vec1<int>& fixed = ps->fixed_cells();
+        for(int i : range1(fixed.size()))
+        {
+            fixed_values.push_back(*ps->cellStartPtr(fixed[i]));
+        }
+        vec1<int> part = getRBaseOrbitPartition(fixed_values);
+        return filterPartitionStackByUnorderedFunction(ps, SquareBrackToFunction(&part));
     }
-    // default of this is signal_fix (because some things don't care)
-    virtual SplitState signal_fix_buildingRBase(int)
-    {
-        debug_out(0, "normaliser", "fix while building rbase");
-    }
-    virtual SplitState signal_fix(int)
-    {
-        debug_out(0, "normaliser", "fix");
-    }
+    
     virtual bool verifySolution(const Permutation& p)
     {
         debug_out(0,"normaliser", "verifying");
@@ -76,3 +89,4 @@ public:
 
 
 #endif // _NORMALISER_HPP
+
