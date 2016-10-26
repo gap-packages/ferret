@@ -47,6 +47,7 @@ bool indirect_data_sorter_impl(int cell, PartitionStack* ps, SortFun f, const So
 
 	for(int i : range1(sd.hash_starts.size()))
 	{
+    (void)i;
 		D_ASSERT(v[i].empty());
 	}
 

@@ -5,11 +5,12 @@
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <chrono>
 #include "library/stats.hpp"
 #include "search/search_options.hpp"
 
-void outputGraph(const ParsedGraph& g, SearchOptions so, GraphConfig gc, GraphDirected directed)
+void outputGraph(const ParsedGraph& g, SearchOptions so, GraphConfig gc,
+                 GraphDirected directed, bool stats)
 {
     auto sols = SolveGraph(g, so, gc, directed);
 
@@ -19,6 +20,10 @@ void outputGraph(const ParsedGraph& g, SearchOptions so, GraphConfig gc, GraphDi
             std::cout << sol.cycle() << ",\n";
     }
     std::cout << "()]\n";
+    if(stats)
+    {
+      std::cout << "Generators: " << sols.size() << "\n";
+    }
 }
 
 void print_usage_instructions()
@@ -50,7 +55,9 @@ void print_usage_instructions()
 
 int main(int argc, char **argv)
 {
-    
+    std::chrono::high_resolution_clock::time_point startTime;
+    std::chrono::high_resolution_clock::time_point endTime;
+    startTime = std::chrono::high_resolution_clock::now();
     char* filename = 0;
     GraphDirected directed = GraphDirected_no;
     bool stats = false;
@@ -178,17 +185,22 @@ int main(int argc, char **argv)
 
     g.clean();
 
-    outputGraph(g, so, gc, directed);
+    outputGraph(g, so, gc, directed, stats);
 }
 
     if(stats) {
-        std::cerr << "Nodes: " << Stats::container().node_count
-                  << " Bad leaves: " << Stats::container().bad_leaves
-                  << " Bad internal: "
+      endTime = std::chrono::high_resolution_clock::now();
+      int64_t timeTaken =
+        std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+      timeTaken /= 1000;
+      std::cout << "time taken (ms): " << timeTaken << std::endl;
+      std::cout << "Nodes: " << Stats::container().node_count << "\n"
+                << "Bad leaves: " << Stats::container().bad_leaves << "\n"
+                  << "Bad internal: "
                     << Stats::container(). bad_internal_nodes << "\n";
         for(auto p : Stats::container().getConstraintCalls())
         {
-            std::cerr << p.first << ": " << p.second << "\n";
+            std::cout << p.first << ": " << p.second << "\n";
         }
     }
     return 0;

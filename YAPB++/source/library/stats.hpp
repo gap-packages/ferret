@@ -30,6 +30,7 @@ struct Sort
     }
 };
 
+  // Keep the following data enum and strings in sync!
 enum ConstraintType {
     CON_ListStab,
     CON_OverlappingSetSetStab,
@@ -40,6 +41,12 @@ enum ConstraintType {
     CON_StabChain_PermGroup,
     CON_END
 };
+
+namespace {
+const std::string names[] = {
+    "ListStab", "OverlappingSetSetStab", "PermGroup",
+    "SetSetStab", "SlowGraph", "EdgeGraph", "StabChain_PermGroup"};
+  };
 
 struct Container
 {
@@ -60,10 +67,6 @@ struct Container
 
     std::map<std::string, int> getConstraintCalls() const
     {
-        std::string names[] = {
-            "ListStab", "OverlappingSetSetStab", "PermGroup",
-            "SetSetStab", "SlowGraph", "StabChain_PermGroup"};
-
         std::map<std::string, int> ret;
         for(int i = 0; i < CON_END; ++i)
         {
