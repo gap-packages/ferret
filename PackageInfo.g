@@ -22,7 +22,7 @@ Persons := [
   ),
 ],
 
-PackageWWWHome := "http://gap-packages.github.io/ferret/",
+PackageWWWHome := "https://gap-packages.github.io/ferret/",
 
 ArchiveURL     := Concatenation("https://github.com/gap-packages/ferret/",
                                 "releases/download/v", ~.Version,
