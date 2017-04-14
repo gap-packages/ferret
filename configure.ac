@@ -102,5 +102,5 @@ AC_SUBST([CONFIG_STATUS_DEPENDENCIES], ['$(top_srcdir)/VERSION'])
 dnl ##
 dnl ## Output everything
 dnl ##
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile ferret.vars])
 AC_OUTPUT
