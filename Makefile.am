@@ -7,29 +7,15 @@
 
 ## Configuration options
 
-CHECK=0
+# CHECK=0
 
-ifdef TIMING
-timingflag = -DENABLE_TIMING
-else
-timingflag =
-endif
+# timingflag = -DENABLE_TIMING
 
-ifneq ($(CHECK),0)
-checkflag = $(DEBUGFLAGS) -DDEBUG_LEVEL=$(CHECK)
-else
-checkflag = -DDEBUG_LEVEL=0
-endif
+# checkflag = -DDEBUG_LEVEL= ?
 
-ifndef OPT
+# printflag = -DDEBUG_PRINT_LEVEL= ?
+
 OPT = -O3
-endif
-
-ifdef PRINT
-printflag = -DDEBUG_PRINT_LEVEL=$(PRINT)
-else
-printflag =
-endif
 
 MYCFLAGS=-std=gnu++11 -Wall -Wextra -Wno-missing-field-initializers -g -IYAPB++/source -Igap_cpp_headers
 
@@ -42,7 +28,7 @@ GAPINSTALLLIB = $(BINARCHDIR)/ferret.so
 
 lib_LTLIBRARIES = ferret.la
 
-ferret_la_SOURCES = src/ferret.cc
+ferret_la_SOURCES = src/cppmapper.cc src/hellod.cc
 ferret_la_CPPFLAGS = $(GAP_CPPFLAGS) $(MYCFLAGS) $(timingflag) $(checkflag) $(OPT) -DCONFIG_H
 ferret_la_LDFLAGS = -module -avoid-version
 if SYS_IS_CYGWIN
