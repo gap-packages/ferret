@@ -7,15 +7,13 @@
 
 ## Configuration options
 
-# CHECK=0
-
 # timingflag = -DENABLE_TIMING
 
-# checkflag = -DDEBUG_LEVEL= ?
+# checkflag = -DDEBUG_LEVEL = ?
 
-# printflag = -DDEBUG_PRINT_LEVEL= ?
+# printflag = -DDEBUG_PRINT_LEVEL = ?
 
-OPT = -O3
+# OPT = -O3
 
 MYCFLAGS=-std=gnu++11 -Wall -Wextra -Wno-missing-field-initializers -g -IYAPB++/source -Igap_cpp_headers
 

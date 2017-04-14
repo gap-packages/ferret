@@ -16,7 +16,6 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([cnf])
 m4_include([m4/ac_find_gap.m4])
 
-
 dnl ##
 dnl ## Get canonical host info
 dnl ##
