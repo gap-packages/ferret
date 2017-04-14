@@ -634,6 +634,9 @@ am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
 CONFIG_STATUS_DEPENDENCIES
+FERRET_PRINT
+FERRET_TIMING
+FERRET_CHECK
 SYS_IS_CYGWIN_FALSE
 SYS_IS_CYGWIN_TRUE
 GAP_CPPFLAGS
@@ -776,6 +779,9 @@ with_sysroot
 enable_libtool_lock
 with_gaproot
 with_gaparch
+enable_checking
+enable_timing
+enable_printing
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1421,6 +1427,9 @@ Optional Features:
   --enable-fast-install[=PKGS]
                           optimize for fast installation [default=yes]
   --disable-libtool-lock  avoid locking (might break parallel builds)
+  --enable-checking=<checking level (defaults to 0)>
+  --enable-timing=<enable timing (defaults to off)>
+  --enable-printing=<debug printing level (defaults to 0)>
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -16675,6 +16684,46 @@ else
 $as_echo "#define SYS_IS_CYGWIN32 0" >>confdefs.h
 
 fi
+
+# Check whether --enable-checking was given.
+if test "${enable_checking+set}" = set; then :
+  enableval=$enable_checking;    case "$enableval" in
+        yes) FERRET_CHECK=1
+        ;;
+        no) FERRET_CHECK=0
+        ;;
+        *) FERRET_CHECK=$enableval
+        ;;
+    esac
+else
+  FERRET_CHECK=0
+fi
+
+
+
+# Check whether --enable-timing was given.
+if test "${enable_timing+set}" = set; then :
+  enableval=$enable_timing; FERRET_TIMING=-DENABLE_TIMING
+fi
+
+
+
+# Check whether --enable-printing was given.
+if test "${enable_printing+set}" = set; then :
+  enableval=$enable_printing;   case "${enableval}" in
+        yes) FERRET_PRINT=1
+        ;;
+        no) FERRET_PRINT=0
+        ;;
+        *) FERRET_PRINT=$enableval
+        ;;
+    esac
+else
+  FERRET_PRINT=0
+fi
+
+
+
 
 CONFIG_STATUS_DEPENDENCIES='$(top_srcdir)/VERSION'
 

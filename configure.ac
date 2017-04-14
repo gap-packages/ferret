@@ -64,6 +64,36 @@ else
   AC_DEFINE(SYS_IS_CYGWIN32, 0, are we on CYGWIN?)
 fi
 
+AC_ARG_ENABLE(checking,
+[  --enable-checking=<checking level (defaults to 0)>],
+[   case "$enableval" in
+        yes) FERRET_CHECK=1
+        ;;
+        no) FERRET_CHECK=0
+        ;;
+        *) FERRET_CHECK=$enableval
+        ;;
+    esac], [FERRET_CHECK=0])
+AC_SUBST(FERRET_CHECK)
+
+AC_ARG_ENABLE(timing,
+[  --enable-timing=<enable timing (defaults to off)>],
+	[FERRET_TIMING=-DENABLE_TIMING], [])
+AC_SUBST(FERRET_TIMING)
+
+AC_ARG_ENABLE(printing,
+[  --enable-printing=<debug printing level (defaults to 0)>],
+[  case "${enableval}" in
+        yes) FERRET_PRINT=1
+        ;;
+        no) FERRET_PRINT=0
+        ;;
+        *) FERRET_PRINT=$enableval
+        ;;
+    esac], [FERRET_PRINT=0])
+AC_SUBST(FERRET_PRINT)
+
+
 dnl ##
 dnl ## Rebuild configure if VERSION file changes
 dnl ##

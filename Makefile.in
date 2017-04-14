@@ -21,14 +21,6 @@
 # Requires automake.
 #
 
-# timingflag = -DENABLE_TIMING
-
-# checkflag = -DDEBUG_LEVEL = ?
-
-# printflag = -DDEBUG_PRINT_LEVEL = ?
-
-# OPT = -O3
-
 VPATH = @srcdir@
 am__is_gnu_make = { \
   if test -z '$(MAKELEVEL)'; then \
@@ -279,6 +271,9 @@ ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
+FERRET_CHECK = @FERRET_CHECK@
+FERRET_PRINT = @FERRET_PRINT@
+FERRET_TIMING = @FERRET_TIMING@
 FGREP = @FGREP@
 GAPARCH = @GAPARCH@
 GAPROOT = @GAPROOT@
@@ -374,6 +369,11 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+timingflag = @FERRET_TIMING@
+checkflag = -DDEBUG_LEVEL=@FERRET_CHECK@
+printflag = -DDEBUG_PRINT_LEVEL=@FERRET_PRINT@
+
+# OPT = -O3
 MYCFLAGS = -std=gnu++11 -Wall -Wextra -Wno-missing-field-initializers -g -IYAPB++/source -Igap_cpp_headers
 
 ##############

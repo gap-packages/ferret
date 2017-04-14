@@ -7,11 +7,9 @@
 
 ## Configuration options
 
-# timingflag = -DENABLE_TIMING
-
-# checkflag = -DDEBUG_LEVEL = ?
-
-# printflag = -DDEBUG_PRINT_LEVEL = ?
+timingflag = @FERRET_TIMING@
+checkflag = -DDEBUG_LEVEL=@FERRET_CHECK@
+printflag = -DDEBUG_PRINT_LEVEL=@FERRET_PRINT@
 
 # OPT = -O3
 
