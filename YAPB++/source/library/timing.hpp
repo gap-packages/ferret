@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <utility>
+#include <map>
 #include <time.h>
 
 #ifdef ENABLE_TIMING
@@ -15,7 +16,8 @@ double get_clock()
     return t.tv_sec + (t.tv_nsec / (double)1000000000);
 }
 
-std::vector<std::pair<std::string, double> > GAP_calls;
+std::map<std::string, double> func_calls;
+std::map<std::string, double> func_calls_start_time;
 // A simple, fast, global timing mechanism
 
 std::vector<std::pair<std::string, double> > events_store;
@@ -33,13 +35,15 @@ void timing_finish()
 double GAP_call_start;
 void timing_start_GAP_call(const std::string& name)
 {
-    GAP_calls.push_back(std::make_pair(name, 0.0));
-    GAP_call_start = get_clock();
+    assert(func_calls_start_time[name] == 0);
+    func_calls_start_time[name] = get_clock();
 }
-void timing_end_GAP_call()
+void timing_end_GAP_call(const std::string& name)
 { 
-    GAP_calls.back().second = get_clock() - GAP_call_start; 
-    std::cout << "GAP call '" << GAP_calls.back().first << "' : " << std::fixed << GAP_calls.back().second << "\n";
+    auto& ref = func_calls_start_time[name];
+    assert(ref != 0);
+    func_calls[name] += get_clock() - ref;
+    ref = 0;
 }
 
 void timing_event(const std::string& name)

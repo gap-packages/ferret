@@ -19,9 +19,11 @@ addons:
       - autotools-dev
       - automake
 env:
-  - MAKEFLAG="CHECK=1"
-  - MAKEFLAG="CHECK=0"
-
+  - CONF_FLAG=""
+  - CONF_FLAG="--enable-checking"
+  - CONF_FLAG="--enable-timing"
+  - CONF_FLAG="--enable-checking --enable-timing"
+  
 
 
 install:
