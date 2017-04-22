@@ -16,6 +16,11 @@
 
 _YAPB_Globals := [];
 
+# Have a copy of this in each thread in HPCGAP
+# This store references to variables we are using inside ferret,
+# to make sure they don't get garbage collected.
+MakeThreadLocal("_YAPB_Globals");
+
 _YAPB_addRef := function(obj)
   Add(_YAPB_Globals, obj);
 end;
