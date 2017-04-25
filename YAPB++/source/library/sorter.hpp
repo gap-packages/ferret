@@ -41,14 +41,16 @@ ReverseSorter_impl<Fun> ReverseSorter(const Fun& f)
 template<typename PartitionStack, typename SortFun>
 bool indirect_data_sorter_impl(int cell, PartitionStack* ps, SortFun f, const SortEvent& sd)
 {
-	static vec1<vec1<int> > v;
+	static thread_local vec1<vec1<int> > threaded_v;
+
+    vec1<vec1<int> >* v = &threaded_v;
 	debug_out(3, "sort", "start");
-	v.resize(sd.hash_starts.size());
+	v->resize(sd.hash_starts.size());
 
 	for(int i : range1(sd.hash_starts.size()))
 	{
     (void)i;
-		D_ASSERT(v[i].empty());
+		D_ASSERT((*v)[i].empty());
 	}
 
 	typedef typename PartitionStack::cellit it_type;
@@ -62,19 +64,19 @@ bool indirect_data_sorter_impl(int cell, PartitionStack* ps, SortFun f, const So
                                                                      sd.Hash_inv_pos.end(), hash, compareHash);
 		if(pos == sd.Hash_inv_pos.end() || pos->hashVal != hash)
 		{
-			for(int i : range1(v.size()))
-				v[i].clear();
+			for(int i : range1(v->size()))
+				(*v)[i].clear();
 			return false;
 		}
 //        int location = pos->pos;
 		int location = pos - sd.Hash_inv_pos.begin() + 1;
-		if(v[location].size() == sd.hash_starts[sd.Hash_inv_pos[location].pos].count)
+		if((*v)[location].size() == sd.hash_starts[sd.Hash_inv_pos[location].pos].count)
 		{
-			for(int i : range1(v.size()))
-				v[i].clear();
+			for(int i : range1(v->size()))
+				(*v)[i].clear();
 			return false;
 		}
-		v[location].push_back(*ptr);
+		(*v)[location].push_back(*ptr);
 	}
 
 	// Sorting succeeded! Now lets put everything back.
@@ -83,12 +85,12 @@ bool indirect_data_sorter_impl(int cell, PartitionStack* ps, SortFun f, const So
 	{
         int pos = sd.Hash_inv_pos[i].pos;
     	D_ASSERT(sd.Hash_inv_pos[i].hashVal == sd.hash_starts[pos].hashVal);
-		D_ASSERT(v[i].size() == sd.hash_starts[pos].count);
+		D_ASSERT((*v)[i].size() == sd.hash_starts[pos].count);
 
-		std::copy(v[i].begin(), v[i].end(), ps->valPtr(sd.hash_starts[pos].startPos));
+		std::copy((*v)[i].begin(), (*v)[i].end(), ps->valPtr(sd.hash_starts[pos].startPos));
 
 		debug_out(3, "sort", "clear: " << i);
-		v[i].clear();
+		(*v)[i].clear();
 	}
 
 	debug_out(3, "sort", "end");
