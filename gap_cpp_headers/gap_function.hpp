@@ -25,6 +25,7 @@ public:
             UInt varname = GVarName(name.c_str());
             obj = VAL_GVAR(varname);
         }
+        assert(obj != 0);
         return obj;
     }
 };
