@@ -19,22 +19,25 @@ addons:
       - autotools-dev
       - automake
 env:
-  - CONF_FLAG=""
-  - CONF_FLAG="--enable-checking"
-  - CONF_FLAG="--enable-timing"
-  - CONF_FLAG="--enable-checking --enable-timing"
+  - BRANCH="master" CONF_FLAG=""
+#  - BRANCH="hpcgap-default" CONF_FLAG="--enable-checking"
+  - BRANCH="master" CONF_FLAG="--enable-checking"
+  - BRANCH="master" CONF_FLAG="--enable-timing"
+  - BRANCH="master" CONF_FLAG="--enable-checking --enable-timing"
   
 
 
 install:
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8"; export CC=gcc-4.8; fi
-  - git clone --depth=2 https://github.com/gap-system/gap.git gap
+  - echo $BRANCH ":" $CONF_FLAG
+  - git clone -b $BRANCH --depth=2 https://github.com/gap-system/gap.git gap
   - pwd
-  - ( cd gap && ./autogen.sh && ./configure && make && make bootstrap-pkg-minimal)
+  - ( cd gap && ./autogen.sh || echo no autogen )
+  - ( cd gap && ./configure && make && make bootstrap-pkg-minimal )
   - ( cd gap/pkg && git clone --depth=2 https://github.com/gap-packages/io && cd io && ./autogen.sh && ./configure && make )
   - ( cd gap/pkg && wget http://www.gap-system.org/pub/gap/gap4/tar.bz2/packages/atlasrep1r5p0.tar.bz2 && tar -xf atlasrep1r5p0.tar.bz2 )
   - pwd
-  - ( ./autogen.sh && ./configure --with-gaproot=gap && make )
+  - ( ./autogen.sh && ./configure --with-gaproot=gap $CONF_FLAG && make )
   - pwd
   - ls
   - ls gap
