@@ -12,6 +12,21 @@
 #Y                          St. Andrews, Fife KY16 9SS, Scotland
 ##
 
+
+# Fill in mising function in older versions of GAP
+if not IsBound(ErrorNoReturn) then
+    BindGlobal("ErrorNoReturn",
+        function ( arg )
+            ErrorInner( rec(
+            context := ParentLVars( GetCurrentLVars(  ) ),
+            mayReturnVoid := false,
+            mayReturnObj := false,
+            lateMessage := "type 'quit;' to quit to outer loop",
+            printThisStatement := false ), arg );
+        return;
+    end);
+fi;
+
 _FerretHelperFuncs := rec(
 
   # Simple helper to support optional arguments
