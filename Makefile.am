@@ -15,6 +15,9 @@ printflag = -DDEBUG_PRINT_LEVEL=@FERRET_PRINT@
 
 MYCFLAGS=-std=gnu++11 -Wall -Wextra -Wno-missing-field-initializers -g -IYAPB++/source -Igap_cpp_headers
 
+## HPCGAP header locations -- hack hack hack
+HPCGAPHEADERS=-I../../hpcgap -I../../extern/install/libatomic_ops/include/ -I../../extern/64bit/include
+
 ##############
 
 ACLOCAL_AMFLAGS = -I m4
@@ -25,7 +28,7 @@ GAPINSTALLLIB = $(BINARCHDIR)/ferret.so
 lib_LTLIBRARIES = ferret.la
 
 ferret_la_SOURCES = src/cppmapper.cc src/hellod.cc
-ferret_la_CPPFLAGS = $(GAP_CPPFLAGS) $(MYCFLAGS) $(timingflag) $(checkflag) $(OPT) -DCONFIG_H
+ferret_la_CPPFLAGS = $(HPCGAPHEADERS) $(GAP_CPPFLAGS) $(MYCFLAGS) $(timingflag) $(checkflag) $(OPT) -DCONFIG_H
 ferret_la_LDFLAGS = -module -avoid-version
 if SYS_IS_CYGWIN
 ferret_la_LDFLAGS += -no-undefined -version-info 0:0:0 
