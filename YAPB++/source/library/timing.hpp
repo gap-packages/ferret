@@ -7,7 +7,7 @@
 #include <map>
 #include <time.h>
 
-#ifdef ENABLE_TIMING
+#ifdef FERRET_TIMING
 
 double get_clock()
 {
