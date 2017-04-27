@@ -108,8 +108,7 @@ bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
 SolutionStore doSearch(Problem* p, const std::vector<AbstractConstraint*>& cons, const SearchOptions& so)
 {
     Stats::reset();
-
-    timing_start();
+    timing_reset();
     for(auto con : cons) p->addConstraint(con);
     p->con_store.initConstraints(true);
     p->tracer_generator.clearTrace();
@@ -132,7 +131,6 @@ SolutionStore doSearch(Problem* p, const std::vector<AbstractConstraint*>& cons,
             debug_out(1, "search", "Node limit reached!");
         }
     }
-    timing_finish();
     debug_out(1, "search", "Node count:" << Stats::container().node_count);
     delete rb;
 
@@ -149,7 +147,6 @@ SolutionStore doCosetSearch(Problem* p, const std::vector<AbstractConstraint*>& 
     Stats::reset();
 (void)consL;
 (void)consR;
-    timing_start();
     for(auto i : consCommon)
     {
       p->addConstraint(i);
@@ -170,7 +167,6 @@ SolutionStore doCosetSearch(Problem* p, const std::vector<AbstractConstraint*>& 
         Stats::container().node_count = 0;
         doSearchBranch<true>(so, p, &solutions, rb, &tfq, 1);
     }
-    timing_finish();
     debug_out(1, "search", "Node count:" << Stats::container().node_count);
     delete rb;
 

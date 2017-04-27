@@ -17,6 +17,9 @@ public:
 
     void setName(std::string s)
     { name = s; }
+
+    const std::string& getName()
+    { return name; }
     
     Obj getObj()
     {

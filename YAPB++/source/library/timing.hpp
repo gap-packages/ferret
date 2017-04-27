@@ -6,8 +6,9 @@
 #include <utility>
 #include <map>
 #include <time.h>
+#include <assert.h>
 
-#ifdef FERRET_TIMING
+#ifdef ENABLE_TIMING
 
 double get_clock()
 {
@@ -18,48 +19,42 @@ double get_clock()
 
 std::map<std::string, double> func_calls;
 std::map<std::string, double> func_calls_start_time;
+std::map<std::string, long> timing_counters;
 // A simple, fast, global timing mechanism
 
-std::vector<std::pair<std::string, double> > events_store;
-
-double time_start;
-
-void timing_start()
-{ time_start = get_clock(); }
-
-void timing_finish()
+void timing_event(const std::string& name)
 {
-    std::cout << "Total time: " << get_clock() - time_start << "\n";
+    timing_counters[name]++;
 }
 
-double GAP_call_start;
-void timing_start_GAP_call(const std::string& name)
+void timing_start(const std::string& name)
 {
+    timing_event(name);
     assert(func_calls_start_time[name] == 0);
     func_calls_start_time[name] = get_clock();
 }
-void timing_end_GAP_call(const std::string& name)
-{ 
+void timing_end(const std::string& name)
+{
     auto& ref = func_calls_start_time[name];
     assert(ref != 0);
     func_calls[name] += get_clock() - ref;
     ref = 0;
 }
 
-void timing_event(const std::string& name)
+void timing_reset()
 {
-    events_store.push_back(std::make_pair(name, get_clock() - time_start));
-    std::cout << "event '" << events_store.back().first << "' : " << std::fixed << events_store.back().second << "\n";
+    func_calls_start_time.clear();
+    func_calls.clear();
+    timing_counters.clear();
 }
 
 
 #else
 
-#define timing_start()
-#define timing_finish()
-#define timing_start_GAP_call(X)
-#define timing_end_GAP_call()
+#define timing_start(X)
+#define timing_end(X)
 #define timing_event(X)
+#define timing_reset()
 #endif
 
 #endif
