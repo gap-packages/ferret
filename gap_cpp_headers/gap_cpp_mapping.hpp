@@ -308,7 +308,14 @@ struct GAP_maker
 template<>
 struct GAP_maker<int>
 {
-    Obj operator()(int i)
+    Obj operator()(int32_t i)
+    { return INTOBJ_INT(i); }
+};
+
+template<>
+struct GAP_maker<long>
+{
+    Obj operator()(long i)
     { return INTOBJ_INT(i); }
 };
 
@@ -371,7 +378,22 @@ struct GAP_maker<std::pair<T,U> >
     }
 };
 
-
+template<typename U>
+struct GAP_maker<std::map<std::string,U> >
+{
+    Obj operator()(const std::map<std::string,U>& m) const
+    {
+        Obj rec = NEW_PREC(0);
+        for(auto& p : m)
+        {
+            GAP_maker<U> m_u;
+            Obj result = m_u(p.second);
+            AssPRec(rec, RNamName(p.first.c_str()), result);
+            CHANGED_BAG(rec);
+        }
+        return rec;
+    }
+};
 
 }
 

@@ -170,7 +170,13 @@ Obj build_return_value(const SolutionStore& ss, bool get_stats)
       AssPRec(rec, RNamName("stats"), stats);
       CHANGED_BAG(rec);
   }
-  
+
+#ifdef ENABLE_TIMING
+    Obj timing_info = GAP_make(get_timing_info());
+    AssPRec(rec, RNamName("timing"), timing_info);
+    CHANGED_BAG(rec);
+#endif
+
   return rec;
 }
 
