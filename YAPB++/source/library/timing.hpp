@@ -10,13 +10,6 @@
 
 #ifdef ENABLE_TIMING
 
-double get_clock()
-{
-    timespec t;
-    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &t);
-    return t.tv_sec + (t.tv_nsec / (double)1000000000);
-}
-
 std::map<std::string, long> timing_funcs;
 std::map<std::string, long> timing_funcs_start_time;
 std::map<std::string, long> timing_counters;
@@ -31,14 +24,14 @@ static void timing_start(const std::string& name)
 {
     timing_event(name);
     assert(timing_funcs_start_time[name] == 0);
-    timing_funcs_start_time[name] = get_clock();
+    timing_funcs_start_time[name] = SyNanosecondsSinceEpoch();
 }
 
 static void timing_end(const std::string& name)
 {
     auto& ref = timing_funcs_start_time[name];
     assert(ref != 0);
-    timing_funcs[name] += get_clock() - ref;
+    timing_funcs[name] += SyNanosecondsSinceEpoch() - ref;
     ref = 0;
 }
 

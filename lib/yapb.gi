@@ -100,7 +100,6 @@ _YAPB_getInfoFerretDebug := function()
   return InfoLevel(InfoFerretDebug);
 end;
 
-<<<<<<< HEAD
 
 _YAPB_fillRepElements := function(G, orb)
   local val, g, reps, buildorb, gens;
@@ -118,18 +117,13 @@ _YAPB_fillRepElements := function(G, orb)
   od;
   return reps;
 end;
-=======
+
 _YAPB_stabTime := 0;
->>>>>>> Add better timing
 
 _YAPB_getOrbitalList := function(sc, maxval)
 	local G, cutoff,
         orb, orbitsG, iorb, graph, graphlist, val, p, i, orbsizes, orbpos, innerorblist, orbitsizes,
-<<<<<<< HEAD
-		    biggestOrbit, skippedOneLargeOrbit, orbreps;
-=======
-		    biggestOrbit, skippedOneLargeOrbit, stabtime;
->>>>>>> Add better timing
+		    biggestOrbit, skippedOneLargeOrbit, orbreps, stabtime;
 	
   if IsGroup(sc) then
     G := sc;
@@ -154,7 +148,7 @@ _YAPB_getOrbitalList := function(sc, maxval)
 	
     stabtime := NanosecondsSinceEpoch();
 	innerorblist := List(orbitsG, o -> Orbits(Stabilizer(G, o[1]), [1..LargestMovedPoint(G)]));
-    _YAPB_stabTime := _YAPB_stabTime + (stabtime - NanosecondsSinceEpoch());
+    _YAPB_stabTime := _YAPB_stabTime + (NanosecondsSinceEpoch() - stabtime);
 
   orbitsizes := List([1..Length(orbitsG)], 
 	  x -> List(innerorblist[x], y -> Size(orbitsG[x])*Size(y)));
