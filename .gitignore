@@ -1,5 +1,23 @@
 /bin/
 
+/Makefile.in
+/aclocal.m4
+/m4/libtool.m4
+/cnf/
+/.libs/
+/autom4te.cache/
+/config.log
+/config.status
+/configure
+/ferret.la
+/libtool
+/src/.deps/
+/src/.dirstamp
+/src/.libs/
+/src/*.lo
+/src/pkgconfig.h
+/src/stamp-h1
+
 /doc/chap*.html
 /doc/chap*.txt
 /doc/*.css
