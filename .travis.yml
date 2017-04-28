@@ -37,14 +37,14 @@ install:
   - ( cd gap/pkg && git clone --depth=2 https://github.com/gap-packages/io && cd io && ./autogen.sh && ./configure && make )
   - ( cd gap/pkg && wget http://www.gap-system.org/pub/gap/gap4/tar.bz2/packages/atlasrep1r5p0.tar.bz2 && tar -xf atlasrep1r5p0.tar.bz2 )
   - pwd
-  - ( ./autogen.sh && ./configure --with-gaproot=gap $CONF_FLAG && make )
+  - echo ln -s $(pwd) gap/pkg/ferret
+  - ln -s $(pwd) gap/pkg/ferret
+  - ( cd gap/pkg/ferret && ./autogen.sh && ./configure $CONF_FLAG && make )
   - pwd
   - ls
   - ls gap
   - ls gap/pkg
-  - echo ln -s $(pwd) gap/pkg/ferret
-  - ln -s $(pwd) gap/pkg/ferret
   - cat ferret.vars
 
 script:
-  - scripts/quick_test.sh ${MAKEFLAG}
+  - (cd gap/pkg/ferret && scripts/quick_test.sh ${MAKEFLAG})
