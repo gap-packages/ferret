@@ -106,6 +106,7 @@ public:
     SplitState filterGraph(PartitionStack* ps, const GraphType& points,
                            const CellList& cells, int path_length)
     {
+        timing_start("GraphRefining");
         // Would not normally go this low level, but it is important this is fast
         memset(&(mset.front()), 0, mset.size() * sizeof(mset[0]));
         edgesconsidered = 0;
@@ -132,7 +133,9 @@ public:
             }
         }
         debug_out(3, "EdgeGraph", "filtering " << mset << " : " << monoset);
-        return filterPartitionStackByFunctionWithCells(ps, SquareBrackToFunction(&mset), monoset);
+        auto ret = filterPartitionStackByFunctionWithCells(ps, SquareBrackToFunction(&mset), monoset);
+        timing_end("GraphRefining");
+        return ret;
     }
 };
 

@@ -679,10 +679,8 @@ public:
             {
                 for(const auto& graph : (*orbitals))
                 {
-                    timing_start("GraphRefining");
                     GraphRefiner gr(ps->domainSize());
                     ss = gr.filterGraph(ps, agm(&graph), cells, 1);
-                    timing_end("GraphRefining");
                     if(ss.hasFailed())
                         return ss;
                 }
