@@ -100,10 +100,28 @@ _YAPB_getInfoFerretDebug := function()
   return InfoLevel(InfoFerretDebug);
 end;
 
+
+_YAPB_fillRepElements := function(G, orb)
+  local val, g, reps, buildorb, gens;
+  reps := [];
+  reps[orb[1]] := ();
+  buildorb := [orb[1]];
+  gens := GeneratorsOfGroup(G);
+  for val in buildorb do
+  	for g in gens do
+	  if not IsBound(reps[val^g]) then
+	  	reps[val^g] := reps[val] * g;
+		Add(buildorb, val^g);
+	  fi;
+	od;
+  od;
+  return reps;
+end;
+
 _YAPB_getOrbitalList := function(sc, maxval)
 	local G, cutoff,
         orb, orbitsG, iorb, graph, graphlist, val, p, i, orbsizes, orbpos, innerorblist, orbitsizes,
-		    biggestOrbit, skippedOneLargeOrbit;
+		    biggestOrbit, skippedOneLargeOrbit, orbreps;
 	
   if IsGroup(sc) then
     G := sc;
@@ -137,6 +155,7 @@ _YAPB_getOrbitalList := function(sc, maxval)
 
 	for i in [1..Size(orbitsG)] do
 		orb := orbitsG[i];
+    orbreps := [];
 		for iorb in innerorblist[i] do
 			if (Size(orb) * Size(iorb) = biggestOrbit and not skippedOneLargeOrbit) then
 				skippedOneLargeOrbit := true;
@@ -150,8 +169,11 @@ _YAPB_getOrbitalList := function(sc, maxval)
         not(orb[1] = iorb[1] and Size(iorb) = 1)
 					then
 					graph := List([1..LargestMovedPoint(G)], x -> []);
+          if IsEmpty(orbreps) then
+            orbreps := _YAPB_fillRepElements(G, orb);
+          fi;
 					for val in orb do
-						p := RepresentativeAction(G, orb[1], val); 
+						p := orbreps[val]; 
 						graph[val] := List(iorb, x -> x^p);
 					od;
 					Add(graphlist, graph);
