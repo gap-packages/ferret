@@ -212,26 +212,32 @@ struct StabChainCache
 
 struct StabChainConfig
 {
+    // Note that the implementation of 'alwaysbase' uses the same code as 'firstnontrivial',
+    // but only performs the check at the root node.
     enum sc_config_option {
-        never,
-        always,
-        root,
-        firstnontrivial
+        never,          // don't do check
+        always,         // do check, recalculate at every level
+        alwaysbase,     // do check, use only value from base
+        firstnontrivial,// do check, use first non-trivial value
+        root,           // do check, only once at root node
     };
 
     // Simple wrapping function, for those nodes we must always consider
     static bool doConsiderEveryNode(StabChainConfig::sc_config_option o)
-    { return o == always || o == firstnontrivial; }
+    { return o == alwaysbase || o == always || o == firstnontrivial; }
 
+    static bool doConsiderIfNonTrivial(StabChainConfig::sc_config_option o)
+    { return o == alwaysbase || o == firstnontrivial; }
 
     sc_config_option optionFromString(std::string s) {
         if(s == "never") return never;
         if(s == "always") return always;
+        if(s == "alwaysbase") return alwaysbase;
         if(s == "root") return root;
         if(s == "firstnontrivial") return firstnontrivial;
         
         throw GAPException("'" + s + "' is not a valid configuration option for ConInGroup."
-                           "Valid options are never, always, root, firstnontrivial");
+                           "Valid options are never, always, alwaysbase, root, firstnontrivial");
     }
 
     sc_config_option useOrbits;
@@ -463,13 +469,28 @@ public:
     {
         (void)name;
 
-        if(configchoice == StabChainConfig::firstnontrivial)
+        // Note that we always start with 'fixed_values' is empty, even if the group
+        // contains some fixed points to start with
+        if(configchoice == StabChainConfig::alwaysbase)
+        {
+            if(fixed_values.size() == 0 && nontrivialdepth.get() < 0)
+            {
+                const auto& ptr = cache_fill(fixed_values);
+                if(ptr->size() > 0)
+                {
+                    nontrivialdepth.set(fixed_values.size());
+                }
+            }
+        }
+        else if(configchoice == StabChainConfig::firstnontrivial)
         {
             if(nontrivialdepth.get() < 0)
             {
                 const auto& ptr = cache_fill(fixed_values);
                 if(ptr->size() > 0)
-                { nontrivialdepth.set(fixed_values.size()); }
+                {
+                    nontrivialdepth.set(fixed_values.size());
+                }
             }
         }
         else
@@ -523,7 +544,8 @@ public:
                 return ss;
         }
 
-        if( ( config.useOrbitals == StabChainConfig::firstnontrivial && fixed_size == tracking_first_found_orbitals.get() ) ||
+        if( ( StabChainConfig::doConsiderIfNonTrivial(config.useOrbitals)
+            && fixed_size == tracking_first_found_orbitals.get() ) ||
             ( config.useOrbitals == StabChainConfig::always ) ||
             ( rootCall ) )
         { return signal_changed_generic(range1(ps->cellCount()), identityPermutation()); }
@@ -615,7 +637,8 @@ public:
             }
         }
 
-        if( ( config.useOrbitals == StabChainConfig::firstnontrivial && new_depth == tracking_first_found_orbitals.get() ) ||
+        if( ( StabChainConfig::doConsiderIfNonTrivial(config.useOrbitals)
+            && new_depth == tracking_first_found_orbitals.get() ) ||
             ( config.useOrbitals == StabChainConfig::always ) )
         { return signal_changed_generic(range1(ps->cellCount()), perm); }
 
@@ -627,7 +650,7 @@ public:
     static depth_level getDepthLevel(int depth, int first_found_depth, StabChainConfig::sc_config_option configopt)
     {
         bool skip=false;
-        if(configopt == StabChainConfig::firstnontrivial) {
+        if(StabChainConfig::doConsiderIfNonTrivial(configopt)) {
             if(first_found_depth > depth || first_found_depth < 0)
                 skip = true;
             if(first_found_depth < depth)

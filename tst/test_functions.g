@@ -59,7 +59,7 @@ end;;
 
 
 
-proporderings := ["always", "never", "root", "firstnontrivial"];
+proporderings := ["always", "alwaysbase", "never", "root", "firstnontrivial"];
 
 # Checks all the ways of building up a single group -- can be extremely slow!
 CheckGroup := function(g)
