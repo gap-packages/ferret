@@ -395,7 +395,7 @@ InstallGlobalFunction( OnEdgeColouredDirectedGraph, function(graph, perm)
   return newgraph;
 end );
 
-_FERRET_DEFAULT_OPTIONS := rec(searchValueHeuristic := "RBase",
+_FERRET_DEFAULT_OPTIONS := MakeImmutable(rec(searchValueHeuristic := "RBase",
                                searchFirstBranchValueHeuristic := "RBase",
                                rbaseCellHeuristic := "smallest",
                                rbaseValueHeuristic := "smallest",
@@ -404,7 +404,7 @@ _FERRET_DEFAULT_OPTIONS := rec(searchValueHeuristic := "RBase",
                                recreturn := false,
                                only_find_generators := true,
                                just_rbase := false
-                               );
+                               ));
 
 #############################################################################
 ##
