@@ -27,7 +27,7 @@ if not IsBound(ErrorNoReturn) then
     end);
 fi;
 
-_FerretHelperFuncs := rec(
+_FerretHelperFuncs := MakeImmutable(rec(
 
   # Simple helper to support optional arguments
   optArg := function(Val, default)
@@ -61,4 +61,4 @@ fillUserValues := function(options, useroptions)
   fi;
 
   return ret;
- end);
+ end));
