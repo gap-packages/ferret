@@ -92,7 +92,7 @@ struct Container
 
 inline Container& container()
 {
-    static Container c;
+    static thread_local Container c;
     return c;
 }
 
