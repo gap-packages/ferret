@@ -228,9 +228,7 @@ static StructInitInfo module = {
  /* checkInit   = */ 0,
  /* preSave     = */ 0,
  /* postSave    = */ 0,
- /* postRestore = */ 0,
- /* filename    = */ 0,
- /* isGapRootRelative = */ 0
+ /* postRestore = */ 0
 };
 
 #ifndef EDIVSTATIC
