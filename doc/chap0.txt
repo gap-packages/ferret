@@ -6,10 +6,10 @@
                     [1X Backtrack Search in Permutation Groups [101X
   
   
-                                     0.7.1
+                                     0.8.0
   
   
-                                   19/10/2016
+                                   27/06/2017
   
   
                              Christopher Jefferson
