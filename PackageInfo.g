@@ -2,8 +2,8 @@ SetPackageInfo( rec(
 
 PackageName := "ferret",
 Subtitle := "Backtrack Search in Permutation Groups",
-Version := "0.7.1",
-Date := "19/10/2016", # dd/mm/yyyy format
+Version := "0.8.0",
+Date := "27/06/2017", # dd/mm/yyyy format
 
 Persons := [
   rec(
