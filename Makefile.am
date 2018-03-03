@@ -27,7 +27,7 @@ GAPINSTALLLIB = $(BINARCHDIR)/ferret.so
 
 lib_LTLIBRARIES = ferret.la
 
-ferret_la_SOURCES = src/cppmapper.cc src/hellod.cc
+ferret_la_SOURCES = src/cppmapper.cc src/ferret.cc
 ferret_la_CPPFLAGS = $(HPCGAPHEADERS) $(GAP_CPPFLAGS) $(MYCFLAGS) $(timingflag) $(checkflag) $(OPT) -DCONFIG_H
 ferret_la_LDFLAGS = -module -avoid-version
 if SYS_IS_CYGWIN
