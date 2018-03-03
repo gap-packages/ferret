@@ -147,8 +147,8 @@ _YAPB_getOrbitalList := function(sc, maxval)
 	od;
 
     # This gives bad times in 4.8, but I don't really care. Sorry if you ever find this.
-    if ISB_GVAR("NanosecondsSinceEpoch") then
-        timefunc := VAL_GVAR("NanosecondsSinceEpoch");
+    if IsBoundGlobal("NanosecondsSinceEpoch") then
+        timefunc := ValueGlobal("NanosecondsSinceEpoch");
     else
         timefunc := function() return 0; end;
     fi;
