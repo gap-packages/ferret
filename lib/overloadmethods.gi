@@ -80,6 +80,11 @@ PermGroupStabilizerFerretOp := function(arg)
       and IsList(d) and ForAll(d,i->ForAll(i,IsInt)) then
         Info(InfoFerretOverloads, 1, "Using ferret for Stabilizer(.., OnTuplesSets)");
         K := Solve([ConInGroup(G), List(d, x -> ConStabilize(x, OnSets))]);
+    # action on sets of tuples
+    elif act = OnSetsTuples
+      and IsList(d) and ForAll(d,i->ForAll(i,IsInt)) then
+        Info(InfoFerretOverloads, 1, "Using ferret for Stabilizer(.., OnSetsTuples)");
+        K := Solve([ConInGroup(G), ConStabilize(d, OnSetsTuples)]);
     # action on tuples of tuples
     elif act = OnTuplesTuples
       and IsList(d) and ForAll(d,i->ForAll(i,IsInt)) then

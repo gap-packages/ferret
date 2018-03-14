@@ -212,7 +212,7 @@ end;
 ##  In the first form this represents the group which stabilises <A>object</A>
 ##  under <A>action</A>.
 ##  The currently allowed actions are OnSets, OnSetsSets, OnSetsDisjointSets,
-##  OnTuples, OnPairs and OnDirectedGraph.
+##  OnSetsTuples, OnTuples, OnPairs and OnDirectedGraph.
 ##
 ##  In the second form it represents the stabilizer of a partial perm
 ##  or transformation in the symmetric group on <A>n</A> points.
@@ -239,6 +239,12 @@ function(list, op)
 
   if op = OnSetsSets then
     return rec(constraint := "OverlappingSetSetStab",
+               arg := list,
+               max := MaximumList(List(list, x -> MaximumList(x, 0)),0));
+  fi;
+
+  if op = OnSetsTuples then
+    return rec(constraint := "SetTupleStab",
                arg := list,
                max := MaximumList(List(list, x -> MaximumList(x, 0)),0));
   fi;

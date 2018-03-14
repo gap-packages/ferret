@@ -18,6 +18,7 @@
 #include "constraints/liststab.hpp"
 #include "constraints/setstab.hpp"
 #include "constraints/setsetstab.hpp"
+#include "constraints/settuplestab.hpp"
 #include "constraints/overlappingsetset.hpp"
 #include "constraints/edgecolouredgraph.hpp"
 #include "constraints/edgecolouredgraph_gapgetter.hpp"
@@ -40,6 +41,10 @@ AbstractConstraint* buildConstraint(Obj con, PartitionStack* ps, MemoryBacktrack
     else if(strcmp(conname, "SetSetStab") == 0)
     {
         return new SetSetStab(GAP_get<vec1<vec1<int> > >(GAP_get_rec(con, RNamName("arg"))), ps);
+    }
+    else if(strcmp(conname, "SetTupleStab") == 0)
+    {
+        return new SetTupleStab(GAP_get<vec1<vec1<int> > >(GAP_get_rec(con, RNamName("arg"))), ps);
     }
     else if(strcmp(conname, "OverlappingSetSetStab") == 0)
     {

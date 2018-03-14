@@ -14,8 +14,12 @@ gap> EnableFerretOverloads(false);
 gap> # Functions which GAP implements inefficently
 gap> for i in [2..9] do
 >      for j in [1..50] do
->        g := RandomGroupUpToSize(GlobalMersenneTwister, i);
->        for act in [OnSetsSets, OnDirectedGraph, OnEdgeColouredDirectedGraph] do
+>        # Skip biggest groups.
+>        maxgrpsize := Factorial(8)/2;
+>        repeat
+>          g := RandomGroupUpToSize(GlobalMersenneTwister, i);
+>        until Size(g) < maxgrpsize;
+>        for act in [OnSetsSets, OnDirectedGraph, OnEdgeColouredDirectedGraph, OnSetsTuples] do
 >          CheckStab(g, RandomObj(GlobalMersenneTwister, i, act), act);
 >        od;
 >     od;

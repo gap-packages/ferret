@@ -313,5 +313,46 @@ SplitState filterPartitionStackByUnorderedListFunction(PartitionStack* ps, F f)
     return ret;
 }
 
+template<typename F>
+SplitState filterPartitionStackBySetTupleFunction(PartitionStack* ps, F f)
+{
+    debug_out(3, "filterSetTuple", "prestate " << ps->printCurrentPartition());
+    int cellCount = ps->cellCount();
+
+    // first of all, we need to try to distinguish as many sets in F as possible.
+    std::map<u_int64_t, HashType> full_hash;
+
+    for(int i : range1(cellCount))
+    {
+        typedef std::map<u_int64_t, HashType> map_type;
+        map_type count_map;
+        for(int val : ps->cellRange(i))
+        {
+            for(const auto& val2 : f(val))
+                count_map[val2.first]+=quick_hash(val2.second);
+        }
+
+        for(const auto& val : count_map)
+        {
+            full_hash[val.first] = hash_combine(full_hash[val.first], i, val.second);
+        }
+    }
+
+    vec1<u_int64_t> hash_val(ps->domainSize());
+
+    for(auto v : range1(ps->domainSize())) {
+        u_int64_t hash = 0;
+        for(auto& val2 : f(v)) {
+            hash += hash_combine(full_hash[val2.first], val2.second);
+        }
+        hash_val[v] = hash;
+    }
+
+
+    SplitState ret = filterPartitionStackByFunction(ps, SquareBrackToFunction(&hash_val));
+    debug_out(3, "filterSetTuple", "poststate " << ps->printCurrentPartition());
+    return ret;
+}
+
 
 #endif
