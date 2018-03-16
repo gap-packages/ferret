@@ -32,28 +32,19 @@ template<typename F1, typename F2>
 auto IndirectFunction(const F1& t, const F2& p)
 { return [t,p](auto i) -> auto& { return t(p(i)); }; }
 
-template<typename F1, typename F2>
-struct IndirectVecCollapseFunctionImpl
+
+template<typename F1, typename F2, typename Val>
+auto VecCollapseFuncInternal(F1& f1, F2& f2, Val i)
 {
-    F1 f1;
-    F2 f2;
-
-    IndirectVecCollapseFunctionImpl(const F1& _f1, const F2& _f2)
-    : f1(_f1), f2(_f2)
-    { }
-
-    HashType operator()(int i)
-    {
-        const auto& c = f2(i);
-        HashType r = 0;
-        for(const auto& member : c)
-            r += f1(member);
-        return r;
-    }
-};
+    const auto& c = f2(i);
+    HashType r = 0;
+    for(const auto& member : c)
+        r += f1(member);
+    return r;
+}
 
 
 template<typename F1, typename F2>
-IndirectVecCollapseFunctionImpl<F1, F2> IndirectVecCollapseFunction(const F1& t, const F2& p)
-{ return IndirectVecCollapseFunctionImpl<F1, F2>(t, p); }
+auto IndirectVecCollapseFunction(const F1& t, const F2& p)
+{ return [t,p](auto i){ return VecCollapseFuncInternal(t,p,i);}; }
 #endif
