@@ -23,7 +23,7 @@ public:
 
     SplitState signal_start()
     {
-        return filterPartitionStackByFunction(ps, SquareBrackToFunction(&inv_points));
+        return filterPartitionStackByFunction(ps, [&](auto i) -> auto& { return inv_points[i]; });
     }
 
     virtual bool verifySolution(const Permutation& p)

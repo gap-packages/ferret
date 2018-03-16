@@ -51,7 +51,7 @@ public:
         Stats::ConstraintInvoke(Stats::CON_OverlappingSetSetStab);
 
         debug_out(1, "slowGraph", "signal_changed");
-        return filterPartitionStackBySetTupleFunction(ps, SquareBrackToFunction(&point_map));
+        return filterPartitionStackBySetTupleFunction(ps, [&](auto i) -> auto& { return point_map[i]; });
     }
 
     virtual bool verifySolution(const Permutation& p)
@@ -85,7 +85,7 @@ public:
       SplitState ss = filterPartitionStackByFunction(ps, [&all_values](auto i){ return all_values.count(i) > 0; });
       if(ss.hasFailed())
         return ss;
-      return filterPartitionStackBySetTupleFunction(ps, SquareBrackToFunction(&point_map));
+      return filterPartitionStackBySetTupleFunction(ps, [&](auto i) -> auto& { return point_map[i]; });
     }
 
     virtual std::vector<TriggerType> triggers()

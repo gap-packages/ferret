@@ -133,7 +133,7 @@ public:
             }
         }
         debug_out(3, "EdgeGraph", "filtering " << mset << " : " << monoset);
-        auto ret = filterPartitionStackByFunctionWithCells(ps, SquareBrackToFunction(&mset), monoset);
+        auto ret = filterPartitionStackByFunctionWithCells(ps, [&](auto i) -> auto& { return mset[i]; }, monoset);
         timing_end("GraphRefining");
         return ret;
     }

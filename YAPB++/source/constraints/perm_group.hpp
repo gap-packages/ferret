@@ -75,7 +75,7 @@ public:
             fixed_values.push_back(*ps->cellStartPtr(fixed[i]));
         }
         vec1<int> part = getRBaseOrbitPartition(fixed_values);
-        return filterPartitionStackByFunction(ps, SquareBrackToFunction(&part));
+        return filterPartitionStackByFunction(ps, [&](auto i) -> auto& { return part[i]; });
     }
 
     virtual SplitState signal_fix()
@@ -112,7 +112,7 @@ public:
                 permuted_part[i] = part[i];
         }
         debug_out(3, "PermGroup", "Permuted partition" << permuted_part);
-        return filterPartitionStackByFunction(ps, SquareBrackToFunction(&permuted_part));
+        return filterPartitionStackByFunction(ps, [&](auto i) -> auto& { return permuted_part[i]; });
     }
 
     virtual bool verifySolution(const Permutation& p)

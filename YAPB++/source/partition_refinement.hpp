@@ -259,7 +259,7 @@ SplitState filterPartitionStackByUnorderedFunction(PartitionStack* ps, F f)
     int cellCount = ps->cellCount();
     // first of all, we need to try to distinguish as many values of F as possible.
 
-    typedef decltype(f(0)) result_type ;
+    typedef typename std::remove_reference<decltype(f(0))>::type result_type ;
     std::map<result_type, HashType> full_hash;
 
     for(int i : range1(cellCount))
@@ -290,7 +290,7 @@ SplitState filterPartitionStackByUnorderedListFunction(PartitionStack* ps, F f)
     debug_out(3, "filterUnListFun", "prestate " << ps->printCurrentPartition());
     int cellCount = ps->cellCount();
     // first of all, we need to try to distinguish as many values of F as possible.
-    typedef decltype(f(0)) result_type ;
+    typedef typename std::remove_reference<decltype(f(0))>::type result_type ;
 
 
     std::map<typename result_type::value_type, HashType> full_hash;
@@ -352,7 +352,7 @@ SplitState filterPartitionStackBySetTupleFunction(PartitionStack* ps, F f)
     }
 
 
-    SplitState ret = filterPartitionStackByFunction(ps, SquareBrackToFunction(&hash_val));
+    SplitState ret = filterPartitionStackByFunction(ps, [&](auto i) -> auto& { return hash_val[i]; });
     debug_out(3, "filterSetTuple", "poststate " << ps->printCurrentPartition());
     return ret;
 }
