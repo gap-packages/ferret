@@ -99,7 +99,7 @@ public:
     bool operator!=(const FuncMapRangeIterator& other) const
     { return it != other.it; }
 
-    decltype((*f)(*it)) operator*() const
+    auto operator*() const
     { return (*f)(*it); }
 
     FuncMapRangeIterator& operator++()
