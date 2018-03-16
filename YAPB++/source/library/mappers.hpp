@@ -15,14 +15,10 @@ auto SquareBrackToFunction(T const* t)
 template<typename Container, typename T>
 auto& CheckedMap(const Container& c, const T& t)
 {
-    auto it = c->find(t);
-    D_ASSERT(it != c->end());
+    auto it = c.find(t);
+    D_ASSERT(it != c.end());
     return it->second;
 }
-
-template<typename M>
-auto MapToFunction(M const* m)
-{ return [m](auto i) -> auto& { return CheckedMap(m, i); }; }
 
 template<typename F>
 auto FunctionByPerm(F f, const Permutation& p)

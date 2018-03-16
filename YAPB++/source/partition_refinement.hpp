@@ -279,7 +279,7 @@ SplitState filterPartitionStackByUnorderedFunction(PartitionStack* ps, F f)
 
     debug_out(3, "filter", "Hash:" << full_hash);
     debug_out(3, "filter", "Function:" << f);
-    SplitState ret = filterPartitionStackByFunction(ps, IndirectFunction(MapToFunction(&full_hash), f));
+    SplitState ret = filterPartitionStackByFunction(ps, [&](auto i){return CheckedMap(full_hash, f(i));});
     debug_out(3, "filterUnFun", "poststate " << ps->printCurrentPartition());
     return ret;
 }
@@ -311,7 +311,7 @@ SplitState filterPartitionStackByUnorderedListFunction(PartitionStack* ps, F f)
         }
     }
 
-    SplitState ret = filterPartitionStackByFunction(ps, IndirectVecCollapseFunction(MapToFunction(&full_hash), f));
+    SplitState ret = filterPartitionStackByFunction(ps, IndirectVecCollapseFunction([&](auto i) -> auto& { return CheckedMap(full_hash, i); }, f));
     debug_out(3, "filterUnListFun", "poststate " << ps->printCurrentPartition());
     return ret;
 }
