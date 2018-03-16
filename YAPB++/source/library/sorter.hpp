@@ -59,7 +59,7 @@ bool indirect_data_sorter_impl(int cell, PartitionStack* ps, SortFun f, const So
 
 	for(it_type ptr = cellStart; ptr < cellEnd; ++ptr)
 	{
-		int hash = f(*ptr);
+		HashType hash = f(*ptr);
 		vec1<HashInvPosition>::const_iterator pos = std::lower_bound(sd.Hash_inv_pos.begin(),
                                                                      sd.Hash_inv_pos.end(), hash, compareHash);
 		if(pos == sd.Hash_inv_pos.end() || pos->hashVal != hash)

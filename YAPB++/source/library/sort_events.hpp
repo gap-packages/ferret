@@ -4,7 +4,7 @@
 #include "library/vec1.hpp"
 #include "promotable_list.hpp"
 
-typedef unsigned int HashType;
+typedef u_int32_t HashType;
 
 struct HashStart
 {
@@ -28,7 +28,7 @@ struct HashInvPosition
 inline bool operator<(const HashInvPosition& lhs, const HashInvPosition& rhs)
 { return std::make_pair(lhs.hashVal, lhs.pos) < std::make_pair(rhs.hashVal, rhs.pos); }
 
-inline bool compareHash(const HashInvPosition& lhs, int rhs)
+inline bool compareHash(const HashInvPosition& lhs, HashType rhs)
 { return lhs.hashVal < rhs; }
 
 struct SortEvent

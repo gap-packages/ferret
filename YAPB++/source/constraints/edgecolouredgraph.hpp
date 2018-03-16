@@ -26,8 +26,8 @@ public:
     };
 
   // Construct these once, for use in filterGraph, as the cost is fairly big
-    vec1<u_int64_t> mset;
-    vec1<u_int64_t> msetspare;
+    vec1<HashType> mset;
+    vec1<HashType> msetspare;
     
     int edgesconsidered;
     
@@ -44,7 +44,7 @@ public:
             for(const auto& edge : points.neighbours(i))
             {
                 monoset.add(ps->cellOfVal(edge.target()));
-                u_int64_t new_hash = quick_hash(hash + edge.colour());
+                HashType new_hash = quick_hash(hash + edge.colour());
                 debug_out(4, "filter", "adding to " << edge << ":" << new_hash);
                 edgesconsidered++;
                 mset[edge.target()] += new_hash;
@@ -54,12 +54,12 @@ public:
     
     template<typename GraphType>
     void hashNeighboursOfVertexDeep2(PartitionStack* ps, const GraphType& points, 
-                                     MonoSet& hitcells, int vertex, u_int64_t hash)
+                                     MonoSet& hitcells, int vertex, HashType hash)
     {
         for(const auto& edge : points.neighbours(vertex))
         {
             hitcells.add(ps->cellOfVal(edge.target()));
-            u_int64_t new_hash = quick_hash(hash + edge.colour());
+            HashType new_hash = quick_hash(hash + edge.colour());
             edgesconsidered++;
             msetspare[edge.target()] += new_hash;
         }
@@ -78,13 +78,13 @@ public:
     
     template<typename GraphType>
     void hashNeighboursOfVertexDeep(PartitionStack* ps, const GraphType& points, 
-                                    MonoSet& hitcells, MonoSet& hitvertices, int vertex, u_int64_t hash)
+                                    MonoSet& hitcells, MonoSet& hitvertices, int vertex, HashType hash)
     {
         for(const auto& val : points.neighbours(vertex))
         {
             hitcells.add(ps->cellOfVal(val.target()));
             hitvertices.add(val.target());
-            u_int64_t new_hash = quick_hash(hash + val.colour());
+            HashType new_hash = quick_hash(hash + val.colour());
             edgesconsidered++;
             mset[val.target()] += new_hash;
         }

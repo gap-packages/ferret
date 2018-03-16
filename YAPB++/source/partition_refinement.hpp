@@ -320,11 +320,11 @@ SplitState filterPartitionStackBySetTupleFunction(PartitionStack* ps, F f)
     int cellCount = ps->cellCount();
 
     // first of all, we need to try to distinguish as many sets in F as possible.
-    std::map<u_int64_t, HashType> full_hash;
+    std::map<int, HashType> full_hash;
 
     for(int i : range1(cellCount))
     {
-        typedef std::map<u_int64_t, HashType> map_type;
+        typedef std::map<int, HashType> map_type;
         map_type count_map;
         for(int val : ps->cellRange(i))
         {
@@ -338,10 +338,10 @@ SplitState filterPartitionStackBySetTupleFunction(PartitionStack* ps, F f)
         }
     }
 
-    vec1<u_int64_t> hash_val(ps->domainSize());
+    vec1<int> hash_val(ps->domainSize());
 
     for(auto v : range1(ps->domainSize())) {
-        u_int64_t hash = 0;
+        HashType hash = 0;
         for(auto& val2 : f(v)) {
             hash += hash_combine(full_hash[val2.first], val2.second);
         }
