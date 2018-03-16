@@ -28,7 +28,7 @@ gason is **destructive** parser, i.e. you **source buffer** will be **modified**
 
 ## Installation
 1. Download latest [gason.h](https://raw.github.com/vivkin/gason/master/gason.h) and [gason.cpp](https://raw.github.com/vivkin/gason/master/gason.cpp)
-2. Compile with C++11 support (`-std=c++11` flag for gcc/clang)
+2. Compile with C++14 support (`-std=c++14` flag for gcc/clang)
 3. ...
 4. PROFIT!
 

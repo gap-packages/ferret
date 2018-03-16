@@ -6,7 +6,7 @@
 int main(void)
 {
     Problem p(6);
-    vec1<vec1<UncolouredEdge> > s(6); // c++11 : {{2},{3},{1},{5},{6},{4}};
+    vec1<vec1<UncolouredEdge> > s(6); // c++14 : {{2},{3},{1},{5},{6},{4}};
     int vals[] = {0,2,3,1,5,6,4};
     for(int i : range1(6))
     	s[i].push_back(vals[i]);

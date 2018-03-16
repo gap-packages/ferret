@@ -65,8 +65,6 @@ public:
     SparseFunction(const SparseFunction& sf) : m(sf.m)
     { }
 
-    typedef int result_type;
-
     int operator()(int i) const
     { 
         std::map<int, int>::const_iterator it = m->find(i); 

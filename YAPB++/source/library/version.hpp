@@ -1,4 +1,4 @@
-// Make sure C++11 has been checked
+// Make sure C++14 has been checked
 #include "cpp11.hpp"
 
 #ifndef _VERSION_HPP

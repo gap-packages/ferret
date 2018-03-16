@@ -6,7 +6,7 @@
 int main(void)
 {
     Problem p(6);
-    vec1<vec1<UncolouredEdge> > s(6); // c++11 = {{},{2},{3},{},{},{}};
+    vec1<vec1<UncolouredEdge> > s(6); // c++14 = {{},{2},{3},{},{},{}};
     s[2].push_back(2);
     s[3].push_back(3);
     std::vector<AbstractConstraint*> v;

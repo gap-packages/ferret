@@ -25,12 +25,11 @@ struct InSet
 template<typename Container>
 struct ContainerToFunctionImpl
 {
-    typedef typename Container::value_type result_type;
     const Container* vec;
     ContainerToFunctionImpl(Container const* _vec) : vec(_vec)
     { }
 
-    const result_type& operator()(int i)
+    const auto& operator()(int i)
     { return (*vec)[i]; }
 
     friend std::ostream& operator<<(std::ostream& o, const  ContainerToFunctionImpl& c)
@@ -39,8 +38,8 @@ struct ContainerToFunctionImpl
 
 // Transform a class with an operator[] to one with an operator()
 template<typename T>
-ContainerToFunctionImpl<T> SquareBrackToFunction(T const* t)
-{ return ContainerToFunctionImpl<T>(t); }
+auto SquareBrackToFunction(T const* t)
+{ return [t](int i){ return (*t)[i]; }; }
 
 // This exists just because for map we want 'result_type', not 'value_type'
 template<typename Container>
@@ -51,7 +50,7 @@ struct MapToFunctionImpl
     MapToFunctionImpl(Container const* _m) : m(_m)
     { }
 
-    const result_type& operator()(int i)
+    const auto& operator()(int i)
     { 
         typename Container::const_iterator it = m->find(i); 
         D_ASSERT(it != m->end());
@@ -69,13 +68,11 @@ struct FunctionByPermImpl
     F f;
     Permutation p;
 
-    typedef typename F::result_type result_type;
-
     FunctionByPermImpl(const F& _f, const Permutation& _p)
     : f(_f), p(_p)
     { }
 
-    result_type operator()(int i)
+    auto operator()(int i)
     { return f(p[i]); }
 
     friend std::ostream& operator<<(std::ostream& o, const FunctionByPermImpl& c)
@@ -89,7 +86,6 @@ FunctionByPermImpl<F> FunctionByPerm(F f, const Permutation& p)
 template<typename F1, typename F2>
 struct IndirectFunctionImpl
 {
-    typedef typename F1::result_type result_type;
     F1 f1;
     F2 f2;
 
@@ -97,7 +93,7 @@ struct IndirectFunctionImpl
     : f1(_f1), f2(_f2)
     { }
 
-    const result_type& operator()(int i)
+    const auto& operator()(int i)
     { return f1(f2(i)); }
 };
 
@@ -109,8 +105,6 @@ IndirectFunctionImpl<F1, F2> IndirectFunction(const F1& t, const F2& p)
 template<typename F1, typename F2>
 struct IndirectVecCollapseFunctionImpl
 {
-    typedef typename F2::result_type inner_type;
-    typedef typename F1::result_type result_type;
     F1 f1;
     F2 f2;
 
@@ -118,10 +112,10 @@ struct IndirectVecCollapseFunctionImpl
     : f1(_f1), f2(_f2)
     { }
 
-    result_type operator()(int i)
+    HashType operator()(int i)
     {
-        const inner_type& c = f2(i);
-        result_type r = 0;
+        const auto& c = f2(i);
+        HashType r = 0;
         for(const auto& member : c)
             r += f1(member);
         return r;

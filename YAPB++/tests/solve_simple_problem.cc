@@ -6,7 +6,7 @@
 int main(void)
 {
     Problem p(6);
-    std::set<int> s; // c++11 {2,4};
+    std::set<int> s; // c++14 {2,4};
     s.insert(2);
     s.insert(4);
 

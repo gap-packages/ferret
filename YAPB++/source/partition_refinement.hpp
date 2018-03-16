@@ -259,11 +259,12 @@ SplitState filterPartitionStackByUnorderedFunction(PartitionStack* ps, F f)
     int cellCount = ps->cellCount();
     // first of all, we need to try to distinguish as many values of F as possible.
 
-    std::map<typename F::result_type, HashType> full_hash;
+    typedef decltype(f(0)) result_type ;
+    std::map<result_type, HashType> full_hash;
 
     for(int i : range1(cellCount))
     {
-    	typedef std::map<typename F::result_type, unsigned> map_type;
+    	typedef std::map<result_type, unsigned> map_type;
     	map_type count_map;
     	for(int x : ps->cellRange(i))
     	{
@@ -289,12 +290,14 @@ SplitState filterPartitionStackByUnorderedListFunction(PartitionStack* ps, F f)
     debug_out(3, "filterUnListFun", "prestate " << ps->printCurrentPartition());
     int cellCount = ps->cellCount();
     // first of all, we need to try to distinguish as many values of F as possible.
+    typedef decltype(f(0)) result_type ;
 
-    std::map<typename F::result_type::value_type, HashType> full_hash;
+
+    std::map<typename result_type::value_type, HashType> full_hash;
 
     for(int i : range1(cellCount))
     {
-        typedef std::map<typename F::result_type::value_type, unsigned> map_type;
+        typedef std::map<typename result_type::value_type, unsigned> map_type;
         map_type count_map;
         for(int val : ps->cellRange(i))
         {
