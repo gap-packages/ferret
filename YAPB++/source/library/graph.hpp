@@ -248,7 +248,7 @@ public:
   int vertices() const 
   { return graph->vertices(); }
 
-  auto neighbours(int i)  const -> decltype( maprange(graph->neighbours(p[1]), MapEdgeByPerm<VertexType>(&p)) )
+  auto neighbours(int i)  const
   {
     debug_out(3, "pg", "mapping " << i << " to " << p[i]);
     return maprange(graph->neighbours(p[i]), MapEdgeByPerm<VertexType>(&pinv));
