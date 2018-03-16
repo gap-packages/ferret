@@ -2,6 +2,7 @@
 #define GAP_FUNCTION_HPPQR
 
 #include <string>
+#include "include_gap_headers.hpp"
 
 class GAPFunction
 {
