@@ -79,7 +79,7 @@
  * NOTE: To use the recommended 64 bit FNV-1a hash, use FNV1A_64_INIT as the
  * 	 hval arg on the first call to either fnv_64a_buf() or fnv_64a_str().
  */
-u_int64_t inline fnv_64a_buf(void *buf, size_t len,  u_int64_t hval)
+uint64_t inline fnv_64a_buf(void *buf, size_t len,  uint64_t hval)
 {
     unsigned char *bp = (unsigned char *)buf;	/* start of buffer */
     unsigned char *be = bp + len;		/* beyond end of buffer */
@@ -90,7 +90,7 @@ u_int64_t inline fnv_64a_buf(void *buf, size_t len,  u_int64_t hval)
     while (bp < be) {
 
 	/* xor the bottom with the current octet */
-	hval ^= (u_int64_t)*bp++;
+	hval ^= (uint64_t)*bp++;
 
 	/* multiply by the 64 bit FNV magic prime mod 2^64 */
 	hval += (hval << 1) + (hval << 4) + (hval << 5) +
@@ -102,21 +102,21 @@ u_int64_t inline fnv_64a_buf(void *buf, size_t len,  u_int64_t hval)
 }
 
 
-u_int64_t inline fnv_64a_buf(void *buf, size_t len)
+uint64_t inline fnv_64a_buf(void *buf, size_t len)
 { return fnv_64a_buf(buf, len,0xcbf29ce484222325ULL); }
 
-u_int64_t inline quick_hash(u_int64_t val)
-{ return fnv_64a_buf(&val, sizeof(u_int64_t)); }
+uint64_t inline quick_hash(uint64_t val)
+{ return fnv_64a_buf(&val, sizeof(uint64_t)); }
 
-u_int64_t inline hash_combine(u_int64_t val1, u_int64_t val2)
+uint64_t inline hash_combine(uint64_t val1, uint64_t val2)
 {
-    u_int64_t array[2] = {val1, val2};
-    return fnv_64a_buf(array, sizeof(u_int64_t)*2);
+    uint64_t array[2] = {val1, val2};
+    return fnv_64a_buf(array, sizeof(uint64_t)*2);
 }
 
-u_int64_t inline hash_combine(u_int64_t val1, u_int64_t val2, u_int64_t val3)
+uint64_t inline hash_combine(uint64_t val1, uint64_t val2, uint64_t val3)
 {
-    u_int64_t array[3] = {val1, val2, val3};
-    return fnv_64a_buf(array, sizeof(u_int64_t)*3);
+    uint64_t array[3] = {val1, val2, val3};
+    return fnv_64a_buf(array, sizeof(uint64_t)*3);
 }
 #endif

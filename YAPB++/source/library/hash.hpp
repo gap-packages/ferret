@@ -1,6 +1,8 @@
 #ifndef QUICK_HASH_HPP_YIA
 #define QUICK_HASH_HPP_YIA
 
+#include <stdint.h>
+
 #if 0
 
 #include "fnv_hash.hpp"
@@ -9,7 +11,7 @@
 
 // 64-bit mixing function
 
-u_int64_t quick_hash(u_int64_t key)
+uint64_t quick_hash(uint64_t key)
 {
     //return key + key*key;
   key = (~key) + (key << 21); // key = (key << 21) - key - 1;
@@ -22,16 +24,16 @@ u_int64_t quick_hash(u_int64_t key)
   return key;
 }
 
-u_int64_t inline hash_combine(u_int64_t val1, u_int64_t val2)
+uint64_t inline hash_combine(uint64_t val1, uint64_t val2)
 {
-    return (u_int64_t)15485863 * val1 + (u_int64_t)19661 * val2;
+    return (uint64_t)15485863 * val1 + (uint64_t)19661 * val2;
 }
 
-u_int64_t inline hash_combine(u_int64_t val1, u_int64_t val2, u_int64_t val3)
+uint64_t inline hash_combine(uint64_t val1, uint64_t val2, uint64_t val3)
 {
-    return (u_int64_t)15485863 * val1 +
-           (u_int64_t)19661 * val2 +
-           (u_int64_t)22801763489 * val3;
+    return (uint64_t)15485863 * val1 +
+           (uint64_t)19661 * val2 +
+           (uint64_t)22801763489 * val3;
 }
 #endif
 
