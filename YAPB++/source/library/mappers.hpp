@@ -7,20 +7,6 @@
 
 // Some useful classes for filtering
 
-// A function which returns if a value is in a set
-struct InSet
-{
-    const std::set<int>* vals;
-    InSet(const std::set<int>* _vals) : vals(_vals)
-    { }
-
-    typedef bool result_type;
-
-    template<typename T>
-    bool operator()(const T& t)
-    { return (*vals).count(t) > 0; }
-};
-
 // Transform a class with an operator[] to one with an operator()
 template<typename T>
 auto SquareBrackToFunction(T const* t)

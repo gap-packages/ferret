@@ -82,7 +82,7 @@ public:
       std::set<int> all_values;
       for(int i : range1(points.size()))
           all_values.insert(points[i].begin(), points[i].end());
-      SplitState ss = filterPartitionStackByFunction(ps, InSet(&all_values));
+      SplitState ss = filterPartitionStackByFunction(ps, [&all_values](auto i){ return all_values.count(i) > 0; });
       if(ss.hasFailed())
         return ss;
       return filterPartitionStackBySetTupleFunction(ps, SquareBrackToFunction(&point_map));

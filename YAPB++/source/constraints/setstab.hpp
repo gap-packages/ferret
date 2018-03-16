@@ -26,7 +26,7 @@ public:
     SplitState signal_start()
     {
         debug_out(1, "SetStab", "init " << points.size());
-        return filterPartitionStackByFunction(ps, InSet(&points));
+        return filterPartitionStackByFunction(ps,  [this](auto i){ return points.count(i) > 0; });
     }
 
     virtual bool verifySolution(const Permutation& p)
