@@ -12,10 +12,10 @@ template<typename Container>
 bool contains_no_repeats(Container con)
 {
     std::sort(con.begin(), con.end());
-    typename Container::iterator it = con.begin();
+    auto it = con.begin();
     while(it != con.end())
     {
-        typename Container::iterator it2 = it;
+        auto it2 = it;
         ++it2;
         if(it2 != con.end() && *it == *it2)
             return false;
