@@ -12,23 +12,6 @@ template<typename T>
 auto SquareBrackToFunction(T const* t)
 { return [t](int i){ return (*t)[i]; }; }
 
-// This exists just because for map we want 'result_type', not 'value_type'
-template<typename Container>
-struct MapToFunctionImpl
-{
-    typedef typename Container::mapped_type result_type;
-    const Container* m;
-    MapToFunctionImpl(Container const* _m) : m(_m)
-    { }
-
-    const auto& operator()(int i)
-    { 
-        typename Container::const_iterator it = m->find(i); 
-        D_ASSERT(it != m->end());
-        return it->second;
-    }
-};
-
 template<typename Container, typename T>
 auto& CheckedMap(const Container& c, const T& t)
 {
@@ -42,44 +25,12 @@ auto MapToFunction(M const* m)
 { return [m](auto i) -> auto& { return CheckedMap(m, i); }; }
 
 template<typename F>
-struct FunctionByPermImpl
-{
-    F f;
-    Permutation p;
-
-    FunctionByPermImpl(const F& _f, const Permutation& _p)
-    : f(_f), p(_p)
-    { }
-
-    auto operator()(int i)
-    { return f(p[i]); }
-
-    friend std::ostream& operator<<(std::ostream& o, const FunctionByPermImpl& c)
-    { return o << c.f << " by " << c.p; }
-};
-
-template<typename F>
-FunctionByPermImpl<F> FunctionByPerm(F f, const Permutation& p)
-{ return FunctionByPermImpl<F>(f, p); }
+auto FunctionByPerm(F f, const Permutation& p)
+{ return [f,p](auto i) { return f(p[i]); }; }
 
 template<typename F1, typename F2>
-struct IndirectFunctionImpl
-{
-    F1 f1;
-    F2 f2;
-
-    IndirectFunctionImpl(const F1& _f1, const F2& _f2)
-    : f1(_f1), f2(_f2)
-    { }
-
-    const auto& operator()(int i)
-    { return f1(f2(i)); }
-};
-
-
-template<typename F1, typename F2>
-IndirectFunctionImpl<F1, F2> IndirectFunction(const F1& t, const F2& p)
-{ return IndirectFunctionImpl<F1, F2>(t, p); }
+auto IndirectFunction(const F1& t, const F2& p)
+{ return [t,p](auto i) -> auto& { return t(p(i)); }; }
 
 template<typename F1, typename F2>
 struct IndirectVecCollapseFunctionImpl
