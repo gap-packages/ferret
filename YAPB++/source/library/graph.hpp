@@ -115,7 +115,7 @@ struct ParsedGraph
 	{
 		for(int i : range1(graph_size))
 		{
-			for(int j = 1; j <= edges[i].size(); ++j)
+			for(int j : range1(edges[i].size()))
 			{
         edges[edges[i][j].target()].push_back(UncolouredEdge(j));
 			}
@@ -140,9 +140,9 @@ inline vec1<vec1<ColEdge> > compressGraph(const vec1<vec1<ColEdge> >& graph)
   std::map<std::multiset<int>, int> seen_maps;
   
   vec1<vec1<ColEdge> > output_graph(graph.size());
-  for(int i = 1; i <= graph.size(); i++) {
+  for(int i : range1(graph.size()) ) {
     std::map<int, std::multiset<int> > edges;
-    for(int j = 1; j <= graph[i].size(); ++j) {
+    for(int j : range1(graph[i].size()) ) {
       edges[graph[i][j].target()].insert(graph[i][j].colour());
     }
 
@@ -179,7 +179,7 @@ public:
     for(int i : range1(_points.size()))
     {
         int i_size = _points[i].size();
-        for(int j = 1; j <= i_size; ++j)
+        for(int j : range1(i_size) )
         {
             if(_points[i][j].target() <= 0 || _points[i][j].target() > domain) {
                 throw GAPException("Graph contains out-of-bounds vertex: " + toString(_points[i][j].target()));

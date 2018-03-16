@@ -255,7 +255,7 @@ inline Permutation identityPermutation()
 inline Permutation invertPermutation(const Permutation& p)
 {
     vec1<int> vec(p.size());
-    for(int i = 1; i <= p.size(); ++i)
+    for(int i : range1(p.size()) )
         vec[p[i]] = i;
     return Permutation(vec, p.size());
 }
@@ -268,7 +268,7 @@ inline int& PermSharedData::operator[](int i)
     if(data_m[i] == 0)
     {
         int pos = i;
-        for(int j = 1; j <= perms.size(); ++j)
+        for(int j : range1(perms.size()) )
         {
             pos = perms[j][pos];
         }

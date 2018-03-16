@@ -17,7 +17,7 @@ bool handlePossibleSolution(Problem* p, SolutionStore* ss, RBase* rbase)
     D_ASSERT(p->p_stack.cellCount() == p->p_stack.domainSize());
     Permutation perm = getRawPermutation(p->p_stack.domainSize());
 
-    for(int i = 1 ; i <= perm.size(); ++i)
+    for(int i : range1(perm.size()) )
     {
         perm.raw(rbase->initial_permstack->val(i)) = p->p_stack.val(i);
     }
