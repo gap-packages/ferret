@@ -21,21 +21,6 @@ struct InSet
     { return (*vals).count(t) > 0; }
 };
 
-
-template<typename Container>
-struct ContainerToFunctionImpl
-{
-    const Container* vec;
-    ContainerToFunctionImpl(Container const* _vec) : vec(_vec)
-    { }
-
-    const auto& operator()(int i)
-    { return (*vec)[i]; }
-
-    friend std::ostream& operator<<(std::ostream& o, const  ContainerToFunctionImpl& c)
-    { return o << *(c.vec); }
-};
-
 // Transform a class with an operator[] to one with an operator()
 template<typename T>
 auto SquareBrackToFunction(T const* t)
