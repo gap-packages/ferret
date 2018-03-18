@@ -1,7 +1,8 @@
 name: ferret
 version: 0.8.0
-date: 27/06/2017
-description: Backtrack Search in Permutation Groups
+date: 2017-06-27
+description: |
+    Backtrack Search in Permutation Groups
 
 authors:
     - name: Christopher Jefferson
@@ -19,14 +20,14 @@ needed-pkgs:
       url: "http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc"
 
 www: https://gap-packages.github.io/ferret/
-readme: https://gap-packages.github.io/ferret/README
+readme: README
 packageinfo: https://gap-packages.github.io/ferret/PackageInfo.g
 
 downloads:
     - name: .tar.gz
       url: https://github.com/gap-packages/ferret/releases/download/v0.8.0/ferret-0.8.0.tar.gz
 
-abstract: 
+abstract: |
 
 status: dev
 doc-html: doc/chap0.html
