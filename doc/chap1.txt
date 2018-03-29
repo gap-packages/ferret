@@ -52,14 +52,14 @@
   
   [1X1.1-1 EnableFerretOverloads[101X
   
-  [29X[2XEnableFerretOverloads[102X( [[3Xactive[103X] ) [32X function
+  [33X[1;0Y[29X[2XEnableFerretOverloads[102X( [[3Xactive[103X] ) [32X function[133X
   
   [33X[0;0Yif   [3Xactive[103X  (a  bool)  is  true,  then  enable  Ferret  specialisations  of
   Intersection and Stabilizer. Call with [3Xactive[103X false to disable.[133X
   
   [1X1.1-2 FerretOverloadsEnabled[101X
   
-  [29X[2XFerretOverloadsEnabled[102X(  ) [32X function
+  [33X[1;0Y[29X[2XFerretOverloadsEnabled[102X(  ) [32X function[133X
   
   [33X[0;0YReturn   if  Ferret  specialisations  of  Intersection  and  Stabilizer  are
   currently enabled.[133X
