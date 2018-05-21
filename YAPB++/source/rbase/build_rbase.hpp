@@ -100,6 +100,7 @@ int choose_branch_cell(PartitionStack* ps, ConstraintStore* cstore,
                     return val;
             }
         } // NOTE: There is no 'break' or 'return' here on purpose
+        __attribute__ ((fallthrough));
         case RBaseBranch_Smallest:
         {
             int best_cell = -1;

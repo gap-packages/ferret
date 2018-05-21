@@ -35,7 +35,7 @@ public:
         return t;
     }
 
-    optional() : present(false)
+    optional() : t(), present(false)
     { }
 
     optional(const T& _t) : t(_t), present(true)
