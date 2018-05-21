@@ -6,6 +6,52 @@
 
 {
    <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:MarkArrayOfBags
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:MarkBag
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:CONST_PTR_BAG
+   fun:MarkBag
+   fun:GenStackFuncBags
+   fun:CollectBags
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:CONST_PTR_BAG
+   fun:MarkBag
+   fun:GenStackFuncBags
+   fun:CollectBags
+}
+
+{                                       
+   <insert_a_suppression_name_here>     
+   Memcheck:Cond                        
+   fun:IS_BAG_ID                        
+   fun:MarkBag                          
+   fun:GenStackFuncBags                 
+   fun:CollectBags                                          
+}           
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:SIZE_BAG
+   fun:CollectBags
+}
+
+{
+   <insert_a_suppression_name_here>
    Memcheck:Value8
    fun:CollectBags
 }
