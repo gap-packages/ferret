@@ -13,7 +13,7 @@ printflag = -DDEBUG_PRINT_LEVEL=@FERRET_PRINT@
 
 # OPT = -O3
 
-MYCFLAGS=-std=gnu++14 -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -g -IYAPB++/source -Igap_cpp_headers
+MYCFLAGS=-std=gnu++14 -Wall -Wextra -Wno-implicit-fallthrough -Wno-unused-parameter -Wno-missing-field-initializers -g -IYAPB++/source -Igap_cpp_headers
 
 ## HPCGAP header locations -- hack hack hack
 ## HPCGAPHEADERS=-I../../hpcgap -I../../extern/install/libatomic_ops/include/ -I../../extern/64bit/include
