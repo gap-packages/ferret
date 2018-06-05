@@ -38,7 +38,7 @@ install:
   - ( cd gap && ./autogen.sh || echo no autogen )
   - ( cd gap && ./configure && make && make bootstrap-pkg-minimal V=1)
   - ( cd gap/pkg && git clone --depth=2 https://github.com/gap-packages/io && cd io && ./autogen.sh && ./configure && make )
-  - ( cd gap/pkg && wget http://www.gap-system.org/pub/gap/gap4/tar.bz2/packages/atlasrep1r5p0.tar.bz2 && tar -xf atlasrep1r5p0.tar.bz2 )
+  - ( cd gap/pkg && wget http://www.gap-system.org/pub/gap/gap48/tar.bz2/packages/atlasrep1r5p0.tar.bz2 && tar -xf atlasrep1r5p0.tar.bz2 )
   - pwd
   - echo ln -s $(pwd) gap/pkg/ferret
   - ln -s $(pwd) gap/pkg/ferret
