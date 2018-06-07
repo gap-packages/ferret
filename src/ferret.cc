@@ -94,12 +94,8 @@ static Int InitLibrary (
 */
 /* <name> returns the description of this module */
 static StructInitInfo module = {
-#ifdef EDIVSTATIC
- /* type        = */ MODULE_STATIC,
-#else
  /* type        = */ MODULE_DYNAMIC,
-#endif
- /* name        = */ "hello",
+ /* name        = */ "ferret",
  /* revision_c  = */ 0,
  /* revision_h  = */ 0,
  /* version     = */ 0,
@@ -112,15 +108,9 @@ static StructInitInfo module = {
  /* postRestore = */ 0
 };
 
-#ifndef EDIVSTATIC
 StructInitInfo * Init__Dynamic ( void )
 {
  return &module;
 }
-#endif
 
-StructInitInfo * Init__ediv ( void )
-{
-  return &module;
-}
 }
