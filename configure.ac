@@ -1,5 +1,5 @@
 #
-# ferret: 
+# Ferret: Partition Backtrack
 #
 # This file is part of the build system of a GAP kernel extension.
 # Requires GNU autoconf, GNU automake and GNU libtool.
@@ -14,7 +14,6 @@ AC_CONFIG_SRCDIR([src/cppmapper.cc])
 AC_CONFIG_HEADER([src/pkgconfig.h:cnf/pkgconfig.h.in])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([cnf])
-m4_include([m4/ac_find_gap.m4])
 
 dnl ##
 dnl ## Get canonical host info
@@ -34,11 +33,6 @@ dnl ##
 AC_PROG_CXX
 AC_LANG([C++])
 
-dnl ##
-dnl ## Setup libtool (for building the GAP kernel extension)
-dnl ##
-LT_PREREQ([2.4.2])
-LT_INIT([disable-static dlopen win32-dll])
 
 dnl ##
 dnl ## Locate the GAP root dir
@@ -46,18 +40,12 @@ dnl ##
 AC_FIND_GAP
 
 dnl ##
-dnl ## Detect Windows resp. Cygwin
+dnl ## Set flags so libtool will use them
 dnl ##
-case $host_os in
-  *cygwin* ) CYGWIN=yes;;
-         * ) CYGWIN=no;;
-esac
-AM_CONDITIONAL([SYS_IS_CYGWIN], [test "$CYGWIN" = "yes"])
-if test "$CYGWIN" = "yes"; then
-  AC_DEFINE(SYS_IS_CYGWIN32, 1, are we on CYGWIN?)
-else
-  AC_DEFINE(SYS_IS_CYGWIN32, 0, are we on CYGWIN?)
-fi
+CFLAGS="$CFLAGS $GAP_CFLAGS"
+CPPFLAGS="$CPPFLAGS $GAP_CPPFLAGS"
+CXXFLAGS="$CXXFLAGS $GAP_CFLAGS"
+LDFLAGS="$LDFLAGS $GAP_LDFLAGS"
 
 AC_ARG_ENABLE(checking,
 [  --enable-checking=<checking level (defaults to 0)>],
@@ -73,7 +61,7 @@ AC_SUBST(FERRET_CHECK)
 
 AC_ARG_ENABLE(timing,
 [  --enable-timing=<enable timing (defaults to off)>],
-	[FERRET_TIMING=-DENABLE_TIMING], [])
+       [FERRET_TIMING=-DENABLE_TIMING], [])
 AC_SUBST(FERRET_TIMING)
 
 AC_ARG_ENABLE(printing,
@@ -90,9 +78,26 @@ AC_SUBST(FERRET_PRINT)
 
 
 dnl ##
-dnl ## Rebuild configure if VERSION file changes
+dnl ## Detect Windows resp. Cygwin
 dnl ##
-AC_SUBST([CONFIG_STATUS_DEPENDENCIES], ['$(top_srcdir)/VERSION'])
+case $host_os in
+  *cygwin* ) CYGWIN=yes;;
+         * ) CYGWIN=no;;
+esac
+AM_CONDITIONAL([SYS_IS_CYGWIN], [test "$CYGWIN" = "yes"])
+if test "$CYGWIN" = "yes"; then
+  AC_DEFINE(SYS_IS_CYGWIN32, 1, are we on CYGWIN?)
+else
+  AC_DEFINE(SYS_IS_CYGWIN32, 0, are we on CYGWIN?)
+fi
+
+
+
+dnl ##
+dnl ## Setup libtool (for building the GAP kernel extension)
+dnl ##
+LT_PREREQ([2.4.2])
+LT_INIT([disable-static dlopen win32-dll])
 
 dnl ##
 dnl ## Output everything
