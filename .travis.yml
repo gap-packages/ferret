@@ -1,4 +1,5 @@
-language: generic
+dist: xenial
+language: C
 sudo: false
 
 branches:
@@ -7,12 +8,6 @@ branches:
 
 addons:
   apt:
-    sources:
-      - ubuntu-toolchain-r-test
-      - ubuntu-toolchain-precise-3.8
-    packages:
-      - gcc-5
-      - g++-5
   apt_packages:
       - libgmp3-dev
       - parallel
@@ -20,13 +15,12 @@ addons:
       - autotools-dev
       - automake
 env:
-  - BRANCH="master" CONF_FLAG="" CXX="g++-5" CC="gcc-5"
-  - BRANCH="stable-4.8" CONF_FLAG="" CXX="g++-5" CC="gcc-5"
-  - BRANCH="stable-4.9" CONF_FLAG="" CXX="g++-5" CC="gcc-5"
+  - BRANCH="master" CONF_FLAG="" 
+  - BRANCH="stable-4.10" CONF_FLAG="" 
 #  - BRANCH="hpcgap-default" CONF_FLAG="--enable-checking"
-  - BRANCH="master" CONF_FLAG="--enable-checking" CXX="g++-5" CC="gcc-5"
-  - BRANCH="master" CONF_FLAG="--enable-timing" CXX="g++-5" CC="gcc-5"
-  - BRANCH="master" CONF_FLAG="--enable-checking --enable-timing" CXX="g++-5" CC="gcc-5"
+  - BRANCH="master" CONF_FLAG="--enable-checking" 
+  - BRANCH="master" CONF_FLAG="--enable-timing" 
+  - BRANCH="master" CONF_FLAG="--enable-checking --enable-timing" 
   
 
 
@@ -36,9 +30,8 @@ install:
   - git clone -b $BRANCH --depth=2 https://github.com/gap-system/gap.git gap
   - pwd
   - ( cd gap && ./autogen.sh || echo no autogen )
-  - ( cd gap && ./configure && make && make bootstrap-pkg-minimal V=1)
-  - ( cd gap/pkg && git clone --depth=2 https://github.com/gap-packages/io && cd io && ./autogen.sh && ./configure && make )
-  - ( cd gap/pkg && wget http://www.gap-system.org/pub/gap/gap48/tar.bz2/packages/atlasrep1r5p0.tar.bz2 && tar -xf atlasrep1r5p0.tar.bz2 )
+  - ( cd gap && ./configure && make && make bootstrap-pkg-full V=1)
+  - ( cd gap/pkg && ../bin/BuildPackages.sh io* )
   - pwd
   - echo ln -s $(pwd) gap/pkg/ferret
   - ln -s $(pwd) gap/pkg/ferret
