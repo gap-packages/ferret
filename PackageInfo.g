@@ -48,7 +48,11 @@ SourceRepository := rec(
 ),
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
 
-AbstractHTML   :=  "",
+AbstractHTML   :=  
+" The <span class=\"pkgname\">Ferret</span> package\
+ provides a C++ reimplementation of Jeffery Leon's\
+ Partition Backtrack framework for solving problems\
+ in permutation groups",
 
 PackageDoc := rec(
   BookName  := "Ferret",
@@ -60,7 +64,7 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-  GAP := ">= 4.6",
+  GAP := ">= 4.9",
   NeededOtherPackages := [ [ "GAPDoc", ">= 1.5" ] ],
   SuggestedOtherPackages := [ ],
   ExternalConditions := [ ],
@@ -77,7 +81,7 @@ end,
 
 TestFile := "tst/testall.g",
 
-#Keywords := [ "TODO" ],
+Keywords := [ "Permutation Groups", "Partition Backtrack" ],
 
 AutoDoc := rec(
     TitlePage := rec(
