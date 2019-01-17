@@ -9,17 +9,7 @@
 
 <Index>Ferret package</Index>
 This chapter describes the &GAP; package Ferret. Ferret implements highly efficient
-implementations of a range of search algorithms on permutation groups. These
-algorithms fall into two broad categories:
-
-<List>
-    <Item>
-        <Emph>Algorithms which find groups with particular properties</Emph>. This include graph automorphisms, stabilizers and group intersection.
-    </Item>
-    <Item>
-        <Emph>Canonical Images</Emph>. This involves finding the canonical image of an object (graph, set, list, transformation and others) in a given group of coset.
-    </Item>
-</List>
+implementations of a range of search algorithms on permutation groups.
 
 
 If you are interested in if Ferret can be applied to another problem, please contact the authors, who will be happy to look into if your problem can be solved with Ferret.
@@ -64,6 +54,43 @@ If you would like to disable this functionality, you can use <Ref Label="EnableF
 <#Include Label="FerretOverloadsEnabled">
 
 </Section>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="Using 'Solve' to solve problems directly">
+<Heading>Using 'Solve' to solve problems directly</Heading>
+
+The main method of using Ferret's functionality is the <Ref Func="Solve"/> method. This method
+intersects a list of permutation groups.
+
+The unusual feature is that these permutation groups can be represented in a variety of ways.
+They can be usual GAP permutation groups given as a list of generators, or they can be the group
+which is the stabilizer of combinatorial object under some action.
+
+Larger problems are then composed from these pieces. For example, the stabilizer of a set S under
+a group G can be expressed as the intersection of the group which stabilizes the set S and the group G.
+
+For this problem, there would be no point using <Ref Func="Solve"/>, as GAP's built in 'Stabilizer' function provides the same functionality. However, with <Ref Func="Solve"/> we can intersect any number of groups at the same time, for example finding the intersection of two
+groups G and H, the stabilizer of a set S and the stabilizer of a set of sets T, with the following code:
+
+<Log>
+gap> Solve([ConInGroup(G), ConInGroup(H), 
+> ConStabilize(S, OnSets), ConStabilize(T, OnSetSets)])
+</Log>
+
+The currently allowed arguments to <Ref Func="Solve"/> are:
+
+<List>
+    <Item>
+        <Ref Func="ConInGroup"/>, which represents a Permutation Group in GAP
+    </Item>
+    <Item>
+        <Ref Func="ConStabilize" Label="for an object and an action"/>, which takes an object and an action.
+    </Item>
+</List>
+
+
+</Section>
+
 </Chapter>
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
