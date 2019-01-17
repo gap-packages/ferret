@@ -6,10 +6,10 @@
                     [1X Backtrack Search in Permutation Groups [101X
   
   
-                                     1.0.1
+                                     1.0.2
   
   
-                                5 December 2018
+                                17 January 2019
   
   
                              Christopher Jefferson
@@ -27,7 +27,7 @@
   
   -------------------------------------------------------
   [1XCopyright[101X
-  [33X[0;0Y© 2013-2016 by Christopher Jefferson[133X
+  [33X[0;0Y© by Christopher Jefferson[133X
   
   [33X[0;0YThe  Ferret  package is free software; you can redistribute it and/or modify
   it    under    the    terms    of    the    GNU   General   Public   License

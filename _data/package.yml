@@ -1,6 +1,6 @@
 name: ferret
-version: 1.0.1
-date: 2018-12-05
+version: 1.0.2
+date: 2019-01-17
 description: |
     Backtrack Search in Permutation Groups
 
@@ -12,7 +12,7 @@ maintainers:
     - name: Christopher Jefferson
       url: http://caj.host.cs.st-andrews.ac.uk/
 
-GAP: ">= 4.6"
+GAP: ">= 4.9"
 
 needed-pkgs:
     - name: "GAPDoc"
@@ -25,9 +25,10 @@ packageinfo: https://gap-packages.github.io/ferret/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/gap-packages/ferret/releases/download/v1.0.1/ferret-1.0.1.tar.gz
+      url: https://github.com/gap-packages/ferret/releases/download/v1.0.2/ferret-1.0.2.tar.gz
 
 abstract: |
+     The <span class="pkgname">Ferret</span> package provides a C++ reimplementation of Jeffery Leon's Partition Backtrack framework for solving problems in permutation groups
 
 status: dev
 doc-html: doc/chap0.html

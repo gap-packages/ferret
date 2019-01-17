@@ -2,8 +2,8 @@ SetPackageInfo( rec(
 
 PackageName := "ferret",
 Subtitle := "Backtrack Search in Permutation Groups",
-Version := "1.0.1",
-Date := "05/12/2018", # dd/mm/yyyy format
+Version := "1.0.2",
+Date := "17/01/2019", # dd/mm/yyyy format
 
 Persons := [
   rec(
@@ -48,7 +48,11 @@ SourceRepository := rec(
 ),
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
 
-AbstractHTML   :=  "",
+AbstractHTML   :=  
+" The <span class=\"pkgname\">Ferret</span> package\
+ provides a C++ reimplementation of Jeffery Leon's\
+ Partition Backtrack framework for solving problems\
+ in permutation groups",
 
 PackageDoc := rec(
   BookName  := "Ferret",
@@ -60,7 +64,7 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-  GAP := ">= 4.6",
+  GAP := ">= 4.9",
   NeededOtherPackages := [ [ "GAPDoc", ">= 1.5" ] ],
   SuggestedOtherPackages := [ ],
   ExternalConditions := [ ],
@@ -77,12 +81,12 @@ end,
 
 TestFile := "tst/testall.g",
 
-#Keywords := [ "TODO" ],
+Keywords := [ "Permutation Groups", "Partition Backtrack" ],
 
 AutoDoc := rec(
     TitlePage := rec(
         Copyright := """
-&copyright; 2013-2016 by Christopher Jefferson<P/>
+&copyright; by Christopher Jefferson<P/>
 The Ferret package is free software;
 you can redistribute it and/or modify it under the terms of the
 <URL Text="GNU General Public License">http://www.fsf.org/licenses/gpl.html</URL>
