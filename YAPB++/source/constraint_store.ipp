@@ -43,21 +43,10 @@ bool ConstraintStore::initCalled() const
 
 bool ConstraintStore::verifySolution(const Permutation& p) const
     {
-        // TODO: Investigate cases where this fails
-        static bool printed_warning = false;
         for(int i : range1(constraints.size()))
         {
             if(!constraints[i]->verifySolution(p))
             {
-                if(!printed_warning)
-                {
-                    printed_warning = true;
-                    std::cerr << "A solution has failed checking!\n";
-                    std::cerr << "This was caused by a " << constraints[i]->name() << " constraint\n";
-                    std::cerr << "Your answer will hopefully still be correct,\n";
-                    std::cerr << "But please report your problem\n";
-                }
-             //   assert(0);
                 return false;
             }
         }
