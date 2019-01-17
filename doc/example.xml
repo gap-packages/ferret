@@ -14,7 +14,7 @@ algorithms fall into two broad categories:
 
 <List>
     <Item>
-        <Emph>Algorithms which find groups and cosets with particular properties</Emph>. This include graph automorphisms, stabilizers and group intersection.
+        <Emph>Algorithms which find groups with particular properties</Emph>. This include graph automorphisms, stabilizers and group intersection.
     </Item>
     <Item>
         <Emph>Canonical Images</Emph>. This involves finding the canonical image of an object (graph, set, list, transformation and others) in a given group of coset.
