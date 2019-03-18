@@ -86,12 +86,7 @@ Keywords := [ "Permutation Groups", "Partition Backtrack" ],
 AutoDoc := rec(
     TitlePage := rec(
         Copyright := """
-&copyright; by Christopher Jefferson<P/>
-The Ferret package is free software;
-you can redistribute it and/or modify it under the terms of the
-<URL Text="GNU General Public License">http://www.fsf.org/licenses/gpl.html</URL>
-as published by the Free Software Foundation; either version 2 of the License,
-or (at your option) any later version.
+&copyright; by Christopher Jefferson
 """
     )
 ),
