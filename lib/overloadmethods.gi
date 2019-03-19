@@ -25,6 +25,11 @@ InstallGlobalFunction(FerretOverloadsEnabled, function()
     return _FERRET_ENABLE_OVERLOADS;
 end);
 
+_YAPB_fastIsNaturalOfSymmetricGroup := function(G)
+    return  ( HasIsNaturalSymmetricGroup(G) and IsNaturalSymmetricGroup(G) ) or
+       ( HasIsNaturalAlternatingGroup(G) and IsNaturalAlternatingGroup(G) );
+end;
+
 # Based on PermGroupStabilizerOp in oprtperm.gi.
 
 PermGroupStabilizerFerretOp := function(arg)
@@ -50,7 +55,12 @@ PermGroupStabilizerFerretOp := function(arg)
         #permutation image (even if G is not permgroups)
         TryNextMethod();
     fi;
-    
+
+    # These are easy and GAP has special methods to do them
+    if _YAPB_fastIsNaturalOfSymmetricGroup(G) then
+        TryNextMethod();
+    fi;
+
     # First of all, lets dump some easy cases we don't want to handle
     if act = OnPoints or act = OnPairs or act = OnTuples then
         return CallFuncList(PermGroupStabilizerOp, arg);
@@ -142,6 +152,11 @@ InstallOtherMethod( StabilizerOp, "permutation group with domain",true,
         return G;
       fi;
     
+        # These are easy and GAP has special methods to do them
+      if _YAPB_fastIsNaturalOfSymmetricGroup(G) and _YAPB_fastIsNaturalOfSymmetricGroup(H) then
+        TryNextMethod();
+      fi;
+
       # Tighten bounds if possible
       mg := LargestMovedPoint(G);
       mh := LargestMovedPoint(H);
