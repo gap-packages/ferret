@@ -1,0 +1,63 @@
+#
+# Makefile rules for the cvec package
+#
+
+timingflag = @FERRET_TIMING@
+checkflag = -DDEBUG_LEVEL=@FERRET_CHECK@
+printflag = -DDEBUG_PRINT_LEVEL=@FERRET_PRINT@
+
+KEXT_NAME = ferret
+KEXT_SOURCES = src/cppmapper.cc src/ferret.cc
+KEXT_LDFLAGS = -lstdc++
+KEXT_CXXFLAGS = $(timingflag) $(checkflag) \
+    -std=gnu++14 \
+    -Wall \
+    -Wextra \
+    -Wno-implicit-fallthrough \
+    -Wno-unused-parameter \
+    -Wno-missing-field-initializers \
+    -g \
+    -IYAPB++/source \
+    -Igap_cpp_headers
+
+KEXT_RECONF ?= ./config.status Makefile
+
+# include shared GAP package build system
+GAPPATH = @GAPROOT@
+include Makefile.gappkg
+
+symmetry_detect: .FORCE
+	@CXX@ $(KEXT_CXXFLAGS) \
+	    YAPB++/simple_graph/symmetry_detect.cc \
+	    YAPB++/simple_graph/symmetry_parse.cc \
+	    YAPB++/simple_graph/gason/gason.cpp \
+	    YAPB++/simple_graph/simple_graph.cc \
+	    YAPB++/simple_graph/simple_parser.cc \
+	    $(timingflag) $(checkflag) $(OPT) $(printflag) \
+	    -I YAPB++/source \
+	    -o $@
+
+.FORCE:
+.PHONY: .FORCE
+
+
+#
+# react to modifications of the build system
+#
+
+configure_deps = configure.ac $(wildcard m4/*.m4)
+
+configure: $(configure_deps)
+	@if command -v autoconf >/dev/null 2>&1 ; then \
+	   echo "running autoconf" ; \
+	   autoconf ; \
+	 else \
+	   echo "autoconf not available, proceeding with stale configure" ; \
+	 fi
+
+# re-run configure if configure, Makefile.in or GAP itself changed
+config.status: configure $(GAPPATH)/sysinfo.gap
+	./config.status --recheck
+
+# update Makefile if config.status changed
+Makefile: config.status

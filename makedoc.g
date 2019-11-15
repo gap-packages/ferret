@@ -5,5 +5,3 @@ if fail = LoadPackage("AutoDoc", ">= 2016.01.21") then
 fi;
 
 AutoDoc(rec(scaffold := rec( MainPage := false )));
-
-PrintTo("VERSION", PackageInfo("ferret")[1].Version);
