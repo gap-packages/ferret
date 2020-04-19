@@ -5,7 +5,7 @@
 #include <stddef.h>
 #include "gmp.h"
 extern "C" {
-#include "src/compiled.h"
+#include "compiled.h"
 }
 
 #endif

@@ -8,7 +8,7 @@
 #include <deque>
 #include <list>
 
-// We have to include this to get around problems with the 'extern C' wrapping of src/compiled.h,
+// We have to include this to get around problems with the 'extern C' wrapping of compiled.h,
 // which includes gmp, which in C++ mode has some C++ templates.
 #include "include_gap_headers.hpp"
 #include "gap_exception.hpp"
