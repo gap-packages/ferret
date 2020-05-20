@@ -72,8 +72,6 @@ Dependencies := rec(
 
 AvailabilityTest := function()
   if Filename(DirectoriesPackagePrograms("ferret"), "ferret.so") = fail then
-    Print("Error: Cannot load 'Ferret' due to missing binary library\n");
-    Print("Please run './configure; make' in the 'pkg/ferret' directory\n");
     return fail;
   fi;
   return true;
