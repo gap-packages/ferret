@@ -4,6 +4,7 @@ PackageName := "ferret",
 Subtitle := "Backtrack Search in Permutation Groups",
 Version := "1.0.2dev",
 Date := "17/01/2019", # dd/mm/yyyy format
+License := "MPL-2.0",
 
 Persons := [
   rec(
