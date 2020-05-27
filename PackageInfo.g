@@ -2,8 +2,9 @@ SetPackageInfo( rec(
 
 PackageName := "ferret",
 Subtitle := "Backtrack Search in Permutation Groups",
-Version := "1.0.2",
-Date := "17/01/2019", # dd/mm/yyyy format
+Version := "1.0.3",
+Date := "27/05/2020", # dd/mm/yyyy format
+License := "MPL-2.0",
 
 Persons := [
   rec(
@@ -40,7 +41,7 @@ ArchiveFormats := ".tar.gz",
 ##    "dev"           for development versions of packages
 ##    "other"         for all other packages
 ##
-Status := "dev",
+Status := "deposited",
 
 SourceRepository := rec( 
   Type := "git", 
@@ -72,8 +73,6 @@ Dependencies := rec(
 
 AvailabilityTest := function()
   if Filename(DirectoriesPackagePrograms("ferret"), "ferret.so") = fail then
-    Print("Error: Cannot load 'Ferret' due to missing binary library\n");
-    Print("Please run './configure; make' in the 'pkg/ferret' directory\n");
     return fail;
   fi;
   return true;
@@ -86,12 +85,7 @@ Keywords := [ "Permutation Groups", "Partition Backtrack" ],
 AutoDoc := rec(
     TitlePage := rec(
         Copyright := """
-&copyright; by Christopher Jefferson<P/>
-The Ferret package is free software;
-you can redistribute it and/or modify it under the terms of the
-<URL Text="GNU General Public License">http://www.fsf.org/licenses/gpl.html</URL>
-as published by the Free Software Foundation; either version 2 of the License,
-or (at your option) any later version.
+&copyright; by Christopher Jefferson
 """
     )
 ),

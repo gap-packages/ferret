@@ -31,22 +31,14 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X7E455E297809B021">1.1-1 EnableFerretOverloads</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X874E2A697EB81FE3">1.1-2 FerretOverloadsEnabled</a></span>
 </div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1_mj.html#X856996FA785737BC">1.2 <span class="Heading">Using 'Solve' to solve problems directly</span></a>
+</span>
+</div>
 </div>
 
 <h3>1 <span class="Heading">The Ferret Package</span></h3>
 
-<p>This chapter describes the <strong class="pkg">GAP</strong> package Ferret. Ferret implements highly efficient implementations of a range of search algorithms on permutation groups. These algorithms fall into two broad categories:</p>
-
-
-<ul>
-<li><p><em>Algorithms which find groups and cosets with particular properties</em>. This include graph automorphisms, stabilizers and group intersection.</p>
-
-</li>
-<li><p><em>Canonical Images</em>. This involves finding the canonical image of an object (graph, set, list, transformation and others) in a given group of coset.</p>
-
-</li>
-</ul>
-<p>If you are interested in if Ferret can be applied to another problem, please contact the authors, who will be happy to look into if your problem can be solved with Ferret.</p>
+<p>This chapter describes the <strong class="pkg">GAP</strong> package Ferret. Ferret implements highly efficient implementations of a range of search algorithms on permutation groups. If you are interested in if Ferret can be applied to another problem, please contact the authors, who will be happy to look into if your problem can be solved with Ferret.</p>
 
 <p><a id="X862CDAE07EF5953E" name="X862CDAE07EF5953E"></a></p>
 
@@ -118,6 +110,29 @@
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FerretOverloadsEnabled</code>(  )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Return if Ferret specialisations of Intersection and Stabilizer are currently enabled.</p>
 
+<p><a id="X856996FA785737BC" name="X856996FA785737BC"></a></p>
+
+<h4>1.2 <span class="Heading">Using 'Solve' to solve problems directly</span></h4>
+
+<p>The main method of using Ferret's functionality is the <code class="func">Solve</code> (<a href="chap2_mj.html#X7A415C2480970A43"><span class="RefLink">2.1-3</span></a>) method. This method intersects a list of permutation groups. The unusual feature is that these permutation groups can be represented in a variety of ways. They can be usual GAP permutation groups given as a list of generators, or they can be the group which is the stabilizer of combinatorial object under some action. Larger problems are then composed from these pieces. For example, the stabilizer of a set S under a group G can be expressed as the intersection of the group which stabilizes the set S and the group G. For this problem, there would be no point using <code class="func">Solve</code> (<a href="chap2_mj.html#X7A415C2480970A43"><span class="RefLink">2.1-3</span></a>), as GAP's built in 'Stabilizer' function provides the same functionality. However, with <code class="func">Solve</code> (<a href="chap2_mj.html#X7A415C2480970A43"><span class="RefLink">2.1-3</span></a>) we can intersect any number of groups at the same time, for example finding the intersection of two groups G and H, the stabilizer of a set S and the stabilizer of a set of sets T, with the following code:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Solve([ConInGroup(G), ConInGroup(H), </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">ConStabilize(S, OnSets), ConStabilize(T, OnSetSets)])</span>
+</pre></div>
+
+<p>The currently allowed arguments to <code class="func">Solve</code> (<a href="chap2_mj.html#X7A415C2480970A43"><span class="RefLink">2.1-3</span></a>) are:</p>
+
+
+<ul>
+<li><p><code class="func">ConInGroup</code> (<a href="chap2_mj.html#X7EE49BAB82A1BB20"><span class="RefLink">2.1-2</span></a>), which represents a Permutation Group in GAP</p>
+
+</li>
+<li><p><code class="func">ConStabilize</code> (<a href="chap2_mj.html#X780A9D5A7F85ADD6"><span class="RefLink">2.1-1</span></a>), which takes an object and an action.</p>
+
+</li>
+</ul>
 
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Next Chapter]</a>&nbsp;  </div>
 

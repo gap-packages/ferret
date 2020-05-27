@@ -25,8 +25,7 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X7ADF81FD7F1709BB">2.1 <span class="Heading">Methods of representing groups in Ferret</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7C1B860E87BD036C">2.1-1 <span class="Heading">ConStabilize</span></a>
-</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X780A9D5A7F85ADD6">2.1-1 ConStabilize</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7EE49BAB82A1BB20">2.1-2 ConInGroup</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7A415C2480970A43">2.1-3 Solve</a></span>
 </div></div>
@@ -34,28 +33,34 @@
 
 <h3>2 <span class="Heading">The Solve Method</span></h3>
 
-<p>The central functionality of the Ferret package is based around the Solve method. This function performs a backtrack search, using the permutation backtracking algorithm, over a set of groups or cosets. Often users will want to use a higher level function which wraps this functionality, such as Stabilizer or Intersection. The solve function accepts a list of groups or cosets, and finds their intersection. For efficiency reasons, these groups can be specified in a variety of different ways. As an example, we will consider how to implement Stabilizer(G, S, OnSets), the stabilizer of a set S in a permutation group G using Solve (this is not necessary, as when Ferret is loaded this method is replaced with a Ferret-based implementation). Another way of viewing Stabilizer(G, S, OnSets) is as the Intersection of G with the Stabilizer of (Sym(n), S, OnSets), where Sym(n) is the symmetric group on n points, and n is at least as large as the largest moved point in G. Solve takes a list of objects which represent groups. Two of these are ConInGroup(G), which represents the group G, and ConStabilize(S, OnSets), which represents the group which stabilizes S. We find the intersection of these two groups by Solve([ConInGroup(G), ConStabilize(S, OnSets)]).</p>
+<p>The central functionality of the Ferret package is based around the Solve method. This function performs a backtrack search, using the permutation backtracking algorithm, over a set of groups or cosets. Often users will want to use a higher level function which wraps this functionality, such as Stabilizer or Intersection. The solve function accepts a list of groups, and finds their intersection. For efficiency reasons, these groups can be specified in a variety of different ways. As an example, we will consider how to implement Stabilizer(G, S, OnSets), the stabilizer of a set S in a permutation group G using Solve (this is not necessary, as when Ferret is loaded this method is replaced with a Ferret-based implementation). Another way of viewing Stabilizer(G, S, OnSets) is as the Intersection of G with the Stabilizer of (Sym(n), S, OnSets), where Sym(n) is the symmetric group on n points, and n is at least as large as the largest moved point in G. Solve takes a list of objects which represent groups. Two of these are ConInGroup(G), which represents the group G, and ConStabilize(S, OnSets), which represents the group which stabilizes S. We find the intersection of these two groups by Solve([ConInGroup(G), ConStabilize(S, OnSets)]).</p>
 
 <p><a id="X7ADF81FD7F1709BB" name="X7ADF81FD7F1709BB"></a></p>
 
 <h4>2.1 <span class="Heading">Methods of representing groups in Ferret</span></h4>
 
-<p>Groups and cosets must be represented in a way which Ferret can understand. The following list gives all the types of groups and cosets which Ferret accepts, and how to construct them.</p>
+<p>Groups and cosets must be represented in a way which Ferret can understand. The following list gives all the types of groups which Ferret accepts, and how to construct them.</p>
 
-<p><a id="X7C1B860E87BD036C" name="X7C1B860E87BD036C"></a></p>
+<p><a id="X780A9D5A7F85ADD6" name="X780A9D5A7F85ADD6"></a></p>
 
-<h5>2.1-1 <span class="Heading">ConStabilize</span></h5>
+<h5>2.1-1 ConStabilize</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ConStabilize</code>( <var class="Arg">object</var>, <var class="Arg">action</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ConStabilize</code>( <var class="Arg">object</var>, <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>In the first form this represents the group which stabilises <var class="Arg">object</var> under <var class="Arg">action</var>. The currently allowed actions are OnSets, OnSetsSets, OnSetsDisjointSets, OnSetsTuples, OnTuples, OnPairs and OnDirectedGraph. In the second form it represents the stabilizer of a partial perm or transformation in the symmetric group on <var class="Arg">n</var> points. Both of these methods are for constructing arguments for the <code class="func">Solve</code> (<a href="chap2.html#X7A415C2480970A43"><span class="RefLink">2.1-3</span></a>) method.</p>
+<p>This function creates a Constraint which can be given to <code class="func">Solve</code> (<a href="chap2.html#X7A415C2480970A43"><span class="RefLink">2.1-3</span></a>). It does not perform any useful actions by itself</p>
+
+<p>In the first form this represents the group which stabilises <var class="Arg">object</var> under <var class="Arg">action</var>. The currently allowed actions are OnSets, OnSetsSets, OnSetsDisjointSets, OnSetsTuples, OnTuples, OnPairs and OnDirectedGraph.</p>
+
+<p>In the second form it represents the stabilizer of a partial perm or transformation in the symmetric group on <var class="Arg">n</var> points.</p>
 
 <p><a id="X7EE49BAB82A1BB20" name="X7EE49BAB82A1BB20"></a></p>
 
 <h5>2.1-2 ConInGroup</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ConInGroup</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Represents the permutation group <var class="Arg">G</var>, as an argument for <code class="func">Solve</code> (<a href="chap2.html#X7A415C2480970A43"><span class="RefLink">2.1-3</span></a>).</p>
+<p>This function creates a Constraint which can be given to <code class="func">Solve</code> (<a href="chap2.html#X7A415C2480970A43"><span class="RefLink">2.1-3</span></a>). It does not perform any useful actions by itself</p>
+
+<p>Represents the set of permutations in a permutation group <var class="Arg">G</var>, as an argument for <code class="func">Solve</code> (<a href="chap2.html#X7A415C2480970A43"><span class="RefLink">2.1-3</span></a>).</p>
 
 <p>These methods are both used with Solve:</p>
 
@@ -64,7 +69,7 @@
 <h5>2.1-3 Solve</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Solve</code>( <var class="Arg">constraints</var>[, <var class="Arg">rec</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Finds the intersection of the list <var class="Arg">constraints</var>. Each member of <var class="Arg">constraints</var> should be a group or coset generated by one of <code class="func">ConInGroup</code> (<a href="chap2.html#X7EE49BAB82A1BB20"><span class="RefLink">2.1-2</span></a>) or ConStabilize. The optional second argument allows configuration options to be passed in. These follow options are supported:</p>
+<p>Finds the intersection of the list <var class="Arg">Constraints</var>. Each member of <var class="Arg">constraints</var> should be a group or coset generated by one of <code class="func">ConInGroup</code> (<a href="chap2.html#X7EE49BAB82A1BB20"><span class="RefLink">2.1-2</span></a>) or <code class="func">ConStabilize</code> (<a href="chap2.html#X780A9D5A7F85ADD6"><span class="RefLink">2.1-1</span></a>). The optional second argument allows configuration options to be passed in. These follow options are supported:</p>
 
 
 <dl>
