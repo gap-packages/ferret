@@ -16,7 +16,7 @@ addons:
       - automake
 env:
   - BRANCH="master" CONF_FLAG="" 
-  - BRANCH="stable-4.10" CONF_FLAG="" 
+  - BRANCH="stable-4.11" CONF_FLAG="" 
 #  - BRANCH="hpcgap-default" CONF_FLAG="--enable-checking"
   - BRANCH="master" CONF_FLAG="--enable-checking" 
   - BRANCH="master" CONF_FLAG="--enable-timing" 
