@@ -118,7 +118,7 @@ InstallOtherMethod( StabilizerOp, "permutation group with generators list",
           IsList,
           IsFunction ],
   # the objects might be a group element: rank up	
-  RankFilter(IsMultiplicativeElementWithInverse)
+  {} -> RankFilter(IsMultiplicativeElementWithInverse)
   # and we are better even if the group is solvable
   +RankFilter(IsSolvableGroup) + 1,
   PermGroupStabilizerFerretOp);
@@ -130,7 +130,7 @@ InstallOtherMethod( StabilizerOp, "permutation group with domain",true,
           IsList,
           IsFunction ],
   # the objects might be a group element: rank up	
-  RankFilter(IsMultiplicativeElementWithInverse)
+  {} -> RankFilter(IsMultiplicativeElementWithInverse)
   # and we are better even if the group is solvable
   +RankFilter(IsSolvableGroup) + 1,
   PermGroupStabilizerFerretOp);
