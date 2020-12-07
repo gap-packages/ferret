@@ -7,11 +7,11 @@
 <Chapter Label="SolveChapter">
 <Heading>The Solve Method</Heading>
 
-The central functionality of the Ferret package is based around the Solve method. This function performs a backtrack search, using the permutation backtracking algorithm, over a set of groups or cosets. Often users will want to use a higher level function which wraps this functionality, such as Stabilizer or Intersection.
+The central functionality of the Ferret package is based around the Solve method. This function performs a backtrack search, using the permutation backtracking algorithm, over a set of groups or cosets. Often users will want to use a higher level function which wraps this functionality, such as <C>Stabilizer</C> or <C>Intersection</C>.
 
-The solve function accepts a list of groups, and finds their intersection. For efficiency reasons, these groups can be specified in a variety of different ways. As an example, we will consider how to implement Stabilizer(G, S, OnSets), the stabilizer of a set S in a permutation group G using Solve (this is not necessary, as when Ferret is loaded this method is replaced with a Ferret-based implementation).
+The solve function accepts a list of groups, and finds their intersection. For efficiency reasons, these groups can be specified in a variety of different ways. As an example, we will consider how to implement <C>Stabilizer(G, S, OnSets)</C>, the stabilizer of a set S in a permutation group G using Solve (this is not necessary, as when Ferret is loaded this method is replaced with a Ferret-based implementation).
 
-Another way of viewing Stabilizer(G, S, OnSets) is as the Intersection of G with the Stabilizer of (Sym(n), S, OnSets), where Sym(n) is the symmetric group on n points, and n is at least as large as the largest moved point in G. Solve takes a list of objects which represent groups. Two of these are ConInGroup(G), which represents the group G, and ConStabilize(S, OnSets), which represents the group which stabilizes S. We find the intersection of these two groups by Solve([ConInGroup(G), ConStabilize(S, OnSets)]). 
+Another way of viewing <C>Stabilizer(G, S, OnSets)</C> is as the intersection of G with <C>Stabilizer(Sym(n), S, OnSets)</C>, where <M>Sym(n)</M> is the symmetric group on n points, and n is at least as large as the largest moved point in G. Solve takes a list of objects which represent groups. Two of these are <C>ConInGroup(G)</C>, which represents the group G, and <C>ConStabilize(S, OnSets)</C>, which represents the group which stabilizes S. We find the intersection of these two groups by <C>Solve([ConInGroup(G), ConStabilize(S, OnSets)])</C>.
 
 
 <Section Label="Representing groups in Ferret">
