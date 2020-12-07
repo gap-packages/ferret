@@ -29,13 +29,13 @@ Ferret automatically installs methods which replace GAP's a number of GAP's buil
     <Item>
         <Emph>Stabilizer(G,S,Action)</Emph> for a permutation group G, and the actions:
         <List>
-            <Item>OnSets</Item>
-            <Item>OnOnSets</Item>
-            <Item>OnSetsDisjointSets</Item>
-            <Item>OnSetsSets</Item>
-            <Item>OnTuples</Item>
-            <Item>OnPairs</Item>
-            <Item>OnDirectedGraph</Item>
+            <Item><C>OnSets</C></Item>
+            <Item><C>OnOnSets</C></Item>
+            <Item><C>OnSetsDisjointSets</C></Item>
+            <Item><C>OnSetsSets</C></Item>
+            <Item><C>OnTuples</C></Item>
+            <Item><C>OnPairs</C></Item>
+            <Item><C>OnDirectedGraph</C></Item>
         </List>
     </Item>
     <Item>

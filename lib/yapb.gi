@@ -213,8 +213,8 @@ end;
 ##  <P/>
 ##  In the first form this represents the group which stabilises <A>object</A>
 ##  under <A>action</A>.
-##  The currently allowed actions are OnSets, OnSetsSets, OnSetsDisjointSets,
-##  OnSetsTuples, OnTuples, OnPairs and OnDirectedGraph.
+##  The currently allowed actions are <C>OnSets</C>, <C>OnSetsSets</C>, <C>OnSetsDisjointSets</C>,
+##  <C>OnSetsTuples</C>, <C>OnTuples</C>, <C>OnPairs</C> and <C>OnDirectedGraph</C>.
 ##  <P/>
 ##  In the second form it represents the stabilizer of a partial perm
 ##  or transformation in the symmetric group on <A>n</A> points.
