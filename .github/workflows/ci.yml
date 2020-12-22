@@ -1,0 +1,77 @@
+name: 'ferret CI'
+
+on:
+  pull_request:
+    branches-ignore:
+      - gh-pages
+  push:
+    branches-ignore:
+      - gh-pages
+
+jobs:
+  test:
+    name: GAP ${{ matrix.gap }} ${{ matrix.flags }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        gap:
+          - 'master'
+        flags:
+          - ''
+          - '--enable-checking'
+          - '--enable-timing'
+          - '--enable-checking --enable-timing'
+
+        include:
+          - gap: 'stable-4.11'
+            flags: ''
+
+    env:
+      CONF_FLAG: ${{ matrix.flags }}
+      BRANCH: ${{ matrix.gap }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: 'Display configuration'
+        shell: bash
+        run: |
+          echo $BRANCH ":" $CONF_FLAG
+          echo $CXX ":" $CC
+
+      - name: 'Install needed apt_packages'
+        shell: bash
+        run: |
+          packages=(
+            libgmp3-dev
+            valgrind
+          )
+          sudo apt-get update
+          sudo apt-get install "${packages[@]}"
+
+      - name: 'Build GAP and its packages'
+        shell: bash
+        run: |
+          pwd
+          git clone -b $BRANCH --depth=2 https://github.com/gap-system/gap.git gap
+          ( cd gap && ./autogen.sh || echo no autogen )
+          ( cd gap && ./configure && make && make bootstrap-pkg-full V=1)
+          ( cd gap/pkg && ../bin/BuildPackages.sh io* )
+
+      - name: 'Build ferret'
+        shell: bash
+        run: |
+          pwd
+          echo ln -s $(pwd) gap/pkg/ferret
+          ln -s $(pwd) gap/pkg/ferret
+          ( cd gap/pkg/ferret && ./autogen.sh && ./configure $CONF_FLAG && make V=1)
+          pwd
+          ls
+          ls gap
+          ls gap/pkg
+          cat ferret.vars
+
+      - name: 'Run ferret tests'
+        shell: bash
+        run: |
+          (cd gap/pkg/ferret && scripts/quick_test.sh ${MAKEFLAG})
