@@ -123,7 +123,7 @@ _YAPB_stabTime := 0;
 _YAPB_getOrbitalList := function(sc, maxval)
 	local G, cutoff,
         orb, orbitsG, iorb, graph, graphlist, val, p, i, orbsizes, orbpos, innerorblist, orbitsizes,
-		    biggestOrbit, skippedOneLargeOrbit, orbreps, stabtime, timefunc;
+		    biggestOrbit, skippedOneLargeOrbit, orbreps, stabtime;
 	
   if IsGroup(sc) then
     G := sc;
@@ -146,16 +146,9 @@ _YAPB_getOrbitalList := function(sc, maxval)
 		od;
 	od;
 
-    # This gives bad times in 4.8, but I don't really care. Sorry if you ever find this.
-    if IsBoundGlobal("NanosecondsSinceEpoch") then
-        timefunc := ValueGlobal("NanosecondsSinceEpoch");
-    else
-        timefunc := function() return 0; end;
-    fi;
-	
-    stabtime := timefunc();
+    stabtime := NanosecondsSinceEpoch();
 	innerorblist := List(orbitsG, o -> Orbits(Stabilizer(G, o[1]), [1..LargestMovedPoint(G)]));
-    _YAPB_stabTime := _YAPB_stabTime + (timefunc() - stabtime);
+    _YAPB_stabTime := _YAPB_stabTime + (NanosecondsSinceEpoch() - stabtime);
 
   orbitsizes := List([1..Length(orbitsG)], 
 	  x -> List(innerorblist[x], y -> Size(orbitsG[x])*Size(y)));
