@@ -1,6 +1,6 @@
 #############################################################################
 ##
-#A  teststabsoverloads.tst            YAPB package            Chris Jefferson
+#A  teststabsoverloads.tst          ferret package            Chris Jefferson
 ##
 ##
 gap> START_TEST("ferret package: teststabsoverloads.tst");

@@ -1,6 +1,6 @@
 #############################################################################
 ##
-#A  teststabs.tst            YAPB package                Chris Jefferson
+#A  teststabs.tst          ferret package                Chris Jefferson
 ##
 ##
 gap> START_TEST("ferret package: teststabs.tst");

@@ -1,6 +1,6 @@
 #############################################################################
 ##
-#A  advancedgraph.tst            YAPB package                Chris Jefferson
+#A  advancedgraph.tst          ferret package                Chris Jefferson
 ##
 ##
 gap> START_TEST("ferret package: advancedgraph.tst");

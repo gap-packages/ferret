@@ -1,6 +1,6 @@
 #############################################################################
 ##
-#A  testbasic.tst            YAPB package                Chris Jefferson
+#A  testbasic.tst          ferret package                Chris Jefferson
 ##
 ##
 gap> START_TEST("ferret package: testbasic.tst");
