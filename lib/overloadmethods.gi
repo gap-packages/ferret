@@ -25,7 +25,7 @@ InstallGlobalFunction(FerretOverloadsEnabled, function()
     return _FERRET_ENABLE_OVERLOADS;
 end);
 
-_YAPB_fastIsNaturalOfSymmetricGroup := function(G)
+_YAPB_fastIsNaturalOrSymmetricGroup := function(G)
     return  ( HasIsNaturalSymmetricGroup(G) and IsNaturalSymmetricGroup(G) ) or
        ( HasIsNaturalAlternatingGroup(G) and IsNaturalAlternatingGroup(G) );
 end;
@@ -57,7 +57,7 @@ PermGroupStabilizerFerretOp := function(arg)
     fi;
 
     # These are easy and GAP has special methods to do them
-    if _YAPB_fastIsNaturalOfSymmetricGroup(G) then
+    if _YAPB_fastIsNaturalOrSymmetricGroup(G) then
         TryNextMethod();
     fi;
 
@@ -153,7 +153,7 @@ InstallOtherMethod( StabilizerOp, "permutation group with domain",true,
       fi;
     
         # These are easy and GAP has special methods to do them
-      if _YAPB_fastIsNaturalOfSymmetricGroup(G) and _YAPB_fastIsNaturalOfSymmetricGroup(H) then
+      if _YAPB_fastIsNaturalOrSymmetricGroup(G) and _YAPB_fastIsNaturalOrSymmetricGroup(H) then
         TryNextMethod();
       fi;
 
