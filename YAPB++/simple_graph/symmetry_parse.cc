@@ -17,7 +17,7 @@ template<typename T>
 std::string
 tostring(const T& t)
 {
-  std::ostringstream streamOut;
+  std::ostringstream streamOut("");
   streamOut << t;
   return streamOut.str();
 }

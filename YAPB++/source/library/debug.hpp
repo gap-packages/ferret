@@ -33,7 +33,7 @@
 { \
   if(level < DebugInfoLevel()) \
   { \
-    std::ostringstream oss; \
+    std::ostringstream oss(""); \
     oss << "#I " << type << ":" << message << "\n"; \
     GAP_print(oss.str()); \
   } \

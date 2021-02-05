@@ -80,7 +80,7 @@ void output_container(std::ostream& o, const T& t)
 template<typename T>
 std::string toString(const T& t)
 {
-  std::ostringstream oss;
+  std::ostringstream oss("");
   oss << t;
   return oss.str();
 }
