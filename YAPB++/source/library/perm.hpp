@@ -193,7 +193,7 @@ public:
 
     std::string cycle() const
     {
-        std::ostringstream oss;
+        std::ostringstream oss("");
         std::vector<bool> checked(size() + 1, false);
         bool some_printed = false;
         for(int i : range1(size()))

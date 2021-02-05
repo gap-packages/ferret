@@ -477,7 +477,7 @@ public:
     std::string printCurrentPartition()
     {
         vec1<vec1<int> > v = dumpCurrentPartition();
-        std::ostringstream oss;
+        std::ostringstream oss("");
         oss << "[" << markstore.marks(1) << ": ";
         for(int i : range1(n))
         {
