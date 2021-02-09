@@ -2,8 +2,8 @@ SetPackageInfo( rec(
 
 PackageName := "ferret",
 Subtitle := "Backtrack Search in Permutation Groups",
-Version := "1.0.3",
-Date := "27/05/2020", # dd/mm/yyyy format
+Version := "1.0.4",
+Date := "09/02/2021", # dd/mm/yyyy format
 License := "MPL-2.0",
 
 Persons := [
