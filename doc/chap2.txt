@@ -5,19 +5,19 @@
   method.  This  function  performs  a backtrack search, using the permutation
   backtracking  algorithm,  over  a  set of groups or cosets. Often users will
   want  to use a higher level function which wraps this functionality, such as
-  Stabilizer or Intersection. The solve function accepts a list of groups, and
+  [10XStabilizer[110X or [10XIntersection[110X. The solve function accepts a list of groups, and
   finds  their  intersection.  For  efficiency  reasons,  these  groups can be
   specified  in  a  variety of different ways. As an example, we will consider
-  how  to  implement  Stabilizer(G, S, OnSets), the stabilizer of a set S in a
+  how  to  implement  [10XStabilizer(G, S, OnSets)[110X, the stabilizer of a set S in a
   permutation  group  G  using Solve (this is not necessary, as when Ferret is
   loaded  this method is replaced with a Ferret-based implementation). Another
-  way of viewing Stabilizer(G, S, OnSets) is as the Intersection of G with the
-  Stabilizer  of (Sym(n), S, OnSets), where Sym(n) is the symmetric group on n
+  way  of  viewing  [10XStabilizer(G,  S, OnSets)[110X is as the intersection of G with
+  [10XStabilizer(Sym(n),  S,  OnSets)[110X,  where  [22XSym(n)[122X  is the symmetric group on n
   points,  and  n  is at least as large as the largest moved point in G. Solve
   takes   a  list  of  objects  which  represent  groups.  Two  of  these  are
-  ConInGroup(G),  which  represents  the group G, and ConStabilize(S, OnSets),
+  [10XConInGroup(G)[110X,  which  represents  the group G, and [10XConStabilize(S, OnSets)[110X,
   which  represents  the group which stabilizes S. We find the intersection of
-  these two groups by Solve([ConInGroup(G), ConStabilize(S, OnSets)]).[133X
+  these two groups by [10XSolve([ConInGroup(G), ConStabilize(S, OnSets)])[110X.[133X
   
   
   [1X2.1 [33X[0;0YMethods of representing groups in Ferret[133X[101X
@@ -35,8 +35,8 @@
   does not perform any useful actions by itself[133X
   
   [33X[0;0YIn  the  first  form this represents the group which stabilises [3Xobject[103X under
-  [3Xaction[103X.    The   currently   allowed   actions   are   OnSets,   OnSetsSets,
-  OnSetsDisjointSets, OnSetsTuples, OnTuples, OnPairs and OnDirectedGraph.[133X
+  [3Xaction[103X.    The   currently   allowed   actions   are   [10XOnSets[110X,   [10XOnSetsSets[110X,
+  [10XOnSetsDisjointSets[110X, [10XOnSetsTuples[110X, [10XOnTuples[110X, [10XOnPairs[110X and [10XOnDirectedGraph[110X.[133X
   
   [33X[0;0YIn  the  second  form  it  represents  the  stabilizer  of a partial perm or
   transformation in the symmetric group on [3Xn[103X points.[133X

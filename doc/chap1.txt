@@ -17,19 +17,19 @@
   
   [30X    [33X[0;6Y[13XStabilizer(G,S,Action)[113X for a permutation group G, and the actions:[133X
   
-        [30X    [33X[0;12YOnSets[133X
+        [30X    [33X[0;12Y[10XOnSets[110X[133X
   
-        [30X    [33X[0;12YOnOnSets[133X
+        [30X    [33X[0;12Y[10XOnOnSets[110X[133X
   
-        [30X    [33X[0;12YOnSetsDisjointSets[133X
+        [30X    [33X[0;12Y[10XOnSetsDisjointSets[110X[133X
   
-        [30X    [33X[0;12YOnSetsSets[133X
+        [30X    [33X[0;12Y[10XOnSetsSets[110X[133X
   
-        [30X    [33X[0;12YOnTuples[133X
+        [30X    [33X[0;12Y[10XOnTuples[110X[133X
   
-        [30X    [33X[0;12YOnPairs[133X
+        [30X    [33X[0;12Y[10XOnPairs[110X[133X
   
-        [30X    [33X[0;12YOnDirectedGraph[133X
+        [30X    [33X[0;12Y[10XOnDirectedGraph[110X[133X
   
   [30X    [33X[0;6Y[13XStabilizer(G, S)[113X for a permutation group G and a:[133X
   
