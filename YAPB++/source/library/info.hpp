@@ -17,7 +17,7 @@ inline int& DebugInfoLevel()
 
 #define info_out(level, output) \
   { if(level <= InfoLevel()) { \
-      std::ostringstream oss; \
+      std::ostringstream oss(""); \
       oss << "#I " << output << "\n"; \
       GAP_print(oss.str()); \
     } }
