@@ -4,7 +4,7 @@
 #include "library/vec1.hpp"
 #include "promotable_list.hpp"
 
-typedef u_int32_t HashType;
+typedef uint32_t HashType;
 
 struct HashStart
 {
