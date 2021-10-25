@@ -6,10 +6,10 @@
                     [1X Backtrack Search in Permutation Groups [101X
   
   
-                                     1.0.5
+                                     1.0.6
   
   
-                                10 February 2021
+                                25 October 2021
   
   
                              Christopher Jefferson
@@ -18,7 +18,7 @@
   
   Christopher Jefferson
       Email:    [7Xmailto:caj21@st-andrews.ac.uk[107X
-      Homepage: [7Xhttp://caj.host.cs.st-andrews.ac.uk/[107X
+      Homepage: [7Xhttps://caj.host.cs.st-andrews.ac.uk/[107X
       Address:  [33X[0;14YSt Andrews[133X
                 [33X[0;14YScotland[133X
                 [33X[0;14YUK[133X
