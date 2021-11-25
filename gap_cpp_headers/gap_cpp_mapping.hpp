@@ -47,7 +47,7 @@ struct GAP_getter<char*>
     {
         if(!isa(recval))
             throw GAPException("Invalid attempt to read string");
-        return (char*)CHARS_STRING(recval);
+        return CSTR_STRING(recval);
     }
 };
 
@@ -61,7 +61,7 @@ struct GAP_getter<std::string>
     {
         if(!isa(recval))
             throw GAPException("Invalid attempt to read string");
-        return std::string((char*)CHARS_STRING(recval));
+        return std::string(CONST_CSTR_STRING(recval));
     }
 };
 
