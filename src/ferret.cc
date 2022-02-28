@@ -3,7 +3,7 @@
 ****************************************************************************/
 
 #include <stdio.h>
-#include "include_gap_headers.hpp"
+#include "gap_all.h"
 #include "c_to_cpp.h"
 #include "generated_headers/function_objs.h"
 
