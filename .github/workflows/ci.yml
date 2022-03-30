@@ -65,11 +65,6 @@ jobs:
           echo ln -s $(pwd) gap/pkg/ferret
           ln -s $(pwd) gap/pkg/ferret
           ( cd gap/pkg/ferret && ./autogen.sh && ./configure $CONF_FLAG && make V=1)
-          pwd
-          ls
-          ls gap
-          ls gap/pkg
-          cat ferret.vars
 
       - name: 'Run ferret tests'
         shell: bash
