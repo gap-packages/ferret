@@ -12,7 +12,7 @@
 
 extern "C" {
 
-Obj FuncSOLVE(Obj self, Obj conlist, Obj options) {
+static Obj FuncYAPB_SOLVE(Obj self, Obj conlist, Obj options) {
   (void)self; // remove warning
 
   if(!IS_REC(options))
@@ -22,7 +22,7 @@ Obj FuncSOLVE(Obj self, Obj conlist, Obj options) {
   return solver(conlist, options);
 }
 
-Obj FuncSOLVE_COSET(Obj self, Obj conlistC, Obj conlistL, Obj conlistR, Obj options) {
+static Obj FuncYAPB_SOLVE_COSET(Obj self, Obj conlistC, Obj conlistL, Obj conlistR, Obj options) {
   (void)self; // remove warning
 
   if(!IS_REC(options))
@@ -33,11 +33,9 @@ Obj FuncSOLVE_COSET(Obj self, Obj conlistC, Obj conlistL, Obj conlistR, Obj opti
 }
 
 static StructGVarFunc GVarFuncs [] = {
-  { "YAPB_SOLVE", 2, "object, object", (UInt**(*)())FuncSOLVE, "src/string.c:FuncSOLVE" },
-  { "YAPB_SOLVE_COSET", 4, "object, object, object, object", (UInt**(*)())FuncSOLVE_COSET, "src/string.c:FuncSOLVE_COSET" },
-
-{ 0 }
-
+  GVAR_FUNC(YAPB_SOLVE, 2, "object, object"),
+  GVAR_FUNC(YAPB_SOLVE_COSET, 4, "object, object, object, object"),
+  { 0 }
 };
 
 
