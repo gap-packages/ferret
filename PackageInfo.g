@@ -2,8 +2,8 @@ SetPackageInfo( rec(
 
 PackageName := "ferret",
 Subtitle := "Backtrack Search in Permutation Groups",
-Version := "1.0.7",
-Date := "30/03/2022", # dd/mm/yyyy format
+Version := "1.0.8",
+Date := "01/07/2022", # dd/mm/yyyy format
 License := "MPL-2.0",
 
 Persons := [
@@ -58,7 +58,7 @@ AbstractHTML   :=
 PackageDoc := rec(
   BookName  := "Ferret",
   ArchiveURLSubset := ["doc"],
-  HTMLStart := "doc/chap0.html",
+  HTMLStart := "doc/chap0_mj.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
   LongTitle := "Backtrack Search in Permutation Groups",
