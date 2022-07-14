@@ -32,7 +32,7 @@ struct GAP_getter<Obj>
 {
     bool isa(Obj) const
     { return true; }
-    
+
     Obj operator()(Obj recval) const
     { return recval; }
 };
@@ -42,7 +42,7 @@ struct GAP_getter<char*>
 {
     bool isa(Obj recval) const
     { return IS_STRING(recval) && IS_STRING_REP(recval); }
-    
+
     char* operator()(Obj recval) const
     {
         if(!isa(recval))
@@ -71,7 +71,7 @@ struct GAP_getter<bool>
 {
     bool isa(Obj recval) const
     { return (recval == True) || (recval == False); }
-    
+
     bool operator()(Obj recval) const
     {
         if(recval == True)
@@ -90,7 +90,7 @@ struct GAP_getter<int>
 {
     bool isa(Obj recval) const
     { return IS_INTOBJ(recval); }
-    
+
     int operator()(Obj recval) const
     {
         if(!isa(recval))
@@ -104,7 +104,7 @@ struct GAP_getter<long>
 {
     bool isa(Obj recval) const
     { return IS_INTOBJ(recval); }
-    
+
     long operator()(Obj recval) const
     {
         if(!isa(recval))
@@ -112,7 +112,6 @@ struct GAP_getter<long>
         return INT_INTOBJ(recval);
     }
 };
-
 
 template<typename Con>
 Con fill_container(Obj rec)
@@ -137,7 +136,7 @@ struct GAP_getter<vec1<T> >
 {
     bool isa(Obj recval) const
     { return IS_SMALL_LIST(recval); }
-    
+
     vec1<T> operator()(Obj rec) const
     { return fill_container<vec1<T> >(rec); }
 };
@@ -147,7 +146,7 @@ struct GAP_getter<std::vector<T> >
 {
     bool isa(Obj recval) const
     { return IS_SMALL_LIST(recval); }
-    
+
     std::vector<T> operator()(Obj rec) const
     { return fill_container<std::vector<T> >(rec); }
 };
@@ -157,7 +156,7 @@ struct GAP_getter<std::deque<T> >
 {
     bool isa(Obj recval) const
     { return IS_SMALL_LIST(recval); }
-    
+
     std::deque<T> operator()(Obj rec) const
     { return fill_container<std::deque<T> >(rec); }
 };
@@ -167,7 +166,7 @@ struct GAP_getter<std::list<T> >
 {
     bool isa(Obj recval) const
     { return IS_SMALL_LIST(recval); }
-    
+
     std::list<T> operator()(Obj rec) const
     { return fill_container<std::list<T> >(rec); }
 };
@@ -197,9 +196,9 @@ struct GAP_getter<std::pair<T, U> >
 {
     bool isa(Obj recval) const
     { return IS_SMALL_LIST(recval) && LEN_LIST(recval) == 2; }
-    
+
     std::pair<T,U> operator()(Obj rec) const
-    { 
+    {
       if(!isa(rec))
         throw GAPException("Invalid attempt to read pair");
       GAP_getter<T> get_T;
@@ -214,7 +213,7 @@ struct GAP_getter<vec1<optional<T> > >
 {
     bool isa(Obj recval) const
     { return IS_SMALL_LIST(recval); }
-    
+
     vec1<optional<T> > operator()(Obj rec) const
     { return fill_optional_container<vec1<optional<T> >, T>(rec); }
 };
@@ -224,7 +223,7 @@ struct GAP_getter<std::vector<optional<T> > >
 {
     bool isa(Obj recval) const
     { return IS_SMALL_LIST(recval); }
-    
+
     std::vector<optional<T> > operator()(Obj rec) const
     { return fill_optional_container<std::vector<optional<T> >, T>(rec); }
 };
@@ -234,7 +233,7 @@ struct GAP_getter<std::deque<optional<T> > >
 {
     bool isa(Obj recval) const
     { return IS_SMALL_LIST(recval); }
-    
+
     std::deque<optional<T> > operator()(Obj rec) const
     { return fill_optional_container<std::deque<optional<T> >, T>(rec); }
 };
@@ -244,7 +243,7 @@ struct GAP_getter<std::list<optional<T> > >
 {
     bool isa(Obj recval) const
     { return IS_SMALL_LIST(recval); }
-    
+
     std::list<optional<T> > operator()(Obj rec) const
     { return fill_optional_container<std::list<optional<T> >, T>(rec); }
 };
@@ -461,9 +460,9 @@ Obj GAP_callFunction(GAPFunction fun, Obj arg1, Obj arg2, Obj arg3)
 struct GAP_convertor
 {
     Obj o;
-    
+
     GAP_convertor(Obj _o) : o(_o) { }
-    
+
     template<typename T>
     operator T()
     {
