@@ -416,10 +416,7 @@ Obj GAP_getGlobal(const char* name)
 Obj GAP_callFunction(GAPFunction fun)
 {
     timing_start(fun.getName());
-    typedef Obj(*F)(Obj);
-    Obj funobj = fun.getObj();
-    ObjFunc hdlrfunc = HDLR_FUNC(funobj,0);
-    Obj ret = reinterpret_cast<F>(hdlrfunc)(funobj);
+    Obj ret = CALL_0ARGS(fun.getObj());
     timing_end(fun.getName());
     return ret;
 }
@@ -427,32 +424,23 @@ Obj GAP_callFunction(GAPFunction fun)
 Obj GAP_callFunction(GAPFunction fun, Obj arg1)
 {
     timing_start(fun.getName());
-    typedef Obj(*F)(Obj,Obj);
-    Obj funobj = fun.getObj();
-    ObjFunc hdlrfunc = HDLR_FUNC(funobj,1);
-    Obj ret = reinterpret_cast<F>(hdlrfunc)(funobj, arg1);
+    Obj ret = CALL_1ARGS(fun.getObj(), arg1);
     timing_end(fun.getName());
     return ret;
 }
 
 Obj GAP_callFunction(GAPFunction fun, Obj arg1, Obj arg2)
 {
-    typedef Obj(*F)(Obj,Obj, Obj);
     timing_start(fun.getName());
-    Obj funobj = fun.getObj();
-    ObjFunc hdlrfunc = HDLR_FUNC(funobj,2);
-    Obj ret = reinterpret_cast<F>(hdlrfunc)(funobj, arg1, arg2);
+    Obj ret = CALL_2ARGS(fun.getObj(), arg1, arg2);
     timing_end(fun.getName());
     return ret;
 }
 
 Obj GAP_callFunction(GAPFunction fun, Obj arg1, Obj arg2, Obj arg3)
 {
-    typedef Obj(*F)(Obj,Obj, Obj, Obj);
     timing_start(fun.getName());
-    Obj funobj = fun.getObj();
-    ObjFunc hdlrfunc = HDLR_FUNC(funobj,3);
-    Obj ret = reinterpret_cast<F>(hdlrfunc)(funobj, arg1, arg2, arg3);
+    Obj ret = CALL_3ARGS(fun.getObj(), arg1, arg2, arg3);
     timing_start(fun.getName());
     return ret;
 }
