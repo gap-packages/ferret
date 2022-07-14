@@ -12,7 +12,7 @@ class GAPFunction
 public:
     GAPFunction() : obj(0), name()
     { }
-    
+
     GAPFunction(std::string s) : obj(0), name(s)
     { }
 
@@ -21,7 +21,7 @@ public:
 
     const std::string& getName()
     { return name; }
-    
+
     Obj getObj()
     {
         if(obj == 0)
