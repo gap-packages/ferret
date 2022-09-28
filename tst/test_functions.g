@@ -1,5 +1,5 @@
 LoadPackage("ferret", false);
-LoadPackage("atlas", false);
+LoadPackage("atlasrep", false);
 
 ReadPackage("ferret", "tst/random_obj.g");
 
