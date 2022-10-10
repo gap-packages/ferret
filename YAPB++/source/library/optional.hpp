@@ -44,6 +44,11 @@ public:
     optional(const optional& o) : t(o.t), present(o.present)
     { }
 
+    void operator=(const optional& o) {
+        t = o.t;
+        present = o.present;
+    }
+
 };
 
 // This function is just to provide nicer looking notation

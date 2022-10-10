@@ -38,6 +38,11 @@ public:
     mb(bt.mb), val(bt.val)
     { }
 
+    void operator=(const Reverting& bt) {
+        mb = bt.mb;
+        val = bt.val;
+    }
+
     T get() const
     { return *val; }
 
@@ -62,6 +67,11 @@ public:
     RevertingStack(const RevertingStack& bt):
     mb(bt.mb), stack(bt.stack)
     { }
+
+    void operator=(const RevertingStack& bt) {
+        mb = bt.mb;
+        stack = bt.stack;
+    }
 
     void push_back(const T& t);
     void push_back(T&& t);
