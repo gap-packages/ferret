@@ -37,5 +37,9 @@ symmetry_detect: .FORCE
 	    -I YAPB++/source \
 	    -o $@
 
+all: ferret.vars
+ferret.vars: ferret.vars.in config.status
+	./config.status $@
+
 .FORCE:
 .PHONY: .FORCE

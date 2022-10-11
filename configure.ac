@@ -24,6 +24,8 @@ dnl ##
 dnl ## Locate the GAP root dir
 dnl ##
 FIND_GAP
+GAPEXEC="${GAP:-${GAPROOT}/bin/gap.sh}" # GAP >= 4.12.0 sets "GAP"
+AC_SUBST(GAPEXEC)
 
 dnl ##
 dnl ## Set flags so libtool will use them
