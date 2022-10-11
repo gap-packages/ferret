@@ -6,4 +6,4 @@ fi
 
 export DEBUGFLAGS="-DDEBUG_LEVEL=@FERRET_CHECK@"
 export GAPPATH="@GAPROOT@"
-export GAPEXEC="${GAPPATH}/bin/gap.sh -b"
+export GAPEXEC="@GAPEXEC@ -b"
