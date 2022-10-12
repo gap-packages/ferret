@@ -25,7 +25,7 @@ public:
 
     AbstractConstraint(PartitionStack* _ps)
     : ps(_ps)
-    { (void)ps; /* warning supression */ }
+    { (void)ps; /* warning suppression */ }
 
     // Cell 'newcell' created, of size 1
     virtual SplitState signal_fix()

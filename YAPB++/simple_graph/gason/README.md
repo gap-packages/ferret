@@ -1,5 +1,5 @@
 # gason
-gason is new version of [vjson](https://code.google.com/p/vjson) parser. It's still very **fast** and have very **simple interface**. Completly new api, different internal representation and using new C++ standard features explains why parser get a new name.
+gason is new version of [vjson](https://code.google.com/p/vjson) parser. It's still very **fast** and have very **simple interface**. Completely new api, different internal representation and using new C++ standard features explains why parser get a new name.
 
 - [Features](#features)
 - [Installation](#installation)
@@ -20,7 +20,7 @@ gason is new version of [vjson](https://code.google.com/p/vjson) parser. It's st
 
 gason is **not strict** parser:
 * Source buffer can contain more than one value (first will be parsed; pointer to the rest returns)
-* Single number, string or identifier will be succesfully parsed
+* Single number, string or identifier will be successfully parsed
 * Trailing `,` before closing `]` or `}` is not an error
 * Control characters in strings are allowed
 
@@ -103,7 +103,7 @@ gason stores values using NaN-boxing technique. By [IEEE-754](http://en.wikipedi
 48 bits payload [enough](http://en.wikipedia.org/wiki/X86-64#Virtual_address_space_details) for store any pointer on x64.
 
 ### Memory management
-JsonAllocator allocates big blocks of memory and use pointer bumping inside theese blocks for smaller allocations. Size of block can be tuned by *JSON_ZONE_SIZE* constant (default 4 KiB).
+JsonAllocator allocates big blocks of memory and use pointer bumping inside these blocks for smaller allocations. Size of block can be tuned by *JSON_ZONE_SIZE* constant (default 4 KiB).
 
 ### Parser internals
 > [05.11.13, 2:52:33] Олег Литвин: о нихуя там свитч кейс на стеройдах!

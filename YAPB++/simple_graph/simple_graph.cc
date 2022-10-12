@@ -39,7 +39,7 @@ void print_usage_instructions()
     " --order    : The order in which search should be performed:\n"
     "       random  : Choose search order randomly\n"
     "       scf     : Choose smallest cell to branch on\n"
-    "       directed: Choose cell which is most connected in the graph(defaut)\n"
+    "       directed: Choose cell which is most connected in the graph(default)\n"
     "       ordered : Choose cells in order of input\n"
     " --find     : Which set of permutations should be produced:\n"
     "       generators : Generators of the symmetry group (default)\n"

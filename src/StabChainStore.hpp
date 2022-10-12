@@ -6,9 +6,9 @@
 
 // This class just provides a thin wrapper around a
 // GAP stabilizer chain, to avoid having to remember the
-// GAP notation. This is (obviously) not particularly efficent
+// GAP notation. This is (obviously) not particularly efficient
 // and does not do good caching. It is expected that anyone who
-// uses this will keep an efficent cache themselves.
+// uses this will keep an efficient cache themselves.
 
 class GAPStabChainWrapper
 {

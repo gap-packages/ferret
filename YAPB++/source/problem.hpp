@@ -36,7 +36,7 @@ struct Problem
     void init(bool rbase_buildin)
     {
         con_store.initConstraints();
-        // We do not care about the initalization, we do not want it filling
+        // We do not care about the initialization, we do not want it filling
         // up our trace (at least for groups, let's cover co-sets later...)
         //tracer_generator.clearTrace();
     }
