@@ -99,7 +99,7 @@ bool hasSymmetricFlag(JsonValue &o) {
   return false;
 }
 
-/*creates a new node, addes the edge between it and the specified parent and
+/*creates a new node, adds the edge between it and the specified parent and
 stores the mapping from the node value (colour) to its position (vector index)
 in the graph.
 any nodes to be added that ar not part of the provided json should call this

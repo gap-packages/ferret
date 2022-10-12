@@ -15,7 +15,7 @@
 #include "memory_backtrack.hpp"
 
 /// A store of all the information we need
-/// to efficently backtrack the state.
+/// to efficiently backtrack the state.
 struct PartitionSplit
 {
     int cell;
