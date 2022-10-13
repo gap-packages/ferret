@@ -11,7 +11,7 @@ true
 gap> overload := FerretOverloadsEnabled();;
 gap> SetInfoLevel(InfoFerretOverloads, 9);
 gap> EnableFerretOverloads(false);
-gap> # Functions which GAP implements efficently
+gap> # Functions which GAP implements efficiently
 gap> for i in [2..20] do
 >      for j in [1..50] do
 >        g := RandomGroupUpToSize(GlobalMersenneTwister, i);

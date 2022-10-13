@@ -40,7 +40,7 @@ gap> Stabilizer(g, [[1,2],[3]], OnTuplesTuples) = Group([(4,5),(6,7)]);
 #I  Considering ferret for Stabilizer
 true
 gap> SetInfoLevel(InfoFerretOverloads, 0);
-gap> # Functions which GAP implements efficently
+gap> # Functions which GAP implements efficiently
 gap> for i in [2..20] do
 >      for j in [1..15] do
 >        g := RandomGroupUpToSize(GlobalMersenneTwister, i);
@@ -49,7 +49,7 @@ gap> for i in [2..20] do
 >        od;
 >     od;
 >   od;
-gap> # Functions which GAP implements inefficently
+gap> # Functions which GAP implements inefficiently
 gap> for i in [2..7] do
 >      for j in [1..5] do
 >        g := RandomGroupUpToSize(GlobalMersenneTwister, i);

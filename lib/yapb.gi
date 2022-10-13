@@ -138,7 +138,7 @@ _YAPB_getOrbitalList := function(sc, maxval)
 	
 	orbsizes := [];
 	orbpos := [];
-	# Efficently store size of orbits of values
+	# Efficiently store size of orbits of values
 	for orb in [1..Length(orbitsG)] do
 		for i in orbitsG[orb] do
 			orbsizes[i] := Size(orbitsG[orb]);
@@ -445,7 +445,7 @@ _FERRET_DEFAULT_OPTIONS := MakeImmutable(rec(searchValueHeuristic := "RBase",
 ##
 ##      Other options are: "First" (first cell), "Largest" (largest cell),
 ##      "smallest2" (the 2nd smallest cell), "random" (a random cell)
-##      and "randomsmallest" (one of the smallest cells, choosen randomly)
+##      and "randomsmallest" (one of the smallest cells, chosen randomly)
 ##  </Item>
 ##  <Mark><C>rbaseValueHeuristic</C> (default "smallest")</Mark>
 ##  <Item>

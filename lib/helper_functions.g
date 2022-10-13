@@ -13,7 +13,7 @@
 ##
 
 
-# Fill in mising function in older versions of GAP
+# Fill in missing function in older versions of GAP
 if not IsBound(ErrorNoReturn) then
     BindGlobal("ErrorNoReturn",
         function ( arg )
