@@ -14,6 +14,7 @@ Persons := [
     LastName := "Jefferson",
     WWWHome := "https://caj.host.cs.st-andrews.ac.uk/",
     Email := "caj21@st-andrews.ac.uk",
+    GitHubUsername := "ChrisJefferson",
     PostalAddress := Concatenation(
                "St Andrews\n",
                "Scotland\n",
