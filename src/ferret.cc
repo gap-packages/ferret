@@ -85,6 +85,20 @@ static Int InitLibrary (
     return 0;
 }
 
+static Int PostRestore (
+    StructInitInfo *    module )
+{
+#define FUNOBJ(x,y) FunObj_##x .setName(y);
+#include "generated_headers/function_objs.h"
+
+
+#define RNAM(x) RName_ ## x = RNamName(#x);
+#include "generated_headers/RNamNames_list.h"
+
+    /* return success                                                      */
+    return 0;
+}
+
 
 /****************************************************************************
 **
@@ -103,7 +117,7 @@ static StructInitInfo module = {
  /* checkInit   = */ 0,
  /* preSave     = */ 0,
  /* postSave    = */ 0,
- /* postRestore = */ 0
+ /* postRestore = */ PostRestore
 };
 
 StructInitInfo * Init__Dynamic ( void )

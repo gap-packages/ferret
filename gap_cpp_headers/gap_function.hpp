@@ -17,7 +17,10 @@ public:
     { }
 
     void setName(std::string s)
-    { name = s; }
+    {
+        name = s;
+        obj = 0;
+    }
 
     const std::string& getName()
     { return name; }
