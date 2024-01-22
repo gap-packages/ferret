@@ -2,8 +2,8 @@ SetPackageInfo( rec(
 
 PackageName := "ferret",
 Subtitle := "Backtrack Search in Permutation Groups",
-Version := "1.0.9",
-Date := "18/10/2022", # dd/mm/yyyy format
+Version := "1.0.10",
+Date := "22/01/2024", # dd/mm/yyyy format
 License := "MPL-2.0",
 
 Persons := [
@@ -43,13 +43,13 @@ ArchiveFormats := ".tar.gz",
 ##
 Status := "deposited",
 
-SourceRepository := rec( 
-  Type := "git", 
+SourceRepository := rec(
+  Type := "git",
   URL := "https://github.com/gap-packages/ferret"
 ),
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
 
-AbstractHTML   :=  
+AbstractHTML   :=
 " The <span class=\"pkgname\">Ferret</span> package\
  provides a C++ reimplementation of Jeffery Leon's\
  Partition Backtrack framework for solving problems\
