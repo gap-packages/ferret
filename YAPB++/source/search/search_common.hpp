@@ -1,6 +1,7 @@
 #ifndef SEARCH_COMMON_HPP
 #define SEARCH_COMMON_HPP
 
+#include <random>
 #include "problem.hpp"
 #include "rbase/build_rbase.hpp"
 #include "queue/trace_following_queue.hpp"
@@ -34,6 +35,8 @@ bool handlePossibleSolution(Problem* p, SolutionStore* ss, RBase* rbase)
 template<typename It>
 void orderCell(It begin, It end, SearchHeuristic sh, RBase* rbase)
 {
+    static std::random_device rd;
+    static std::default_random_engine rng(rd());
     switch(sh)
     {
         case SearchBranch_RBase:
@@ -45,7 +48,7 @@ void orderCell(It begin, It end, SearchHeuristic sh, RBase* rbase)
                 ReverseSorter(IndirectSorter([&](auto i) -> auto& { return (rbase->inv_value_ordering)[i]; })));
             return;
         case SearchBranch_Random:
-            std::random_shuffle(begin, end);
+            std::shuffle(begin, end, rng);
             return;
         case SearchBranch_Sorted:
             std::sort(begin, end);
