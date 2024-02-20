@@ -1,5 +1,6 @@
 name: ferret
-version: 1.0.10
+version: "1.0.10"
+license: "MPL-2.0"
 date: 2024-01-22
 description: |
     Backtrack Search in Permutation Groups
@@ -33,3 +34,31 @@ abstract: |
 status: deposited
 doc-html: doc/chap0_mj.html
 doc-pdf: doc/manual.pdf
+keywords: |
+    Permutation Groups, Partition Backtrack.
+citeas: |
+    <p class='BibEntry'>
+    [<span class='BibKey'>Jef24</span>]   <b class='BibAuthor'>Jefferson, C.</b>,
+     <i class='BibTitle'>ferret, Backtrack Search in Permutation Groups,
+             Version 1.0.10</i>
+     (<span class='BibYear'>2024</span>)<br />
+    (<span class='BibNote'>GAP package</span>),
+    <span class='BibHowpublished'><a href="https://gap-packages.github.io/ferret/">https://gap-packages.github.io/ferret/</a></span>.
+    </p>
+    
+
+bibtex: |
+    @misc{ ferret1.0.10,
+      author =           {Jefferson, C.},
+      title =            {{ferret},  Backtrack  Search  in  Permutation  Groups,
+                          {V}ersion 1.0.10},
+      month =            {Jan},
+      year =             {2024},
+      note =             {GAP package},
+      howpublished =     {\href         {https://gap-packages.github.io/ferret/}
+                          {\texttt{https://gap-packages.github.io/}\discretionary
+                          {}{}{}\texttt{ferret/}}},
+      keywords =         {Permutation Groups; Partition Backtrack},
+      printedkey =       {Jef24}
+    }
+
