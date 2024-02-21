@@ -9,6 +9,8 @@
 #include "library/stats.hpp"
 #include "library/perm.hpp"
 
+#include <random>
+
 // Checks a solution satisfies all the constraints, and
 // adds to the solutionStore if it is. Returns true if
 // the solution is real
@@ -32,7 +34,7 @@ bool handlePossibleSolution(Problem* p, SolutionStore* ss, RBase* rbase)
 // Orders a cell of a partition stack according to a given heuristic
 
 template<typename It>
-void orderCell(It begin, It end, SearchHeuristic sh, RBase* rbase)
+void orderCell(It begin, It end, SearchHeuristic sh, RBase* rbase, std::default_random_engine& rng)
 {
     switch(sh)
     {
@@ -45,7 +47,7 @@ void orderCell(It begin, It end, SearchHeuristic sh, RBase* rbase)
                 ReverseSorter(IndirectSorter([&](auto i) -> auto& { return (rbase->inv_value_ordering)[i]; })));
             return;
         case SearchBranch_Random:
-            std::random_shuffle(begin, end);
+            std::shuffle(begin, end, rng);
             return;
         case SearchBranch_Sorted:
             std::sort(begin, end);

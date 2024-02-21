@@ -11,6 +11,9 @@ template<bool firstbranch>
 bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
                     RBase* rbase, TraceFollowingQueue* tfq, int depth)
 {
+    std::minstd_rand rd;
+    static std::default_random_engine rng(rd());
+
     info_out(1, "search depth: " << depth);
     info_out(2, "Current partition: " <<  p->p_stack.dumpCurrentPartition());
     if(depth > rbase->depth())
@@ -41,7 +44,7 @@ bool doSearchBranch(const SearchOptions& so, Problem* p, SolutionStore* ss,
         orderCell(firstbranch ? cell.begin() + 1 : cell.begin(),
                   cell.end(),
                   firstbranch ? so.heuristic.search_first_branch_value : so.heuristic.search_value,
-                  rbase);
+                  rbase, rng);
 
         for(int i : range1(cell.size()))
         {
@@ -127,7 +130,7 @@ SolutionStore doSearch(Problem* p, const std::vector<AbstractConstraint*>& cons,
         try {
             doSearchBranch<true>(so, p, &solutions, rb, &tfq, 1);
         }
-        catch(const EndOfSearch&) { 
+        catch(const EndOfSearch&) {
             debug_out(1, "search", "Node limit reached!");
         }
     }
