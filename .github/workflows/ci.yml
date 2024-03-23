@@ -23,6 +23,10 @@ jobs:
           - '--enable-checking --enable-timing'
 
         include:
+          - gap: 'stable-4.13'
+            flags: ''
+          - gap: 'stable-4.12'
+            flags: ''
           - gap: 'stable-4.11'
             flags: ''
 
@@ -31,7 +35,7 @@ jobs:
       BRANCH: ${{ matrix.gap }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: 'Display configuration'
         shell: bash
