@@ -2,8 +2,8 @@ SetPackageInfo( rec(
 
 PackageName := "ferret",
 Subtitle := "Backtrack Search in Permutation Groups",
-Version := "1.0.10",
-Date := "22/01/2024", # dd/mm/yyyy format
+Version := "1.0.11",
+Date := "24/04/2024", # dd/mm/yyyy format
 License := "MPL-2.0",
 
 Persons := [
@@ -12,8 +12,9 @@ Persons := [
     IsMaintainer := true,
     FirstNames := "Christopher",
     LastName := "Jefferson",
-    WWWHome := "https://caj.host.cs.st-andrews.ac.uk/",
+    WWWHome := "https://heather.cafe/",
     Email := "caj21@st-andrews.ac.uk",
+    GitHubUsername := "ChrisJefferson",
     PostalAddress := Concatenation(
                "St Andrews\n",
                "Scotland\n",
