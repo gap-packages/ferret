@@ -1,4 +1,4 @@
-name: 'ferret CI'
+name: "ferret CI"
 
 on:
   pull_request:
@@ -15,21 +15,18 @@ jobs:
     strategy:
       matrix:
         gap:
-          - 'master'
+          - "master"
         flags:
-          - ''
-          - '--enable-checking'
-          - '--enable-timing'
-          - '--enable-checking --enable-timing'
+          - ""
+          - "--enable-checking"
+          - "--enable-timing"
+          - "--enable-checking --enable-timing"
 
         include:
-          - gap: 'stable-4.13'
-            flags: ''
-          - gap: 'stable-4.12'
-            flags: ''
-          - gap: 'stable-4.11'
-            flags: ''
-
+          - gap: "stable-4.13"
+            flags: ""
+          - gap: "stable-4.12"
+            flags: ""
     env:
       CONF_FLAG: ${{ matrix.flags }}
       BRANCH: ${{ matrix.gap }}
@@ -37,13 +34,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: 'Display configuration'
+      - name: "Display configuration"
         shell: bash
         run: |
           echo $BRANCH ":" $CONF_FLAG
           echo $CXX ":" $CC
 
-      - name: 'Install needed apt_packages'
+      - name: "Install needed apt_packages"
         shell: bash
         run: |
           packages=(
@@ -53,7 +50,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install "${packages[@]}"
 
-      - name: 'Build GAP and its packages'
+      - name: "Build GAP and its packages"
         shell: bash
         run: |
           pwd
@@ -62,7 +59,7 @@ jobs:
           ( cd gap && ./configure && make && make bootstrap-pkg-full V=1)
           ( cd gap/pkg && ../bin/BuildPackages.sh io* )
 
-      - name: 'Build ferret'
+      - name: "Build ferret"
         shell: bash
         run: |
           pwd
@@ -70,7 +67,7 @@ jobs:
           ln -s $(pwd) gap/pkg/ferret
           ( cd gap/pkg/ferret && ./autogen.sh && ./configure $CONF_FLAG && make V=1)
 
-      - name: 'Run ferret tests'
+      - name: "Run ferret tests"
         shell: bash
         run: |
           (cd gap/pkg/ferret && scripts/quick_test.sh ${MAKEFLAG})

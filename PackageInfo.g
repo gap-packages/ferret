@@ -66,14 +66,17 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-  GAP := ">= 4.11",
+  GAP := ">= 4.12",
   NeededOtherPackages := [ [ "GAPDoc", ">= 1.5" ] ],
   SuggestedOtherPackages := [ ],
   ExternalConditions := [ ],
 ),
 
 AvailabilityTest := function()
-  if Filename(DirectoriesPackagePrograms("ferret"), "ferret.so") = fail then
+  if not IsKernelExtensionAvailable("ferret") then
+    LogPackageLoadingMessage(PACKAGE_WARNING,
+                            ["the kernel module is not compiled, ",
+                              "the package cannot be loaded."]);
     return fail;
   fi;
   return true;
