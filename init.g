@@ -5,6 +5,12 @@
 ##
 
 #############################################################################
+
+# load kernel function if it is installed
+if not LoadKernelExtension("ferret") then
+  Error("failed to load the ferret package kernel extension");
+fi;
+
 ##
 #R  Read the declaration files.
 ##
