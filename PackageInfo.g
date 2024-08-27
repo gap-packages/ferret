@@ -2,8 +2,8 @@ SetPackageInfo( rec(
 
 PackageName := "ferret",
 Subtitle := "Backtrack Search in Permutation Groups",
-Version := "1.0.11",
-Date := "24/04/2024", # dd/mm/yyyy format
+Version := "1.0.12",
+Date := "27/08/2024", # dd/mm/yyyy format
 License := "MPL-2.0",
 
 Persons := [
@@ -66,14 +66,17 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-  GAP := ">= 4.11",
+  GAP := ">= 4.12",
   NeededOtherPackages := [ [ "GAPDoc", ">= 1.5" ] ],
   SuggestedOtherPackages := [ ],
   ExternalConditions := [ ],
 ),
 
 AvailabilityTest := function()
-  if Filename(DirectoriesPackagePrograms("ferret"), "ferret.so") = fail then
+  if not IsKernelExtensionAvailable("ferret") then
+    LogPackageLoadingMessage(PACKAGE_WARNING,
+                            ["the kernel module is not compiled, ",
+                              "the package cannot be loaded."]);
     return fail;
   fi;
   return true;
