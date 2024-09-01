@@ -44,25 +44,29 @@ PermGroupStabilizerFerretOp := function(arg)
  acts:=arg[K-1];
  gens:=arg[K-2];
  d:=arg[K-3];
- 
+
     # If we are not currently trying ferret, exit straight away!
     if not(_FERRET_ENABLE_OVERLOADS) then
       return CallFuncList(PermGroupStabilizerOp, arg);
     fi;
-    Info(InfoFerretOverloads, 2, "Considering ferret for Stabilizer");
+    Info(InfoFerretOverloads, 2, "Considering ferret for Stabilizer: ", arg);
     if gens <> acts  then
+        Info(InfoFerretOverloads, 2, "Rejected: generators and actions are different");
         #TODO: Check whether  acts is permutations and one could work in the
         #permutation image (even if G is not permgroups)
         TryNextMethod();
     fi;
 
     # These are easy and GAP has special methods to do them
-    if _YAPB_fastIsNaturalOrSymmetricGroup(G) then
+    if _YAPB_fastIsNaturalOrSymmetricGroup(G) and act = OnSets and ForAll( d, IsInt )
+            then
+        Info(InfoFerretOverloads, 2, "Rejected: Sets in the natural symmetric group");
         TryNextMethod();
     fi;
 
     # First of all, lets dump some easy cases we don't want to handle
     if act = OnPoints or act = OnPairs or act = OnTuples then
+        Info(InfoFerretOverloads, 2, "Rejected: acting on points, pairs or tuples");
         return CallFuncList(PermGroupStabilizerOp, arg);
     fi;
 
@@ -117,7 +121,7 @@ InstallOtherMethod( StabilizerOp, "permutation group with generators list",
           IsList,
           IsList,
           IsFunction ],
-  # the objects might be a group element: rank up	
+  # the objects might be a group element: rank up
   {} -> RankFilter(IsMultiplicativeElementWithInverse)
   # and we are better even if the group is solvable
   +RankFilter(IsSolvableGroup) + 1,
@@ -129,29 +133,29 @@ InstallOtherMethod( StabilizerOp, "permutation group with domain",true,
           IsList,
           IsList,
           IsFunction ],
-  # the objects might be a group element: rank up	
+  # the objects might be a group element: rank up
   {} -> RankFilter(IsMultiplicativeElementWithInverse)
   # and we are better even if the group is solvable
   +RankFilter(IsSolvableGroup) + 1,
   PermGroupStabilizerFerretOp);
-  
-  
-  
+
+
+
 # This function replaces Intersection2 for perm groups
   InstallMethod( Intersection2, "perm groups (from Ferret Package)", IsIdenticalObj,
     [ IsPermGroup, IsPermGroup ], 1,
   function( G, H )
   local   Omega,  P,  rbase,  L,mg,mh,i;
-    
+
       if not(_FERRET_ENABLE_OVERLOADS) then
         TryNextMethod();
       fi;
       Info(InfoFerretOverloads, 2, "Using ferret for Intersection2");
-      
+
       if IsIdenticalObj( G, H )  then
         return G;
       fi;
-    
+
         # These are easy and GAP has special methods to do them
       if _YAPB_fastIsNaturalOrSymmetricGroup(G) and _YAPB_fastIsNaturalOrSymmetricGroup(H) then
         TryNextMethod();
@@ -160,7 +164,7 @@ InstallOtherMethod( StabilizerOp, "permutation group with domain",true,
       # Tighten bounds if possible
       mg := LargestMovedPoint(G);
       mh := LargestMovedPoint(H);
-      
+
       if mg <> mh then
         if mg < mh then
           H := Stabilizer(H, [mg+1..mh], OnTuples);

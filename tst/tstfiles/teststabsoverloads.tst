@@ -39,6 +39,14 @@ gap> Stabilizer(g, [[1,2],[3]], OnTuplesTuples) = Group([(4,5),(6,7)]);
 #I  Considering ferret for Stabilizer
 #I  Considering ferret for Stabilizer
 true
+gap> Stabilizer(SymmetricGroup(5), [1,2,3,4], OnSets) = SymmetricGroup(4);
+true
+gap> Stabilizer(SymmetricGroup(5), [1,2,3], OnTuples) = SymmetricGroup([4..5]);
+true
+gap> Stabilizer(SymmetricGroup(5), [[1,2,3,4],[5]], OnSetsSets) = SymmetricGroup(4);
+true
+gap> Stabilizer(SymmetricGroup(5), [[1,2,3,4],[5]], OnSetsDisjointSets) = SymmetricGroup(4);
+true
 gap> SetInfoLevel(InfoFerretOverloads, 0);
 gap> # Functions which GAP implements efficiently
 gap> for i in [2..20] do
