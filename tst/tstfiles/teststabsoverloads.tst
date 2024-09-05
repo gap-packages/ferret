@@ -33,19 +33,41 @@ gap> g := Group((1,2),(2,3,4,5),(6,7));;
 #I  Using ferret for Stabilizer(.., OnTuplesSets)
 #true
 gap> Stabilizer(g, [1,2,3], OnTuples) = Group([(4,5),(6,7)]);
-#I  Considering ferret for Stabilizer
+#I  Considering ferret for Stabilizer: [ Group( [ (1,2), (2,3,4,5), (6,7) ] ), [ 1, 2, 3 ], [ (1,2), (2,3,4,5), (6,7) ], [ (1,2), (2,3,4,5), (6,7) ], function ( tuple, elm )
+<<kernel code>> from src/listfunc.c:OnTuples
+end ]
+#I  Rejected: acting on points, pairs or tuples
 true
 gap> Stabilizer(g, [[1,2],[3]], OnTuplesTuples) = Group([(4,5),(6,7)]);
-#I  Considering ferret for Stabilizer
-#I  Considering ferret for Stabilizer
+#I  Considering ferret for Stabilizer: [ Group( [ (1,2), (2,3,4,5), (6,7) ] ), [ [ 1, 2 ], [ 3 ] ], [ (1,2), (2,3,4,5), (6,7) ], [ (1,2), (2,3,4,5), (6,7) ], function ( e, g )
+return List( e, function ( i )
+return OnTuples( i, g );
+end );
+end ]
+#I  Considering ferret for Stabilizer: [ Group( [ (1,2), (2,3,4,5), (6,7) ] ), [ 1, 2, 3 ], [ (1,2), (2,3,4,5), (6,7) ], [ (1,2), (2,3,4,5), (6,7) ], function ( tuple, elm )
+<<kernel code>> from src/listfunc.c:OnTuples
+end ]
+#I  Rejected: acting on points, pairs or tuples
 true
 gap> Stabilizer(SymmetricGroup(5), [1,2,3,4], OnSets) = SymmetricGroup(4);
 true
 gap> Stabilizer(SymmetricGroup(5), [1,2,3], OnTuples) = SymmetricGroup([4..5]);
 true
 gap> Stabilizer(SymmetricGroup(5), [[1,2,3,4],[5]], OnSetsSets) = SymmetricGroup(4);
+#I  Considering ferret for Stabilizer: [ SymmetricGroup( [ 1 .. 5 ] ), [ [ 1, 2, 3, 4 ], [ 5 ] ], [ (1,2,3,4,5), (1,2) ], [ (1,2,3,4,5), (1,2) ], function ( e, g )
+return Set( e, function ( i )
+return OnSets( i, g );
+end );
+end ]
+#I  Using ferret
 true
 gap> Stabilizer(SymmetricGroup(5), [[1,2,3,4],[5]], OnSetsDisjointSets) = SymmetricGroup(4);
+#I  Considering ferret for Stabilizer: [ SymmetricGroup( [ 1 .. 5 ] ), [ [ 1, 2, 3, 4 ], [ 5 ] ], [ (1,2,3,4,5), (1,2) ], [ (1,2,3,4,5), (1,2) ], function ( e, g )
+return Set( e, function ( i )
+return OnSets( i, g );
+end );
+end ]
+#I  Using ferret for Stabilizer(.., OnSetsDisjointSets)
 true
 gap> SetInfoLevel(InfoFerretOverloads, 0);
 gap> # Functions which GAP implements efficiently
@@ -68,7 +90,3 @@ gap> for i in [2..7] do
 >   od;
 gap> EnableFerretOverloads(overload);
 gap> STOP_TEST( "teststabsoverloads.tst", 10000 );
-ferret package: teststabsoverloads.tst
-#############################################################################
-##
-#E
