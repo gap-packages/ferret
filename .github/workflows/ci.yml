@@ -1,12 +1,18 @@
 name: 'ferret CI'
 
 on:
-  pull_request:
-    branches-ignore:
-      - gh-pages
   push:
-    branches-ignore:
-      - gh-pages
+    branches:
+      - master
+  pull_request:
+
+# the `concurrency` settings ensure that not too many CI jobs run in parallel
+concurrency:
+  # group by workflow and ref; the last slightly strange component ensures that for pull
+  # requests, we limit to 1 concurrent job, but for the master branch we don't
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.ref != 'refs/heads/master' || github.run_number }}
+  # Cancel intermediate builds, but only if it is a pull request build.
+  cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
 
 jobs:
   test:
@@ -27,18 +33,9 @@ jobs:
             flags: ''
           - gap: 'stable-4.12'
             flags: ''
-    env:
-      CONF_FLAG: ${{ matrix.flags }}
-      BRANCH: ${{ matrix.gap }}
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: 'Display configuration'
-        shell: bash
-        run: |
-          echo $BRANCH ":" $CONF_FLAG
-          echo $CXX ":" $CC
 
       - name: 'Install needed apt_packages'
         shell: bash
@@ -51,23 +48,21 @@ jobs:
           sudo apt-get install "${packages[@]}"
 
       - name: 'Build GAP and its packages'
-        shell: bash
-        run: |
-          pwd
-          git clone -b $BRANCH --depth=2 https://github.com/gap-system/gap.git gap
-          ( cd gap && ./autogen.sh || echo no autogen )
-          ( cd gap && ./configure && make && make bootstrap-pkg-full V=1)
-          ( cd gap/pkg && ../bin/BuildPackages.sh io* )
+        uses: gap-actions/setup-gap@v2
+        with:
+          GAPBRANCH: ${{ matrix.gap }}
 
       - name: 'Build ferret'
-        shell: bash
-        run: |
-          pwd
-          echo ln -s $(pwd) gap/pkg/ferret
-          ln -s $(pwd) gap/pkg/ferret
-          ( cd gap/pkg/ferret && ./autogen.sh && ./configure $CONF_FLAG && make V=1)
+        uses: gap-actions/build-pkg@v1
+        with:
+          CONFIGFLAGS: ${{ matrix.flags }}
 
-      - name: 'Run ferret tests'
-        shell: bash
+      - name: 'Run ferret GAP tests'
+        uses: gap-actions/run-pkg-tests@v2
+
+      - name: 'Run YAPB++ tests'
+        run:  cd YAPB++/tests && ./run_tests.sh
+
+      - name: 'Run Valgrind tests'
         run: |
-          (cd gap/pkg/ferret && scripts/quick_test.sh ${MAKEFLAG})
+            valgrind -q --trace-children=yes --suppressions=scripts/gap-suppressions.valgrind gap -A -q -l "/tmp/gaproot;" tst/testvalgrind.g
