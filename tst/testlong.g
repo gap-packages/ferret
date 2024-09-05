@@ -3,7 +3,6 @@
 # This file runs a longer version of tests
 #
 #
-LoadPackage( "io" );
 LoadPackage( "ferret" );
 
 
@@ -21,4 +20,4 @@ dirs := DirectoriesPackageLibrary( "ferret", "tst" );
 
 TestDirectory(dirs, rec(exitGAP := true));
 
-IO_exit(1);
+FORCE_QUIT_GAP(1);

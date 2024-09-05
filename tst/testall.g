@@ -1,9 +1,7 @@
 #
-#
 # This file runs package tests. It is also referenced in the package
 # metadata in PackageInfo.g.
 #
-LoadPackage( "io" );
 LoadPackage( "ferret" );
 
 # Sanity check that we loaded ferret correctly
@@ -17,4 +15,4 @@ dirs := DirectoriesPackageLibrary( "ferret", "tst" );
 
 TestDirectory(dirs, rec(exitGAP := true));
 
-IO_exit(1);
+FORCE_QUIT_GAP(1);
