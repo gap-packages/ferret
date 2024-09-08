@@ -6,10 +6,10 @@
                     [1X Backtrack Search in Permutation Groups [101X
   
   
-                                     1.0.13
+                                     1.0.14
   
   
-                                1 September 2024
+                                8 September 2024
   
   
                              Christopher Jefferson
