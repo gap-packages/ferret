@@ -75,9 +75,9 @@ Dependencies := rec(
 AvailabilityTest := function()
   if not IsKernelExtensionAvailable("ferret") then
     LogPackageLoadingMessage(PACKAGE_WARNING,
-                            ["the kernel module is not compiled, ",
+                             ["the kernel module is not compiled, ",
                               "the package cannot be loaded."]);
-    return fail;
+    return false;
   fi;
   return true;
 end,
