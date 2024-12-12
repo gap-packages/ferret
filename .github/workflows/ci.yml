@@ -29,6 +29,8 @@ jobs:
           - '--enable-checking --enable-timing'
 
         include:
+          - gap: 'stable-4.14'
+            flags: ''
           - gap: 'stable-4.13'
             flags: ''
           - gap: 'stable-4.12'
