@@ -40,7 +40,9 @@ SortEvent filterCellByFunction_noSortData(PartitionStack* ps, int cell, F f)
     ps->fixCellInverses(cell);
 
 
+#if DEBUG_LEVEL > 0
     int cellsplits = 0;
+#endif
 
     SortEvent se(cellBegin, cellEnd);
 
@@ -49,7 +51,9 @@ SortEvent filterCellByFunction_noSortData(PartitionStack* ps, int cell, F f)
         if(f(ps->val(pos)) != f(ps->val(pos+1)))
         {
             se.addHashStart(f(ps->val(pos+1)),pos+1);
+#if DEBUG_LEVEL > 0
             cellsplits++;
+#endif
             if(ps->split(cell, pos+1).hasFailed())
                 abort();
         }
@@ -103,10 +107,8 @@ template<typename F>
 SplitState filterPartitionStackByFunction_withSortData(PartitionStack* ps, F f)
 {
 	PartitionEvent& pe = ps->getAbstractQueue()->getPartitionEvent();
-	int len = 0;
 	for(auto it = pe.order.begin(); it != pe.order.end(); ++it)
 	{
-	    len++;
 	    if(it->change)
 	    {
 	        int cell = pe.change_cells[it->index].first;

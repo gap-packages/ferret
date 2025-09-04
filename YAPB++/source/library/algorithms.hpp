@@ -30,14 +30,12 @@ enum MissingPoints
 inline vec1<int> partitionToList(const vec1<vec1<int> >& part, int size, MissingPoints mp)
 {
     vec1<int> vec(size, 0);
-    int covered = 1;
     for(int i : range1(part.size()))
     {
         for(int val : part[i])
         {
             D_ASSERT(vec[val] == 0);
             vec[val] = i;
-            covered++;
         }
     }    
     // Maybe the permutation is missing some values of the end. These
@@ -87,14 +85,12 @@ public:
 inline std::map<int, int> partitionToMap(const vec1<vec1<int> >& part)
 {
     std::map<int, int> m;
-    int covered = 1;
     for(int i : range1(part.size()))
     {
         for(int val : part[i])
         {
             D_ASSERT(m[val] == 0);
             m[val] = i;
-            covered++;
         }
     }    
     
