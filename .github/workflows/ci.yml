@@ -37,7 +37,7 @@ jobs:
             flags: ''
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: 'Install needed apt_packages'
         shell: bash
@@ -60,7 +60,7 @@ jobs:
           CONFIGFLAGS: ${{ matrix.flags }}
 
       - name: 'Run ferret GAP tests'
-        uses: gap-actions/run-pkg-tests@v2
+        uses: gap-actions/run-pkg-tests@v3
 
       - name: 'Run YAPB++ tests'
         run:  cd YAPB++/tests && ./run_tests.sh
