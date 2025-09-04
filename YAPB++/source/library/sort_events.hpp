@@ -4,6 +4,8 @@
 #include "library/vec1.hpp"
 #include "promotable_list.hpp"
 
+#include <cstdint>
+
 typedef uint32_t HashType;
 
 struct HashStart
