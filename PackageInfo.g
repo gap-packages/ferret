@@ -1,98 +1,102 @@
+#############################################################################
+##  
+##  Demo PackageInfo.g for the GitHubPagesForGAP
+##
+
 SetPackageInfo( rec(
 
-PackageName := "ferret",
-Subtitle := "Backtrack Search in Permutation Groups",
-Version := "1.0.14",
-Date := "08/09/2024", # dd/mm/yyyy format
-License := "MPL-2.0",
+PackageName := "GitHubPagesForGAP",
+
+Subtitle := "A GitHub Pages generator for GAP packages",
+Version := "0.4",
+Date := "10/04/2025", # dd/mm/yyyy format
+License := "0BSD",
 
 Persons := [
   rec(
-    IsAuthor := true,
-    IsMaintainer := true,
-    FirstNames := "Christopher",
-    LastName := "Jefferson",
-    WWWHome := "https://heather.cafe/",
-    Email := "caj21@st-andrews.ac.uk",
-    GitHubUsername := "ChrisJefferson",
+    LastName      := "Horn",
+    FirstNames    := "Max",
+    IsAuthor      := true,
+    IsMaintainer  := true,
+    Email         := "mhorn@rptu.de",
+    WWWHome       := "https://www.quendi.de/math",
+    GitHubUsername:= "fingolfin",
     PostalAddress := Concatenation(
-               "St Andrews\n",
-               "Scotland\n",
-               "UK" ),
-    Place := "St Andrews",
-    Institution := "University of St Andrews",
+                       "Fachbereich Mathematik\n",
+                       "RPTU Kaiserslautern-Landau\n",
+                       "Gottlieb-Daimler-Straße 48\n",
+                       "67663 Kaiserslautern\n",
+                       "Germany" ),
+    Place         := "Kaiserslautern, Germany",
+    Institution   := "RPTU Kaiserslautern-Landau"
+  ),
+
+  rec(
+    LastName      := "Thor",
+    FirstNames    := "A. U.",
+    IsAuthor      := true,
+    IsMaintainer  := false,
+    #Email         := "author@example.com",
+  ),
+
+  rec(
+    LastName      := "Itor",
+    FirstNames    := "Jan",
+    IsAuthor      := false,
+    IsMaintainer  := true,
+    #Email         := "janitor@example.com",
   ),
 ],
 
-PackageWWWHome := "https://gap-packages.github.io/ferret/",
+Status := "other",
 
-ArchiveURL     := Concatenation("https://github.com/gap-packages/ferret/",
-                                "releases/download/v", ~.Version,
-                                "/ferret-", ~.Version),
-README_URL     := Concatenation( ~.PackageWWWHome, "README" ),
+# The following are not strictly necessary in your own PackageInfo.g
+# (in the sense that update.g only looks at the usual fields
+# like PackageWWWHome, ArchiveURL etc.). But they are convenient
+# if you use exactly the scheme for your package website that we propose.
+GithubUser := "gap-system",
+GithubRepository := ~.PackageName,
+GithubWWW := Concatenation("https://github.com/", ~.GithubUser, "/", ~.GithubRepository),
+
+PackageWWWHome := Concatenation("https://", ~.GithubUser, ".github.io/", ~.GithubRepository, "/"),
+README_URL     := Concatenation( ~.PackageWWWHome, "README.md" ),
 PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
+# The following assumes you are using the Github releases system. If not, adjust
+# it accordingly.
+ArchiveURL     := Concatenation(~.GithubWWW,
+                    "/releases/download/v", ~.Version, "/",
+                    ~.GithubRepository, "-", ~.Version),
 
-ArchiveFormats := ".tar.gz",
+ArchiveFormats := ".tar.gz .tar.bz2",
 
-##  Status information. Currently the following cases are recognized:
-##    "accepted"      for successfully refereed packages
-##    "submitted"     for packages submitted for the refereeing
-##    "deposited"     for packages for which the GAP developers agreed
-##                    to distribute them with the core GAP system
-##    "dev"           for development versions of packages
-##    "other"         for all other packages
-##
-Status := "deposited",
-
-SourceRepository := rec(
-  Type := "git",
-  URL := "https://github.com/gap-packages/ferret"
-),
-IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-
-AbstractHTML   :=
-" The <span class=\"pkgname\">Ferret</span> package\
- provides a C++ reimplementation of Jeffery Leon's\
- Partition Backtrack framework for solving problems\
- in permutation groups",
+AbstractHTML := 
+  "This is a pseudo package that contains no actual\
+  <span class=\"pkgname\">GAP</span> code. Instead, it is a template for other\
+  GAP packages that allows to quickly setup GitHub Pages.",
 
 PackageDoc := rec(
-  BookName  := "Ferret",
+  BookName  := "GitHubPagesForGAP",
   ArchiveURLSubset := ["doc"],
-  HTMLStart := "doc/chap0_mj.html",
+  HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "Backtrack Search in Permutation Groups",
+  LongTitle := "A GitHub Pages generator for GAP packages",
 ),
 
+# The following dependencies are fake and for testing / demo purposes
 Dependencies := rec(
-  GAP := ">= 4.12",
-  NeededOtherPackages := [ [ "GAPDoc", ">= 1.5" ] ],
-  SuggestedOtherPackages := [ ],
-  ExternalConditions := [ ],
+  GAP := ">=4.8.1",
+  NeededOtherPackages := [
+    ["GAPDoc", ">= 1.2"],
+    ["IO", ">= 4.1"],
+  ],
+  SuggestedOtherPackages := [["orb", ">= 4.2"]],
+  ExternalConditions := []
 ),
 
-AvailabilityTest := function()
-  if not IsKernelExtensionAvailable("ferret") then
-    LogPackageLoadingMessage(PACKAGE_WARNING,
-                            ["the kernel module is not compiled, ",
-                              "the package cannot be loaded."]);
-    return fail;
-  fi;
-  return true;
-end,
+AvailabilityTest := ReturnTrue,
 
-TestFile := "tst/testall.g",
-
-Keywords := [ "Permutation Groups", "Partition Backtrack" ],
-
-AutoDoc := rec(
-    TitlePage := rec(
-        Copyright := """
-&copyright; by Christopher Jefferson
-"""
-    )
-),
+Keywords := ["GitHub Pages", "GAP"]
 
 ));
 
