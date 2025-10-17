@@ -1,4 +1,4 @@
-name: 'ferret CI'
+name: CI
 
 # Trigger the workflow on push or pull request
 on:
@@ -16,6 +16,7 @@ concurrency:
   cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
 
 jobs:
+  # The CI test job
   test:
     name: GAP ${{ matrix.gap-branch }} ${{ matrix.flags }}
     runs-on: ubuntu-latest
@@ -23,20 +24,21 @@ jobs:
       fail-fast: false
       matrix:
         gap-branch:
-          - 'master'
+          - master
+          - stable-4.15
+          - stable-4.14
+          - stable-4.13
+          - stable-4.12
         flags:
           - ''
-          - '--enable-checking'
-          - '--enable-timing'
-          - '--enable-checking --enable-timing'
-
+        # additional jobs with special flags
         include:
-          - gap-branch: 'stable-4.14'
-            flags: ''
-          - gap-branch: 'stable-4.13'
-            flags: ''
-          - gap-branch: 'stable-4.12'
-            flags: ''
+          - gap-branch: 'master'
+            flags: '--enable-checking'
+          - gap-branch: 'master'
+            flags: '--enable-timing'
+          - gap-branch: 'master'
+            flags: '--enable-checking --enable-timing'
 
     steps:
       - uses: actions/checkout@v5
