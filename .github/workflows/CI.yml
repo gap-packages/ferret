@@ -42,7 +42,7 @@ jobs:
             flags: '--enable-checking --enable-timing'
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: 'Install needed apt_packages'
         shell: bash
