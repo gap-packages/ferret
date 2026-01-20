@@ -1,0 +1,107 @@
+  
+  [1X2 [33X[0;0YThe Solve Method[133X[101X
+  
+  [33X[0;0YThe  central  functionality  of the Ferret package is based around the Solve
+  method.  This  function  performs  a backtrack search, using the permutation
+  backtracking  algorithm,  over  a  set of groups or cosets. Often users will
+  want  to use a higher level function which wraps this functionality, such as
+  [10XStabilizer[110X or [10XIntersection[110X. The solve function accepts a list of groups, and
+  finds  their  intersection.  For  efficiency  reasons,  these  groups can be
+  specified  in  a  variety of different ways. As an example, we will consider
+  how  to  implement  [10XStabilizer(G, S, OnSets)[110X, the stabilizer of a set S in a
+  permutation  group  G  using Solve (this is not necessary, as when Ferret is
+  loaded  this method is replaced with a Ferret-based implementation). Another
+  way  of  viewing  [10XStabilizer(G,  S, OnSets)[110X is as the intersection of G with
+  [10XStabilizer(Sym(n),  S,  OnSets)[110X,  where  [22XSym(n)[122X  is the symmetric group on n
+  points,  and  n  is at least as large as the largest moved point in G. Solve
+  takes   a  list  of  objects  which  represent  groups.  Two  of  these  are
+  [10XConInGroup(G)[110X,  which  represents  the group G, and [10XConStabilize(S, OnSets)[110X,
+  which  represents  the group which stabilizes S. We find the intersection of
+  these two groups by [10XSolve([ConInGroup(G), ConStabilize(S, OnSets)])[110X.[133X
+  
+  
+  [1X2.1 [33X[0;0YMethods of representing groups in Ferret[133X[101X
+  
+  [33X[0;0YGroups  and cosets must be represented in a way which Ferret can understand.
+  The  following  list gives all the types of groups which Ferret accepts, and
+  how to construct them.[133X
+  
+  [1X2.1-1 ConStabilize[101X
+  
+  [33X[1;0Y[29X[2XConStabilize[102X( [3Xobject[103X, [3Xaction[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XConStabilize[102X( [3Xobject[103X, [3Xn[103X ) [32X function[133X
+  
+  [33X[0;0YThis  function  creates a Constraint which can be given to [2XSolve[102X ([14X2.1-3[114X). It
+  does not perform any useful actions by itself[133X
+  
+  [33X[0;0YIn  the  first  form this represents the group which stabilises [3Xobject[103X under
+  [3Xaction[103X.    The   currently   allowed   actions   are   [10XOnSets[110X,   [10XOnSetsSets[110X,
+  [10XOnSetsDisjointSets[110X, [10XOnSetsTuples[110X, [10XOnTuples[110X, [10XOnPairs[110X and [10XOnDirectedGraph[110X.[133X
+  
+  [33X[0;0YIn  the  second  form  it  represents  the  stabilizer  of a partial perm or
+  transformation in the symmetric group on [3Xn[103X points.[133X
+  
+  [1X2.1-2 ConInGroup[101X
+  
+  [33X[1;0Y[29X[2XConInGroup[102X( [3XG[103X ) [32X function[133X
+  
+  [33X[0;0YThis  function  creates a Constraint which can be given to [2XSolve[102X ([14X2.1-3[114X). It
+  does not perform any useful actions by itself[133X
+  
+  [33X[0;0YRepresents  the set of permutations in a permutation group [3XG[103X, as an argument
+  for [2XSolve[102X ([14X2.1-3[114X).[133X
+  
+  [33X[0;0YThese methods are both used with Solve:[133X
+  
+  [1X2.1-3 Solve[101X
+  
+  [33X[1;0Y[29X[2XSolve[102X( [3Xconstraints[103X[, [3Xrec[103X] ) [32X function[133X
+  
+  [33X[0;0YFinds  the  intersection of the list [3XConstraints[103X. Each member of [3Xconstraints[103X
+  should  be  a  group  or  coset  generated  by  one of [2XConInGroup[102X ([14X2.1-2[114X) or
+  [2XConStabilize[102X  ([14X2.1-1[114X).  The  optional  second  argument allows configuration
+  options to be passed in. These follow options are supported:[133X
+  
+  [8X[10XrbaseCellHeuristic[110X[8X (default "smallest")[108X
+        [33X[0;6YThe  cell to be branched on. This is the option which will most effect
+        the  time  taken to search. the default is usually best. Other options
+        are:  "First" (first cell), "Largest" (largest cell), "smallest2" (the
+        2nd smallest cell), "random" (a random cell) and "randomsmallest" (one
+        of the smallest cells, chosen randomly)[133X
+  
+  [8X[10XrbaseValueHeuristic[110X[8X (default "smallest")[108X
+        [33X[0;6YChoose  which  cell  to  branch  on  within  a  cell.  While this will
+        generally  make  a big difference to search, it is hard to predict the
+        best  value,  and  small  changes  to the problem will change the best
+        heuristic. Options are the same as [10XrbaseCellHeuristic[110X.[133X
+  
+  [8X[10XsearchValueHeuristic[110X[8X (default [9XRBase[109X)[108X
+        [33X[0;6YThe  order  to branch during search. In general the best order is very
+        hard  to  predict. Options are "RBase", "InvRBase", "Random", "Sorted"
+        or  "Nosort"  (which  uses the order the values naturally end up in by
+        the algorithm).[133X
+  
+  [8X[10XsearchFirstBranchValueHeuristic[110X[8X (default [9XRBase[109X)[108X
+        [33X[0;6YChoose the search order used just on the left-most branches of search.
+        Allows the same options as [10XsearchValueHeuristic[110X[133X
+  
+  [8X[10Xstats[110X[8X (default [10Xfalse[110X[8X)[108X
+        [33X[0;6YChange  the  return  value to provide a range of information about how
+        search  performed  (implies  [10Xrecreturn[110X).  This information will change
+        between releases.[133X
+  
+  [8X[10XnodeLimit[110X[8X (default [10Xfalse[110X[8X) [108X
+        [33X[0;6YEither  [12Xfalse[112X,  or  an  integer  which places a limit on the amount of
+        search  which should be performed. WARNING: When this option is set to
+        an  integer, Ferret will return the current best answer when the limit
+        is  reached,  which may be a subgroup of the actual result. To know if
+        this limit was reached, set [10Xstats[110X to [12Xtrue[112X, and check the nodes.[133X
+  
+  [8X[10Xrecreturn[110X[8X (default [10Xfalse[110X[8X) [108X
+        [33X[0;6YReturn a record containing private information, rather than the group.[133X
+  
+  [8X[10Xonly_find_generators[110X[8X (default [10Xtrue[110X[8X)[108X
+        [33X[0;6YBy  default only find the generators of the group. If false, then find
+        all  members  of the group. This option is only useful for testing. If
+        'true', then sets 'recreturn' to true.[133X
+  

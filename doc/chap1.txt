@@ -1,0 +1,85 @@
+  
+  [1X1 [33X[0;0YThe Ferret Package[133X[101X
+  
+  [33X[0;0YThis  chapter  describes  the  [5XGAP[105X  package Ferret. Ferret implements highly
+  efficient  implementations  of  a  range of search algorithms on permutation
+  groups.  If  you  are  interested  in  if  Ferret  can be applied to another
+  problem,  please contact the authors, who will be happy to look into if your
+  problem can be solved with Ferret.[133X
+  
+  
+  [1X1.1 [33X[0;0YReplacing Built-in functionality[133X[101X
+  
+  [33X[0;0YFerret  automatically installs methods which replace GAP's a number of GAP's
+  built-in functionality:[133X
+  
+  [30X    [33X[0;6Y[13XIntersection[113X for a list of permutation groups.[133X
+  
+  [30X    [33X[0;6Y[13XStabilizer(G,S,Action)[113X for a permutation group G, and the actions:[133X
+  
+        [30X    [33X[0;12Y[10XOnSets[110X[133X
+  
+        [30X    [33X[0;12Y[10XOnOnSets[110X[133X
+  
+        [30X    [33X[0;12Y[10XOnSetsDisjointSets[110X[133X
+  
+        [30X    [33X[0;12Y[10XOnSetsSets[110X[133X
+  
+        [30X    [33X[0;12Y[10XOnTuples[110X[133X
+  
+        [30X    [33X[0;12Y[10XOnPairs[110X[133X
+  
+        [30X    [33X[0;12Y[10XOnDirectedGraph[110X[133X
+  
+  [30X    [33X[0;6Y[13XStabilizer(G, S)[113X for a permutation group G and a:[133X
+  
+        [30X    [33X[0;12Ypermutation[133X
+  
+        [30X    [33X[0;12Ytransformation[133X
+  
+        [30X    [33X[0;12Ypartial permutation[133X
+  
+  [33X[0;0YIf you would like to disable this functionality, you can use [14X1.1-1[114X.[133X
+  
+  [1X1.1-1 EnableFerretOverloads[101X
+  
+  [33X[1;0Y[29X[2XEnableFerretOverloads[102X( [[3Xactive[103X] ) [32X function[133X
+  
+  [33X[0;0Yif   [3Xactive[103X  (a  bool)  is  true,  then  enable  Ferret  specialisations  of
+  Intersection and Stabilizer. Call with [3Xactive[103X false to disable.[133X
+  
+  [1X1.1-2 FerretOverloadsEnabled[101X
+  
+  [33X[1;0Y[29X[2XFerretOverloadsEnabled[102X(  ) [32X function[133X
+  
+  [33X[0;0YReturn   if  Ferret  specialisations  of  Intersection  and  Stabilizer  are
+  currently enabled.[133X
+  
+  
+  [1X1.2 [33X[0;0YUsing 'Solve' to solve problems directly[133X[101X
+  
+  [33X[0;0YThe main method of using Ferret's functionality is the [2XSolve[102X ([14X2.1-3[114X) method.
+  This  method intersects a list of permutation groups. The unusual feature is
+  that  these permutation groups can be represented in a variety of ways. They
+  can  be  usual GAP permutation groups given as a list of generators, or they
+  can  be the group which is the stabilizer of combinatorial object under some
+  action.  Larger  problems  are then composed from these pieces. For example,
+  the  stabilizer  of  a  set  S  under  a  group  G  can  be expressed as the
+  intersection  of  the  group which stabilizes the set S and the group G. For
+  this problem, there would be no point using [2XSolve[102X ([14X2.1-3[114X), as GAP's built in
+  'Stabilizer'  function  provides the same functionality. However, with [2XSolve[102X
+  ([14X2.1-3[114X)  we can intersect any number of groups at the same time, for example
+  finding  the  intersection  of two groups G and H, the stabilizer of a set S
+  and the stabilizer of a set of sets T, with the following code:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSolve([ConInGroup(G), ConInGroup(H), [127X[104X
+    [4X[25X>[125X [27XConStabilize(S, OnSets), ConStabilize(T, OnSetSets)])[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe currently allowed arguments to [2XSolve[102X ([14X2.1-3[114X) are:[133X
+  
+  [30X    [33X[0;6Y[2XConInGroup[102X ([14X2.1-2[114X), which represents a Permutation Group in GAP[133X
+  
+  [30X    [33X[0;6Y[2XConStabilize[102X ([14X2.1-1[114X), which takes an object and an action.[133X
+  

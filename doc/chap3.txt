@@ -1,0 +1,73 @@
+  
+  [1X3 [33X[0;0YInstalling and Loading the Ferret Package[133X[101X
+  
+  
+  [1X3.1 [33X[0;0YUnpacking the Ferret Package[133X[101X
+  
+  [33X[0;0YIf  the  Ferret  package was obtained as a part of the [5XGAP[105X distribution from
+  the  [21XDownload[121X  section  of  the [5XGAP[105X website, you may proceed to Section [14X3.2[114X.
+  Alternatively, the Ferret package may be installed using a separate archive,
+  for example, for an update or an installation in a non-default location (see
+  [14X'Reference: GAP Root Directories'[114X).[133X
+  
+  [33X[0;0YBelow we describe the installation procedure for the [11X.tar.gz[111X archive format.
+  Installation using other archive formats is performed in a similar way.[133X
+  
+  [33X[0;0YIt may be unpacked in one of the following locations:[133X
+  
+  [30X    [33X[0;6Yin the [11Xpkg[111X directory of your [5XGAP[105X 4 installation;[133X
+  
+  [30X    [33X[0;6Yor  in  a directory named [11X.gap/pkg[111X in your home directory (to be added
+        to the [5XGAP[105X root directory unless [5XGAP[105X is started with [10X-r[110X option);[133X
+  
+  [30X    [33X[0;6Yor  in  a  directory  named  [11Xpkg[111X  in  another directory of your choice
+        (e.g. in the directory [11Xmygap[111X in your home directory).[133X
+  
+  [33X[0;0YIn  the  latter case one one must start [5XGAP[105X with the [10X-l[110X option, e.g. if your
+  private  [11Xpkg[111X directory is a subdirectory of [11Xmygap[111X in your home directory you
+  might type:[133X
+  
+  [33X[0;0Y  [10Xgap -l ";[3Xmyhomedir[103X[10X/mygap"[110X[133X
+  
+  [33X[0;0Ywhere  [3Xmyhomedir[103X  is  the path to your home directory, which (since [5XGAP[105X 4.3)
+  may be replaced by a tilde (the empty path before the semicolon is filled in
+  by the default path of the [5XGAP[105X 4 home directory).[133X
+  
+  
+  [1X3.2 [33X[0;0YCompiling Binaries of the Ferret Package[133X[101X
+  
+  [33X[0;0YAfter  unpacking  the  archive, go to the newly created [11Xferret[111X directory and
+  call  [10X./configure[110X to use the default [10X../..[110X path to the [5XGAP[105X home directory or
+  [10X./configure  [3Xpath[103X[10X[110X  where  [3Xpath[103X is the path to the [5XGAP[105X home directory, if the
+  package  is being installed in a non-default location. So for example if you
+  install  the  package in the [11X~/.gap/pkg[111X directory and the [5XGAP[105X home directory
+  is [11X~/gap4r5[111X then you have to call[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X./configure ../../../gap4r5/[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  will  fetch the architecture type for which [5XGAP[105X has been compiled last
+  and create a [11XMakefile[111X. Now simply call[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28Xmake[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yto compile the binary and to install it in the appropriate place.[133X
+  
+  
+  [1X3.3 [33X[0;0YLoading the Ferret Package[133X[101X
+  
+  [33X[0;0YTo use the Ferret Package you have to request it explicitly. This is done by
+  calling [2XLoadPackage[102X ([14XReference: LoadPackage[114X):[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLoadPackage("ferret");[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIf  you  want  to  load  the  Ferret  package  by  default,  you can put the
+  [10XLoadPackage[110X  command  into  your  [11Xgaprc[111X  file  (see  Section [14X'Reference: The
+  gap.ini and gaprc files'[114X).[133X
+  
