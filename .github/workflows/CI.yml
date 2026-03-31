@@ -75,6 +75,6 @@ jobs:
             valgrind -q --trace-children=yes --suppressions=scripts/gap-suppressions.valgrind gap -A -q -l "/tmp/gaproot;" tst/testvalgrind.g
 
       - uses: gap-actions/process-coverage@v2
-      - uses: codecov/codecov-action@v5
+      - uses: codecov/codecov-action@v6
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
