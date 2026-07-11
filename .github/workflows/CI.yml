@@ -19,27 +19,24 @@ concurrency:
 jobs:
   # The CI test job
   test:
-    name: GAP ${{ matrix.gap-branch }} ${{ matrix.flags }}
+    name: GAP ${{ matrix.gap-version }} ${{ matrix.flags }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        gap-branch:
-          - master
-          - stable-4.16
-          - stable-4.15
-          - stable-4.14
-          - stable-4.13
-          - stable-4.12
+        gap-version:
+          - 'devel'   # current GAP development version from git
+          - 'latest'  # latest GAP release
+          - 'minimal' # oldest GAP release supported by this package
         flags:
           - ''
         # additional jobs with special flags
         include:
-          - gap-branch: 'master'
+          - gap-version: 'master'
             flags: '--enable-checking'
-          - gap-branch: 'master'
+          - gap-version: 'master'
             flags: '--enable-timing'
-          - gap-branch: 'master'
+          - gap-version: 'master'
             flags: '--enable-checking --enable-timing'
 
     steps:
@@ -56,17 +53,17 @@ jobs:
           sudo apt-get install "${packages[@]}"
 
       - name: 'Build GAP and its packages'
-        uses: gap-actions/setup-gap@v2
+        uses: gap-actions/setup-gap@v3
         with:
-          GAPBRANCH: ${{ matrix.gap-branch }}
+          gap-version: ${{ matrix.gap-version }}
 
       - name: 'Build ferret'
-        uses: gap-actions/build-pkg@v1
+        uses: gap-actions/build-pkg@v3
         with:
-          CONFIGFLAGS: ${{ matrix.flags }}
+          configflags: ${{ matrix.flags }}
 
       - name: 'Run ferret GAP tests'
-        uses: gap-actions/run-pkg-tests@v3
+        uses: gap-actions/run-pkg-tests@v4
 
       - name: 'Run YAPB++ tests'
         run:  cd YAPB++/tests && ./run_tests.sh
@@ -75,7 +72,7 @@ jobs:
         run: |
             valgrind -q --trace-children=yes --suppressions=scripts/gap-suppressions.valgrind gap -A -q -l "/tmp/gaproot;" tst/testvalgrind.g
 
-      - uses: gap-actions/process-coverage@v2
+      - uses: gap-actions/process-coverage@v3
       - uses: codecov/codecov-action@v6
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
