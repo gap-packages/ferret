@@ -1,6 +1,14 @@
 #ifndef BUILD_RBASE_HPPAC
 #define BUILD_RBASE_HPPAC
 
+#include <cstdlib>
+
+#ifdef _WIN32
+// Windows has no random(); the choices made with it here are not
+// cryptographic, so rand() serves
+static inline long random() { return rand(); }
+#endif
+
 #include "rbase.hpp"
 #include "problem.hpp"
 #include "search/search_options.hpp"

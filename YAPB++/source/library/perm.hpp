@@ -1,6 +1,8 @@
 #ifndef PERM_HPP_PDWE
 #define PERM_HPP_PDWE
 
+#include <cstdint>    // for uintptr_t
+
 #include "vec1.hpp"
 #include "library.hpp"
 #include "shared_ptr.hpp"
@@ -90,7 +92,7 @@ public:
     Permutation(const Permutation& p)
     : psm(p.psm)
     {
-        if((long)psm > 1)
+        if((uintptr_t)psm > 1)
             incrementPermSharedDataCount(psm);
     }
 
